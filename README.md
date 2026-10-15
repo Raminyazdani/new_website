@@ -1,10 +1,10 @@
 # Hero Lab
 
-The existing three-direction Hero dashboard, with profile content read only from a complete CV JSON stored in Neon Postgres.
+A collection of 20 distinct Hero compositions, each displaying the profile photograph and identity read only from the complete CV JSON stored in Neon Postgres.
 
 ## Data flow
 
-Private import → Neon `hero_lab.cv_documents.document` (JSONB) → authenticated `GET /api/cv` → complete in-memory `window.heroLabView.cv` → `basics[0]` Hero mapping. Missing fields are hidden. No sample-profile fallback exists. Other portfolio sections remain unimplemented.
+Private import → Neon `hero_lab.cv_documents.document` (JSONB) → authenticated `GET /api/cv` → complete in-memory `window.heroLabView.cv` → `basics[0]` Hero mapping, including `Pictures[type_of=profile].URL` for every portrait. Missing fields are hidden. No sample-profile fallback exists. Other portfolio sections remain unimplemented.
 
 The API returns the entire CV object without an envelope. `X-CV-Revision` and `X-CV-SHA256` carry import metadata. Responses are private/no-store. The original CV and credentials must never be committed or placed under `public/`.
 

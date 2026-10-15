@@ -1,7 +1,7 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-10-15T03:40:18.921475+00:00",
-  "scope": "JSON-backed Hero dashboard prototype; no unrelated portfolio sections implemented",
+  "checked_at": "2026-10-15T04:10:12.135688+00:00",
+  "scope": "20 distinct JSON-backed Hero compositions with actual profile portrait; existing API/auth/Neon retained",
   "observed_checks": [
     {
       "kind": "synthetic_contract_tests",
@@ -48,6 +48,22 @@
       "kind": "git_privacy_scan",
       "result": "passed",
       "scope": "Tracked source excludes original CV, credentials, private metadata and node_modules"
+    },
+    {
+      "kind": "hero20_collection_contract",
+      "result": "passed",
+      "command": "npm test; node --test tests/hero-collection.test.js (targeted recheck after label/heading polish)",
+      "total_tests": 7,
+      "new_focused_tests": 2,
+      "scope": "20 unique structures, exact JSON identity/summary and photo URL in every design, preserved complete JSON, one active selection, pause persists across switching, expanded summary, image-error fallback, isolated sections, logout clearing, OS reduced motion"
+    },
+    {
+      "kind": "profile_and_cover_http_head",
+      "result": "passed",
+      "profile_status": 200,
+      "cover_status": 200,
+      "content_type": "image/jpeg",
+      "source": "basics[0].Pictures from original private JSON; no photo URL hardcoded in frontend"
     }
   ],
   "browser_visual_geometry_verified": false,
@@ -57,5 +73,29 @@
     "url": "https://new-website-hero-lab.vercel.app",
     "status": "READY"
   },
-  "final_correction": "Selected-section status now updates after successful CV load; source-only label correction, no API/data changes."
+  "final_correction": "Selected-section status now updates after successful CV load; source-only label correction, no API/data changes.",
+  "hero_designs": [
+    "atlas",
+    "cinema",
+    "studio",
+    "editorial",
+    "terminal",
+    "swiss",
+    "gallery",
+    "orbital",
+    "noir",
+    "bento",
+    "kinetic",
+    "blueprint",
+    "glass",
+    "index",
+    "split",
+    "poster",
+    "polaroid",
+    "sculpture",
+    "spotlight",
+    "ribbon"
+  ],
+  "browser_verification_limit": "CUA reported in-app browser unavailable; no alternate browser automation attempted.",
+  "design_provenance": "Original proposed combinations; not 20 freshly audited reference sites."
 }

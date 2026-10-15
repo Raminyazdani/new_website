@@ -10,6 +10,11 @@ const server = http.createServer(async (req, res) => {
   if (path === '/api/cv') return cv(req, res);
   if (path === '/api/session') return session(req, res);
   const files = { '/': ['index.html', 'text/html; charset=utf-8'], '/index.html': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'] };
+  files['/hero-base.css'] = ['hero-base.css', 'text/css; charset=utf-8'];
+  for (const group of ['a', 'b', 'c']) {
+    files[`/designs/collection-${group}.js`] = [`designs/collection-${group}.js`, 'text/javascript; charset=utf-8'];
+    files[`/designs/collection-${group}.css`] = [`designs/collection-${group}.css`, 'text/css; charset=utf-8'];
+  }
   if (!files[path] || req.method !== 'GET') { res.writeHead(404); return res.end('Not found'); }
   try {
     const [file, type] = files[path];
