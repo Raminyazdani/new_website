@@ -1,0 +1,12 @@
+node_modules/
+.env*
+!.env.example
+.vercel/
+.neon
+*.private.json
+.local/
+coverage/
+*.log
+*-access.txt
+*cv*.json
+!package*.json
