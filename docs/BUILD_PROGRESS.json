@@ -1,0 +1,61 @@
+{
+  "project": "new-website-hero-lab",
+  "checked_at": "2026-10-15T03:40:18.921475+00:00",
+  "scope": "JSON-backed Hero dashboard prototype; no unrelated portfolio sections implemented",
+  "observed_checks": [
+    {
+      "kind": "synthetic_contract_tests",
+      "result": "passed",
+      "tests": 5,
+      "command": "npm test"
+    },
+    {
+      "kind": "local_real_neon_http",
+      "result": "passed",
+      "full_source_json_deep_equal": true,
+      "unauthorized_401": true,
+      "wrong_password_401": true,
+      "private_no_store": true,
+      "source_sha_matches": true
+    },
+    {
+      "kind": "import_replay",
+      "result": "passed",
+      "revision_unchanged": true,
+      "replay": true
+    },
+    {
+      "kind": "deployed_https_api",
+      "result": "passed",
+      "full_source_json_deep_equal": true,
+      "secure_httponly_cookie": true,
+      "private_no_store": true
+    },
+    {
+      "kind": "dom_integration_live_api",
+      "result": "passed",
+      "method": "DOM emulation executing public/app.js with real deployed API; no browser engine",
+      "checks": [
+        "no CV fetched before login",
+        "full returned JSON retained in view",
+        "all three Hero designs map exact basics values",
+        "other sections isolate Hero",
+        "pause toggle",
+        "logout clears private DOM values"
+      ]
+    },
+    {
+      "kind": "git_privacy_scan",
+      "result": "passed",
+      "scope": "Tracked source excludes original CV, credentials, private metadata and node_modules"
+    }
+  ],
+  "browser_visual_geometry_verified": false,
+  "production_ready_claimed": false,
+  "deployment": {
+    "project": "new-website-hero-lab",
+    "url": "https://new-website-hero-lab.vercel.app",
+    "status": "READY"
+  },
+  "final_correction": "Selected-section status now updates after successful CV load; source-only label correction, no API/data changes."
+}
