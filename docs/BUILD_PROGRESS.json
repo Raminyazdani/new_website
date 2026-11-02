@@ -1,6 +1,6 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-11-02T15:34:53.265918+00:00",
+  "checked_at": "2026-11-02T15:36:11.431001+00:00",
   "scope": "Full CV portfolio with independent source/adapter boundary; Hero Lab retained at /lab.html",
   "observed_checks": [
     {
@@ -189,6 +189,22 @@
     },
     "contrast_scope": "Selected core solid-color pairs, measured from CSS colors observed in the real browser; not an exhaustive accessibility audit.",
     "artwork_provenance": "Illustrative cellular and nucleic-acid geometry, not experimental imagery or measured scientific results. Personal content and portrait remain model-backed.",
-    "production_verification": "pending"
+    "production_verification": {
+      "deployment": "dpl_DTw71bPLYD1Xs3CVEuHq98uwq6yT",
+      "state": "READY",
+      "release_commit": "3852906b5a6ad0058c8d282368c8952202bfc83f",
+      "changed_assets_match_local": 6,
+      "api_without_session": 401,
+      "real_browser": {
+        "bio_illustration_present": true,
+        "real_portrait_loaded": true,
+        "sections": 11,
+        "desktop_client_width": 1265,
+        "desktop_scroll_width": 1265,
+        "animation": "intro-sequence-flow",
+        "console_errors_observed": 0
+      },
+      "proof_screenshot": "Saved outside repository; not included in public Git."
+    }
   }
 }
