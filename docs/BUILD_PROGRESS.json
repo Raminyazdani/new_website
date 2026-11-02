@@ -1,6 +1,6 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-11-02T15:17:29.891236+00:00",
+  "checked_at": "2026-11-02T15:34:53.265918+00:00",
   "scope": "Full CV portfolio with independent source/adapter boundary; Hero Lab retained at /lab.html",
   "observed_checks": [
     {
@@ -156,5 +156,39 @@
     "deployed_assets_verified": 11,
     "production_browser_verified": true,
     "latest_input_matches_imported_snapshot": true
+  },
+  "biology_visual_redesign": {
+    "scope": "Main portfolio only; biology-led line art, mathematical helix, code/math project motifs, sage/teal/paper palette and readable section contrast. Source adapter/API/private database and legacy Hero Lab unchanged.",
+    "synthetic_tests": {
+      "passed": 17,
+      "failed": 0,
+      "command": "npm test",
+      "targeted_after_illustration_polish": "node --test tests/portfolio-ui.test.js; 2 passed"
+    },
+    "observed_local_browser": {
+      "desktop_client_width": 1265,
+      "desktop_scroll_width": 1265,
+      "desktop_hero_height": 720,
+      "mobile_390_client_width": 375,
+      "mobile_390_scroll_width": 375,
+      "mobile_320_client_width": 305,
+      "mobile_320_scroll_width": 305,
+      "mobile_320_section_overflows": [],
+      "real_portrait_loaded_width": 720,
+      "section_count": 11,
+      "full_mode_animation": "intro-sequence-flow",
+      "full_mode_play_state": "running",
+      "still_mode_animation": "none"
+    },
+    "contrast_ratios": {
+      "muted_text_on_ink": 9.26,
+      "muted_text_on_surface": 7.5,
+      "about_body_on_paper": 6.91,
+      "about_accent_on_paper": 5.48,
+      "primary_button": 9.44
+    },
+    "contrast_scope": "Selected core solid-color pairs, measured from CSS colors observed in the real browser; not an exhaustive accessibility audit.",
+    "artwork_provenance": "Illustrative cellular and nucleic-acid geometry, not experimental imagery or measured scientific results. Personal content and portrait remain model-backed.",
+    "production_verification": "pending"
   }
 }

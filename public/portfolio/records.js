@@ -51,7 +51,7 @@
       const email = vm.contact && vm.contact.email;
       const phone = vm.contact && vm.contact.phone;
       if (!email && !phone && !profiles.length) return '';
-      return section('contact', `<div class="record-contact-finale"><div class="record-contact-top"><span>11 / CONTACT</span><span>Open channel</span></div><p class="record-contact-prelude">Have something in mind?</p><h2>Let’s make<br><em>good work.</em></h2><div class="record-contact-bottom"><div>${email ? safeUrl(h, `mailto:${email}`, email, 'record-contact-mail') : ''}${phone ? safeUrl(h, `tel:${phone}`, phone, 'record-contact-phone') : ''}</div><nav aria-label="Social profiles">${profiles.map(p => safeUrl(h, p.url, p.label || p.network, 'record-social')).join('')}</nav></div></div>`);
+      return section('contact', `<div class="record-contact-finale"><div class="record-contact-top"><span>11 / CONTACT</span><span>Contact details</span></div><div class="record-contact-content"><p class="record-contact-prelude">Correspondence</p><h2>Get in<br><em>touch.</em></h2><p class="record-contact-note">For research, programming, mathematics, and related work.</p></div><div class="record-contact-bottom"><div>${email ? safeUrl(h, `mailto:${email}`, email, 'record-contact-mail') : ''}${phone ? safeUrl(h, `tel:${phone}`, phone, 'record-contact-phone') : ''}</div><nav aria-label="Social profiles">${profiles.map(p => safeUrl(h, p.url, p.label || p.network, 'record-social')).join('')}</nav></div></div>`);
     }
   };
   window.PortfolioRenderers = { ...(window.PortfolioRenderers || {}), ...renderers };
