@@ -60,7 +60,7 @@
       const category = tags[0] || '';
       const shape = ['intro-art-signal', 'intro-art-grid', 'intro-art-rings', 'intro-art-fold'][index % 4];
       const url = project.url ? h.link(project.url, 'Visit project', 'intro-card-link') : '';
-      return `<article class="intro-project-card ${index % 3 === 1 ? 'intro-project-wide' : ''} pf-reveal" data-project-card data-project-id="${esc(h, project.id)}" data-tilt>
+      return `<article class="intro-project-card ${index % 3 === 0 ? 'intro-project-wide' : ''} pf-reveal" data-project-card data-project-id="${esc(h, project.id)}" data-tilt>
         <div class="intro-project-art ${shape}" aria-hidden="true"><span class="intro-art-index">${String(index + 1).padStart(2, '0')}</span><span class="intro-art-orbit"></span><span class="intro-art-core"></span><span class="intro-art-lines"></span><span class="intro-art-label">FIELD<br>NOTES</span></div>
         <div class="intro-project-body"><div class="intro-project-meta"><span>${esc(h, category || 'Selected work')}</span><span>${String(index + 1).padStart(2, '0')} <i>/</i> ${String(projects.length).padStart(2, '0')}</span></div>
           <h3>${esc(h, project.title)}</h3><p>${esc(h, project.description)}</p><div class="intro-project-bottom"><div class="intro-project-tags">${h.chips(tags, tags.length || 1)}</div><button class="intro-card-link" type="button" data-open-project="${esc(h, project.id)}">Read case note <span aria-hidden="true">↗</span></button>${url}</div></div>
