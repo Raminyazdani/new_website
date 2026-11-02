@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-11-02T17:48:03.669852+00:00",
+  "checked_at_utc": "2026-11-02T17:55:02.886383+00:00",
   "baseline_release": "3852906b5a6ad0058c8d282368c8952202bfc83f",
   "scope": "Three main portfolio concepts, light/dark themes, section isolation, public idea library and preserved editions. Private source/API/database unchanged.",
   "browser": "Real IAB browser; width overrides are emulation, not physical phones.",
@@ -100,5 +100,31 @@
     "No measured Core Web Vitals or browser-engine matrix",
     "No scientific molecular identity or experimental dataset claimed; cell is a 2D illustration, molecule/protein use generic 3D coordinates"
   ],
-  "production": "pending"
+  "production": {
+    "state": "READY",
+    "release_commit": "f8afcb9fd9873c47aecf340c4bd6a82f83d1c727",
+    "deployment": "dpl_GcqFBqe1MDo3anNtVF4mks83jkUL",
+    "public_assets_matched": 32,
+    "anonymous_api_status": 401,
+    "cache_control": "private, no-store, max-age=0",
+    "live_three_concepts_verified": true,
+    "live_each_has_11_sections_and_loaded_portrait": true,
+    "live_interactive_scenes": {
+      "atlas": 1,
+      "molecular": 2,
+      "terminal": 0
+    },
+    "live_625_client_scroll": [
+      625,
+      625
+    ],
+    "live_625_caption_overlap": false,
+    "previous_static_routes_http_200": [
+      "/",
+      "/lab.html",
+      "/editions/bioteal/",
+      "/design-notes.html"
+    ],
+    "proof": "Real screenshots stored outside public Git."
+  }
 }

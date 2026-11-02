@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "new-website-hero-lab",
-  "generated_at_utc": "2026-11-02T17:48:03.669852+00:00",
+  "generated_at_utc": "2026-11-02T17:55:02.886383+00:00",
   "checklist_source": {
     "file": "02_Website_Audit_1000_Questions.md",
     "sha256": "2edab774b982b0998474f6618b09d063869706c82a533efd66dbb843d86b7d40",
@@ -18,37 +18,37 @@
       "path": "/",
       "kind": "document: three-concept studio",
       "source": "public/index.html and coordinator design scope",
-      "status": "PENDING_BROWSER_VERIFICATION"
+      "status": "PRODUCTION_BROWSER_VERIFIED_3_CONCEPTS"
     },
     {
       "path": "/lab.html",
       "kind": "document: preserved 20-Hero archive",
       "source": "public/lab.html",
-      "status": "PENDING_BROWSER_VERIFICATION"
+      "status": "PRODUCTION_HTTP_200_AND_ASSETS_MATCH; SYNTHETIC_COLLECTION_TESTS; BROWSER_NOT_REVISITED_THIS_ROUND"
     },
     {
       "path": "/editions/bioteal/",
       "kind": "document: preserved original BioTeal edition",
       "source": "coordinator design scope",
-      "status": "PENDING_BROWSER_VERIFICATION"
+      "status": "LOCAL_REAL_PORTRAIT_AND_11_SECTIONS; PRODUCTION_HTTP_200_AND_ASSETS_MATCH"
     },
     {
       "path": "/design-notes.html",
       "kind": "document: generic public design catalog, no personal data",
       "source": "coordinator design scope",
-      "status": "PENDING_BROWSER_VERIFICATION"
+      "status": "LOCAL_BROWSER_350_ROWS_AND_SEARCH; PRODUCTION_HTTP_200_AND_ASSETS_MATCH"
     },
     {
       "path": "/api/cv",
       "kind": "API GET: private CV",
       "source": "api/cv.js",
-      "status": "EXISTING_BOUNDARY; NOT_RUNTIME_TESTED"
+      "status": "PRODUCTION_ANONYMOUS_401_PRIVATE_NO_STORE; AUTHENTICATED_BROWSER_CONTENT_LOADED"
     },
     {
       "path": "/api/session",
       "kind": "API POST/DELETE: session",
       "source": "api/session.js",
-      "status": "EXISTING_BOUNDARY; NOT_RUNTIME_TESTED"
+      "status": "PRODUCTION_LOGIN_OBSERVED; SYNTHETIC_AUTH_TESTS; OTHER_LIVE_STATES_NOT_RETESTED"
     }
   ],
   "priority_audit_ids": [
