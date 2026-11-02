@@ -1,0 +1,97 @@
+{
+  "checked_at_utc": "2026-11-02T17:48:03.669852+00:00",
+  "baseline_release": "3852906b5a6ad0058c8d282368c8952202bfc83f",
+  "scope": "Three main portfolio concepts, light/dark themes, section isolation, public idea library and preserved editions. Private source/API/database unchanged.",
+  "browser": "Real IAB browser; width overrides are emulation, not physical phones.",
+  "tests": {
+    "command": "npm test",
+    "passed": 20,
+    "failed": 0,
+    "kind": "Synthetic Node and Linkedom; independent of real browser observations."
+  },
+  "browser_observations": {
+    "concepts": [
+      "atlas",
+      "molecular",
+      "terminal"
+    ],
+    "sections": 11,
+    "portrait_natural_width": 720,
+    "widths_tested": [
+      320,
+      390,
+      1024,
+      1280
+    ],
+    "minimum_width_client_scroll_after_fix": [
+      305,
+      305
+    ],
+    "all_three_320_dark_hero_controls_inside_viewport": true,
+    "molecule_manual_rotate_cx_before_after": [
+      227.65353512541444,
+      205.7412020196083
+    ],
+    "isolated_skills_visible_sections": [
+      "skills"
+    ],
+    "show_all_restored": true,
+    "catalog_rows": 350,
+    "catalog_search_BIO_093_rows": 1,
+    "preserved_bioteal_sections": 11,
+    "preserved_bioteal_portrait_loaded": true
+  },
+  "contrast_samples": {
+    "scope": "Five selected foreground/background pairs at the sampled Atlas state; no comprehensive WCAG certification.",
+    "selectors": [
+      ".pf-brand b",
+      ".st-lead",
+      ".st-primary",
+      ".record-edu-date",
+      ".record-paper-meta"
+    ],
+    "light": [
+      12.74,
+      5.95,
+      6.39,
+      11.8,
+      5.51
+    ],
+    "dark": [
+      16.37,
+      10.17,
+      9.5,
+      13.62,
+      8.47
+    ]
+  },
+  "privacy_scan": {
+    "public_assets": 32,
+    "known_private_values_checked": 4,
+    "matches": 0,
+    "private_cv_or_env_tracked": 0
+  },
+  "independent_review": {
+    "initial_findings": [
+      "Biology illustration read as generic molecular network",
+      "Header crowded with secondary controls",
+      "Fixed rail crowded the hero",
+      "An initial screenshot captured the portrait before its entry/load completed"
+    ],
+    "resolved": [
+      "Cell membrane/nucleus/organelles illustration replaces the cellular node network",
+      "Secondary controls grouped in Designs; right gutter reserved",
+      "Actual portrait verified loaded in all compositions",
+      "Dark inherited brand color fixed; record background/color theme flash removed",
+      "Certificate page limit preserved across concept switches; mobile illustration controls stay inside viewport"
+    ],
+    "recheck": "Reviewer saw no remaining P1/P2 in the updated dark Atlas screenshot; this is not a site-wide audit sign-off."
+  },
+  "limits": [
+    "No physical-device or screen-reader session",
+    "No exhaustive 1000-question audit",
+    "No measured Core Web Vitals or browser-engine matrix",
+    "No scientific molecular identity or experimental dataset claimed; cell is a 2D illustration, molecule/protein use generic 3D coordinates"
+  ],
+  "production": "pending"
+}

@@ -1,6 +1,6 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-11-02T15:36:11.431001+00:00",
+  "checked_at": "2026-11-02T17:48:03.669852+00:00",
   "scope": "Full CV portfolio with independent source/adapter boundary; Hero Lab retained at /lab.html",
   "observed_checks": [
     {
@@ -206,5 +206,34 @@
       },
       "proof_screenshot": "Saved outside repository; not included in public Git."
     }
+  },
+  "design_studio_2026_11_02": {
+    "concepts": [
+      "atlas",
+      "molecular",
+      "terminal"
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "preserved_routes": [
+      "/lab.html",
+      "/editions/bioteal/"
+    ],
+    "idea_catalog_count": 350,
+    "audit_ledger_count": 1000,
+    "audit_status_counts": {
+      "PASS": 9,
+      "FAIL": 0,
+      "PARTIAL": 0,
+      "N/A": 0,
+      "NOT_TESTED": 991,
+      "BLOCKED": 0
+    },
+    "synthetic_tests_passed": 20,
+    "real_browser_evidence": "docs/design/design-evidence.json",
+    "delivery_notes": "docs/design/REVIEW_AND_DELIVERY_FA.md",
+    "production_verification": "pending"
   }
 }

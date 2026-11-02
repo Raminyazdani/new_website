@@ -1,0 +1,2895 @@
+{
+  "schema_version": "1.0",
+  "document_kind": "public_design_and_implementation_catalog",
+  "language": "fa",
+  "as_of": "2026-11-02",
+  "privacy_note_fa": "فقط شناسه/عنوان/دلیل ایده‌ها و مسیر/selectorهای منبع عمومی؛ هیچ داده یا واقعیت شخصی CV در این پرونده نیست.",
+  "route_contract": {
+    "root": "/?design={atlas|molecular|terminal}&section={section}&theme={light|dark}",
+    "accepted_concepts": [
+      "atlas",
+      "molecular",
+      "terminal"
+    ],
+    "accepted_themes": [
+      "light",
+      "dark"
+    ],
+    "accepted_sections": [
+      "hero",
+      "about",
+      "projects",
+      "experience",
+      "publications",
+      "education",
+      "skills",
+      "certificates",
+      "languages",
+      "references",
+      "contact"
+    ],
+    "archive_links": [
+      "/editions/bioteal/",
+      "/lab.html"
+    ]
+  },
+  "idea_source": {
+    "basename": "docs/design/atlas-review.json",
+    "sha256": "bab19ffbc825c66a6cf81b3e602d5625e95be2198d40d55e33ecb21511bd9601",
+    "total_ideas": 350
+  },
+  "counts": {
+    "selected_candidate": 20,
+    "alternative_retained": 27,
+    "unsuitable_here": 278,
+    "requires_external_validated_data": 25
+  },
+  "concepts": {
+    "atlas": {
+      "name_fa": "اطلس زیستی",
+      "route": "/?design=atlas&section={section}&theme={theme}",
+      "sections": {
+        "hero": {
+          "presentation_fa": "معرفی اطلس با تصویرسازی سلولی انتزاعی، پرتره و خلاصه.",
+          "renderer": "hero",
+          "selectors": [
+            "#hero",
+            ".st-atlas-hero",
+            ".st-atlas-scene"
+          ]
+        },
+        "about": {
+          "presentation_fa": "بیانیهٔ کوتاه، شاخص‌های واقعی CV و علایق بازشدنی در چیدمان ویرایشی.",
+          "renderer": "about",
+          "selectors": [
+            "#about",
+            ".st-about-grid",
+            ".st-metrics",
+            ".st-interests"
+          ]
+        },
+        "projects": {
+          "presentation_fa": "کارت‌های اطلس با study انتزاعی CSS و دادهٔ پروژهٔ CV؛ فیلتر/جست‌وجوی واقعی.",
+          "renderer": "projects",
+          "selectors": [
+            "#projects",
+            ".st-project-atlas",
+            "[data-project-search]",
+            "[data-project-filter]"
+          ]
+        },
+        "experience": {
+          "presentation_fa": "مسیر زمانی با گره، تاریخ و جزئیات بازشدنی.",
+          "renderer": "experience",
+          "selectors": [
+            "#experience",
+            ".st-timeline-atlas",
+            ".st-experience-row"
+          ]
+        },
+        "publications": {
+          "presentation_fa": "کارت‌های پژوهش حاشیه‌نویسی‌شده با فراداده و پیوندهای موجود.",
+          "renderer": "publications",
+          "selectors": [
+            "#publications",
+            ".record-paper-ledger",
+            ".record-paper"
+          ]
+        },
+        "education": {
+          "presentation_fa": "رکوردهای تحصیل به صورت فصل‌های دارای تاریخ و گرهٔ مسیر.",
+          "renderer": "education",
+          "selectors": [
+            "#education",
+            ".record-education",
+            ".record-edu-row"
+          ]
+        },
+        "skills": {
+          "presentation_fa": "ناوبر حوزه‌ای/کاشی‌های دسته‌بندی‌شده، بدون نمره یا heatmap ساختگی.",
+          "renderer": "skills",
+          "selectors": [
+            "#skills",
+            ".record-skill-atlas",
+            ".record-skill-group",
+            "[data-skill-search]"
+          ]
+        },
+        "certificates": {
+          "presentation_fa": "فهرست کاتالوگی کارت‌های مدرک/دوره با فیلتر مؤسسه.",
+          "renderer": "certificates",
+          "selectors": [
+            "#certificates",
+            ".record-cert-grid",
+            "[data-cert-search]",
+            "[data-cert-issuer]"
+          ]
+        },
+        "languages": {
+          "presentation_fa": "کارت‌های خوانای زبان و مقادیر سطحی که منبع داده داده است؛ بدون gauge.",
+          "renderer": "languages",
+          "selectors": [
+            "#languages",
+            ".record-language-grid",
+            ".record-language-level"
+          ]
+        },
+        "references": {
+          "presentation_fa": "دفترچهٔ معرف‌ها؛ جزئیات تماس فقط پس از بازکردن disclosure.",
+          "renderer": "references",
+          "selectors": [
+            "#references",
+            ".record-reference",
+            "details.record-reference"
+          ]
+        },
+        "contact": {
+          "presentation_fa": "پایان‌بندی ساده با ایمیل/تلفن و پروفایل‌های واقعی موجود در CV.",
+          "renderer": "contact",
+          "selectors": [
+            "#contact",
+            ".record-contact-finale",
+            ".record-social"
+          ]
+        }
+      }
+    },
+    "molecular": {
+      "name_fa": "فرم مولکولی",
+      "route": "/?design=molecular&section={section}&theme={theme}",
+      "sections": {
+        "hero": {
+          "presentation_fa": "چیدمان چندبخشی با تصویر molecule انتزاعی، پرتره و متن واقعی.",
+          "renderer": "hero",
+          "selectors": [
+            "#hero",
+            ".st-molecular-hero",
+            ".st-molecular-stage"
+          ]
+        },
+        "about": {
+          "presentation_fa": "نمای dossier با protein هندسیِ illustrative، بیانیه و شاخص‌ها.",
+          "renderer": "about",
+          "selectors": [
+            "#about",
+            ".st-dossier-profile",
+            ".st-profile-illustration"
+          ]
+        },
+        "projects": {
+          "presentation_fa": "پرونده‌های پروژه با ستون فقرات و mini-study CSS؛ نه ساختار مولکولی واقعی.",
+          "renderer": "projects",
+          "selectors": [
+            "#projects",
+            ".st-project-molecular",
+            ".st-dossier-spine",
+            ".st-dossier-art"
+          ]
+        },
+        "experience": {
+          "presentation_fa": "رشتهٔ تجربه با توالی گره‌ها و جزئیات هر نقش.",
+          "renderer": "experience",
+          "selectors": [
+            "#experience",
+            ".st-timeline-molecular",
+            ".st-timeline-node"
+          ]
+        },
+        "publications": {
+          "presentation_fa": "دفتر ledger عمودی با گره‌های پیوسته و یادداشت/DOI قابل دسترس.",
+          "renderer": "publications",
+          "selectors": [
+            "#publications",
+            ".record-paper-ledger",
+            ".record-paper-main"
+          ]
+        },
+        "education": {
+          "presentation_fa": "مسیر education شبیه پلیمر: رکوردها در واحدهای متصل، متن و تاریخ مستقل.",
+          "renderer": "education",
+          "selectors": [
+            "#education",
+            ".record-education",
+            ".record-edu-row",
+            ".record-edu-node"
+          ]
+        },
+        "skills": {
+          "presentation_fa": "دسته‌های مهارت با کارت‌های قاب‌دار و زیرگروه‌های متنی.",
+          "renderer": "skills",
+          "selectors": [
+            "#skills",
+            ".record-skill-group",
+            ".record-skill-subgroups"
+          ]
+        },
+        "certificates": {
+          "presentation_fa": "کاتالوگ مدارک/دوره‌ها با فرم‌های نرم؛ فیلتر و جست‌وجوی موجود.",
+          "renderer": "certificates",
+          "selectors": [
+            "#certificates",
+            ".record-cert-card",
+            "[data-cert-card]"
+          ]
+        },
+        "languages": {
+          "presentation_fa": "کارت‌های سادهٔ زبان؛ سطح متنی و نتایج آزمونِ منبع‌داده‌شده بازشدنی.",
+          "renderer": "languages",
+          "selectors": [
+            "#languages",
+            ".record-language",
+            ".record-test-list"
+          ]
+        },
+        "references": {
+          "presentation_fa": "رکوردهای معرف به صورت پرونده‌های بسته تا انتخاب کاربر.",
+          "renderer": "references",
+          "selectors": [
+            "#references",
+            "details.record-reference",
+            ".record-ref-contact"
+          ]
+        },
+        "contact": {
+          "presentation_fa": "تماس مستقیم روی سطح dossier؛ فقط لینک‌های موجود.",
+          "renderer": "contact",
+          "selectors": [
+            "#contact",
+            ".record-contact-bottom",
+            ".record-social"
+          ]
+        }
+      }
+    },
+    "terminal": {
+      "name_fa": "دفترچهٔ کد",
+      "route": "/?design=terminal&section={section}&theme={theme}",
+      "sections": {
+        "hero": {
+          "presentation_fa": "نمای workspace خوانا با file tree، خلاصه و پرتره؛ دادهٔ رزومه به‌جای کد ساختگی.",
+          "renderer": "hero",
+          "selectors": [
+            "#hero",
+            ".st-workspace",
+            ".st-file-tree",
+            ".st-notebook-main"
+          ]
+        },
+        "about": {
+          "presentation_fa": "صفحهٔ notebook با حاشیهٔ شماره‌دار، پروفایل و معیارهای واقعی.",
+          "renderer": "about",
+          "selectors": [
+            "#about",
+            ".st-notebook-section",
+            ".st-note-margin"
+          ]
+        },
+        "projects": {
+          "presentation_fa": "برگه‌های README پروژه؛ نام، شرح، برچسب و لینک از CV.",
+          "renderer": "projects",
+          "selectors": [
+            "#projects",
+            ".st-project-terminal",
+            ".st-readme-copy",
+            ".st-readme-preview"
+          ]
+        },
+        "experience": {
+          "presentation_fa": "تاریخچهٔ قابل‌خواندن با برچسب ردیف و شاخهٔ نمایشی.",
+          "renderer": "experience",
+          "selectors": [
+            "#experience",
+            ".st-history-row",
+            ".st-history-meta"
+          ]
+        },
+        "publications": {
+          "presentation_fa": "یادداشت‌های پژوهش با metadata monospace و جزئیات استنادی.",
+          "renderer": "publications",
+          "selectors": [
+            "#publications",
+            ".record-paper",
+            ".record-paper-meta"
+          ]
+        },
+        "education": {
+          "presentation_fa": "رکوردهای تحصیل مانند ردیف‌های تاریخ‌دار دفترچه.",
+          "renderer": "education",
+          "selectors": [
+            "#education",
+            ".record-edu-row",
+            ".record-edu-date"
+          ]
+        },
+        "skills": {
+          "presentation_fa": "فهرست‌های مهارت بازشدنی با زیرگروه و جست‌وجو؛ نه ادعای کد اجرایی.",
+          "renderer": "skills",
+          "selectors": [
+            "#skills",
+            ".record-skill-group",
+            ".record-skill-subgroups"
+          ]
+        },
+        "certificates": {
+          "presentation_fa": "کاتالوگ فشردهٔ credentialها با وضعیت واقعی مدرک، صادرکننده و تاریخ.",
+          "renderer": "certificates",
+          "selectors": [
+            "#certificates",
+            ".record-cert-grid",
+            ".record-cert-card"
+          ]
+        },
+        "languages": {
+          "presentation_fa": "کارت/ردیف زبان و امتیاز آزمون فقط در صورت وجود در داده.",
+          "renderer": "languages",
+          "selectors": [
+            "#languages",
+            ".record-language",
+            ".record-test-list"
+          ]
+        },
+        "references": {
+          "presentation_fa": "دفترچهٔ تماس محافظت‌شده با disclosureهای بسته.",
+          "renderer": "references",
+          "selectors": [
+            "#references",
+            ".record-reference",
+            "details.record-reference"
+          ]
+        },
+        "contact": {
+          "presentation_fa": "ردیف‌های تماس و پروفایل در پایان دفترچه.",
+          "renderer": "contact",
+          "selectors": [
+            "#contact",
+            ".record-contact-bottom",
+            ".record-social"
+          ]
+        }
+      }
+    }
+  },
+  "exact_implementation_matches": [
+    "BIO-093",
+    "CODE-081",
+    "CODE-035"
+  ],
+  "ideas": [
+    {
+      "idea_id": "WEB-001",
+      "domain": "WEB",
+      "title": "From Sequence to Insight — از توالی تا بینش",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative overarching narrative, if approved public case studies support it. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "WEB-002",
+      "domain": "WEB",
+      "title": "The Scientist–Engineer — پژوهشگر و مهندس",
+      "status": "selected_candidate",
+      "reason_fa": "کانسپت محوری: معرفی/خلاصه و هویت میان‌رشته‌ای؛ دو حوزه به یک کار/شاهد واقعی برسند. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "WEB-003",
+      "domain": "WEB",
+      "title": "Research Instrument — ابزار پژوهشی تعاملی",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Research Instrument — ابزار پژوهشی تعاملی» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-004",
+      "domain": "WEB",
+      "title": "Project as Product — پروژه به‌عنوان محصول",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Project as Product — پروژه به‌عنوان محصول» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-005",
+      "domain": "WEB",
+      "title": "Reproducible by Design — بازتولیدپذیری در مرکز",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative research/reproducibility framing; requires only verified project details. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "WEB-006",
+      "domain": "WEB",
+      "title": "Multi-scale Explorer — از مولکول تا سامانه",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Multi-scale Explorer — از مولکول تا سامانه» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-007",
+      "domain": "WEB",
+      "title": "Minimal Evidence — مینیمالِ مبتنی بر شاهد",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative minimal evidence-first direction; strongest simpler option. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "WEB-008",
+      "domain": "WEB",
+      "title": "DNA Career Spine — ستون فقرات DNA حرفه‌ای",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative career timeline concept; overlaps selected timeline patterns. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "WEB-009",
+      "domain": "WEB",
+      "title": "Protein of Skills — ساختار تخصص",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Protein of Skills — ساختار تخصص» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-010",
+      "domain": "WEB",
+      "title": "Omics Atlas — اطلس پروژه‌های اومیکس",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Omics Atlas — اطلس پروژه‌های اومیکس» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-011",
+      "domain": "WEB",
+      "title": "Wet Lab to Workflow — از آزمایشگاه تا کد",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative wet-lab-to-workflow framing for projects that document both sides. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "WEB-012",
+      "domain": "WEB",
+      "title": "Algorithms in Motion — الگوریتم‌های قابل فهم",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Algorithms in Motion — الگوریتم‌های قابل فهم» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-013",
+      "domain": "WEB",
+      "title": "Earth to Molecule — گسترهٔ داده و مقیاس",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Earth to Molecule — گسترهٔ داده و مقیاس» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-014",
+      "domain": "WEB",
+      "title": "Research Notebook — دفتر پژوهشی زنده",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Research Notebook — دفتر پژوهشی زنده» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-015",
+      "domain": "WEB",
+      "title": "Portfolio Configurator — پیکربندی رزومه",
+      "status": "selected_candidate",
+      "reason_fa": "پیکربندی‌گر تعاملی/انتخاب نما: الگوی فیلترِ اشتراک‌پذیر؛ برای انتخاب نسخهٔ بصری، بدون تغییر حقایق CV. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "WEB-016",
+      "domain": "WEB",
+      "title": "Evidence Observatory — رصدخانهٔ شواهد",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Evidence Observatory — رصدخانهٔ شواهد» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-017",
+      "domain": "WEB",
+      "title": "Open Research Library — کتابخانهٔ پژوهش و ابزار",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative resource-library emphasis for an academic audience. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "WEB-018",
+      "domain": "WEB",
+      "title": "Case-Study Cinema — روایت سینماییِ مطالعهٔ موردی",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Case-Study Cinema — روایت سینماییِ مطالعهٔ موردی» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-019",
+      "domain": "WEB",
+      "title": "Conference Companion — همراه کنفرانس به‌صورت PWA",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Conference Companion — همراه کنفرانس به‌صورت PWA» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "WEB-020",
+      "domain": "WEB",
+      "title": "Portable Research Desk — میز پژوهش قابل‌حمل",
+      "status": "unsuitable_here",
+      "reason_fa": "کانسپت «Portable Research Desk — میز پژوهش قابل‌حمل» در این نسخه اولویت اصلی نیست؛ ایده محفوظ می‌ماند و در صورت نیاز مخاطب/محتوای تأییدشده دوباره بررسی می‌شود."
+    },
+    {
+      "idea_id": "BIO-001",
+      "domain": "BIO",
+      "title": "تایم‌لاین مارپیچ دوگانه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «تایم‌لاین مارپیچ دوگانه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-002",
+      "domain": "BIO",
+      "title": "زیپ DNA برای معرفی",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Optional static DNA identity motif; avoid scroll-dependent reveal. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "BIO-003",
+      "domain": "BIO",
+      "title": "ناوبری نوکلئوتیدی",
+      "status": "selected_candidate",
+      "reason_fa": "ناوبری بخش‌ها: حروف صرفاً تزئینی و برچسب کامل همیشه آشکار و قابل‌صفحه‌کلید. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "BIO-004",
+      "domain": "BIO",
+      "title": "نوار کروموزومی سوابق",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نوار کروموزومی سوابق» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-005",
+      "domain": "BIO",
+      "title": "نقشهٔ پلاسمیدی مهارت‌ها",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative skills map, with explicit evidence links and no proficiency percentages. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "BIO-006",
+      "domain": "BIO",
+      "title": "کارت جفت‌باز مکمل",
+      "status": "selected_candidate",
+      "reason_fa": "Hero یا highlights: مسئلهٔ زیستی در برابر راهکار محاسباتی، با متن واقعی. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "BIO-007",
+      "domain": "BIO",
+      "title": "خط‌کش ژنومی پیشرفت مطالعه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «خط‌کش ژنومی پیشرفت مطالعه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-008",
+      "domain": "BIO",
+      "title": "توالی امضای شخصی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «توالی امضای شخصی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-009",
+      "domain": "BIO",
+      "title": "مقایسهٔ واریانتِ نسخه‌های پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مقایسهٔ واریانتِ نسخه‌های پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-010",
+      "domain": "BIO",
+      "title": "پل اینترون–اگزون برای مقاله",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پل اینترون–اگزون برای مقاله» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-011",
+      "domain": "BIO",
+      "title": "پشتهٔ reads برای پروژه‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پشتهٔ reads برای پروژه‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-012",
+      "domain": "BIO",
+      "title": "نوار کیفیت FASTQ",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نوار کیفیت FASTQ» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-013",
+      "domain": "BIO",
+      "title": "پنجرهٔ لغزان k-mer",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پنجرهٔ لغزان k-mer» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-014",
+      "domain": "BIO",
+      "title": "ماسک spaced-seed",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ماسک spaced-seed» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-015",
+      "domain": "BIO",
+      "title": "مینی‌مرورگر ژنومی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مینی‌مرورگر ژنومی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-016",
+      "domain": "BIO",
+      "title": "ماتریس هم‌ترازی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ماتریس هم‌ترازی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-017",
+      "domain": "BIO",
+      "title": "گراف مونتاژ سفر کار",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «گراف مونتاژ سفر کار» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-018",
+      "domain": "BIO",
+      "title": "کارت نانوپورِ رویداد",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت نانوپورِ رویداد» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-019",
+      "domain": "BIO",
+      "title": "پوشش توالی به‌عنوان انتخاب بازه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پوشش توالی به‌عنوان انتخاب بازه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-020",
+      "domain": "BIO",
+      "title": "گرهٔ BLAST نتیجه‌محور",
+      "status": "selected_candidate",
+      "reason_fa": "پروژه‌ها: لیست/کارت مسئله، روش و شاهد با فرادادهٔ تأییدشده. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "BIO-021",
+      "domain": "BIO",
+      "title": "هیت‌مپ مهارت–پروژه",
+      "status": "selected_candidate",
+      "reason_fa": "مهارت‌ها: ماتریس وجود شاهد مهارت در پروژه، بدون درصد یا ادعای تسلط. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "BIO-022",
+      "domain": "BIO",
+      "title": "ابر تک‌سلولی پروژه‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ابر تک‌سلولی پروژه‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-023",
+      "domain": "BIO",
+      "title": "ولکانو برای داستان کشف",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ولکانو برای داستان کشف» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-024",
+      "domain": "BIO",
+      "title": "ریبون RNA روایت",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative RNA ribbon chapter device; use static path only. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "BIO-025",
+      "domain": "BIO",
+      "title": "تب‌های ایزوفرمی رزومه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative role views based on one CV schema; preserve all shared records. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "BIO-026",
+      "domain": "BIO",
+      "title": "درخت مسیر سلولیِ تصمیم",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «درخت مسیر سلولیِ تصمیم» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-027",
+      "domain": "BIO",
+      "title": "داشبورد QC تک‌سلولی",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "BIO-028",
+      "domain": "BIO",
+      "title": "سوییچ لایه‌های multi-omics",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «سوییچ لایه‌های multi-omics» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-029",
+      "domain": "BIO",
+      "title": "نقشهٔ فضایی بافت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ فضایی بافت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-030",
+      "domain": "BIO",
+      "title": "دات‌پلات انتخاب تخصص",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «دات‌پلات انتخاب تخصص» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-031",
+      "domain": "BIO",
+      "title": "پروتئین هیرو با وضعیت انتخابی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پروتئین هیرو با وضعیت انتخابی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-032",
+      "domain": "BIO",
+      "title": "تایم‌لاین ribbon",
+      "status": "selected_candidate",
+      "reason_fa": "تجربه و تحصیل: ribbon ثابت و کم‌جزئیات؛ ترتیب زمانی HTML مرجع بماند. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "BIO-033",
+      "domain": "BIO",
+      "title": "کارت pocket پروژه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative technical card treatment for select project case studies. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "BIO-034",
+      "domain": "BIO",
+      "title": "نقشهٔ domain مهارت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ domain مهارت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-035",
+      "domain": "BIO",
+      "title": "مقایسهٔ sequence–structure",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مقایسهٔ sequence–structure» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-036",
+      "domain": "BIO",
+      "title": "نمای exploded ساختار پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نمای exploded ساختار پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-037",
+      "domain": "BIO",
+      "title": "ماتریس تماسِ همکاری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ماتریس تماسِ همکاری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-038",
+      "domain": "BIO",
+      "title": "نوار اعتماد مدل",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نوار اعتماد مدل» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-039",
+      "domain": "BIO",
+      "title": "تغییر نمایش مولکولی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «تغییر نمایش مولکولی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-040",
+      "domain": "BIO",
+      "title": "شبکهٔ برهم‌کنش باقیمانده‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شبکهٔ برهم‌کنش باقیمانده‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-041",
+      "domain": "BIO",
+      "title": "نقشهٔ متابولیک تخصص",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ متابولیک تخصص» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-042",
+      "domain": "BIO",
+      "title": "گره مرکزیِ سؤال پژوهش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «گره مرکزیِ سؤال پژوهش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-043",
+      "domain": "BIO",
+      "title": "آبشار سیگنالینگ مراحل کار",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «آبشار سیگنالینگ مراحل کار» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-044",
+      "domain": "BIO",
+      "title": "حلقهٔ بازخورد پروژه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative grouping of project evidence; avoid claims of biological hierarchy. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "BIO-045",
+      "domain": "BIO",
+      "title": "شبکهٔ همکاری مستند",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شبکهٔ همکاری مستند» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-046",
+      "domain": "BIO",
+      "title": "Sankey جریان داده",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "BIO-047",
+      "domain": "BIO",
+      "title": "لایه‌های مسیر عملکردی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «لایه‌های مسیر عملکردی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-048",
+      "domain": "BIO",
+      "title": "کارت enzyme–substrate مسئله",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت enzyme–substrate مسئله» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-049",
+      "domain": "BIO",
+      "title": "گراف دانش مقاله‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «گراف دانش مقاله‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-050",
+      "domain": "BIO",
+      "title": "مسیر آفلاینِ جایگزین",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مسیر آفلاینِ جایگزین» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-051",
+      "domain": "BIO",
+      "title": "سکشن مقطع سلول",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «سکشن مقطع سلول» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-052",
+      "domain": "BIO",
+      "title": "کارت غشایی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت غشایی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-053",
+      "domain": "BIO",
+      "title": "تقسیم سلولیِ گسترش پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «تقسیم سلولیِ گسترش پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-054",
+      "domain": "BIO",
+      "title": "نمای میکروسکوپ انتخابی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نمای میکروسکوپ انتخابی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-055",
+      "domain": "BIO",
+      "title": "اسلایدر زوم بافت تا مولکول",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «اسلایدر زوم بافت تا مولکول» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-056",
+      "domain": "BIO",
+      "title": "شبکهٔ سلولیِ bento",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شبکهٔ سلولیِ bento» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-057",
+      "domain": "BIO",
+      "title": "آواتار ارگانل‌ها",
+      "status": "selected_candidate",
+      "reason_fa": "مهارت/ابزار: خانواده‌بندی آیکنی ساده؛ نام ابزار از آیکن مهم‌تر. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "BIO-058",
+      "domain": "BIO",
+      "title": "نقشهٔ همسایگی بافتی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ همسایگی بافتی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-059",
+      "domain": "BIO",
+      "title": "پردهٔ لایه‌های تصویر",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پردهٔ لایه‌های تصویر» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-060",
+      "domain": "BIO",
+      "title": "کارت کلنیِ دستاورد",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت کلنیِ دستاورد» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-061",
+      "domain": "BIO",
+      "title": "درخت تبار مهارت‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «درخت تبار مهارت‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-062",
+      "domain": "BIO",
+      "title": "کارت تاکسونومی پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت تاکسونومی پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-063",
+      "domain": "BIO",
+      "title": "دایرهٔ میکروبیوم تخصص",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "BIO-064",
+      "domain": "BIO",
+      "title": "فصل‌های اکوسیستم کاری",
+      "status": "selected_candidate",
+      "reason_fa": "سکشن‌ها: تفاوت قاب/علامت‌گذاری سکشن‌ها زیر یک سیستم فاصله، تایپوگرافی و رنگ مشترک. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "BIO-065",
+      "domain": "BIO",
+      "title": "نقشهٔ سازگاری ابزار",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ سازگاری ابزار» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-066",
+      "domain": "BIO",
+      "title": "خط تحول روش‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «خط تحول روش‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-067",
+      "domain": "BIO",
+      "title": "آرایش برگ‌مانند پروژه‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «آرایش برگ‌مانند پروژه‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-068",
+      "domain": "BIO",
+      "title": "حلقه‌های رشد تجربه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «حلقه‌های رشد تجربه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-069",
+      "domain": "BIO",
+      "title": "مقایسهٔ فراوانی نمایشی",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "BIO-070",
+      "domain": "BIO",
+      "title": "درخت تصمیم انتخاب روش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «درخت تصمیم انتخاب روش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-071",
+      "domain": "BIO",
+      "title": "پلیت ۹۶خانهٔ نمونه‌کار",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative project grid metaphor; only occupied tiles map to actual projects. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "BIO-072",
+      "domain": "BIO",
+      "title": "رک لولهٔ مهارت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «رک لولهٔ مهارت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-073",
+      "domain": "BIO",
+      "title": "استپر پیپت‌گذاری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «استپر پیپت‌گذاری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-074",
+      "domain": "BIO",
+      "title": "داشبورد بیوراکتور",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «داشبورد بیوراکتور» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-075",
+      "domain": "BIO",
+      "title": "پروفایل fed-batch روایت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پروفایل fed-batch روایت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-076",
+      "domain": "BIO",
+      "title": "ژل به‌عنوان فهرست خروجی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ژل به‌عنوان فهرست خروجی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-077",
+      "domain": "BIO",
+      "title": "دفتر آزمایش ورق‌خور",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «دفتر آزمایش ورق‌خور» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-078",
+      "domain": "BIO",
+      "title": "برچسب نمونهٔ کارت پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «برچسب نمونهٔ کارت پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-079",
+      "domain": "BIO",
+      "title": "نوار کالیبراسیون اعتماد",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نوار کالیبراسیون اعتماد» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-080",
+      "domain": "BIO",
+      "title": "گالری ابزار wet-lab",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "BIO-081",
+      "domain": "BIO",
+      "title": "پایپ‌لاین از FASTQ تا گزارش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پایپ‌لاین از FASTQ تا گزارش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-082",
+      "domain": "BIO",
+      "title": "مقایسهٔ قبل/بعد QC",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مقایسهٔ قبل/بعد QC» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-083",
+      "domain": "BIO",
+      "title": "کارت provenance داده",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت provenance داده» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-084",
+      "domain": "BIO",
+      "title": "نشانگر تکرارپذیری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نشانگر تکرارپذیری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-085",
+      "domain": "BIO",
+      "title": "نمودار missingness",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نمودار missingness» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-086",
+      "domain": "BIO",
+      "title": "پنل enrichment با توضیح",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پنل enrichment با توضیح» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-087",
+      "domain": "BIO",
+      "title": "فیلتر assay نمونه‌کار",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «فیلتر assay نمونه‌کار» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-088",
+      "domain": "BIO",
+      "title": "نوار uncertainty نتیجه",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "BIO-089",
+      "domain": "BIO",
+      "title": "نقشهٔ کنترل‌های آزمایش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ کنترل‌های آزمایش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-090",
+      "domain": "BIO",
+      "title": "دفتر تصمیم تحلیل",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «دفتر تصمیم تحلیل» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-091",
+      "domain": "BIO",
+      "title": "هیروی سلول تا کد",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «هیروی سلول تا کد» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-092",
+      "domain": "BIO",
+      "title": "دو مسیر wet و dry",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «دو مسیر wet و dry» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-093",
+      "domain": "BIO",
+      "title": "کارت مقاله با annotation",
+      "status": "selected_candidate",
+      "reason_fa": "پژوهش/انتشارات: annotation نقش، وضعیت و پیوند؛ فقط رکورد تأییدشده. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست.",
+      "implementation": {
+        "state": "verified_source_match",
+        "note_fa": "کارت پژوهش واقعاً annotation دارد: نوع/وضعیت/سال/نشریه/DOI، عنوان، نویسندگان، یادداشت و پیوند.",
+        "route": "/?design={concept}&section=publications&theme={theme}",
+        "section": "publications",
+        "functions": [
+          "PortfolioRenderers.publications",
+          "renderers.publications"
+        ],
+        "selectors": [
+          "#publications",
+          ".record-paper",
+          ".record-paper-meta",
+          ".record-notes",
+          "[data-copy-citation]"
+        ],
+        "source_files": [
+          "public/portfolio/records.js",
+          "public/portfolio/records.css"
+        ]
+      }
+    },
+    {
+      "idea_id": "BIO-094",
+      "domain": "BIO",
+      "title": "نقشهٔ پرسش‌های پژوهشی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ پرسش‌های پژوهشی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-095",
+      "domain": "BIO",
+      "title": "نردبان شواهد مهارت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نردبان شواهد مهارت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-096",
+      "domain": "BIO",
+      "title": "قفسهٔ notebook پژوهشی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «قفسهٔ notebook پژوهشی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-097",
+      "domain": "BIO",
+      "title": "نمودار مقیاس‌های پژوهش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نمودار مقیاس‌های پژوهش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-098",
+      "domain": "BIO",
+      "title": "پنل محدودیت‌های علمی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پنل محدودیت‌های علمی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-099",
+      "domain": "BIO",
+      "title": "بستهٔ قابل‌حمل پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «بستهٔ قابل‌حمل پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "BIO-100",
+      "domain": "BIO",
+      "title": "تماس به‌شکل آغاز همکاری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «تماس به‌شکل آغاز همکاری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-001",
+      "domain": "CHEM",
+      "title": "جدول تناوبی مهارت‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «جدول تناوبی مهارت‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-002",
+      "domain": "CHEM",
+      "title": "اتم مرکزی معرفی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «اتم مرکزی معرفی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-003",
+      "domain": "CHEM",
+      "title": "کارت عنصر پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت عنصر پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-004",
+      "domain": "CHEM",
+      "title": "لایه‌های الکترونی ناوبری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «لایه‌های الکترونی ناوبری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-005",
+      "domain": "CHEM",
+      "title": "شبکهٔ ایزوتوپی نسخه‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شبکهٔ ایزوتوپی نسخه‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-006",
+      "domain": "CHEM",
+      "title": "طیف نشری هویت بصری",
+      "status": "selected_candidate",
+      "reason_fa": "زبان بصری: خطوط طیفی نازک در جداکننده‌ها، با برچسب متنی دسته؛ آبی روشن روی زمینهٔ سفید. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "CHEM-007",
+      "domain": "CHEM",
+      "title": "عنوان با عدد اتمی استعاری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «عنوان با عدد اتمی استعاری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-008",
+      "domain": "CHEM",
+      "title": "نقشهٔ خانواده‌های تخصص",
+      "status": "selected_candidate",
+      "reason_fa": "مهارت/گواهی: خانواده‌های ابزار با گروه‌بندی دیداری شیمیایی و اتصال به شاهد. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "CHEM-009",
+      "domain": "CHEM",
+      "title": "هستهٔ چندرشته‌ای",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «هستهٔ چندرشته‌ای» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-010",
+      "domain": "CHEM",
+      "title": "تب مشخصات علمی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «تب مشخصات علمی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-011",
+      "domain": "CHEM",
+      "title": "مولکول شبکهٔ مهارت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مولکول شبکهٔ مهارت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-012",
+      "domain": "CHEM",
+      "title": "کارت شش‌ضلعی پروژه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative hexagonal project accents; rectangular clickable surfaces remain. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CHEM-013",
+      "domain": "CHEM",
+      "title": "پیوند کووالانسی همکاری",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-014",
+      "domain": "CHEM",
+      "title": "پیوند هیدروژنی divider",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پیوند هیدروژنی divider» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-015",
+      "domain": "CHEM",
+      "title": "ساختار لوویسِ حاشیه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ساختار لوویسِ حاشیه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-016",
+      "domain": "CHEM",
+      "title": "نمای اسکلت مولکولی مقاله",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نمای اسکلت مولکولی مقاله» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-017",
+      "domain": "CHEM",
+      "title": "مقایسهٔ ایزومر دو رویکرد",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مقایسهٔ ایزومر دو رویکرد» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-018",
+      "domain": "CHEM",
+      "title": "چرخش conformer انتخابی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «چرخش conformer انتخابی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-019",
+      "domain": "CHEM",
+      "title": "زنجیرهٔ پلیمری timeline",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative education/experience timeline metaphor; do not combine with BIO-032 on same view. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CHEM-020",
+      "domain": "CHEM",
+      "title": "شاخهٔ گروه عاملی برای فیلتر",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شاخهٔ گروه عاملی برای فیلتر» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-021",
+      "domain": "CHEM",
+      "title": "فلش واکنش مسئله تا نتیجه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «فلش واکنش مسئله تا نتیجه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-022",
+      "domain": "CHEM",
+      "title": "کاتالیزورِ اتوماسیون",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-023",
+      "domain": "CHEM",
+      "title": "واکنش چندمرحله‌ای پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «واکنش چندمرحله‌ای پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-024",
+      "domain": "CHEM",
+      "title": "کارت واکنش برگشت‌پذیر",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت واکنش برگشت‌پذیر» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-025",
+      "domain": "CHEM",
+      "title": "شبکهٔ مسیرهای جایگزین",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شبکهٔ مسیرهای جایگزین» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-026",
+      "domain": "CHEM",
+      "title": "حالت گذارِ مشترک کارت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «حالت گذارِ مشترک کارت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-027",
+      "domain": "CHEM",
+      "title": "محفظهٔ واکنش CTA",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «محفظهٔ واکنش CTA» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-028",
+      "domain": "CHEM",
+      "title": "انتخاب reactantهای تخصص",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «انتخاب reactantهای تخصص» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-029",
+      "domain": "CHEM",
+      "title": "محصولات جانبیِ آموخته‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «محصولات جانبیِ آموخته‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-030",
+      "domain": "CHEM",
+      "title": "نقشهٔ اتمی provenance",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ اتمی provenance» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-031",
+      "domain": "CHEM",
+      "title": "نمودار سد انرژیِ حل مسئله",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نمودار سد انرژیِ حل مسئله» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-032",
+      "domain": "CHEM",
+      "title": "پروفایل انرژیِ انتخاب روش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پروفایل انرژیِ انتخاب روش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-033",
+      "domain": "CHEM",
+      "title": "تعادل دو اولویت طراحی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «تعادل دو اولویت طراحی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-034",
+      "domain": "CHEM",
+      "title": "منحنی kinetics بارگذاری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «منحنی kinetics بارگذاری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-035",
+      "domain": "CHEM",
+      "title": "دامنهٔ پایداری پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «دامنهٔ پایداری پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-036",
+      "domain": "CHEM",
+      "title": "کانتور انرژیِ پس‌زمینه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کانتور انرژیِ پس‌زمینه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-037",
+      "domain": "CHEM",
+      "title": "نقطهٔ تعادلِ چیدمان",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقطهٔ تعادلِ چیدمان» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-038",
+      "domain": "CHEM",
+      "title": "کارت نیمه‌عمرِ تازگی محتوا",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-039",
+      "domain": "CHEM",
+      "title": "چرخهٔ انرژیِ پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «چرخهٔ انرژیِ پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-040",
+      "domain": "CHEM",
+      "title": "باند عدم‌قطعیت محاسبه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «باند عدم‌قطعیت محاسبه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-041",
+      "domain": "CHEM",
+      "title": "طیف جرمیِ دستاورد",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative conceptual spectrum only with unmistakable illustrative labeling or validated results. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CHEM-042",
+      "domain": "CHEM",
+      "title": "کارت NMR چندلایه",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-043",
+      "domain": "CHEM",
+      "title": "نوار IR دسته‌بندی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نوار IR دسته‌بندی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-044",
+      "domain": "CHEM",
+      "title": "UV-Vis مقایسهٔ نسخه‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «UV-Vis مقایسهٔ نسخه‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-045",
+      "domain": "CHEM",
+      "title": "کروماتوگرامِ زمان حرفه‌ای",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کروماتوگرامِ زمان حرفه‌ای» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-046",
+      "domain": "CHEM",
+      "title": "فلورسانس روشن‌شوندهٔ کارت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «فلورسانس روشن‌شوندهٔ کارت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-047",
+      "domain": "CHEM",
+      "title": "نمودار رامانِ تزئینی",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative static chemistry divider/case-study art; decorative only. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CHEM-048",
+      "domain": "CHEM",
+      "title": "نشانگر peak annotation",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نشانگر peak annotation» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-049",
+      "domain": "CHEM",
+      "title": "مقایسهٔ baseline correction",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مقایسهٔ baseline correction» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-050",
+      "domain": "CHEM",
+      "title": "نقشهٔ چندطیفی اسناد",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ چندطیفی اسناد» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-051",
+      "domain": "CHEM",
+      "title": "ستون کروماتوگرافی محتوا",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ستون کروماتوگرافی محتوا» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-052",
+      "domain": "CHEM",
+      "title": "فرایند پالایش اطلاعات",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «فرایند پالایش اطلاعات» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-053",
+      "domain": "CHEM",
+      "title": "کارت retention time",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت retention time» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-054",
+      "domain": "CHEM",
+      "title": "TLC برای مقایسهٔ ابزار",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative tool comparison, provided capability labels are supported by CV/project evidence. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CHEM-055",
+      "domain": "CHEM",
+      "title": "کانال میکروفلوئیدیک workflow",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کانال میکروفلوئیدیک workflow» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-056",
+      "domain": "CHEM",
+      "title": "تقطیر خلاصهٔ رزومه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «تقطیر خلاصهٔ رزومه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-057",
+      "domain": "CHEM",
+      "title": "غشای فیلترِ پروژه‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «غشای فیلترِ پروژه‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-058",
+      "domain": "CHEM",
+      "title": "صفحهٔ fractionهای خروجی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «صفحهٔ fractionهای خروجی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-059",
+      "domain": "CHEM",
+      "title": "هندسهٔ الکتروفورز موئینه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «هندسهٔ الکتروفورز موئینه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-060",
+      "domain": "CHEM",
+      "title": "موازنهٔ جرمِ داده",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-061",
+      "domain": "CHEM",
+      "title": "شبکهٔ بلوری نمونه‌کار",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شبکهٔ بلوری نمونه‌کار» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-062",
+      "domain": "CHEM",
+      "title": "گذار فازِ سکشن‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «گذار فازِ سکشن‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-063",
+      "domain": "CHEM",
+      "title": "سطح متخلخل لینک‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «سطح متخلخل لینک‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-064",
+      "domain": "CHEM",
+      "title": "صفحهٔ لایه‌لایهٔ مواد",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «صفحهٔ لایه‌لایهٔ مواد» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-065",
+      "domain": "CHEM",
+      "title": "پلیمر شاخه‌دار محتوا",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پلیمر شاخه‌دار محتوا» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-066",
+      "domain": "CHEM",
+      "title": "کشسانی مرز کارت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کشسانی مرز کارت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-067",
+      "domain": "CHEM",
+      "title": "گرادیان فصل مشترک",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative transition between biology and computation sections. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CHEM-068",
+      "domain": "CHEM",
+      "title": "ریزساختار کاور پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ریزساختار کاور پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-069",
+      "domain": "CHEM",
+      "title": "دانه‌بندی سطح مقاله",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «دانه‌بندی سطح مقاله» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-070",
+      "domain": "CHEM",
+      "title": "خانوادهٔ موادِ تم‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «خانوادهٔ موادِ تم‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-071",
+      "domain": "CHEM",
+      "title": "گرادیان pHِ دسته‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «گرادیان pHِ دسته‌ها» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-072",
+      "domain": "CHEM",
+      "title": "نوار تیتراسیونِ مرحله",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نوار تیتراسیونِ مرحله» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-073",
+      "domain": "CHEM",
+      "title": "میدان بارِ پس‌زمینه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «میدان بارِ پس‌زمینه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-074",
+      "domain": "CHEM",
+      "title": "پل نمکیِ دو تخصص",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «پل نمکیِ دو تخصص» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-075",
+      "domain": "CHEM",
+      "title": "الکترودهای مقایسهٔ روش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «الکترودهای مقایسهٔ روش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-076",
+      "domain": "CHEM",
+      "title": "منیسکِ کارت انتخابی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «منیسکِ کارت انتخابی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-077",
+      "domain": "CHEM",
+      "title": "انتشارِ دسترسی به جزئیات",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «انتشارِ دسترسی به جزئیات» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-078",
+      "domain": "CHEM",
+      "title": "حلال‌پوشیِ مهارت مرکزی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «حلال‌پوشیِ مهارت مرکزی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-079",
+      "domain": "CHEM",
+      "title": "منحنی کالیبراسیون شاهد",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-080",
+      "domain": "CHEM",
+      "title": "جریان یونی پیام تماس",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «جریان یونی پیام تماس» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-081",
+      "domain": "CHEM",
+      "title": "کارت SMILES قابل‌تبدیل",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت SMILES قابل‌تبدیل» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-082",
+      "domain": "CHEM",
+      "title": "جست‌وجوی زیرساختار نمایشی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «جست‌وجوی زیرساختار نمایشی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-083",
+      "domain": "CHEM",
+      "title": "اثر انگشت مولکولیِ پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «اثر انگشت مولکولیِ پروژه» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-084",
+      "domain": "CHEM",
+      "title": "فضای شیمیایی مجموعه",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-085",
+      "domain": "CHEM",
+      "title": "مقایسهٔ descriptorها",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-086",
+      "domain": "CHEM",
+      "title": "کارت docking با محدودیت",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «کارت docking با محدودیت» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-087",
+      "domain": "CHEM",
+      "title": "مسیر بهینه‌سازی نمایشی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مسیر بهینه‌سازی نمایشی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-088",
+      "domain": "CHEM",
+      "title": "نقشهٔ attention آموزشی",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-089",
+      "domain": "CHEM",
+      "title": "داشبورد QSAR مطالعهٔ موردی",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-090",
+      "domain": "CHEM",
+      "title": "ردیابی واحد و property",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «ردیابی واحد و property» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-091",
+      "domain": "CHEM",
+      "title": "برچسب ویال برای دانلود",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «برچسب ویال برای دانلود» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-092",
+      "domain": "CHEM",
+      "title": "دفتر فرمول‌های قابل کپی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «دفتر فرمول‌های قابل کپی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-093",
+      "domain": "CHEM",
+      "title": "برگهٔ مشخصات پروژه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative project factsheet for verified inputs, environment, limits and outputs. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CHEM-094",
+      "domain": "CHEM",
+      "title": "مهر کنترل نسخهٔ گزارش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «مهر کنترل نسخهٔ گزارش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-095",
+      "domain": "CHEM",
+      "title": "چیدمان میز آزمایش",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «چیدمان میز آزمایش» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-096",
+      "domain": "CHEM",
+      "title": "شیشهٔ برچسب‌دار تماس",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «شیشهٔ برچسب‌دار تماس» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-097",
+      "domain": "CHEM",
+      "title": "قفسهٔ واکنش‌های فکری",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «قفسهٔ واکنش‌های فکری» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-098",
+      "domain": "CHEM",
+      "title": "نقشهٔ ایمنی داده",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «نقشهٔ ایمنی داده» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CHEM-099",
+      "domain": "CHEM",
+      "title": "پالت از تصویر ساختار",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CHEM-100",
+      "domain": "CHEM",
+      "title": "بستهٔ evidence علمی",
+      "status": "unsuitable_here",
+      "reason_fa": "استعارهٔ «بستهٔ evidence علمی» این‌جا می‌تواند نمودار/ساختار علمیِ اندازه‌گیری‌شده را القا کند یا زبان استعاری را بیش‌ازحد شلوغ کند؛ بدون شاهد روشن وارد پوستهٔ اصلی نشود. رکورد حفظ است."
+    },
+    {
+      "idea_id": "CODE-001",
+      "domain": "CODE",
+      "title": "هیروی ادیتور رزومه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «هیروی ادیتور رزومه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-002",
+      "domain": "CODE",
+      "title": "ترمینال فرمان‌های مجاز",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «ترمینال فرمان‌های مجاز» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-003",
+      "domain": "CODE",
+      "title": "JSON رزومهٔ دو‌نما",
+      "status": "selected_candidate",
+      "reason_fa": "گزینهٔ نمای داده/رزومه: انتخاب نمای خوانا و JSON فقط برای دادهٔ مجاز و با کنترل دسترسی موجود. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "CODE-004",
+      "domain": "CODE",
+      "title": "خط شمارهٔ تجربه‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «خط شمارهٔ تجربه‌ها» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-005",
+      "domain": "CODE",
+      "title": "پنل autocomplete مهارت",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل autocomplete مهارت» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-006",
+      "domain": "CODE",
+      "title": "بلوک کد به نتیجه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «بلوک کد به نتیجه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-007",
+      "domain": "CODE",
+      "title": "تایپ تدریجی عنوان اختیاری",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «تایپ تدریجی عنوان اختیاری» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-008",
+      "domain": "CODE",
+      "title": "پنل breakpoint داستان پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل breakpoint داستان پروژه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-009",
+      "domain": "CODE",
+      "title": "مینی‌مپ مقالهٔ فنی",
+      "status": "selected_candidate",
+      "reason_fa": "ناوبری/پیشرفت: mini-map سادهٔ سکشن‌های واقعی؛ لینک و عنوان متنی هم‌ارز. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "CODE-010",
+      "domain": "CODE",
+      "title": "فولد کدِ جزئیات",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «فولد کدِ جزئیات» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-011",
+      "domain": "CODE",
+      "title": "تایم‌لاین commit حرفه‌ای",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «تایم‌لاین commit حرفه‌ای» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-012",
+      "domain": "CODE",
+      "title": "شاخه‌های تخصص",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «شاخه‌های تخصص» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-013",
+      "domain": "CODE",
+      "title": "کارت pull request پروژه",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-014",
+      "domain": "CODE",
+      "title": "diff قبل و بعد",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «diff قبل و بعد» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-015",
+      "domain": "CODE",
+      "title": "نقشهٔ releaseها",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نقشهٔ releaseها» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-016",
+      "domain": "CODE",
+      "title": "نمودار سهم مشارکت",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-017",
+      "domain": "CODE",
+      "title": "merge مهارت‌ها در خروجی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «merge مهارت‌ها در خروجی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-018",
+      "domain": "CODE",
+      "title": "issue board نمونه‌کار",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «issue board نمونه‌کار» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-019",
+      "domain": "CODE",
+      "title": "تاریخچهٔ تصمیم ADR",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «تاریخچهٔ تصمیم ADR» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-020",
+      "domain": "CODE",
+      "title": "مقایسهٔ branchهای رزومه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative role-based CV view pattern, only if existing schema supports it. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CODE-021",
+      "domain": "CODE",
+      "title": "نمودار CI پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نمودار CI پروژه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-022",
+      "domain": "CODE",
+      "title": "کارت کانتینر محیط",
+      "status": "selected_candidate",
+      "reason_fa": "پروژه‌ها: کارت محیط/نسخه تنها وقتی جزئیات در منبع پروژه موجود و انتشارش مجاز است. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "CODE-023",
+      "domain": "CODE",
+      "title": "پایپ‌لاین داده تا تصمیم",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پایپ‌لاین داده تا تصمیم» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-024",
+      "domain": "CODE",
+      "title": "نقشهٔ استقرار محصول",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نقشهٔ استقرار محصول» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-025",
+      "domain": "CODE",
+      "title": "کارت job پژوهشی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت job پژوهشی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-026",
+      "domain": "CODE",
+      "title": "نوار مشاهده‌پذیری نمونه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نوار مشاهده‌پذیری نمونه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-027",
+      "domain": "CODE",
+      "title": "مقایسهٔ محیط محلی و ابری",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «مقایسهٔ محیط محلی و ابری» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-028",
+      "domain": "CODE",
+      "title": "استپر build مستند",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «استپر build مستند» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-029",
+      "domain": "CODE",
+      "title": "گراف dependency ابزارها",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «گراف dependency ابزارها» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-030",
+      "domain": "CODE",
+      "title": "کارت rollback داستان خطا",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت rollback داستان خطا» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-031",
+      "domain": "CODE",
+      "title": "درخت جست‌وجوی مهارت",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «درخت جست‌وجوی مهارت» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-032",
+      "domain": "CODE",
+      "title": "گراف کوتاه‌ترین مسیر پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «گراف کوتاه‌ترین مسیر پروژه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-033",
+      "domain": "CODE",
+      "title": "صف کارهای تحویل‌شده",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «صف کارهای تحویل‌شده» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-034",
+      "domain": "CODE",
+      "title": "stack لایه‌های تخصص",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «stack لایه‌های تخصص» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-035",
+      "domain": "CODE",
+      "title": "هش‌مپ دسته‌بندی پروژه",
+      "status": "selected_candidate",
+      "reason_fa": "پروژه‌ها: فیلتر موضوعی با کلیدواژه و فهرست قابل‌دسترسی، نه گراف داده‌نما. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست.",
+      "implementation": {
+        "state": "verified_source_match",
+        "note_fa": "پروژه‌ها از برچسب‌های خود CV گروه موضوعی می‌گیرند و با جست‌وجو/فیلتر همان دسته پیدا می‌شوند؛ این یک فیلتر فهرست است، نه نمایش ادعایی hash map یا داده‌نما.",
+        "route": "/?design={concept}&section=projects&theme={theme}",
+        "section": "projects",
+        "functions": [
+          "PortfolioRenderers.projects",
+          "runtime.filterProjects",
+          "runtime.wireFilters"
+        ],
+        "selectors": [
+          "#projects",
+          "[data-project-search]",
+          "[data-project-filter]",
+          "[data-project-card]",
+          "[data-project-more]"
+        ],
+        "source_files": [
+          "public/portfolio/studio-intro.js",
+          "public/portfolio/runtime.js"
+        ]
+      }
+    },
+    {
+      "idea_id": "CODE-036",
+      "domain": "CODE",
+      "title": "ماتریس برنامه‌ریزی پویا",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «ماتریس برنامه‌ریزی پویا» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-037",
+      "domain": "CODE",
+      "title": "مرتب‌سازی کارت‌ها با شاهد",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «مرتب‌سازی کارت‌ها با شاهد» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-038",
+      "domain": "CODE",
+      "title": "بافر حلقویِ نکته‌ها",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «بافر حلقویِ نکته‌ها» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-039",
+      "domain": "CODE",
+      "title": "گراف traversal یادگیری",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «گراف traversal یادگیری» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-040",
+      "domain": "CODE",
+      "title": "پیچیدگی الگوریتم با مثال",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پیچیدگی الگوریتم با مثال» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-041",
+      "domain": "CODE",
+      "title": "رزومه به‌شکل endpoint",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «رزومه به‌شکل endpoint» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-042",
+      "domain": "CODE",
+      "title": "request/response مطالعهٔ موردی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «request/response مطالعهٔ موردی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-043",
+      "domain": "CODE",
+      "title": "ERD پروژهٔ داده",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «ERD پروژهٔ داده» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-044",
+      "domain": "CODE",
+      "title": "query builder نمونه‌کار",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «query builder نمونه‌کار» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-045",
+      "domain": "CODE",
+      "title": "پنل schema مهارت",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-046",
+      "domain": "CODE",
+      "title": "جدول پروژه با JSON drawer",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «جدول پروژه با JSON drawer» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-047",
+      "domain": "CODE",
+      "title": "رابط GraphQL مفهومی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «رابط GraphQL مفهومی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-048",
+      "domain": "CODE",
+      "title": "کارت cache hit توضیحی",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-049",
+      "domain": "CODE",
+      "title": "نقشهٔ migration محصول",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نقشهٔ migration محصول» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-050",
+      "domain": "CODE",
+      "title": "کنسول API امن",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کنسول API امن» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-051",
+      "domain": "CODE",
+      "title": "چک‌لیست تست پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «چک‌لیست تست پروژه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-052",
+      "domain": "CODE",
+      "title": "کارت bug-to-fix",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت bug-to-fix» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-053",
+      "domain": "CODE",
+      "title": "پنل assertion نتیجه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل assertion نتیجه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-054",
+      "domain": "CODE",
+      "title": "پوشش تست با زمینه",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-055",
+      "domain": "CODE",
+      "title": "پیش‌نمایش visual diff",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پیش‌نمایش visual diff» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-056",
+      "domain": "CODE",
+      "title": "رد trace پردازش",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «رد trace پردازش» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-057",
+      "domain": "CODE",
+      "title": "نشان امنیتِ evidence-based",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نشان امنیتِ evidence-based» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-058",
+      "domain": "CODE",
+      "title": "دفتر edge case",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «دفتر edge case» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-059",
+      "domain": "CODE",
+      "title": "پنل خطای کنترل‌شده",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل خطای کنترل‌شده» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-060",
+      "domain": "CODE",
+      "title": "چرخهٔ red–green–refactor",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «چرخهٔ red–green–refactor» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-061",
+      "domain": "CODE",
+      "title": "نمای component tree",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نمای component tree» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-062",
+      "domain": "CODE",
+      "title": "گالری design token",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «گالری design token» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-063",
+      "domain": "CODE",
+      "title": "کارت frontend/backend",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت frontend/backend» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-064",
+      "domain": "CODE",
+      "title": "state machine فرم",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «state machine فرم» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-065",
+      "domain": "CODE",
+      "title": "روتر به‌عنوان نقشهٔ محتوا",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative optional technical sitemap for engineering audience. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CODE-066",
+      "domain": "CODE",
+      "title": "پنل responsive showcase",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل responsive showcase» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-067",
+      "domain": "CODE",
+      "title": "مرزهای سرویسِ case study",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «مرزهای سرویسِ case study» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-068",
+      "domain": "CODE",
+      "title": "کارت عملکرد رابط",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت عملکرد رابط» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-069",
+      "domain": "CODE",
+      "title": "حالت reader برای سایت",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «حالت reader برای سایت» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-070",
+      "domain": "CODE",
+      "title": "پانل progressive enhancement",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پانل progressive enhancement» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-071",
+      "domain": "CODE",
+      "title": "پایپ‌لاین notebook تا محصول",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پایپ‌لاین notebook تا محصول» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-072",
+      "domain": "CODE",
+      "title": "ماتریس confusion توضیحی",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-073",
+      "domain": "CODE",
+      "title": "نمودار train/validation",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نمودار train/validation» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-074",
+      "domain": "CODE",
+      "title": "کارت model card",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت model card» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-075",
+      "domain": "CODE",
+      "title": "پنل انتخاب feature",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل انتخاب feature» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-076",
+      "domain": "CODE",
+      "title": "data lineage تعاملی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «data lineage تعاملی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-077",
+      "domain": "CODE",
+      "title": "نقشهٔ embedding مفهومی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نقشهٔ embedding مفهومی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-078",
+      "domain": "CODE",
+      "title": "پنل benchmark منصفانه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل benchmark منصفانه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-079",
+      "domain": "CODE",
+      "title": "داشبورد ablation",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «داشبورد ablation» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-080",
+      "domain": "CODE",
+      "title": "کارت reproducible run",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت reproducible run» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-081",
+      "domain": "CODE",
+      "title": "README به‌عنوان صفحهٔ پروژه",
+      "status": "selected_candidate",
+      "reason_fa": "مطالعات موردی: ساختار README برای مسئله، روش، خروجی/محدودیت و پیوند. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست.",
+      "implementation": {
+        "state": "verified_source_match",
+        "note_fa": "در نمای terminal کارت پروژه صریحاً به صورت PROJECT / README چیده شده و عنوان، توضیح، برچسب‌ها و پیوندهای واقعی را مصرف می‌کند.",
+        "route": "/?design=terminal&section=projects&theme={theme}",
+        "section": "projects",
+        "functions": [
+          "PortfolioRenderers.projects",
+          "projectCard",
+          "projectActions"
+        ],
+        "selectors": [
+          "#projects",
+          ".st-project-terminal",
+          ".st-readme-copy",
+          "[data-project-card]",
+          "[data-open-project]"
+        ],
+        "source_files": [
+          "public/portfolio/studio-intro.js",
+          "public/portfolio/studio-intro.css",
+          "public/portfolio/runtime.js"
+        ]
+      }
+    },
+    {
+      "idea_id": "CODE-082",
+      "domain": "CODE",
+      "title": "بلوک copy با بازخورد",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «بلوک copy با بازخورد» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-083",
+      "domain": "CODE",
+      "title": "تب زبان نمونه‌کد",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «تب زبان نمونه‌کد» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-084",
+      "domain": "CODE",
+      "title": "جست‌وجوی مستندات شخصی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «جست‌وجوی مستندات شخصی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-085",
+      "domain": "CODE",
+      "title": "پنل نسخهٔ مستندات",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل نسخهٔ مستندات» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-086",
+      "domain": "CODE",
+      "title": "واژه‌نامهٔ فنی inline",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «واژه‌نامهٔ فنی inline» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-087",
+      "domain": "CODE",
+      "title": "مثال runnable محدود",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «مثال runnable محدود» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-088",
+      "domain": "CODE",
+      "title": "نقشهٔ onboarding پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نقشهٔ onboarding پروژه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-089",
+      "domain": "CODE",
+      "title": "جدول تصمیم ابزار",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «جدول تصمیم ابزار» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-090",
+      "domain": "CODE",
+      "title": "پنل cite this project",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative cite-this-project panel when citation data exists. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "CODE-091",
+      "domain": "CODE",
+      "title": "command palette سراسری",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «command palette سراسری» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-092",
+      "domain": "CODE",
+      "title": "heatmap فعالیتِ مستند",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-093",
+      "domain": "CODE",
+      "title": "کارت open-source مشارکت",
+      "status": "requires_external_validated_data",
+      "reason_fa": "خود ایده به داده/مدل/معیار یا شاهد قابل‌اعتبارسنجی وابسته است؛ پیش از نمایش، منشأ، مجوز، نسخه و روش باید تأیید شود. فعلاً دادهٔ نمایشی/ساختگی وارد نشود."
+    },
+    {
+      "idea_id": "CODE-094",
+      "domain": "CODE",
+      "title": "رزومهٔ نقش‌محور",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «رزومهٔ نقش‌محور» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-095",
+      "domain": "CODE",
+      "title": "دکمهٔ fork همکاری",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «دکمهٔ fork همکاری» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-096",
+      "domain": "CODE",
+      "title": "صفحهٔ changelog شخصی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «صفحهٔ changelog شخصی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-097",
+      "domain": "CODE",
+      "title": "نقشهٔ دانشِ در حال رشد",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «نقشهٔ دانشِ در حال رشد» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-098",
+      "domain": "CODE",
+      "title": "پنل standards پروژه",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پنل standards پروژه» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-099",
+      "domain": "CODE",
+      "title": "کارت handoff محصول",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «کارت handoff محصول» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "CODE-100",
+      "domain": "CODE",
+      "title": "پاورقی build info عمومی",
+      "status": "unsuitable_here",
+      "reason_fa": "تعامل/نمای «پاورقی build info عمومی» نسبت به نیاز مرور CV، پیچیدگی یا سطح جزئیات فنی اضافه می‌کند؛ صفحهٔ پایه نباید به آن وابسته شود. برای بازنگری بعدی حفظ است."
+    },
+    {
+      "idea_id": "FX-001",
+      "domain": "FX",
+      "title": "حلقهٔ مکمل نشانگر",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «حلقهٔ مکمل نشانگر» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-002",
+      "domain": "FX",
+      "title": "نشانگر زمینه‌آگاه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative contextual action hint only when the action is also labeled in controls. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "FX-003",
+      "domain": "FX",
+      "title": "نشانگر DNA موضعی",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «نشانگر DNA موضعی» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-004",
+      "domain": "FX",
+      "title": "رتیکل علمیِ تصویر",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «رتیکل علمیِ تصویر» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-005",
+      "domain": "FX",
+      "title": "ذره‌بین محلی",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «ذره‌بین محلی» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-006",
+      "domain": "FX",
+      "title": "دنبالهٔ کوتاه خاموش‌شونده",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «دنبالهٔ کوتاه خاموش‌شونده» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-007",
+      "domain": "FX",
+      "title": "مغناطیسِ تزئین دکمه",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «مغناطیسِ تزئین دکمه» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-008",
+      "domain": "FX",
+      "title": "هایلایت نزدیک‌ترین کارت",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative hover/focus card highlight; focus state needs parity. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "FX-009",
+      "domain": "FX",
+      "title": "نور موضعی کارت",
+      "status": "selected_candidate",
+      "reason_fa": "کارت پروژه: glow موضعی اختیاری و کم‌کنتراست؛ خاموش در touch/keyboard/reduced motion. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "FX-010",
+      "domain": "FX",
+      "title": "نور موضعی پس‌زمینه",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative static hero glow; does not need pointer tracking. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "FX-011",
+      "domain": "FX",
+      "title": "زاویهٔ ملایم کارت",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «زاویهٔ ملایم کارت» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-012",
+      "domain": "FX",
+      "title": "بازتاب شیشه‌ای",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «بازتاب شیشه‌ای» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-013",
+      "domain": "FX",
+      "title": "حاشیهٔ نور جهت‌دار",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «حاشیهٔ نور جهت‌دار» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-014",
+      "domain": "FX",
+      "title": "ورود جهت‌دار پنل",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «ورود جهت‌دار پنل» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-015",
+      "domain": "FX",
+      "title": "تغییر وزن عنوان نزدیک نشانگر",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «تغییر وزن عنوان نزدیک نشانگر» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-016",
+      "domain": "FX",
+      "title": "خط زیر عنوان واکنش‌گرا",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «خط زیر عنوان واکنش‌گرا» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-017",
+      "domain": "FX",
+      "title": "شبکهٔ نرمِ تغییرشکل",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «شبکهٔ نرمِ تغییرشکل» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-018",
+      "domain": "FX",
+      "title": "ذرات دافعهٔ زیستی",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «ذرات دافعهٔ زیستی» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-019",
+      "domain": "FX",
+      "title": "ذرات جاذبهٔ موضعی",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «ذرات جاذبهٔ موضعی» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-020",
+      "domain": "FX",
+      "title": "اتصال‌های کوتاه گراف",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «اتصال‌های کوتاه گراف» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-021",
+      "domain": "FX",
+      "title": "پارالکس لایه‌های هیرو",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «پارالکس لایه‌های هیرو» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-022",
+      "domain": "FX",
+      "title": "گرادیان دنبال‌کنندهٔ آرام",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «گرادیان دنبال‌کنندهٔ آرام» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-023",
+      "domain": "FX",
+      "title": "موج روی سطحِ تصویر",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «موج روی سطحِ تصویر» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-024",
+      "domain": "FX",
+      "title": "نقاب آشکارسازی جزئیات",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «نقاب آشکارسازی جزئیات» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-025",
+      "domain": "FX",
+      "title": "مقایسهٔ قبل/بعد با لنز",
+      "status": "alternative_retained",
+      "reason_fa": "گزینهٔ جایگزین برای بررسی در انتخابگر: Alternative before/after control for approved paired figures only. فعلاً ایدهٔ بایگانی‌شده است، نه بخش پیاده‌شده."
+    },
+    {
+      "idea_id": "FX-026",
+      "domain": "FX",
+      "title": "برجسته‌سازی hotspot مولکولی",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «برجسته‌سازی hotspot مولکولی» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-027",
+      "domain": "FX",
+      "title": "پیش‌نمایش پروژه کنار لینک",
+      "status": "selected_candidate",
+      "reason_fa": "پروژه/پیوند: preview سبک و focusable; title/summary متنی همیشه حاضر. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    },
+    {
+      "idea_id": "FX-028",
+      "domain": "FX",
+      "title": "اسکراب فریم با حرکت افقی",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «اسکراب فریم با حرکت افقی» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-029",
+      "domain": "FX",
+      "title": "سایهٔ دارای منبع نور",
+      "status": "unsuitable_here",
+      "reason_fa": "افکت نشانگر/حرکت «سایهٔ دارای منبع نور» برای CV عمومی اولویت ندارد؛ احتمال حواس‌پرتی، هزینهٔ نگه‌داری یا نابرابری touch/keyboard از ارزش آن بیشتر است. در بانک حفظ شود."
+    },
+    {
+      "idea_id": "FX-030",
+      "domain": "FX",
+      "title": "پالس ارتباط معنایی",
+      "status": "selected_candidate",
+      "reason_fa": "مهارت‌ها: ارتباط معنایی مهارت→پروژه با انتخاب/لینک؛ رنگ به‌تنهایی نشانگر نباشد. نامزد طراحی است؛ به‌معنی پیاده‌سازی یا تأیید محتوای CV نیست."
+    }
+  ]
+}

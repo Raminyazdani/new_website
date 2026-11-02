@@ -1,0 +1,227 @@
+{
+  "schema_version": "1.0",
+  "generated_at_utc": "2026-11-02T17:24:01.152771+00:00",
+  "project": "new-website-hero-lab",
+  "path_policy": "Repository-relative paths only; no absolute local paths, CV contents, private IDs, credential values, screenshots, or secrets are included.",
+  "route_inventory": [
+    {
+      "path": "/",
+      "kind": "document: three-concept studio",
+      "source": "public/index.html and coordinator design scope",
+      "status": "PENDING_BROWSER_VERIFICATION"
+    },
+    {
+      "path": "/lab.html",
+      "kind": "document: preserved 20-Hero archive",
+      "source": "public/lab.html",
+      "status": "PENDING_BROWSER_VERIFICATION"
+    },
+    {
+      "path": "/editions/bioteal/",
+      "kind": "document: preserved original BioTeal edition",
+      "source": "coordinator design scope",
+      "status": "PENDING_BROWSER_VERIFICATION"
+    },
+    {
+      "path": "/design-notes.html",
+      "kind": "document: generic public design catalog, no personal data",
+      "source": "coordinator design scope",
+      "status": "PENDING_BROWSER_VERIFICATION"
+    },
+    {
+      "path": "/api/cv",
+      "kind": "API GET: private CV",
+      "source": "api/cv.js",
+      "status": "EXISTING_BOUNDARY; NOT_RUNTIME_TESTED"
+    },
+    {
+      "path": "/api/session",
+      "kind": "API POST/DELETE: session",
+      "source": "api/session.js",
+      "status": "EXISTING_BOUNDARY; NOT_RUNTIME_TESTED"
+    }
+  ],
+  "data_boundary": {
+    "raw_cv_adapter": "public/data/cv-adapter.js",
+    "transport_source": "public/data/portfolio-source.js",
+    "cv_api": "api/cv.js",
+    "session_api": "api/session.js",
+    "auth_principal": "server/auth.js",
+    "model_contract": "docs/PORTFOLIO_CONTRACT.md",
+    "summary": "Raw CV is normalized at the adapter boundary; renderers use PortfolioModel v1. The CV endpoint requires the owner-bound authenticated principal and returns private/no-store responses."
+  },
+  "sources": [
+    {
+      "path": "README.md",
+      "sha256": "a81c0801980e9cb3838f33e54aa1d54bf18b949b8c294671f6042e17c59380d9",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "a1337ae0ff27a8a2185fd2153b2155031621a9006b7604007a5badef40c7a126",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "server/dev.js",
+      "sha256": "3838acb8ea5b8c2f6b237f332b7c6850cc1e614b3b20e8b969c3a0276632f63d",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "server/auth.js",
+      "sha256": "f46153c584839471101f25fc55f717726b95b2c213f74b32895cfb6b67b7ce03",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "server/db.js",
+      "sha256": "1367eb4160118003337d2cd281e29b1807845a933f98630c869505b8e91cf92c",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "server/domain/cv-store.js",
+      "sha256": "bcac1320b24dfec449671d17acac5de893246777485575f56b739d033017fec5",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "server/db/001_cv.sql",
+      "sha256": "81afc13982c3c2e7f4606441b62960d37aa92541a073755c872e5669d5e952b4",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "api/cv.js",
+      "sha256": "ea4c0e61422b245afabb07d22dd823519035cd2dfae8dc7758881275ea98d10b",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "api/session.js",
+      "sha256": "e62688564e47ce509c8d052e3204edfb86d1b94e2267387ef9ebf5ba230ded49",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "public/index.html",
+      "sha256": "bab93a0f7276282dceae4366257eb80b80efecdcff7ff89897df5181fae51200",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "public/lab.html",
+      "sha256": "29690498ca14f0933bb2fd65739b6548eba91053d2aa519c9e3cca60ccebeb60",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "public/data/cv-adapter.js",
+      "sha256": "af41385c5646c2217c237696651bc682156b75f64bcd8ad0b173f559288394a9",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "public/data/portfolio-source.js",
+      "sha256": "6814bdbcc3d05a28ad7b63abe4d4f977e4f37342b834bf07a574142094d529fa",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "public/app.js",
+      "sha256": "dd0c329ea2ef82ebd354fafaa8d9bee82e0d4c1456a4284aa3d18a80c2d0b53d",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "public/portfolio/runtime.js",
+      "sha256": "9f1276d5cf2a4e48ffbcc80838ba89d163d107c91d01cc653aec711814a336e7",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "public/portfolio/intro.js",
+      "sha256": "d4a291a6a2ff9575f46ea4284a24a317cd4b36d5202bd1c141f1e865797f3f0a",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "public/portfolio/records.js",
+      "sha256": "2319b7e3778a1f06580543b45a24f8149fd4598151ee331a69cb2f409e27418b",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "public/portfolio/base.css",
+      "sha256": "8628dcd3950414805b6cb58ba1c0321ccbf5a5ba12c8b8d1ae131f6cacd33526",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "public/portfolio/intro.css",
+      "sha256": "072bd4f0a139a83ff6801d9a6f8f9f99acc5aba6d046022d73d00934522b095d",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "public/portfolio/records.css",
+      "sha256": "eaebbed23701f3810a80f12ffd2608a0ceb190658cd3127edbb7e61f5b84bf00",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "docs/PORTFOLIO_CONTRACT.md",
+      "sha256": "fa0965298702f1a9fda04703629be4967cd22f255accf5cd7a6d6e493dfd0344",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "docs/PORTFOLIO_PLAN_FA.md",
+      "sha256": "58447268aebdc1b3a8ca1b5da3fe834afc8514504aad6b14d26f6bc2ec4ca47e",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": true
+    },
+    {
+      "path": "docs/BUILD_PROGRESS.json",
+      "sha256": "e65ed32b5389927753522ce3cec060b658c0cc3a5cdc8b77b080af986cac332e",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "tests/contract.test.js",
+      "sha256": "d338d12a3f88ba7fcafbc1c304c773cd0eb397b3b797224afb085fabf65e0467",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "tests/portfolio-data.test.js",
+      "sha256": "f5a8712cebeeb9627babdf09f2f88857dc9c15dc1228196817072d3f57caae8e",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "tests/portfolio-ui.test.js",
+      "sha256": "4c3d1bf658ca709bd78a4e460004bedbd952c5b99918c09b404b1ca2d02aef9c",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    },
+    {
+      "path": "tests/hero-collection.test.js",
+      "sha256": "c873c4482dce72507649536b45fa57e7c9f8c3dd5c520739e0bb8587fad04119",
+      "classification": "source_or_project_document",
+      "reviewed_for_scope": false
+    }
+  ],
+  "excluded_by_policy": [
+    ".env.local",
+    ".env* values",
+    "neon.private.json",
+    "private CV source/import files",
+    "credentials",
+    "production screenshots and traces",
+    "node_modules",
+    "deployment provider state"
+  ]
+}

@@ -15,16 +15,23 @@ const server = http.createServer(async (req, res) => {
   for (const file of ['cv-adapter', 'portfolio-source']) {
     files[`/data/${file}.js`] = [`data/${file}.js`, 'text/javascript; charset=utf-8'];
   }
-  for (const file of ['runtime', 'intro', 'records']) {
+  for (const file of ['runtime', 'intro', 'records', 'science', 'studio', 'studio-intro']) {
     files[`/portfolio/${file}.js`] = [`portfolio/${file}.js`, 'text/javascript; charset=utf-8'];
   }
-  for (const file of ['base', 'intro', 'records']) {
+  for (const file of ['base', 'intro', 'records', 'studio', 'studio-intro']) {
     files[`/portfolio/${file}.css`] = [`portfolio/${file}.css`, 'text/css; charset=utf-8'];
   }
   for (const group of ['a', 'b', 'c']) {
     files[`/designs/collection-${group}.js`] = [`designs/collection-${group}.js`, 'text/javascript; charset=utf-8'];
     files[`/designs/collection-${group}.css`] = [`designs/collection-${group}.css`, 'text/css; charset=utf-8'];
   }
+  files['/editions/bioteal/'] = ['editions/bioteal/index.html', 'text/html; charset=utf-8'];
+  files['/editions/bioteal/index.html'] = files['/editions/bioteal/'];
+  for (const file of ['base.css','intro.css','intro.js','records.css','records.js','runtime.js']) {
+    files[`/editions/bioteal/portfolio/${file}`] = [`editions/bioteal/portfolio/${file}`, file.endsWith('.css') ? 'text/css; charset=utf-8' : 'text/javascript; charset=utf-8'];
+  }
+  files['/design-notes.html'] = ['design-notes.html','text/html; charset=utf-8'];
+  files['/portfolio/design-catalog.json'] = ['portfolio/design-catalog.json','application/json; charset=utf-8'];
   if (!files[path] || req.method !== 'GET') { res.writeHead(404); return res.end('Not found'); }
   try {
     const [file, type] = files[path];

@@ -7,7 +7,7 @@
 .pf-section.record-references { position: relative; padding-block: clamp(3.5rem, 7vw, 6rem); border-bottom: 1px solid var(--line); }
 
 .record-paper-ledger { margin-top: 2.5rem; border-top: 1px solid var(--line); }
-.record-paper { display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(10rem, 13rem); gap: 1.25rem; padding: 1.65rem 1rem; border-bottom: 1px solid var(--line); position: relative; transition: background .25s ease, transform .25s ease; }
+.record-paper { display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(10rem, 13rem); gap: 1.25rem; padding: 1.65rem 1rem; border-bottom: 1px solid var(--line); position: relative; transition: transform .25s ease; }
 .record-paper:hover { background: color-mix(in srgb, var(--surface) 72%, transparent); }
 .record-paper-index,
 .record-edu-number,
@@ -122,7 +122,7 @@
 .record-contact-mail,
 .record-contact-phone,
 .record-social { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--text); font-size: .9rem; text-underline-offset: 4px; overflow-wrap: anywhere; }
-.record-social { padding: .45rem .8rem; border: 1px solid var(--line); border-radius: 99px; text-decoration: none; transition: border-color .2s ease, background .2s ease; }
+.record-social { padding: .45rem .8rem; border: 1px solid var(--line); border-radius: 99px; text-decoration: none; transition: border-color .2s ease; }
 .record-social:hover { border-color: var(--lime); background: color-mix(in srgb, var(--lime) 8%, var(--surface)); }
 
 .record-paper a:focus-visible,
@@ -180,3 +180,211 @@ body[data-effects="on"] .record-contact-finale::after { animation: record-curren
 @keyframes record-current { to { transform: rotate(48deg) translateY(1.5rem); } }
 
 .record-paper-meta span{min-width:0;overflow-wrap:anywhere}.record-skill-tools{flex-wrap:wrap}.record-skill-tools input{flex:1 1 180px;min-width:0}
+
+/* Shared record layer: colors follow the root light/dark semantic tokens. */
+.record-edu-date,
+.record-smallfact b,
+.record-skill-sub li,
+.record-test-list > div > span > b { color: var(--text); }
+.record-paper,
+.record-edu-row,
+.record-cert-card,
+.record-language,
+.record-skill-group,
+.record-reference { min-width: 0; }
+.record-paper-main,
+.record-paper-actions,
+.record-edu-copy,
+.record-cert-card > *,
+.record-test-list { min-width: 0; }
+.record-symbol-fallback { display: inline-grid; place-items: center; font: 700 .82rem/1 ui-monospace, Consolas, monospace; }
+.record-art-fallback { display: grid; width: 100%; height: 100%; place-items: center; font: 2rem/1 Georgia, serif; color: var(--lime); }
+.record-science-icon { display: inline-grid; width: 1.35rem; height: 1.35rem; flex: 0 0 auto; place-items: center; color: var(--lime); }
+.record-science-icon svg { display: block; width: 100%; height: 100%; }
+.record-science-art { display: grid; width: 4rem; height: 4rem; place-items: center; overflow: hidden; color: var(--lime); }
+.record-science-art svg { display: block; width: 100%; height: 100%; }
+.record-edu-node { display: grid; width: 1.1rem; height: 1.1rem; place-items: center; color: var(--coral); }
+.record-edu-node svg { width: 100%; height: 100%; }
+.record-cert-mark { position: absolute; top: 1rem; right: 1rem; display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--lime); }
+.record-cert-mark svg { width: 1.15rem; height: 1.15rem; }
+.record-skill-head { display: flex; min-width: 0; align-items: center; gap: .75rem; }
+.record-skill-head > span:last-child { overflow-wrap: anywhere; }
+.record-language-level { margin: .4rem 0 .75rem; color: var(--lime); font: 600 1rem/1.5 ui-monospace, Consolas, monospace; overflow-wrap: anywhere; }
+.record-language::after { display: none; }
+.record-contact-finale::before,
+.record-contact-finale::after { display: none; }
+.record-contact-finale h2 { font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1; }
+.record-contact-note { max-width: 42ch; }
+.record-paper-actions a,
+.record-paper-actions button,
+.record-cert-card a,
+.record-contact-bottom a,
+.record-ref-contact a { max-width: 100%; overflow-wrap: anywhere; }
+.record-paper,
+.record-edu-row,
+.record-cert-card,
+.record-skill-group > summary i,
+.record-reference > summary > i,
+.record-social,
+.record-contact-finale a,
+.record-notes summary,
+.record-language details summary { transition: none; }
+
+/* Atlas: research cards, visual domains and branching navigation. */
+body[data-concept="atlas"] .record-paper-ledger { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; border: 0; }
+body[data-concept="atlas"] .record-paper { grid-template-columns: 2.4rem minmax(0, 1fr); grid-template-rows: auto auto 1fr; align-content: start; gap: .6rem .85rem; min-height: 14rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: .6rem; background: var(--surface); }
+body[data-concept="atlas"] .record-paper-index { grid-column: 1; grid-row: 1; }
+body[data-concept="atlas"] .record-paper-art { grid-column: 2; grid-row: 1; justify-self: end; width: 2.8rem; height: 2.8rem; opacity: .85; }
+body[data-concept="atlas"] .record-paper-main { grid-column: 1 / -1; grid-row: 2; }
+body[data-concept="atlas"] .record-paper-actions { grid-column: 1 / -1; grid-row: 3; align-self: end; flex-direction: row; flex-wrap: wrap; gap: .35rem .75rem; padding-top: .5rem; border-top: 1px solid var(--line); }
+body[data-concept="atlas"] .record-paper-meta span { padding: .15rem .4rem; border: 1px solid var(--line); border-radius: 99px; }
+body[data-concept="atlas"] .record-paper-meta span + span::before { content: none; }
+body[data-concept="atlas"] .record-education { display: grid; gap: .7rem; border: 0; }
+body[data-concept="atlas"] .record-edu-row { position: relative; grid-template-columns: 8.5rem 2.2rem minmax(0,1fr) 2.6rem; gap: .85rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--surface); }
+body[data-concept="atlas"] .record-edu-row::before { content: ""; position: absolute; top: 3.2rem; bottom: -1rem; left: 9.8rem; width: 1px; background: var(--line); }
+body[data-concept="atlas"] .record-edu-row:last-child::before { display: none; }
+body[data-concept="atlas"] .record-edu-date { grid-column: 1; grid-row: 1 / span 2; align-self: center; flex-direction: column; gap: .15rem; font-size: 1rem; }
+body[data-concept="atlas"] .record-edu-date i { display: none; }
+body[data-concept="atlas"] .record-edu-number { grid-column: 2; grid-row: 1; }
+body[data-concept="atlas"] .record-edu-node { grid-column: 2; grid-row: 2; }
+body[data-concept="atlas"] .record-edu-copy { grid-column: 3; grid-row: 1 / span 2; }
+body[data-concept="atlas"] .record-edu-logo,
+body[data-concept="atlas"] .record-edu-row > .record-science-icon { grid-column: 4; grid-row: 1; }
+body[data-concept="atlas"] .record-skill-atlas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+body[data-concept="atlas"] .record-skill-group { padding-inline: .9rem; border-radius: .65rem; }
+body[data-concept="atlas"] .record-skill-subgroups { grid-template-columns: 1fr; }
+body[data-concept="atlas"] .record-cert-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+body[data-concept="atlas"] .record-cert-card { padding-top: 3.65rem; }
+body[data-concept="atlas"] .record-language-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); background: transparent; border: 0; gap: .8rem; }
+body[data-concept="atlas"] .record-language { min-height: 0; border: 1px solid var(--line); border-radius: .55rem; }
+
+/* Molecular: annotated ledger and polymer-like education sequence. */
+body[data-concept="molecular"] .record-paper-ledger { margin-top: 2rem; border-top: 1px solid var(--line); }
+body[data-concept="molecular"] .record-paper { grid-template-columns: 2.6rem minmax(0, 1fr) minmax(9rem, 12rem); gap: 1rem; padding: 1.5rem .5rem; border-bottom: 1px solid var(--line); }
+body[data-concept="molecular"] .record-paper-art { display: none; }
+body[data-concept="molecular"] .record-paper-index { position: relative; padding-top: .25rem; }
+body[data-concept="molecular"] .record-paper-index::after { content: ""; position: absolute; top: 1.5rem; bottom: -2rem; left: .42rem; width: 1px; background: color-mix(in srgb, var(--lime) 40%, var(--line)); }
+body[data-concept="molecular"] .record-paper:last-child .record-paper-index::after { display: none; }
+body[data-concept="molecular"] .record-paper-main { position: relative; }
+body[data-concept="molecular"] .record-paper-main::before { content: ""; position: absolute; top: .25rem; left: -1.5rem; width: .45rem; height: .45rem; border: 1px solid var(--coral); border-radius: 50%; background: var(--paper); }
+body[data-concept="molecular"] .record-paper-meta { gap: .3rem .55rem; }
+body[data-concept="molecular"] .record-paper-meta span + span::before { content: none; }
+body[data-concept="molecular"] .record-education { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .9rem; border: 0; }
+body[data-concept="molecular"] .record-education::before { content: ""; position: absolute; z-index: 0; top: 2.2rem; bottom: 2.2rem; left: 50%; width: 1px; background: var(--line); }
+body[data-concept="molecular"] .record-edu-row { position: relative; z-index: 1; grid-template-columns: 1.1rem minmax(0,1fr) 2.4rem; grid-template-rows: auto auto 1fr; gap: .45rem .8rem; padding: 1rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--surface); }
+body[data-concept="molecular"] .record-edu-date { grid-column: 1 / -1; grid-row: 1; flex-wrap: wrap; flex-direction: row; font-size: 1rem; }
+body[data-concept="molecular"] .record-edu-date i { color: var(--coral); }
+body[data-concept="molecular"] .record-edu-number { grid-column: 1; grid-row: 2; }
+body[data-concept="molecular"] .record-edu-node { grid-column: 1; grid-row: 3; align-self: start; }
+body[data-concept="molecular"] .record-edu-copy { grid-column: 2 / -1; grid-row: 2 / span 2; }
+body[data-concept="molecular"] .record-edu-logo,
+body[data-concept="molecular"] .record-edu-row > .record-science-icon { grid-column: 3; grid-row: 1; justify-self: end; }
+body[data-concept="molecular"] .record-skill-atlas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+body[data-concept="molecular"] .record-skill-group { border-radius: 1rem .4rem 1rem .4rem; }
+body[data-concept="molecular"] .record-cert-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+body[data-concept="molecular"] .record-cert-card { padding-top: 3.55rem; border-radius: .4rem 1.1rem .4rem 1.1rem; }
+body[data-concept="molecular"] .record-cert-card::after { border-radius: 50% 35% 52% 44%; }
+body[data-concept="molecular"] .record-language-grid { grid-template-columns: repeat(2, minmax(0,1fr)); background: transparent; border: 0; gap: .75rem; }
+body[data-concept="molecular"] .record-language { min-height: 0; border: 1px solid var(--line); border-radius: .4rem 1rem; }
+
+/* Terminal: line-numbered notebook with explicit, compact metadata. */
+body[data-concept="terminal"] .record-paper-ledger { margin-top: 2rem; border-top: 1px solid var(--line); }
+body[data-concept="terminal"] .record-paper { grid-template-columns: 2.6rem minmax(0,1fr) minmax(9rem,12rem); gap: .75rem; padding: 1.25rem .8rem; border: 0; border-bottom: 1px solid var(--line); border-left: 2px solid var(--lime); border-radius: 0; background: color-mix(in srgb, var(--surface) 48%, transparent); }
+body[data-concept="terminal"] .record-paper-art { display: none; }
+body[data-concept="terminal"] .record-paper-index,
+body[data-concept="terminal"] .record-paper-meta,
+body[data-concept="terminal"] .record-cert-top,
+body[data-concept="terminal"] .record-edu-date { font-family: ui-monospace, Consolas, monospace; }
+body[data-concept="terminal"] .record-paper-index::before { content: "["; }
+body[data-concept="terminal"] .record-paper-index::after { content: "]"; }
+body[data-concept="terminal"] .record-paper-main h3,
+body[data-concept="terminal"] .record-edu-copy h3,
+body[data-concept="terminal"] .record-cert-card h3,
+body[data-concept="terminal"] .record-language h3 { font-family: ui-monospace, Consolas, monospace; font-size: clamp(1rem, 2vw, 1.35rem); letter-spacing: -.03em; }
+body[data-concept="terminal"] .record-paper-meta { font-size: .7rem; letter-spacing: 0; }
+body[data-concept="terminal"] .record-paper-meta span + span::before { content: none; }
+body[data-concept="terminal"] .record-education { display: grid; gap: .35rem; border: 0; }
+body[data-concept="terminal"] .record-edu-row { grid-template-columns: 1rem minmax(0,1fr) 2.3rem; grid-template-rows: auto auto; gap: .45rem .7rem; padding: 1rem .7rem; border: 0; border-bottom: 1px dashed var(--line); border-radius: 0; }
+body[data-concept="terminal"] .record-edu-date { grid-column: 2; grid-row: 1; font-size: .85rem; }
+body[data-concept="terminal"] .record-edu-date i { padding-inline: .25rem; }
+body[data-concept="terminal"] .record-edu-number { grid-column: 1; grid-row: 1; }
+body[data-concept="terminal"] .record-edu-node { grid-column: 1; grid-row: 2; }
+body[data-concept="terminal"] .record-edu-copy { grid-column: 2; grid-row: 2; }
+body[data-concept="terminal"] .record-edu-logo,
+body[data-concept="terminal"] .record-edu-row > .record-science-icon { grid-column: 3; grid-row: 1; justify-self: end; }
+body[data-concept="terminal"] .record-skill-atlas { grid-template-columns: 1fr; gap: 0; }
+body[data-concept="terminal"] .record-skill-group { border-width: 0 0 1px; border-radius: 0; background: transparent; }
+body[data-concept="terminal"] .record-skill-group > summary { font: .95rem/1.5 ui-monospace, Consolas, monospace; }
+body[data-concept="terminal"] .record-skill-subgroups { grid-template-columns: repeat(2, minmax(0,1fr)); }
+body[data-concept="terminal"] .record-skill-sub h3 { letter-spacing: 0; }
+body[data-concept="terminal"] .record-skill-sub li { border-radius: .2rem; font-family: ui-monospace, Consolas, monospace; }
+body[data-concept="terminal"] .record-cert-grid { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--line); }
+body[data-concept="terminal"] .record-cert-card { min-height: 0; padding: 1rem 3.5rem 1rem .8rem; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
+body[data-concept="terminal"] .record-cert-top { margin-bottom: .6rem; }
+body[data-concept="terminal"] .record-cert-mark { top: 1rem; right: .6rem; }
+body[data-concept="terminal"] .record-language-grid { grid-template-columns: repeat(2,minmax(0,1fr)); background: transparent; border: 0; gap: .5rem; }
+body[data-concept="terminal"] .record-language { min-height: 0; padding: .9rem; border: 1px solid var(--line); background: var(--surface); }
+body[data-concept="terminal"] .record-language-level { font-size: .85rem; font-weight: 500; }
+body[data-concept="terminal"] .record-reference > summary { font-family: ui-monospace, Consolas, monospace; }
+body[data-concept="terminal"] .record-contact-finale { border-radius: .25rem; }
+body[data-concept="terminal"] .record-contact-finale h2 { font-family: ui-monospace, Consolas, monospace; letter-spacing: -.06em; }
+
+@media (max-width: 900px) {
+  body[data-concept="atlas"] .record-skill-atlas,
+  body[data-concept="atlas"] .record-cert-grid,
+  body[data-concept="atlas"] .record-language-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  body[data-concept="atlas"] .record-paper-ledger { grid-template-columns: 1fr; }
+  body[data-concept="molecular"] .record-cert-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 600px) {
+  .record-paper { grid-template-columns: 2.2rem minmax(0,1fr); }
+  .record-paper-actions { grid-column: 2; flex-direction: row; flex-wrap: wrap; }
+  body[data-concept="atlas"] .record-edu-row { grid-template-columns: 5rem 1.8rem minmax(0,1fr); gap: .6rem; }
+  body[data-concept="atlas"] .record-edu-row::before { left: 6.4rem; }
+  body[data-concept="atlas"] .record-edu-date { font-size: .83rem; }
+  body[data-concept="atlas"] .record-edu-copy { grid-column: 3; }
+  body[data-concept="atlas"] .record-edu-logo,
+  body[data-concept="atlas"] .record-edu-row > .record-science-icon { grid-column: 3; grid-row: 3; justify-self: start; }
+  body[data-concept="atlas"] .record-cert-grid,
+  body[data-concept="atlas"] .record-language-grid,
+  body[data-concept="molecular"] .record-cert-grid,
+  body[data-concept="molecular"] .record-language-grid,
+  body[data-concept="terminal"] .record-language-grid { grid-template-columns: 1fr; }
+  body[data-concept="molecular"] .record-education { grid-template-columns: 1fr; }
+  body[data-concept="molecular"] .record-education::before { left: 1.5rem; }
+  body[data-concept="molecular"] .record-edu-row { grid-template-columns: 1rem minmax(0,1fr) 2.2rem; }
+  body[data-concept="molecular"] .record-edu-date { grid-column: 2 / -1; }
+  body[data-concept="molecular"] .record-edu-copy { grid-column: 2 / -1; }
+  body[data-concept="terminal"] .record-skill-subgroups { grid-template-columns: 1fr; }
+  .record-contact-bottom { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 380px) {
+  .record-paper { grid-template-columns: minmax(0,1fr); }
+  .record-paper-index { grid-column: 1; }
+  .record-paper-main { grid-column: 1; }
+  .record-paper-actions { grid-column: 1; }
+  body[data-concept="atlas"] .record-paper { grid-template-columns: 2rem minmax(0,1fr); }
+  body[data-concept="atlas"] .record-paper-main,
+  body[data-concept="atlas"] .record-paper-actions { grid-column: 1 / -1; }
+  body[data-concept="atlas"] .record-edu-row { grid-template-columns: 4.25rem 1.45rem minmax(0,1fr); padding: .75rem; }
+  body[data-concept="atlas"] .record-edu-row::before { left: 5.3rem; }
+  body[data-concept="atlas"] .record-edu-date { font-size: .72rem; }
+  body[data-concept="atlas"] .record-cert-card,
+  body[data-concept="molecular"] .record-cert-card,
+  body[data-concept="terminal"] .record-cert-card { padding-inline: .7rem; }
+  body[data-concept="terminal"] .record-cert-card { padding-right: 3rem; }
+}
+
+body[data-effects="on"] .record-paper,
+body[data-effects="on"] .record-edu-row,
+body[data-effects="on"] .record-cert-card,
+body[data-effects="on"] .record-skill-group,
+body[data-effects="on"] .record-contact-finale,
+body[data-effects="on"] .record-skill-group > summary i,
+body[data-effects="on"] .record-reference > summary > i,
+body[data-effects="on"] .record-social,
+body[data-effects="on"] .record-contact-finale a,
+body[data-effects="on"] .record-notes summary,
+body[data-effects="on"] .record-language details summary { transition: border-color .22s ease, transform .22s ease; }
+body[data-effects="on"] .record-paper:hover,
+body[data-effects="on"] .record-cert-card:hover { border-color: color-mix(in srgb, var(--lime) 56%, var(--line)); }

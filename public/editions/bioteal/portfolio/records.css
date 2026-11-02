@@ -1,0 +1,182 @@
+/* Record sections: quiet surfaces, readable metadata and living systems motifs. */
+.pf-section.record-publications,
+.pf-section.record-education,
+.pf-section.record-skills,
+.pf-section.record-certificates,
+.pf-section.record-languages,
+.pf-section.record-references { position: relative; padding-block: clamp(3.5rem, 7vw, 6rem); border-bottom: 1px solid var(--line); }
+
+.record-paper-ledger { margin-top: 2.5rem; border-top: 1px solid var(--line); }
+.record-paper { display: grid; grid-template-columns: 3rem minmax(0, 1fr) minmax(10rem, 13rem); gap: 1.25rem; padding: 1.65rem 1rem; border-bottom: 1px solid var(--line); position: relative; transition: background .25s ease, transform .25s ease; }
+.record-paper:hover { background: color-mix(in srgb, var(--surface) 72%, transparent); }
+.record-paper-index,
+.record-edu-number,
+.record-cert-top,
+.record-language-index { color: var(--lime); font: 0.8rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .06em; }
+.record-paper-main h3,
+.record-edu-copy h3,
+.record-cert-card h3,
+.record-language h3 { margin: .55rem 0; font: clamp(1.4rem, 2.5vw, 2.2rem)/1.12 Georgia, serif; letter-spacing: -.025em; color: var(--text); }
+.record-paper-meta { display: flex; flex-wrap: wrap; gap: .35rem .7rem; color: var(--muted); font: .75rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .035em; }
+.record-paper-meta span + span::before { content: '·'; margin-right: .7rem; color: var(--coral); }
+.record-authors { margin: .65rem 0 0; color: var(--muted); line-height: 1.6; }
+.record-paper-actions { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: .45rem; }
+.record-copy { min-height: 2.75rem; cursor: pointer; font: inherit; }
+.record-outlink { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--lime); font-size: .875rem; text-underline-offset: 4px; }
+.record-notes { margin-top: .8rem; color: var(--muted); }
+.record-notes summary,
+.record-language details summary { min-height: 2.75rem; display: flex; align-items: center; cursor: pointer; color: var(--lime); font-size: .875rem; }
+.record-notes p { max-width: 65ch; line-height: 1.7; }
+
+.record-education { margin-top: 2.5rem; border-top: 1px solid var(--line); }
+.record-edu-row { display: grid; grid-template-columns: minmax(8rem, 14rem) 2.5rem minmax(0, 1fr) 2.75rem; gap: 1rem; align-items: start; padding: 2rem 0; border-bottom: 1px solid var(--line); }
+.record-edu-date { display: flex; flex-wrap: wrap; gap: .45rem; color: var(--paper); font: clamp(1.15rem, 2vw, 1.7rem)/1.2 Georgia, serif; }
+.record-edu-date i { color: var(--coral); font-style: normal; }
+.record-overline,
+.record-edu-copy .record-overline { margin: .1rem 0 .55rem; color: var(--lime); font: .75rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .07em; text-transform: uppercase; }
+.record-edu-copy h3 { margin: .1rem 0 .4rem; }
+.record-edu-degree { margin: .35rem 0; color: var(--muted); font: 1rem/1.55 Georgia, serif; }
+.record-edu-degree span { padding: 0 .25rem; color: var(--coral); }
+.record-smallfact { color: var(--muted); font: .85rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.record-smallfact b { color: var(--paper); font-weight: 500; }
+.record-edu-logo,
+.record-edu-mark { width: 2.6rem; height: 2.6rem; object-fit: contain; }
+.record-edu-mark { position: relative; border: 1px solid color-mix(in srgb, var(--lime) 55%, transparent); border-radius: 50%; }
+.record-edu-mark::before,
+.record-edu-mark::after { content: ''; position: absolute; background: var(--coral); }
+.record-edu-mark::before { width: 1px; height: 1.35rem; left: 50%; top: .55rem; }
+.record-edu-mark::after { width: 1.2rem; height: 1px; left: .65rem; top: 1.3rem; }
+
+.record-skills .pf-heading { margin-bottom: 2rem; }
+.record-skill-tools { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; color: var(--muted); font-size: .9rem; }
+.record-skill-tools input,
+.record-search-label input,
+.record-search-label select { min-height: 2.9rem; min-width: 12rem; padding: .65rem .85rem; border: 1px solid var(--line); border-radius: .35rem; background: var(--surface); color: var(--text); font: inherit; }
+.record-skill-tools input::placeholder,
+.record-search-label input::placeholder { color: var(--muted); opacity: .85; }
+.record-skill-atlas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.record-skill-group { padding: 0 1.15rem; border: 1px solid var(--line); border-radius: .45rem; background: linear-gradient(135deg, color-mix(in srgb, var(--lime) 5%, var(--surface)), var(--surface) 65%); }
+.record-skill-group > summary { min-height: 3.25rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none; font: 1.25rem/1.3 Georgia, serif; }
+.record-skill-group > summary::-webkit-details-marker { display: none; }
+.record-skill-group > summary i { color: var(--lime); font: 1rem ui-monospace, SFMono-Regular, Consolas, monospace; font-style: normal; transition: transform .2s ease; }
+.record-skill-group[open] > summary i { transform: rotate(45deg); }
+.record-skill-subgroups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; padding: .2rem 0 1rem; border-top: 1px solid var(--line); }
+.record-skill-sub h3 { margin: .85rem 0 .55rem; color: var(--coral); font: .75rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .07em; text-transform: uppercase; }
+.record-skill-sub ul { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.record-skill-sub li { padding: .4rem .62rem; border: 1px solid color-mix(in srgb, var(--text) 20%, transparent); border-radius: 99px; color: var(--paper); font-size: .85rem; line-height: 1.3; }
+
+.record-cert-tools { display: flex; align-items: end; gap: .8rem; margin: 2rem 0 1.25rem; }
+.record-search-label { display: grid; gap: .4rem; color: var(--muted); font: .75rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .05em; text-transform: uppercase; }
+.record-cert-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.record-cert-card { position: relative; display: flex; min-height: 14rem; flex-direction: column; padding: 1.1rem; overflow: hidden; border: 1px solid var(--line); border-radius: .45rem; background: linear-gradient(150deg, color-mix(in srgb, var(--coral) 5%, var(--surface)), var(--surface) 60%); transition: border-color .2s ease, transform .2s ease; }
+.record-cert-card::after { content: ''; position: absolute; right: -1.8rem; bottom: -2.2rem; width: 5rem; height: 5rem; border: 1px solid color-mix(in srgb, var(--lime) 27%, transparent); border-radius: 50%; pointer-events: none; }
+.record-cert-card:hover { border-color: color-mix(in srgb, var(--lime) 55%, var(--line)); }
+.record-cert-top { display: flex; justify-content: space-between; gap: .5rem; margin-bottom: 1.2rem; }
+.record-cert-top span + span { color: var(--muted); font-size: .75rem; text-align: right; }
+.record-cert-card h3 { margin: .1rem 0 .9rem; font-size: 1.4rem; }
+.record-cert-bottom { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: auto; color: var(--muted); font: .8rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.record-cert-card .record-outlink { margin-top: .55rem; }
+.record-cert-empty { padding: 1.5rem 0; color: var(--muted); }
+.record-more { display: block; min-height: 2.75rem; margin: 1.25rem auto; }
+
+.record-language-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: 2.5rem; border: 1px solid var(--line); background: var(--line); }
+.record-language { position: relative; display: flex; min-height: 15rem; flex-direction: column; padding: 1.3rem; overflow: hidden; background: var(--surface); }
+.record-language::after { content: ''; position: absolute; top: 1.2rem; right: 1.2rem; width: 2.5rem; height: 2.5rem; border: 1px solid color-mix(in srgb, var(--lime) 38%, transparent); border-radius: 50% 44% 53% 47%; transform: rotate(24deg); }
+.record-language h3 { margin: 1rem 0 .35rem; font-size: clamp(1.45rem, 2.4vw, 2rem); }
+.record-language-level { color: var(--lime); font: clamp(2.5rem, 4vw, 3.8rem)/1 Georgia, serif; letter-spacing: -.04em; }
+.record-language-status { margin: .45rem 0 1rem; color: var(--muted); font-size: .9rem; }
+.record-language details { margin-top: auto; padding-top: .55rem; border-top: 1px solid var(--line); }
+.record-language details summary { justify-content: space-between; }
+.record-language details summary span { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+.record-test-list > div { display: grid; grid-template-columns: 1fr auto; gap: .4rem; padding: .75rem 0; border-bottom: 1px solid var(--line); font-size: .85rem; }
+.record-test-list small { grid-column: 1 / -1; color: var(--muted); font-size: .8rem; }
+.record-test-list > div > span { color: var(--muted); }
+.record-test-list > div > span b { color: var(--paper); }
+
+.record-reference-list { margin-top: 2.25rem; border-top: 1px solid var(--line); }
+.record-reference { border-bottom: 1px solid var(--line); }
+.record-reference > summary { display: grid; min-height: 4.25rem; grid-template-columns: 3rem minmax(11rem, 1fr) minmax(9rem, 1fr) 1.5rem; gap: .9rem; align-items: center; cursor: pointer; list-style: none; }
+.record-reference > summary::-webkit-details-marker { display: none; }
+.record-reference > summary > i { color: var(--lime); font-style: normal; transition: transform .2s ease; }
+.record-reference[open] > summary > i { transform: rotate(45deg); }
+.record-monogram { display: grid; width: 2.7rem; height: 2.7rem; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--lime); font: .8rem ui-monospace, SFMono-Regular, Consolas, monospace; }
+.record-ref-name b { display: block; color: var(--text); font: 1.05rem/1.35 Georgia, serif; }
+.record-ref-name small,
+.record-ref-org { display: block; margin-top: .2rem; color: var(--muted); font-size: .85rem; line-height: 1.5; }
+.record-ref-contact { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; padding: 0 0 1rem 3.9rem; }
+.record-ref-contact a { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--lime); font-size: .9rem; overflow-wrap: anywhere; }
+
+.pf-section.record-contact { padding-block: clamp(3.5rem, 7vw, 6rem); background: var(--surface); }
+.record-contact-finale { position: relative; isolation: isolate; width: 100%; max-width: 100%; margin: 0 auto; padding: clamp(2rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 3rem); overflow: hidden; border: 1px solid var(--line); border-radius: .6rem; background: var(--surface); color: var(--text); }
+.record-contact-finale::before { content: ''; position: absolute; z-index: -1; top: 1.5rem; right: clamp(1.5rem, 10vw, 9rem); width: min(26rem, 34vw); height: min(26rem, 34vw); min-width: 13rem; min-height: 13rem; border: 1px solid color-mix(in srgb, var(--lime) 28%, transparent); border-radius: 46% 54% 48% 52%; background: repeating-linear-gradient(0deg, transparent 0 2.2rem, color-mix(in srgb, var(--lime) 7%, transparent) 2.2rem 2.25rem), repeating-linear-gradient(90deg, transparent 0 2.2rem, color-mix(in srgb, var(--lime) 7%, transparent) 2.2rem 2.25rem); transform: rotate(13deg); pointer-events: none; }
+.record-contact-finale::after { content: ''; position: absolute; z-index: -1; top: 12%; right: clamp(7rem, 20vw, 20rem); width: 1px; height: 75%; background: linear-gradient(transparent, var(--coral), color-mix(in srgb, var(--lime) 75%, transparent), transparent); transform: rotate(39deg); transform-origin: center; pointer-events: none; }
+.record-contact-top { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: .8rem; border-bottom: 1px solid var(--line); color: var(--muted); font: .8rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .05em; text-transform: uppercase; }
+.record-contact-content { position: relative; max-width: 42rem; }
+.record-contact-prelude { margin: clamp(2.2rem, 5vw, 4rem) 0 .7rem; color: var(--lime); font: .8rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; }
+.record-contact-finale h2 { margin: 0; color: var(--text); font: clamp(3.5rem, 9vw, 7.5rem)/.92 Georgia, serif; letter-spacing: -.055em; }
+.record-contact-finale h2 em { color: var(--coral); font-weight: 400; }
+.record-contact-note { max-width: 32rem; margin: 1rem 0 0; color: var(--muted); line-height: 1.65; }
+.record-contact-bottom { position: relative; display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; margin-top: 2.5rem; }
+.record-contact-bottom > div,
+.record-contact-bottom nav { display: flex; flex-wrap: wrap; gap: .55rem 1rem; }
+.record-contact-mail,
+.record-contact-phone,
+.record-social { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--text); font-size: .9rem; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.record-social { padding: .45rem .8rem; border: 1px solid var(--line); border-radius: 99px; text-decoration: none; transition: border-color .2s ease, background .2s ease; }
+.record-social:hover { border-color: var(--lime); background: color-mix(in srgb, var(--lime) 8%, var(--surface)); }
+
+.record-paper a:focus-visible,
+.record-paper button:focus-visible,
+.record-notes summary:focus-visible,
+.record-skill-group > summary:focus-visible,
+.record-language summary:focus-visible,
+.record-reference > summary:focus-visible,
+.record-ref-contact a:focus-visible,
+.record-contact-finale a:focus-visible,
+.record-cert-tools input:focus-visible,
+.record-cert-tools select:focus-visible,
+.record-skill-tools input:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .record-paper { grid-template-columns: 2.2rem minmax(0, 1fr); gap: .75rem; padding: 1.35rem .25rem; }
+  .record-paper-actions { grid-column: 2; flex-direction: row; flex-wrap: wrap; }
+  .record-edu-row { grid-template-columns: minmax(0, 1fr) 2.75rem; gap: .45rem .85rem; }
+  .record-edu-date { grid-column: 1 / -1; }
+  .record-edu-number { grid-column: 2; grid-row: 2; }
+  .record-edu-copy { grid-column: 1; grid-row: 2; }
+  .record-edu-logo,
+  .record-edu-mark { grid-column: 2; grid-row: 3; }
+  .record-skill-atlas { grid-template-columns: 1fr; }
+  .record-cert-grid,
+  .record-language-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .record-reference > summary { grid-template-columns: 2.8rem minmax(0, 1fr) 1.25rem; gap: .65rem; padding: .5rem 0; }
+  .record-ref-org { grid-column: 2; }
+  .record-reference > summary > i { grid-column: 3; grid-row: 1; }
+  .record-contact-bottom { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .record-edu-row { padding: 1.4rem 0; }
+  .record-edu-date { font-size: 1.25rem; }
+  .record-skill-subgroups { grid-template-columns: 1fr; gap: .2rem; }
+  .record-cert-tools { align-items: stretch; flex-direction: column; }
+  .record-search-label input,
+  .record-search-label select { width: 100%; min-width: 0; }
+  .record-cert-grid,
+  .record-language-grid { grid-template-columns: 1fr; }
+  .record-language { min-height: 12rem; }
+  .record-reference > summary { gap: .55rem; }
+  .record-ref-contact { padding-left: 0; gap: .3rem .8rem; }
+  .record-contact-finale { padding-inline: 1.15rem; }
+  .record-contact-finale h2 { font-size: clamp(3.5rem, 17vw, 5.2rem); }
+  .record-contact-finale::before { right: -4rem; width: 15rem; height: 15rem; }
+  .record-contact-finale::after { right: 4.8rem; }
+  .record-contact-top { font-size: .75rem; }
+}
+
+body[data-effects="on"] .record-edu-mark { animation: record-branch 7s ease-in-out infinite; }
+body[data-effects="on"] .record-contact-finale::after { animation: record-current 12s ease-in-out infinite alternate; }
+@keyframes record-branch { 50% { transform: rotate(18deg) translateY(-2px); } }
+@keyframes record-current { to { transform: rotate(48deg) translateY(1.5rem); } }
+
+.record-paper-meta span{min-width:0;overflow-wrap:anywhere}.record-skill-tools{flex-wrap:wrap}.record-skill-tools input{flex:1 1 180px;min-width:0}
