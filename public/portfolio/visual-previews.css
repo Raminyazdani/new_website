@@ -86,6 +86,6 @@
 .vp-readme-control { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--line, #d5e3ed); }
 .vp-readme-control > p { color: var(--muted, #577087); font-size: .8rem; }
 .vp-readme-label { color: var(--lime, #176287); font: .7rem/1.6 ui-monospace, Consolas, monospace; }
-.vp-readme-text { max-height: 26rem; padding: 1rem; overflow: auto; border: 1px solid var(--line, #d5e3ed); border-radius: .35rem; background: var(--bg, #f2f7fb); color: var(--text, #132f47); font: .78rem/1.7 ui-monospace, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.vp-readme-text { max-height: 26rem; padding: 1rem; overflow: auto; border: 1px solid var(--line, #d5e3ed); border-radius: .35rem; background: var(--surface, #eaf4fc); color: var(--text, #132f47); font: .78rem/1.7 ui-monospace, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
 .vp-document-dialog :is(button, a):focus-visible, .vp-readme-control button:focus-visible { outline: 3px solid var(--lime, #176287); outline-offset: 3px; }
 @media (max-width: 600px) { .vp-project-preview { padding: .8rem; } .vp-dialog-toolbar { top: -.85rem; gap: .65rem; margin: -.85rem -.85rem 1rem; padding: .85rem; } .vp-dialog-toolbar > button { padding-inline: .65rem; } .vp-dialog-footer { align-items: flex-start; flex-direction: column; } .vp-document-dialog { padding: .85rem; } }
