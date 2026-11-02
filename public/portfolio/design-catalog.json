@@ -52,7 +52,7 @@
       "route": "/?design=unified&section={section}&theme={theme}",
       "sections": {
         "hero": {
-          "presentation_fa": "معرفی اطلس با تصویرسازی سلولی انتزاعی، پرتره و خلاصه.",
+          "presentation_fa": "معرفی همراه سلول، عکس واقعی در قاب نمای برنامه‌نویسی و هویت مشترک زیست، شیمی و کد.",
           "renderer": "hero",
           "selectors": [
             "#hero",
@@ -61,7 +61,7 @@
           ]
         },
         "about": {
-          "presentation_fa": "نمای dossier با protein هندسیِ illustrative، بیانیه و شاخص‌ها.",
+          "presentation_fa": "نمای dossier با فرم مولکولی سه‌بعدیِ illustrative، بیانیه و شاخص‌های واقعی.",
           "renderer": "about",
           "selectors": [
             "#about",
