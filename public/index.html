@@ -16,7 +16,7 @@
   <script src="/portfolio/records.js" defer></script>
   <script src="/portfolio/runtime.js" defer></script>
 </head>
-<body data-motion="auto" data-effects="off" data-theme="light" data-concept="atlas">
+<body data-motion="auto" data-effects="off" data-theme="light" data-concept="unified">
   <a class="pf-skip" href="#portfolio">Skip to content</a>
   <div class="pf-ambient" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="pf-reading" aria-hidden="true"><i id="readingProgress"></i></div>
@@ -25,7 +25,7 @@
     <nav class="pf-nav" id="mainNav" aria-label="Main navigation" hidden></nav>
     <div class="pf-header-tools">
       <button class="pf-tool studio-theme-toggle" id="themeToggle" aria-label="Switch to dark theme">Dark ◑</button>
-      <button class="pf-tool studio-trigger" data-open-studio aria-haspopup="dialog">Designs</button>
+      <button class="pf-tool studio-trigger" data-open-studio aria-haspopup="dialog">View options</button>
       <button id="jumpBtn" class="pf-tool" aria-label="Jump to section" hidden>⌘ K</button>
       <label class="pf-motion-control"><span>Motion</span><select id="motionMode" aria-label="Animation preference"><option value="auto">Auto</option><option value="full">Full</option><option value="still">Still</option></select></label>
       <a class="pf-tool pf-lab-link" href="/lab.html">Hero Lab ↗</a>
@@ -40,22 +40,17 @@
   <dialog id="jumpDialog" class="pf-dialog pf-jump-dialog" aria-labelledby="jumpTitle"><button class="pf-dialog-close" data-close-dialog aria-label="Close navigation">×</button><p class="pf-kicker">QUICK NAVIGATION</p><h2 id="jumpTitle">Find your way.</h2><input id="jumpSearch" type="search" placeholder="Jump to a section…" aria-label="Search sections"><nav id="jumpLinks" aria-label="All sections"></nav></dialog>
   <div class="pf-toast" id="toast" role="status" aria-live="polite"></div>
 
-  <aside class="studio-rail" aria-label="Design directions">
-    <button type="button" data-concept-choice="atlas" aria-label="Biology Atlas design" title="Biology Atlas">BIO</button>
-    <button type="button" data-concept-choice="molecular" aria-label="Molecular Form design" title="Molecular Form">CHEM</button>
-    <button type="button" data-concept-choice="terminal" aria-label="Code Notebook design" title="Code Notebook">CODE</button>
-    <button type="button" data-open-studio aria-label="Open design controls" title="Design controls">☷</button>
-  </aside>
   <button class="pf-button studio-show-all" data-show-all>Whole portfolio ↑</button>
   <dialog id="designDialog" class="pf-dialog studio-dialog" aria-labelledby="designDialogTitle">
     <button class="pf-dialog-close" data-close-studio aria-label="Close design controls">×</button>
-    <span class="pf-kicker">A portfolio, three perspectives</span><h2 id="designDialogTitle">Choose a direction.</h2>
-    <p>The same CV, presented through biology, chemistry and code. Switch the design, explore one section, or compare light and dark.</p>
-    <div class="studio-choice-grid">
+    <span class="pf-kicker">Biology × chemistry × programming</span><h2 id="designDialogTitle">One connected portfolio.</h2>
+    <p>One visual language connects cellular forms, molecular studies and a programming notebook. Explore a section, change the theme, or revisit the archived explorations.</p>
+    <button class="pf-button primary" data-concept-choice="unified">Current unified design</button>
+    <details class="studio-explorations"><summary>Archived design explorations</summary><div class="studio-choice-grid">
       <button class="studio-choice" data-concept-choice="atlas"><span class="studio-swatch swatch-atlas" aria-hidden="true"></span><b>Biology Atlas</b><small>Cellular forms, editorial cards and a research trail.</small></button>
       <button class="studio-choice" data-concept-choice="molecular"><span class="studio-swatch swatch-molecular" aria-hidden="true"></span><b>Molecular Form</b><small>Rotatable geometry, paired dossiers and polymer paths.</small></button>
       <button class="studio-choice" data-concept-choice="terminal"><span class="studio-swatch swatch-terminal" aria-hidden="true"></span><b>Code Notebook</b><small>A readable IDE, README projects and method libraries.</small></button>
-    </div>
+    </div></details>
     <div class="studio-settings"><fieldset><legend>Appearance</legend><div class="studio-button-group"><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div></fieldset>
     <div><label for="studioSection">Focus a section</label><select id="studioSection"><option value="all">Whole portfolio</option><option value="hero">Hero</option><option value="about">About</option><option value="projects">Projects</option><option value="experience">Experience</option><option value="publications">Publications</option><option value="education">Education</option><option value="skills">Skills</option><option value="certificates">Credentials</option><option value="languages">Languages</option><option value="references">References</option><option value="contact">Contact</option></select></div>
     <div><label for="studioMotion">Motion</label><select id="studioMotion"><option value="auto">Auto · follow system</option><option value="full">Full · play effects</option><option value="still">Still · pause effects</option></select></div></div>

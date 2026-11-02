@@ -126,5 +126,41 @@
       "/design-notes.html"
     ],
     "proof": "Real screenshots stored outside public Git."
+  },
+  "unified_followup": {
+    "checked_at_utc": "2026-11-02T18:05:45.589607+00:00",
+    "scope": "One current unified design combining biology, chemistry and programming. Three previous full-site concepts retained as explicit archived explorations.",
+    "default": "unified",
+    "old_url_behavior": "design=atlas/molecular/terminal without edition=exploration opens unified.",
+    "composition": {
+      "hero": "Cell illustration + real portrait in a code-style profile frame",
+      "about": "Generic interactive molecular geometry + source profile",
+      "projects": "README presentation with source-derived biology/chemistry/code previews",
+      "experience": "Polymer-inspired timeline using actual source periods",
+      "records": "Annotated research cards, polymer education, programming-style skills library"
+    },
+    "tests": {
+      "command": "npm test",
+      "passed": 21,
+      "failed": 0
+    },
+    "real_browser": {
+      "section_count": 11,
+      "illustrative_scenes": 2,
+      "code_frame_present": true,
+      "cell_in_hero": true,
+      "molecule_in_about": true,
+      "readme_projects": true,
+      "old_preset_rail_removed": true,
+      "light_and_dark_320_client_scroll": [
+        305,
+        305
+      ],
+      "light_and_dark_640_client_scroll": [
+        625,
+        625
+      ]
+    },
+    "production": "pending"
   }
 }

@@ -93,7 +93,7 @@ async function boot({ search = '', auth = false, reduce = true, stored = null } 
   return { win, document, Event, click, storedValues };
 }
 
-test('new script set renders three distinct concepts from the same synthetic CV model', async () => {
+test('unified default combines the three disciplines while preserving the synthetic CV model', async () => {
   const env = await boot();
   const { document, win, click } = env;
   assert.equal(document.querySelector('#portfolio').hidden, false);
@@ -103,6 +103,12 @@ test('new script set renders three distinct concepts from the same synthetic CV 
   assert.equal(document.querySelectorAll('[data-cert-card]').length, 15);
   assert.equal(document.querySelectorAll('#references details[open]').length, 0);
   assert.equal(document.querySelector('#hero h1').textContent.replace(/\s+/g, ''), 'SyntheticProfile');
+  assert.equal(win.PortfolioStudio.concept, 'unified');
+  assert(document.querySelector('#hero [data-science="cell"]'), 'unified hero keeps the cell illustration');
+  assert(document.querySelector('#hero .st-code-frame'), 'unified hero includes the code identity frame');
+  assert(document.querySelector('#about [data-science="molecule"]'), 'unified profile includes molecular art');
+  assert(document.querySelector('[data-project-card].st-project-terminal'), 'unified projects use notebook cards');
+  assert(document.querySelector('.st-timeline-molecular'), 'unified experience uses the molecular path');
   assert.equal(document.querySelector('.pf-portrait img')?.getAttribute('src'), 'https://example.test/portrait.jpg');
   assert(document.querySelector('#about').textContent.includes('Exact fictional summary'));
   assert.equal(document.querySelectorAll('#portfolio img[onerror]').length, 0);
@@ -126,11 +132,11 @@ test('new script set renders three distinct concepts from the same synthetic CV 
 
 test('section isolation, validated query preferences, themes and motion controls stay scoped', async () => {
   const invalid = await boot({ search: '?design=unknown&theme=unknown&section=%3Cscript%3E' });
-  assert.equal(invalid.win.PortfolioStudio.concept, 'atlas');
+  assert.equal(invalid.win.PortfolioStudio.concept, 'unified');
   assert.equal(invalid.win.PortfolioStudio.theme, 'light');
   assert.equal(invalid.win.PortfolioStudio.section, 'all');
 
-  const valid = await boot({ search: '?design=terminal&theme=dark&section=projects', reduce: true });
+  const valid = await boot({ search: '?edition=exploration&design=terminal&theme=dark&section=projects', reduce: true });
   const { document, click, Event, win } = valid;
   assert.equal(win.PortfolioStudio.concept, 'terminal');
   assert.equal(win.PortfolioStudio.theme, 'dark');
@@ -172,6 +178,18 @@ test('section isolation, validated query preferences, themes and motion controls
   assert.equal(win.portfolioView.motionMode, 'still');
   assert.equal(document.body.dataset.effects, 'off');
   assert.equal(win.PortfolioStudio.theme, 'dark');
+});
+
+test('legacy design URLs upgrade to unified; archived explorations require an explicit edition', async () => {
+  for (const design of ['atlas', 'molecular', 'terminal']) {
+    const legacy = await boot({ search: `?design=${design}` });
+    assert.equal(legacy.win.PortfolioStudio.concept, 'unified', `${design} URL without edition upgrades`);
+  }
+  for (const design of ['atlas', 'molecular', 'terminal']) {
+    const archived = await boot({ search: `?edition=exploration&design=${design}` });
+    assert.equal(archived.win.PortfolioStudio.concept, design, `${design} remains available in exploration edition`);
+    assert(archived.document.querySelector('#hero').classList.contains(`st-${design}`));
+  }
 });
 
 test('private gate withholds the profile; logout clears model and rendered contact data', async () => {

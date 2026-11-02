@@ -4,7 +4,7 @@
   const esc = (h, value) => h.e(value == null ? '' : value);
   const list = value => Array.isArray(value) ? value : [];
   const number = value => String(value + 1).padStart(2, '0');
-  const concept = () => ['atlas', 'molecular', 'terminal'].includes(w.PortfolioStudio?.concept) ? w.PortfolioStudio.concept : 'atlas';
+  const concept = () => ['unified', 'atlas', 'molecular', 'terminal'].includes(w.PortfolioStudio?.concept) ? w.PortfolioStudio.concept : 'unified';
   const icon = name => w.PortfolioScience?.icon(name) || '';
   const art = kind => w.PortfolioScience?.art(kind) || '';
   const first = value => (String(value || '').match(/^[\s\S]*?[.!?](?=\s|$)/) || [String(value || '')])[0];
@@ -32,20 +32,21 @@
     return `<div class="st-actions"><a class="st-action st-primary" href="#projects">Explore the work ${icon('arrow')}</a><a class="st-action" href="#about">Meet the person <span aria-hidden="true">↓</span></a></div>`;
   }
   function portrait(identity, h, extra = '') {
-    return `<div class="st-portrait-unit ${extra}">${h.portrait(identity, 'st-portrait')}<div class="st-photo-caption"><span>${esc(h, identity.name)}</span>${identity.location ? `<span>${esc(h, identity.location)}</span>` : ''}</div></div>`;
+    return `<div class="st-portrait-unit ${extra}">${extra.includes('st-code-frame') ? `<div class="st-frame-tab">${icon('code')}<span>profile / view</span><span class="st-frame-dot" aria-hidden="true"></span></div>` : ''}${h.portrait(identity, 'st-portrait')}<div class="st-photo-caption"><span>${esc(h, identity.name)}</span>${identity.location ? `<span>${esc(h, identity.location)}</span>` : ''}</div></div>`;
   }
   function hero(vm, h) {
     const identity = vm.identity || {};
-    const mode = concept();
+    const selected = concept();
+    const mode = selected === 'unified' ? 'atlas' : selected;
     let content;
     if (mode === 'molecular') {
       content = `<div class="st-molecular-hero"><div class="st-molecular-heading"><p class="st-eyebrow">A personal portfolio</p><h1 id="st-hero-title" class="st-name">${name(identity, h)}</h1>${disciplines()}</div><div class="st-molecular-stage"><div class="st-hero-scene st-molecule-scene">${art('molecule')}</div>${portrait(identity, h, 'st-portrait-orbit')}<span class="st-stage-rule" aria-hidden="true"></span></div><div class="st-molecular-copy">${lead(identity, h)}${roles(identity, h)}${actions()}</div></div>`;
     } else if (mode === 'terminal') {
       content = `<div class="st-workspace"><div class="st-workspace-bar"><span class="st-window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>profile / overview</span><span class="st-workspace-label">PERSONAL NOTEBOOK</span></div><div class="st-workspace-body"><aside class="st-file-tree" aria-label="Portfolio notebook"><span class="st-eyebrow">CONTENTS</span><a class="is-current" href="#hero">${icon('book')} Overview</a><a href="#about">${icon('branch')} Profile</a><a href="#projects">${icon('code')} Projects <b>${h.number(list(vm.projects).length)}</b></a><a href="#experience">${icon('book')} Experience</a><div class="st-tree-art" aria-hidden="true">${icon('code')}</div></aside><div class="st-notebook-main"><p class="st-eyebrow"><span aria-hidden="true">#</span> Hello, I'm</p><h1 id="st-hero-title" class="st-name">${name(identity, h)}</h1>${disciplines()}${lead(identity, h)}${roles(identity, h)}${actions()}</div><aside class="st-profile-preview"><p class="st-eyebrow">PROFILE PREVIEW</p>${portrait(identity, h)}<a class="st-text-link" href="#about">Open profile ${icon('arrow')}</a></aside></div><div class="st-workspace-status"><span>${icon('branch')} Personal portfolio</span><span>Biology · chemistry · programming</span></div></div>`;
     } else {
-      content = `<div class="st-atlas-hero"><div class="st-atlas-copy"><p class="st-eyebrow"><span class="st-small-cross" aria-hidden="true">+</span> A personal atlas</p><h1 id="st-hero-title" class="st-name">${name(identity, h)}</h1>${disciplines()}${lead(identity, h)}${roles(identity, h)}${actions()}</div><div class="st-atlas-visual"><div class="st-atlas-scene">${art('cell')}</div>${portrait(identity, h)}<span class="st-figure-index" aria-hidden="true">FIG. 01 / INTRODUCTION</span></div><div class="st-hero-baseline"><span>Observe.</span><span>Connect.</span><span>Create.</span><a href="#about">Continue exploring <span aria-hidden="true">↓</span></a></div></div>`;
+      content = `<div class="st-atlas-hero"><div class="st-atlas-copy"><p class="st-eyebrow"><span class="st-small-cross" aria-hidden="true">+</span> A personal atlas</p><h1 id="st-hero-title" class="st-name">${name(identity, h)}</h1>${disciplines()}${lead(identity, h)}${roles(identity, h)}${actions()}</div><div class="st-atlas-visual"><div class="st-atlas-scene">${art('cell')}</div>${portrait(identity, h, selected === 'unified' ? 'st-code-frame' : '')}<span class="st-figure-index" aria-hidden="true">FIG. 01 / INTRODUCTION</span></div><div class="st-hero-baseline"><span>Observe.</span><span>Connect.</span><span>Create.</span><a href="#about">Continue exploring <span aria-hidden="true">↓</span></a></div></div>`;
     }
-    return `<section class="pf-section st-section st-hero st-${mode}" id="hero" data-section="hero" aria-labelledby="st-hero-title"><div class="pf-wrap">${content}</div></section>`;
+    return `<section class="pf-section st-section st-hero st-${mode}${selected === 'unified' ? ' st-unified' : ''}" id="hero" data-section="hero" aria-labelledby="st-hero-title"><div class="pf-wrap">${content}</div></section>`;
   }
   function metrics(vm, h) {
     const stats = vm.stats || {};
@@ -56,16 +57,17 @@
     return items.length ? `<div class="st-interests"><p class="st-eyebrow">Interests &amp; curiosity</p><div class="st-interest-list">${items.map((item, i) => `<details class="st-interest"><summary><span class="st-index">${number(i)}</span><span>${esc(h, item.title)}</span><span class="st-plus" aria-hidden="true">+</span></summary>${item.description ? `<p>${esc(h, item.description)}</p>` : ''}</details>`).join('')}</div></div>` : '';
   }
   function about(vm, h) {
-    const mode = concept();
+    const selected = concept();
+    const mode = selected === 'unified' ? 'molecular' : selected;
     const summary = vm.identity?.summary || '';
     const statement = excerpt(first(summary), 280);
     const profile = `<div class="st-profile-statement"><p class="st-eyebrow">02 / Profile</p><h2 id="st-about-title">${esc(h, statement || 'About me')}</h2></div><div class="st-profile-description">${summary && summary !== statement ? `<details class="st-full-profile"><summary>Read the full introduction <span aria-hidden="true">+</span></summary><p>${esc(h, summary)}</p></details>` : ''}<a class="st-text-link" href="#experience">Follow the journey ${icon('arrow')}</a></div>`;
     const content = mode === 'terminal'
       ? `<div class="st-notebook-section"><div class="st-note-margin" aria-hidden="true">02<br>PROFILE</div><div class="st-note-content"><div class="st-about-grid">${profile}</div>${metrics(vm, h)}${interests(vm, h)}</div></div>`
       : mode === 'molecular'
-        ? `<div class="st-dossier-profile"><div class="st-profile-illustration">${art('protein')}<p class="st-eyebrow">Different scales.<br>Connected interests.</p></div><div class="st-dossier-content">${profile}${metrics(vm, h)}</div></div>${interests(vm, h)}`
+        ? `<div class="st-dossier-profile"><div class="st-profile-illustration">${art(selected === 'unified' ? 'molecule' : 'protein')}<p class="st-eyebrow">${selected === 'unified' ? 'Living systems. Molecular forms. Computational thinking.' : 'Different scales.<br>Connected interests.'}</p></div><div class="st-dossier-content">${profile}${metrics(vm, h)}</div></div>${interests(vm, h)}`
         : `<div class="st-about-grid">${profile}</div>${metrics(vm, h)}${interests(vm, h)}`;
-    return `<section class="pf-section st-section st-about st-${mode}" id="about" data-section="about" aria-labelledby="st-about-title"><div class="pf-wrap">${content}</div></section>`;
+    return `<section class="pf-section st-section st-about st-${mode}${selected === 'unified' ? ' st-unified' : ''}" id="about" data-section="about" aria-labelledby="st-about-title"><div class="pf-wrap">${content}</div></section>`;
   }
   function projectKind(project) {
     const source = `${project.title || ''} ${project.description || ''} ${list(project.tags).join(' ')}`.toLowerCase();
@@ -103,17 +105,19 @@
     return `<article class="st-project st-project-${mode}${index % 3 === 0 ? ' st-project-featured' : ''}" data-project-card data-project-id="${esc(h, project.id)}">${body}</article>`;
   }
   function projects(vm, h) {
-    const mode = concept();
+    const selected = concept();
+    const mode = selected === 'unified' ? 'terminal' : selected;
     const records = list(vm.projects);
     const categories = [...new Set(records.flatMap(item => list(item.tags)).filter(Boolean))];
-    return `<section class="pf-section st-section st-projects st-${mode}" id="projects" data-section="projects" aria-labelledby="st-projects-title"><div class="pf-wrap"><div class="st-section-heading"><div><p class="st-eyebrow">03 / Work</p><h2 id="st-projects-title">${mode === 'terminal' ? 'The project notebook.' : mode === 'molecular' ? 'A collection of explorations.' : 'Ideas, put into practice.'}</h2></div><p class="st-record-count"><strong>${h.number(records.length)}</strong> project records</p></div><div class="st-project-tools"><label class="st-search">${icon('code')}<span class="st-sr-only">Search projects</span><input type="search" data-project-search placeholder="Search projects, topics, tools…"></label><label class="st-filter"><span class="st-sr-only">Filter projects by topic</span><select data-project-filter><option value="">All topics</option>${categories.map(item => `<option value="${esc(h, item)}">${esc(h, item)}</option>`).join('')}</select><span aria-hidden="true">↓</span></label><span class="st-tools-note">Explore each record in full</span></div><div class="st-project-list st-project-list-${mode}">${records.map((item, index) => projectCard(item, index, h, mode)).join('')}</div><p class="st-empty" data-project-empty hidden>No projects match your search. Try another topic or keyword.</p><button class="st-more" type="button" data-project-more hidden>Show more projects ↓</button></div></section>`;
+    return `<section class="pf-section st-section st-projects st-${mode}${selected === 'unified' ? ' st-unified' : ''}" id="projects" data-section="projects" aria-labelledby="st-projects-title"><div class="pf-wrap"><div class="st-section-heading"><div><p class="st-eyebrow">03 / Work</p><h2 id="st-projects-title">${selected === 'unified' ? 'Projects, across disciplines.' : mode === 'terminal' ? 'The project notebook.' : mode === 'molecular' ? 'A collection of explorations.' : 'Ideas, put into practice.'}</h2></div><p class="st-record-count"><strong>${h.number(records.length)}</strong> project records</p></div><div class="st-project-tools"><label class="st-search">${icon('code')}<span class="st-sr-only">Search projects</span><input type="search" data-project-search placeholder="Search projects, topics, tools…"></label><label class="st-filter"><span class="st-sr-only">Filter projects by topic</span><select data-project-filter><option value="">All topics</option>${categories.map(item => `<option value="${esc(h, item)}">${esc(h, item)}</option>`).join('')}</select><span aria-hidden="true">↓</span></label><span class="st-tools-note">Explore each record in full</span></div><div class="st-project-list st-project-list-${mode}">${records.map((item, index) => projectCard(item, index, h, mode)).join('')}</div><p class="st-empty" data-project-empty hidden>No projects match your search. Try another topic or keyword.</p><button class="st-more" type="button" data-project-more hidden>Show more projects ↓</button></div></section>`;
   }
   function experienceDetails(item, h) {
     const tags = list(item.tags);
     return item.description || tags.length ? `<details class="st-experience-details"><summary>Read this chapter <span class="st-plus" aria-hidden="true">+</span></summary><div>${item.description ? `<p>${esc(h, item.description)}</p>` : ''}${tags.length ? `<div class="st-roles">${h.chips(tags, tags.length)}</div>` : ''}</div></details>` : '';
   }
   function experience(vm, h) {
-    const mode = concept();
+    const selected = concept();
+    const mode = selected === 'unified' ? 'molecular' : selected;
     const records = list(vm.experience);
     const rows = records.map((item, index) => {
       const main = `<div class="st-experience-main"><h3>${esc(h, item.title)}</h3>${item.organization ? `<p class="st-organization">${esc(h, item.organization)}</p>` : ''}${experienceDetails(item, h)}</div>`;
@@ -121,7 +125,7 @@
         ? `<article class="st-experience-row st-history-row"><div class="st-history-branch" aria-hidden="true">${icon('branch')}</div><div class="st-history-content"><div class="st-history-meta"><span>EXPERIENCE ${number(index)}</span><span>${esc(h, item.period)}</span></div>${main}</div></article>`
         : `<article class="st-experience-row"><div class="st-timeline-node" aria-hidden="true"><span>${number(index)}</span><i></i></div><div class="st-period">${esc(h, item.period)}</div>${main}</article>`;
     }).join('');
-    return `<section class="pf-section st-section st-experience st-${mode}" id="experience" data-section="experience" aria-labelledby="st-experience-title"><div class="pf-wrap st-journey-layout"><div class="st-journey-heading"><p class="st-eyebrow">04 / Experience</p><h2 id="st-experience-title">${mode === 'terminal' ? 'The history so far.' : mode === 'molecular' ? 'A chain of experiences.' : 'Chapters of the journey.'}</h2><p class="st-journey-caption">Roles, research and affiliations.</p><span class="st-journey-total">${h.number(records.length)} experience records</span></div><div class="st-timeline st-timeline-${mode}">${rows}</div></div></section>`;
+    return `<section class="pf-section st-section st-experience st-${mode}${selected === 'unified' ? ' st-unified' : ''}" id="experience" data-section="experience" aria-labelledby="st-experience-title"><div class="pf-wrap st-journey-layout"><div class="st-journey-heading"><p class="st-eyebrow">04 / Experience</p><h2 id="st-experience-title">${mode === 'terminal' ? 'The history so far.' : mode === 'molecular' ? 'A chain of experiences.' : 'Chapters of the journey.'}</h2><p class="st-journey-caption">Roles, research and affiliations.</p><span class="st-journey-total">${h.number(records.length)} experience records</span></div><div class="st-timeline st-timeline-${mode}">${rows}</div></div></section>`;
   }
 
   w.PortfolioRenderers = Object.assign({}, w.PortfolioRenderers || {}, { hero, about, projects, experience });

@@ -5,8 +5,9 @@
   "as_of": "2026-11-02",
   "privacy_note_fa": "فقط شناسه/عنوان/دلیل ایده‌ها و مسیر/selectorهای منبع عمومی؛ هیچ داده یا واقعیت شخصی CV در این پرونده نیست.",
   "route_contract": {
-    "root": "/?design={atlas|molecular|terminal}&section={section}&theme={light|dark}",
+    "root": "/?design=unified&section={section}&theme={light|dark}",
     "accepted_concepts": [
+      "unified",
       "atlas",
       "molecular",
       "terminal"
@@ -31,7 +32,8 @@
     "archive_links": [
       "/editions/bioteal/",
       "/lab.html"
-    ]
+    ],
+    "archive_selector": "edition=exploration is required to open an archived whole-site exploration; otherwise unified is used."
   },
   "idea_source": {
     "basename": "docs/design/atlas-review.json",
@@ -45,9 +47,118 @@
     "requires_external_validated_data": 25
   },
   "concepts": {
+    "unified": {
+      "name_fa": "طرح یکپارچهٔ زیست، شیمی و کد",
+      "route": "/?design=unified&section={section}&theme={theme}",
+      "sections": {
+        "hero": {
+          "presentation_fa": "معرفی اطلس با تصویرسازی سلولی انتزاعی، پرتره و خلاصه.",
+          "renderer": "hero",
+          "selectors": [
+            "#hero",
+            ".st-atlas-hero",
+            ".st-atlas-scene"
+          ]
+        },
+        "about": {
+          "presentation_fa": "نمای dossier با protein هندسیِ illustrative، بیانیه و شاخص‌ها.",
+          "renderer": "about",
+          "selectors": [
+            "#about",
+            ".st-dossier-profile",
+            ".st-profile-illustration"
+          ]
+        },
+        "projects": {
+          "presentation_fa": "برگه‌های README پروژه؛ نام، شرح، برچسب و لینک از CV.",
+          "renderer": "projects",
+          "selectors": [
+            "#projects",
+            ".st-project-terminal",
+            ".st-readme-copy",
+            ".st-readme-preview"
+          ]
+        },
+        "experience": {
+          "presentation_fa": "رشتهٔ تجربه با توالی گره‌ها و جزئیات هر نقش.",
+          "renderer": "experience",
+          "selectors": [
+            "#experience",
+            ".st-timeline-molecular",
+            ".st-timeline-node"
+          ]
+        },
+        "publications": {
+          "presentation_fa": "کارت‌های پژوهش حاشیه‌نویسی‌شده با فراداده و پیوندهای موجود.",
+          "renderer": "publications",
+          "selectors": [
+            "#publications",
+            ".record-paper-ledger",
+            ".record-paper"
+          ]
+        },
+        "education": {
+          "presentation_fa": "مسیر education شبیه پلیمر: رکوردها در واحدهای متصل، متن و تاریخ مستقل.",
+          "renderer": "education",
+          "selectors": [
+            "#education",
+            ".record-education",
+            ".record-edu-row",
+            ".record-edu-node"
+          ]
+        },
+        "skills": {
+          "presentation_fa": "فهرست‌های مهارت بازشدنی با زیرگروه و جست‌وجو؛ نه ادعای کد اجرایی.",
+          "renderer": "skills",
+          "selectors": [
+            "#skills",
+            ".record-skill-group",
+            ".record-skill-subgroups"
+          ]
+        },
+        "certificates": {
+          "presentation_fa": "فهرست کاتالوگی کارت‌های مدرک/دوره با فیلتر مؤسسه.",
+          "renderer": "certificates",
+          "selectors": [
+            "#certificates",
+            ".record-cert-grid",
+            "[data-cert-search]",
+            "[data-cert-issuer]"
+          ]
+        },
+        "languages": {
+          "presentation_fa": "کارت‌های خوانای زبان و مقادیر سطحی که منبع داده داده است؛ بدون gauge.",
+          "renderer": "languages",
+          "selectors": [
+            "#languages",
+            ".record-language-grid",
+            ".record-language-level"
+          ]
+        },
+        "references": {
+          "presentation_fa": "دفترچهٔ معرف‌ها؛ جزئیات تماس فقط پس از بازکردن disclosure.",
+          "renderer": "references",
+          "selectors": [
+            "#references",
+            ".record-reference",
+            "details.record-reference"
+          ]
+        },
+        "contact": {
+          "presentation_fa": "ردیف‌های تماس و پروفایل در پایان دفترچه.",
+          "renderer": "contact",
+          "selectors": [
+            "#contact",
+            ".record-contact-bottom",
+            ".record-social"
+          ]
+        }
+      },
+      "edition_status": "current"
+    },
     "atlas": {
       "name_fa": "اطلس زیستی",
-      "route": "/?design=atlas&section={section}&theme={theme}",
+      "route": "/?edition=exploration&design=atlas&section={section}&theme={theme}",
       "sections": {
         "hero": {
           "presentation_fa": "معرفی اطلس با تصویرسازی سلولی انتزاعی، پرتره و خلاصه.",
@@ -152,11 +263,12 @@
             ".record-social"
           ]
         }
-      }
+      },
+      "edition_status": "archived_exploration"
     },
     "molecular": {
       "name_fa": "فرم مولکولی",
-      "route": "/?design=molecular&section={section}&theme={theme}",
+      "route": "/?edition=exploration&design=molecular&section={section}&theme={theme}",
       "sections": {
         "hero": {
           "presentation_fa": "چیدمان چندبخشی با تصویر molecule انتزاعی، پرتره و متن واقعی.",
@@ -259,11 +371,12 @@
             ".record-social"
           ]
         }
-      }
+      },
+      "edition_status": "archived_exploration"
     },
     "terminal": {
       "name_fa": "دفترچهٔ کد",
-      "route": "/?design=terminal&section={section}&theme={theme}",
+      "route": "/?edition=exploration&design=terminal&section={section}&theme={theme}",
       "sections": {
         "hero": {
           "presentation_fa": "نمای workspace خوانا با file tree، خلاصه و پرتره؛ دادهٔ رزومه به‌جای کد ساختگی.",
@@ -366,7 +479,8 @@
             ".record-social"
           ]
         }
-      }
+      },
+      "edition_status": "archived_exploration"
     }
   },
   "exact_implementation_matches": [
