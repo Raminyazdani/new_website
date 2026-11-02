@@ -483,5 +483,21 @@
         "footerTop": 3887.58349609375
       }
     }
+  },
+  "cinematic_portfolio": {
+    "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+    "tests_passed": 32,
+    "continuous_morph_vertices": 72,
+    "project_previews": 87,
+    "preview_layouts": 7,
+    "skill_counts_total": 223,
+    "viewports": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "evidence": "docs/design/CINEMATIC_PORTFOLIO_RESULTS.json"
   }
 }

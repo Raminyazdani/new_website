@@ -1,35 +1,39 @@
-/* Mounted only by PortfolioPointer; all decoration stays behind page content. */
+/* Mounted only by PortfolioPointer; decoration stays behind page content. */
 @media (hover:hover) and (pointer:fine) {
   .pf-pointer-field {
-    position:fixed; inset:0; z-index:1; width:100%; height:100%; overflow:hidden;
-    pointer-events:none; opacity:0; transition:opacity .24s ease;
+    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0;
+    background:
+      radial-gradient(ellipse 270px 220px at var(--pointer-x, -1000px) var(--pointer-y, -1000px), color-mix(in srgb,var(--lime,#155faf) 9%,transparent), transparent 73%),
+      radial-gradient(ellipse 160px 140px at var(--pointer-x, -1000px) var(--pointer-y, -1000px), color-mix(in srgb,var(--coral,#08747e) 5%,transparent), transparent 78%);
+    transition:opacity .35s ease;
   }
   .pf-pointer-field.is-visible { opacity:1; }
-  .pf-pointer-bonds { stroke:var(--lime,#155faf); stroke-width:1; opacity:.19; }
-  .pf-pointer-nodes { fill:var(--coral,#08747e); opacity:.48; }
-  .pf-pointer-wash { opacity:1; }
   .pf-pointer-cursor {
-    position:fixed; top:0; left:0; z-index:120; width:38px; height:38px;
-    display:grid; place-items:center; pointer-events:none; opacity:0;
-    color:var(--lime,#155faf); will-change:transform; transition:opacity .16s ease;
+    position:fixed; top:0; left:0; z-index:120; width:0; height:0;
+    pointer-events:none; opacity:0; color:var(--lime,#155faf);
+    transition:opacity .18s ease;
   }
   .pf-pointer-cursor.is-visible { opacity:1; }
-  .pf-pointer-cursor i,.pf-pointer-cursor b {
-    position:absolute; display:block; border:1px solid currentColor; border-radius:50%;
+  .pf-pointer-cursor i {
+    position:absolute; left:0; top:0; display:block; width:28px; height:28px;
+    box-sizing:border-box; border:1px solid color-mix(in srgb,var(--lime,#155faf) 45%,transparent);
+    border-radius:50%; transform:translate(calc(-50% + var(--ring-x,0px)),calc(-50% + var(--ring-y,0px)));
+    transition:width .2s ease,height .2s ease,border-color .2s ease,background-color .2s ease;
+    will-change:transform;
   }
-  .pf-pointer-cursor i { inset:1px; opacity:.6; transition:inset .2s ease,background .2s ease,border-radius .2s ease; }
-  .pf-pointer-cursor b { width:5px; height:5px; border:0; background:var(--coral,#08747e); box-shadow:0 0 0 3px color-mix(in srgb,var(--coral,#08747e) 17%,transparent); }
-  .pf-pointer-cursor:before,.pf-pointer-cursor:after { content:""; position:absolute; background:currentColor; opacity:.5; }
-  .pf-pointer-cursor:before { width:1px;height:46px; }
-  .pf-pointer-cursor:after { width:46px;height:1px; }
-  .pf-pointer-cursor.is-target { width:auto; min-width:38px; }
-  .pf-pointer-cursor.is-target i { inset:-2px; border-radius:10px; background:color-mix(in srgb,var(--paper,#f8fcff) 82%,transparent); }
-  .pf-pointer-cursor span { position:absolute; left:27px; top:26px; max-width:150px; padding:4px 7px; border:1px solid var(--line,#c6dae9); border-radius:4px; background:var(--paper,#f8fcff); color:var(--muted,#4d647a); font:10px/1.2 ui-monospace,Consolas,monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:0; transition:opacity .14s ease; }
-  .pf-pointer-cursor.is-target span { opacity:1; }
-  .pf-pointer-cursor.label-left span { left:auto; right:27px; }
-  .pf-pointer-cursor.label-up span { top:auto; bottom:26px; }
-  body.pf-pointer-active,body.pf-pointer-active a,body.pf-pointer-active button,body.pf-pointer-active summary,body.pf-pointer-active [role="button"] { cursor:none; }
-  body.pf-pointer-active input,body.pf-pointer-active textarea,body.pf-pointer-active select,body.pf-pointer-active [contenteditable="true"] { cursor:auto; }
+  .pf-pointer-cursor b {
+    position:absolute; left:0; top:0; width:3px; height:3px; border-radius:50%;
+    background:var(--lime,#155faf); transform:translate(-50%,-50%);
+  }
+  .pf-pointer-cursor.is-target i {
+    width:32px; height:32px;
+    border-color:color-mix(in srgb,var(--lime,#155faf) 62%,transparent);
+    background-color:color-mix(in srgb,var(--paper,#f8fcff) 15%,transparent);
+  }
+  body.pf-pointer-active,body.pf-pointer-active a,body.pf-pointer-active button,
+  body.pf-pointer-active summary,body.pf-pointer-active [role="button"] { cursor:none; }
+  body.pf-pointer-active input,body.pf-pointer-active textarea,body.pf-pointer-active select,
+  body.pf-pointer-active [contenteditable="true"],body.pf-pointer-active iframe { cursor:auto; }
   body.pf-pointer-active dialog[open],body.pf-pointer-active dialog[open] * { cursor:auto; }
 }
 #portfolio>.pf-section>.pf-wrap { position:relative; z-index:2; }

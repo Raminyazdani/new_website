@@ -8,7 +8,7 @@ const { parseHTML } = require('linkedom');
 const { adaptCV } = require('../public/data/cv-adapter');
 
 const publicRoot = path.join(__dirname, '../public');
-const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'studio.js', 'studio-intro.js', 'records.js'];
+const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'visual-previews.js', 'portfolio-insights.js', 'studio.js', 'studio-intro.js', 'records.js'];
 const raw = {
   basics: [{
     fname: 'Synthetic', lname: 'Profile',
@@ -106,6 +106,9 @@ test('unified default combines the three disciplines while preserving the synthe
   assert.equal(document.querySelectorAll('#portfolio [data-story-chapter]').length, 3);
   assert.equal(document.querySelectorAll('[data-project-card]').length, 12);
   assert.equal(document.querySelectorAll('[data-cert-card]').length, 15);
+  assert.equal(document.querySelectorAll('.insight-bar').length, 1);
+  assert.equal(document.querySelector('.insight-bar b').textContent, '1');
+  assert(document.querySelector('.insight-skills figcaption').textContent.includes('Counts, rather than proficiency scores.'));
   assert.equal(document.querySelectorAll('#references details[open]').length, 0);
   assert.equal(document.querySelector('#hero h1').textContent.replace(/\s+/g, ''), 'SyntheticProfile');
   assert.equal(win.PortfolioStudio.concept, 'unified');

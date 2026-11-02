@@ -388,3 +388,13 @@ body[data-effects="on"] .record-notes summary,
 body[data-effects="on"] .record-language details summary { transition: border-color .22s ease, transform .22s ease; }
 body[data-effects="on"] .record-paper:hover,
 body[data-effects="on"] .record-cert-card:hover { border-color: color-mix(in srgb, var(--lime) 56%, var(--line)); }
+
+/* Document thumbnails replace the repeated decorative certificate mark. */
+:is(body[data-concept="atlas"], body[data-concept="molecular"], body[data-concept="terminal"], body[data-concept="unified"]) .record-cert-card.record-cert-with-preview { padding: 1rem; }
+.record-cert-with-preview::after { display: none; }
+.record-cert-with-preview .record-cert-top { margin-bottom: .8rem; }
+.record-cert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .75rem; margin-top: .9rem; }
+.record-cert-actions .pf-button { min-height: 2.75rem; font: inherit; font-size: .8rem; line-height: 1.4; cursor: pointer; }
+.record-cert-actions .record-outlink { margin-top: 0; }
+.record-cert-tags { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .3rem; margin-top: .6rem; }
+.record-cert-tags:empty { display: none; }

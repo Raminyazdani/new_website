@@ -9,10 +9,11 @@ const { parseHTML } = require('linkedom');
 const sourceRoot = path.join(__dirname, '../public/portfolio');
 
 function loadStory() {
-  const { document } = parseHTML('<!doctype html><html><body data-effects="on"><main id="portfolio"></main></body></html>');
+  const { document, Event } = parseHTML('<!doctype html><html><body data-effects="on"><main id="portfolio"></main></body></html>');
   let frameCallback = null;
   let frameId = 0;
   const events = new Map();
+  const scrollCalls = [];
   let disconnects = 0;
   let observerCallback;
   class Observer { constructor(callback) { observerCallback = callback; } observe() {} disconnect() { disconnects++; } }
@@ -23,13 +24,14 @@ function loadStory() {
     cancelAnimationFrame() { frameCallback = null; },
     addEventListener(type, fn) { events.set(type, fn); },
     removeEventListener(type) { events.delete(type); },
-    scrollTo() {}, MutationObserver: Observer,
+    scrollTo(options) { scrollCalls.push(options); }, MutationObserver: Observer,
   };
   new Function('window', fs.readFileSync(path.join(sourceRoot, 'scroll-story.js'), 'utf8'))(win);
   return {
-    win, document,
+    win, document, Event,
     tick(time = 1) { const fn = frameCallback; frameCallback = null; fn?.(time); },
     dispatch(type) { events.get(type)?.(); },
+    scrollCalls,
     notifyMutation() { observerCallback?.(); },
     get disconnects() { return disconnects; },
   };
@@ -134,6 +136,81 @@ test('scroll story uses escaped project evidence only and omits unmatched synthe
   assert(markup.includes('Synthetic chemistry build'));
   assert(!markup.includes('Unrelated sample'));
   assert.equal((markup.match(/class="story-evidence"/g) || []).length, 2);
+});
+
+test('cinematic story morph preserves one finite XYZ topology and moves stable SVG nodes continuously', () => {
+  const env = loadStory();
+  const api = env.win.PortfolioStory;
+  const geometry = api.geometry.build();
+  const poses = [0, 0.25, 0.499999, 0.5, 0.75, 1].map(api.geometry.sample);
+  const topology = poses[0].strands.map(strand => [strand.kind, strand.indices.join(','), strand.points.length]);
+  for (const pose of poses) {
+    assert.deepEqual(pose.strands.map(strand => [strand.kind, strand.indices.join(','), strand.points.length]), topology);
+    assert(pose.strands.flatMap(strand => strand.points).every(point => point.length === 3 && point.every(Number.isFinite)));
+    assert(api.geometry.frame(pose.progress).strands.flatMap(strand => strand.projected).every(point => point.length === 4 && point.every(Number.isFinite)));
+  }
+  assert.equal(new Set(geometry.strands.flatMap(strand => strand.indices)).size, geometry.vertexCount, 'each vertex has a stable unique identity');
+  const before = api.geometry.sample(0.499999).strands.flatMap(strand => strand.points);
+  const after = api.geometry.sample(0.5).strands.flatMap(strand => strand.points);
+  assert(Math.max(...before.map((point, i) => Math.hypot(...point.map((n, j) => n - after[i][j])))) < 0.01, 'the midpoint has no pose discontinuity');
+
+  const root = env.document.querySelector('#portfolio');
+  root.innerHTML = api.render({ projects: [] }, { e: escapeHTML });
+  const story = root.querySelector('[data-story]');
+  const runway = story.querySelector('.story-runway'), stage = story.querySelector('.story-stage');
+  runway.getBoundingClientRect = () => ({ top: 0, height: 1800 });
+  stage.getBoundingClientRect = () => ({ height: 600 });
+  api.mount(root);
+  env.tick(16);
+  const vertex = story.querySelector('[data-morph-vertex="0"]');
+  assert(vertex);
+  const initial = [vertex.getAttribute('cx'), vertex.getAttribute('cy')];
+  runway.getBoundingClientRect = () => ({ top: -600, height: 1800 });
+  env.dispatch('scroll');
+  env.tick(32);
+  assert.equal(story.querySelector('[data-morph-vertex="0"]'), vertex, 'scrubbing updates existing vertices instead of replacing nodes');
+  assert.notDeepEqual([vertex.getAttribute('cx'), vertex.getAttribute('cy')], initial);
+  assert([...story.querySelectorAll('[data-morph-vertex]')].every(node => ['cx', 'cy', 'r'].every(key => Number.isFinite(Number(node.getAttribute(key))))));
+  api.unmount();
+});
+
+test('static story scrubber changes the pose in place while keeping chapter text readable', () => {
+  const env = loadStory();
+  const api = env.win.PortfolioStory, root = env.document.querySelector('#portfolio');
+  root.innerHTML = api.render({ projects: [] }, { e: escapeHTML });
+  env.win.innerWidth = 800;
+  const story = root.querySelector('[data-story]');
+  api.mount(root);
+  assert.equal(story.dataset.storyMode, 'static');
+  const scrubber = story.querySelector('[data-story-scrub]');
+  assert(scrubber.closest('label').textContent.includes('Explore the transformation'), 'range input has its visible accessible label');
+  const vertex = story.querySelector('[data-morph-vertex="0"]');
+  const initial = [vertex.getAttribute('cx'), vertex.getAttribute('cy')];
+  scrubber.value = '73';
+  scrubber.dispatchEvent(new env.Event('input', { bubbles: true }));
+  assert.equal(story.querySelector('[data-morph-vertex="0"]'), vertex, 'manual posing mutates the existing SVG vertex');
+  assert.notDeepEqual([vertex.getAttribute('cx'), vertex.getAttribute('cy')], initial);
+  assert.equal(story.dataset.morphProgress, '0.7300');
+  assert.equal(scrubber.getAttribute('aria-valuetext'), 'Chemistry to code, 46% of transition');
+  const chapters = [...story.querySelectorAll('[data-story-chapter]')];
+  assert.equal(chapters.length, 3);
+  assert(chapters.every(chapter => !chapter.hidden && chapter.style.opacity === '' && chapter.style.transform === ''), 'static manual posing leaves every chapter fully readable');
+  api.unmount();
+});
+
+test('desktop story scrubber seeks the matching scroll position', () => {
+  const env = loadStory();
+  const api = env.win.PortfolioStory, root = env.document.querySelector('#portfolio');
+  root.innerHTML = api.render({ projects: [] }, { e: escapeHTML });
+  const story = root.querySelector('[data-story]'), runway = story.querySelector('.story-runway');
+  runway.getBoundingClientRect = () => ({ top: 400, height: 1800 });
+  story.querySelector('.story-stage').getBoundingClientRect = () => ({ height: 600 });
+  api.mount(root);
+  const scrubber = story.querySelector('[data-story-scrub]');
+  scrubber.value = '50';
+  scrubber.dispatchEvent(new env.Event('input', { bubbles: true }));
+  assert.deepEqual(env.scrollCalls.at(-1), { top: 908, behavior: 'instant' });
+  api.unmount();
 });
 
 test('scroll story clamps scrubbed progress and restores static fallback styles and listeners on unmount', () => {

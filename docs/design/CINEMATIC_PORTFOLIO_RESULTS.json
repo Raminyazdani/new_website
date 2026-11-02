@@ -1,0 +1,127 @@
+{
+  "viewports": [
+    {
+      "footerClearance": 0.000152587890625,
+      "mode": "static",
+      "overflow": [],
+      "previewCount": 87,
+      "scrollWidth": 305,
+      "skillBars": 8,
+      "width": 305
+    },
+    {
+      "footerClearance": 0.000152587890625,
+      "mode": "static",
+      "overflow": [],
+      "previewCount": 87,
+      "scrollWidth": 375,
+      "skillBars": 8,
+      "width": 375
+    },
+    {
+      "footerClearance": 19.999908447265625,
+      "mode": "static",
+      "overflow": [],
+      "previewCount": 87,
+      "scrollWidth": 753,
+      "skillBars": 8,
+      "width": 753
+    },
+    {
+      "footerClearance": 112.3125,
+      "mode": "scroll",
+      "overflow": [],
+      "previewCount": 87,
+      "scrollWidth": 1009,
+      "skillBars": 8,
+      "width": 1009
+    },
+    {
+      "footerClearance": 161.16680908203125,
+      "mode": "scroll",
+      "overflow": [],
+      "previewCount": 87,
+      "scrollWidth": 1425,
+      "skillBars": 8,
+      "width": 1425
+    }
+  ],
+  "coverModes": {
+    "vp-mode-brief": 10,
+    "vp-mode-flow": 22,
+    "vp-mode-omics": 1,
+    "vp-mode-outline": 7,
+    "vp-mode-protocol": 3,
+    "vp-mode-stack": 30,
+    "vp-mode-topics": 14
+  },
+  "morph": {
+    "start": "0.0002",
+    "end": "1.0000",
+    "back": "0.0005",
+    "vertices": 72,
+    "movedVertices": 72,
+    "intermediateProgress": 0.2501,
+    "nativeKeyboardEarlierProgress": 0.0401
+  },
+  "skillsCounts": [
+    10,
+    57,
+    56,
+    26,
+    30,
+    16,
+    14,
+    14
+  ],
+  "modal": {
+    "sourceImageWidth": 1240,
+    "sourceImageHeight": 1753,
+    "mobileWidth": 336.6667,
+    "mobileClientWidth": 320,
+    "mobileScrollWidth": 320
+  },
+  "readme": {
+    "actualPublicReadmeLoaded": true,
+    "source": "GitHub on explicit click"
+  },
+  "journey": {
+    "requestedChapter": 8,
+    "observedCounter": "08 / 17"
+  },
+  "still": {
+    "mode": "static",
+    "allChapterOpacities": 1,
+    "pointerFieldHidden": true
+  },
+  "pointer": {
+    "ringAndDot": true,
+    "fieldX": "1070px",
+    "latticeRemoved": true
+  },
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+  "tests": {
+    "passed": 32,
+    "failed": 0
+  },
+  "privacy": {
+    "publicFiles": 42,
+    "sensitiveValuesChecked": 4,
+    "leaks": 0
+  },
+  "sourceThumbnails": {
+    "checked": 4,
+    "status": 200,
+    "type": "image/jpeg"
+  },
+  "limitations": [
+    "Original projected 3D SVG geometry; no WebGL or photorealistic scientific simulation",
+    "Illustrative project covers derive from supplied words/tools, not product screenshots or measured results",
+    "Known Cloudinary PDF source pages use source-derived images; full PDFs remain available through Open original",
+    "Responsive tests cover five representative sizes, not every device or a full accessibility/performance audit"
+  ]
+}

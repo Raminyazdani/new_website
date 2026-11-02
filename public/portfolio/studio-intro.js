@@ -95,10 +95,10 @@
     const header = `<h3>${esc(h, project.title)}</h3>`;
     const description = project.description ? `<p class="st-project-description">${esc(h, excerpt(project.description, mode === 'terminal' ? 180 : 235))}</p>` : '';
     const chips = tags.length ? `<div class="st-project-tags">${h.chips(tags, tags.length)}</div>` : '';
-    const scene = `<div class="st-project-scene">${miniStudy(projectKind(project))}</div>`;
+    const scene = `<div class="st-project-scene">${concept()==='unified' && w.PortfolioPreviews ? w.PortfolioPreviews.renderProject(project,index,h) : miniStudy(projectKind(project))}</div>`;
     let body;
     if (mode === 'terminal') {
-      body = `<div class="st-readme-index" aria-hidden="true">${number(index)}</div><div class="st-readme-copy"><p class="st-eyebrow">${icon('book')} PROJECT / README</p>${header}${description}${chips}${projectActions(project, h)}</div><div class="st-readme-preview"><span class="st-preview-caption">ILLUSTRATIVE PREVIEW</span>${scene}</div>`;
+      body = `<div class="st-readme-index" aria-hidden="true">${number(index)}</div><div class="st-readme-copy"><p class="st-eyebrow">${icon('book')} PROJECT / ${concept()==='unified'?'FIELD NOTES':'README'}</p>${header}${description}${chips}${projectActions(project, h)}</div><div class="st-readme-preview">${concept()==='unified'?'':'<span class="st-preview-caption">ILLUSTRATIVE PREVIEW</span>'}${scene}</div>`;
     } else if (mode === 'molecular') {
       body = `<div class="st-dossier-spine"><span>${number(index)}</span><span>PROJECT DOSSIER</span></div><div class="st-dossier-project">${projectMeta(project, index, h)}${header}${description}${chips}${projectActions(project, h)}</div><div class="st-dossier-art">${scene}<span class="st-dossier-art-label">Illustrative study</span></div>`;
     } else {
@@ -124,10 +124,10 @@
     const rows = records.map((item, index) => {
       const main = `<div class="st-experience-main"><h3>${esc(h, item.title)}</h3>${item.organization ? `<p class="st-organization">${esc(h, item.organization)}</p>` : ''}${experienceDetails(item, h)}</div>`;
       return mode === 'terminal'
-        ? `<article class="st-experience-row st-history-row"><div class="st-history-branch" aria-hidden="true">${icon('branch')}</div><div class="st-history-content"><div class="st-history-meta"><span>EXPERIENCE ${number(index)}</span><span>${esc(h, item.period)}</span></div>${main}</div></article>`
-        : `<article class="st-experience-row"><div class="st-timeline-node" aria-hidden="true"><span>${number(index)}</span><i></i></div><div class="st-period">${esc(h, item.period)}</div>${main}</article>`;
+        ? `<article class="st-experience-row st-history-row" data-journey-record="${esc(h,item.id)}"><div class="st-history-branch" aria-hidden="true">${icon('branch')}</div><div class="st-history-content"><div class="st-history-meta"><span>EXPERIENCE ${number(index)}</span><span>${esc(h, item.period)}</span></div>${main}</div></article>`
+        : `<article class="st-experience-row" data-journey-record="${esc(h,item.id)}"><div class="st-timeline-node" aria-hidden="true"><span>${number(index)}</span><i></i></div><div class="st-period">${esc(h, item.period)}</div>${main}</article>`;
     }).join('');
-    return `<section class="pf-section st-section st-experience st-${mode}${selected === 'unified' ? ' st-unified' : ''}" id="experience" data-section="experience" aria-labelledby="st-experience-title"><div class="pf-wrap st-journey-layout"><div class="st-journey-heading"><p class="st-eyebrow">04 / Experience</p><h2 id="st-experience-title">${mode === 'terminal' ? 'The history so far.' : mode === 'molecular' ? 'A chain of experiences.' : 'Chapters of the journey.'}</h2><p class="st-journey-caption">Roles, research and affiliations.</p><span class="st-journey-total">${h.number(records.length)} experience records</span></div><div class="st-timeline st-timeline-${mode}">${rows}</div></div></section>`;
+    return `<section class="pf-section st-section st-experience st-${mode}${selected === 'unified' ? ' st-unified' : ''}" id="experience" data-section="experience" aria-labelledby="st-experience-title"><div class="pf-wrap st-journey-layout"><div class="st-journey-heading"><p class="st-eyebrow">04 / Experience</p><h2 id="st-experience-title">${mode === 'terminal' ? 'The history so far.' : mode === 'molecular' ? 'A chain of experiences.' : 'Chapters of the journey.'}</h2><p class="st-journey-caption">Roles, research and affiliations.</p><span class="st-journey-total">${h.number(records.length)} experience records</span>${selected==='unified'&&w.PortfolioInsights?w.PortfolioInsights.renderJourney(vm,h):''}</div><div class="st-timeline st-timeline-${mode}">${rows}</div></div></section>`;
   }
 
   w.PortfolioRenderers = Object.assign({}, w.PortfolioRenderers || {}, { hero, about, projects, experience });
