@@ -1,6 +1,6 @@
 {
   "scope": "Custom pointer, local pointer field, native-scroll story and Education width correction",
-  "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+  "state": "DEPLOYED_AND_VERIFIED",
   "tests": {
     "fullSuite": 27,
     "focusedResetRegression": 4,
@@ -107,5 +107,60 @@
     "Representative responsive geometry; not an exhaustive accessibility or performance certification",
     "Mobile and short viewports use readable static chapters; custom cursor only for a fine hover-capable pointer"
   ],
-  "screenshotsOutsideGit": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/motion-story-20261102/"
+  "screenshotsOutsideGit": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/motion-story-20261102/",
+  "publication": {
+    "state": "READY",
+    "commit": "1b0a8b50e369657af51c5b300bc84f0435078921",
+    "deployment": "dpl_FSUsNhYJVJEbgrTyXCvAXkA6Bnwm",
+    "url": "https://new-website-hero-lab.vercel.app/?design=unified&theme=light",
+    "assetsMatchedAfterLineEndingNormalization": 38,
+    "anonymousApi": 401,
+    "cacheControl": "private, no-store, max-age=0",
+    "liveNativeScroll": {
+      "progress": 0.5023,
+      "stickyTop": 92,
+      "moleculeOpacity": 0.9928
+    },
+    "livePointerVisible": true,
+    "consoleErrorsObserved": 0,
+    "liveViewports": [
+      {
+        "footerClearance": 29.99991798400879,
+        "mode": "static",
+        "scrollWidth": 305,
+        "width": 305
+      },
+      {
+        "footerClearance": 30.00016212463379,
+        "mode": "static",
+        "scrollWidth": 375,
+        "width": 375
+      },
+      {
+        "footerClearance": 115.33333206176758,
+        "mode": "static",
+        "scrollWidth": 753,
+        "width": 753
+      },
+      {
+        "footerClearance": 84.87247657775879,
+        "mode": "scroll",
+        "scrollWidth": 1009,
+        "width": 1009
+      },
+      {
+        "footerClearance": 133.72666358947754,
+        "mode": "scroll",
+        "scrollWidth": 1425,
+        "width": 1425
+      }
+    ],
+    "mobileOverlapFix": {
+      "cause": "Percentage grid row gap exceeded intrinsic row sizing",
+      "rowGap": "0px",
+      "tagsBottom": 3857.583333969116,
+      "chapterBottom": 3887.5833435058594,
+      "footerTop": 3887.58349609375
+    }
+  }
 }
