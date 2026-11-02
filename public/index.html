@@ -9,10 +9,14 @@
   <link rel="stylesheet" href="/portfolio/records.css">
   <link rel="stylesheet" href="/portfolio/studio.css">
   <link rel="stylesheet" href="/portfolio/hero-scene.css">
+  <link rel="stylesheet" href="/portfolio/scroll-story.css">
+  <link rel="stylesheet" href="/portfolio/pointer-effects.css">
   <script src="/data/cv-adapter.js" defer></script>
   <script src="/data/portfolio-source.js" defer></script>
   <script src="/portfolio/science.js" defer></script>
   <script src="/portfolio/hero-scene.js" defer></script>
+  <script src="/portfolio/scroll-story.js" defer></script>
+  <script src="/portfolio/pointer-effects.js" defer></script>
   <script src="/portfolio/studio.js" defer></script>
   <script src="/portfolio/studio-intro.js" defer></script>
   <script src="/portfolio/records.js" defer></script>
@@ -47,12 +51,13 @@
     <span class="pf-kicker">Biology × chemistry × programming</span><h2 id="designDialogTitle">One connected portfolio.</h2>
     <p>One visual language connects cellular forms, molecular studies and a programming notebook. Explore a section, change the theme, or revisit the archived explorations.</p>
     <button class="pf-button primary" data-concept-choice="unified">Current unified design</button>
+    <button class="pf-button" data-open-story>Explore the visual story ↓</button>
     <details class="studio-explorations"><summary>Archived design explorations</summary><div class="studio-choice-grid">
       <button class="studio-choice" data-concept-choice="atlas"><span class="studio-swatch swatch-atlas" aria-hidden="true"></span><b>Biology Atlas</b><small>Cellular forms, editorial cards and a research trail.</small></button>
       <button class="studio-choice" data-concept-choice="molecular"><span class="studio-swatch swatch-molecular" aria-hidden="true"></span><b>Molecular Form</b><small>Rotatable geometry, paired dossiers and polymer paths.</small></button>
       <button class="studio-choice" data-concept-choice="terminal"><span class="studio-swatch swatch-terminal" aria-hidden="true"></span><b>Code Notebook</b><small>A readable IDE, README projects and method libraries.</small></button>
     </div></details>
-    <div class="studio-settings"><fieldset><legend>Appearance</legend><div class="studio-button-group"><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div></fieldset>
+    <div class="studio-settings"><label class="studio-pointer-option"><input type="checkbox" id="pointerEffects" checked> Interactive pointer &amp; background</label><fieldset><legend>Appearance</legend><div class="studio-button-group"><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div></fieldset>
     <div><label for="studioSection">Focus a section</label><select id="studioSection"><option value="all">Whole portfolio</option><option value="hero">Hero</option><option value="about">About</option><option value="projects">Projects</option><option value="experience">Experience</option><option value="publications">Publications</option><option value="education">Education</option><option value="skills">Skills</option><option value="certificates">Credentials</option><option value="languages">Languages</option><option value="references">References</option><option value="contact">Contact</option></select></div>
     <div><label for="studioMotion">Motion</label><select id="studioMotion"><option value="auto">Auto · follow system</option><option value="full">Full · play effects</option><option value="still">Still · pause effects</option></select></div></div>
     <p id="studioStatus" role="status"></p>

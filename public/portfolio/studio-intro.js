@@ -67,7 +67,7 @@
     const content = mode === 'terminal'
       ? `<div class="st-notebook-section"><div class="st-note-margin" aria-hidden="true">02<br>PROFILE</div><div class="st-note-content"><div class="st-about-grid">${profile}</div>${metrics(vm, h)}${interests(vm, h)}</div></div>`
       : mode === 'molecular'
-        ? `<div class="st-dossier-profile"><div class="st-profile-illustration">${art(selected === 'unified' ? 'molecule' : 'protein')}<p class="st-eyebrow">${selected === 'unified' ? 'Living systems. Molecular forms. Computational thinking.' : 'Different scales.<br>Connected interests.'}</p></div><div class="st-dossier-content">${profile}${metrics(vm, h)}</div></div>${interests(vm, h)}`
+        ? `<div class="st-dossier-profile"><div class="st-profile-illustration">${art(selected === 'unified' ? 'molecule' : 'protein')}<p class="st-eyebrow">${selected === 'unified' ? 'Living systems. Molecular forms. Computational thinking.' : 'Different scales.<br>Connected interests.'}</p></div><div class="st-dossier-content">${profile}${metrics(vm, h)}</div></div>${selected === 'unified' && w.PortfolioStory ? w.PortfolioStory.render(vm,h) : ''}${interests(vm, h)}`
         : `<div class="st-about-grid">${profile}</div>${metrics(vm, h)}${interests(vm, h)}`;
     return `<section class="pf-section st-section st-about st-${mode}${selected === 'unified' ? ' st-unified' : ''}" id="about" data-section="about" aria-labelledby="st-about-title"><div class="pf-wrap">${content}</div></section>`;
   }

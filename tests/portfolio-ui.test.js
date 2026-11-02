@@ -8,7 +8,7 @@ const { parseHTML } = require('linkedom');
 const { adaptCV } = require('../public/data/cv-adapter');
 
 const publicRoot = path.join(__dirname, '../public');
-const files = ['science.js', 'studio.js', 'hero-scene.js', 'studio-intro.js', 'records.js', 'runtime.js'];
+const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'studio.js', 'studio-intro.js', 'records.js'];
 const raw = {
   basics: [{
     fname: 'Synthetic', lname: 'Profile',
@@ -72,13 +72,16 @@ async function boot({ search = '', auth = false, reduce = true, stored = null } 
     },
     location,
     history: { replaceState(_state, _title, url) { location.href = String(url); location.search = new URL(String(url)).search; } },
-    matchMedia: () => ({ matches: reduce, addEventListener() {} }),
+    matchMedia: () => ({ matches: reduce, addEventListener() {}, removeEventListener() {} }),
+    innerWidth: 1280,
+    innerHeight: 800,
     requestAnimationFrame: (() => { let next = 0; return () => ++next; })(),
     cancelAnimationFrame() {},
     addEventListener() {},
+    removeEventListener() {},
     navigator: { clipboard: { writeText: async () => {} } },
   };
-  for (const file of files.slice(0, 5)) {
+  for (const file of files) {
     new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8'))(win, document);
   }
   new Function('window', 'document', 'fetch', 'setTimeout', 'clearTimeout', fs.readFileSync(path.join(publicRoot, 'portfolio/runtime.js'), 'utf8'))(
@@ -99,6 +102,8 @@ test('unified default combines the three disciplines while preserving the synthe
   assert.equal(document.querySelector('#portfolio').hidden, false);
   const sections = ['hero', 'about', 'projects', 'experience', 'publications', 'education', 'skills', 'certificates', 'languages', 'references', 'contact'];
   for (const id of sections) assert(document.querySelector(`#portfolio #${id}`), `missing ${id}`);
+  assert(document.querySelector('#about [data-story]'), 'scroll story is integrated into the About section');
+  assert.equal(document.querySelectorAll('#portfolio [data-story-chapter]').length, 3);
   assert.equal(document.querySelectorAll('[data-project-card]').length, 12);
   assert.equal(document.querySelectorAll('[data-cert-card]').length, 15);
   assert.equal(document.querySelectorAll('#references details[open]').length, 0);
@@ -167,7 +172,7 @@ test('section isolation, validated query preferences, themes and motion controls
   assert.equal(win.PortfolioStudio.concept, 'terminal');
   assert.equal(win.PortfolioStudio.section, 'all');
   const preferences = JSON.parse(valid.storedValues.get('portfolio.design.preferences.v1'));
-  assert.deepStrictEqual(preferences, { concept: 'terminal', theme: 'dark' });
+  assert.deepStrictEqual(preferences, { concept: 'terminal', theme: 'dark', pointer: true });
 
   assert.equal(document.body.dataset.motion, 'auto');
   assert.equal(document.body.dataset.effects, 'off');

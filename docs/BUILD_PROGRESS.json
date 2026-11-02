@@ -411,5 +411,22 @@
         }
       ]
     }
+  },
+  "scroll_pointer_story": {
+    "scope": "Custom pointer, local pointer field, native-scroll story and Education width correction",
+    "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+    "tests_passed": 27,
+    "viewport_widths": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "native_scroll_observed": true,
+    "pointer_displacement_observed": true,
+    "still_reset_verified": true,
+    "education_width_fixed": true,
+    "evidence": "docs/design/SCROLL_POINTER_RESULTS.json"
   }
 }

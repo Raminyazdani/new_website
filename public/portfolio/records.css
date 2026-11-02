@@ -28,7 +28,7 @@
 .record-language details summary { min-height: 2.75rem; display: flex; align-items: center; cursor: pointer; color: var(--lime); font-size: .875rem; }
 .record-notes p { max-width: 65ch; line-height: 1.7; }
 
-.record-education { margin-top: 2.5rem; border-top: 1px solid var(--line); }
+.record-education:not(.pf-section) { margin-top: 2.5rem; border-top: 1px solid var(--line); }
 .record-edu-row { display: grid; grid-template-columns: minmax(8rem, 14rem) 2.5rem minmax(0, 1fr) 2.75rem; gap: 1rem; align-items: start; padding: 2rem 0; border-bottom: 1px solid var(--line); }
 .record-edu-date { display: flex; flex-wrap: wrap; gap: .45rem; color: var(--paper); font: clamp(1.15rem, 2vw, 1.7rem)/1.2 Georgia, serif; }
 .record-edu-date i { color: var(--coral); font-style: normal; }
@@ -239,7 +239,7 @@ body[data-effects="on"] .record-contact-finale::after { animation: record-curren
 :is(body[data-concept="atlas"],body[data-concept="unified"]) .record-paper-actions { grid-column: 1 / -1; grid-row: 3; align-self: end; flex-direction: row; flex-wrap: wrap; gap: .35rem .75rem; padding-top: .5rem; border-top: 1px solid var(--line); }
 :is(body[data-concept="atlas"],body[data-concept="unified"]) .record-paper-meta span { padding: .15rem .4rem; border: 1px solid var(--line); border-radius: 99px; }
 :is(body[data-concept="atlas"],body[data-concept="unified"]) .record-paper-meta span + span::before { content: none; }
-body[data-concept="atlas"] .record-education { display: grid; gap: .7rem; border: 0; }
+body[data-concept="atlas"] .record-education:not(.pf-section) { display: grid; gap: .7rem; border: 0; }
 body[data-concept="atlas"] .record-edu-row { position: relative; grid-template-columns: 8.5rem 2.2rem minmax(0,1fr) 2.6rem; gap: .85rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--surface); }
 body[data-concept="atlas"] .record-edu-row::before { content: ""; position: absolute; top: 3.2rem; bottom: -1rem; left: 9.8rem; width: 1px; background: var(--line); }
 body[data-concept="atlas"] .record-edu-row:last-child::before { display: none; }
@@ -269,8 +269,8 @@ body[data-concept="molecular"] .record-paper-main { position: relative; }
 body[data-concept="molecular"] .record-paper-main::before { content: ""; position: absolute; top: .25rem; left: -1.5rem; width: .45rem; height: .45rem; border: 1px solid var(--coral); border-radius: 50%; background: var(--paper); }
 body[data-concept="molecular"] .record-paper-meta { gap: .3rem .55rem; }
 body[data-concept="molecular"] .record-paper-meta span + span::before { content: none; }
-:is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .9rem; border: 0; }
-:is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education::before { content: ""; position: absolute; z-index: 0; top: 2.2rem; bottom: 2.2rem; left: 50%; width: 1px; background: var(--line); }
+:is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education:not(.pf-section) { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .9rem; border: 0; }
+:is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education:not(.pf-section)::before { content: ""; position: absolute; z-index: 0; top: 2.2rem; bottom: 2.2rem; left: 50%; width: 1px; background: var(--line); }
 :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-edu-row { position: relative; z-index: 1; grid-template-columns: 1.1rem minmax(0,1fr) 2.4rem; grid-template-rows: auto auto 1fr; gap: .45rem .8rem; padding: 1rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--surface); }
 :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-edu-date { grid-column: 1 / -1; grid-row: 1; flex-wrap: wrap; flex-direction: row; font-size: 1rem; }
 :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-edu-date i { color: var(--coral); }
@@ -303,7 +303,7 @@ body[data-concept="terminal"] .record-cert-card h3,
 body[data-concept="terminal"] .record-language h3 { font-family: ui-monospace, Consolas, monospace; font-size: clamp(1rem, 2vw, 1.35rem); letter-spacing: -.03em; }
 body[data-concept="terminal"] .record-paper-meta { font-size: .7rem; letter-spacing: 0; }
 body[data-concept="terminal"] .record-paper-meta span + span::before { content: none; }
-body[data-concept="terminal"] .record-education { display: grid; gap: .35rem; border: 0; }
+body[data-concept="terminal"] .record-education:not(.pf-section) { display: grid; gap: .35rem; border: 0; }
 body[data-concept="terminal"] .record-edu-row { grid-template-columns: 1rem minmax(0,1fr) 2.3rem; grid-template-rows: auto auto; gap: .45rem .7rem; padding: 1rem .7rem; border: 0; border-bottom: 1px dashed var(--line); border-radius: 0; }
 body[data-concept="terminal"] .record-edu-date { grid-column: 2; grid-row: 1; font-size: .85rem; }
 body[data-concept="terminal"] .record-edu-date i { padding-inline: .25rem; }
@@ -350,8 +350,8 @@ body[data-concept="terminal"] .record-reference > summary { font-family: ui-mono
   body[data-concept="molecular"] .record-cert-grid,
   body[data-concept="molecular"] .record-language-grid,
   body[data-concept="terminal"] .record-language-grid { grid-template-columns: 1fr; }
-  :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education { grid-template-columns: 1fr; }
-  :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education::before { left: 1.5rem; }
+  :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education:not(.pf-section) { grid-template-columns: 1fr; }
+  :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-education:not(.pf-section)::before { left: 1.5rem; }
   :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-edu-row { grid-template-columns: 1rem minmax(0,1fr) 2.2rem; }
   :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-edu-date { grid-column: 2 / -1; }
   :is(body[data-concept="molecular"],body[data-concept="unified"]) .record-edu-copy { grid-column: 2 / -1; }

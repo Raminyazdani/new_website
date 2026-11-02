@@ -35,3 +35,5 @@ body{color:var(--text)}.science-controls button{min-height:44px}.science-art fig
 #mainNav .studio-show-all{position:static;left:auto;bottom:auto;min-height:44px;padding:8px 12px;box-shadow:none;font-size:12px;white-space:nowrap}
 .studio-focus-label{display:none;font-size:12px;color:var(--muted)}.studio-isolated #mainNav [data-nav]{display:none}.studio-isolated .studio-focus-label{display:inline}
 @media(max-width:360px){.pf-brand b{display:none}.pf-header-tools{gap:10px}.pf-header .pf-brand{flex:1;min-width:28px}}
+
+.studio-pointer-option{grid-column:1 / -1;display:flex!important;gap:10px;align-items:center;min-height:44px}.studio-pointer-option input{width:18px;height:18px;accent-color:var(--lime)}body:has(#portfolio[hidden]) [data-open-story]{display:none}

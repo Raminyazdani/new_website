@@ -1,0 +1,111 @@
+{
+  "scope": "Custom pointer, local pointer field, native-scroll story and Education width correction",
+  "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+  "tests": {
+    "fullSuite": 27,
+    "focusedResetRegression": 4,
+    "failures": 0
+  },
+  "responsive": [
+    {
+      "requested": 320,
+      "client": 305,
+      "scrollWidth": 305,
+      "storyMode": "static"
+    },
+    {
+      "requested": 390,
+      "client": 375,
+      "scrollWidth": 375,
+      "storyMode": "static"
+    },
+    {
+      "requested": 768,
+      "client": 753,
+      "scrollWidth": 753,
+      "storyMode": "static"
+    },
+    {
+      "requested": 1024,
+      "client": 1009,
+      "scrollWidth": 1009,
+      "storyMode": "scroll"
+    },
+    {
+      "requested": 1440,
+      "client": 1425,
+      "scrollWidth": 1425,
+      "storyMode": "scroll"
+    }
+  ],
+  "observed": {
+    "nativeKeyboardScroll": {
+      "progressBefore": 0.5,
+      "progressAfter": 0.5026,
+      "stickyTop": 92
+    },
+    "chapterJump": [
+      0,
+      0.5,
+      1
+    ],
+    "mouse": {
+      "cursorCenters": [
+        [
+          1328,
+          835
+        ],
+        [
+          1070,
+          406
+        ]
+      ],
+      "washCenter": [
+        1070,
+        406
+      ],
+      "nearNode": {
+        "rest": [
+          1152,
+          360
+        ],
+        "hover": [
+          1156.2,
+          357.6
+        ]
+      },
+      "nativeInputCursor": "text",
+      "nativeCursorOnDialog": true,
+      "independentPointerOff": true
+    },
+    "stillReset": {
+      "mode": "static",
+      "camera": "",
+      "scale": "",
+      "progress": "",
+      "artTransform": "matrix(1, 0, 0, 1, 0, 0)",
+      "allChapterOpacities": 1
+    },
+    "education": {
+      "viewport": 1425,
+      "sectionWidth": 1424.6667,
+      "listWidth": 1280,
+      "cardWidth": 632.8021,
+      "columns": 2
+    },
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "privacy": {
+      "publicFilesScanned": 38,
+      "sensitiveValuesChecked": 4,
+      "leaks": 0
+    }
+  },
+  "limits": [
+    "Representative responsive geometry; not an exhaustive accessibility or performance certification",
+    "Mobile and short viewports use readable static chapters; custom cursor only for a fine hover-capable pointer"
+  ],
+  "screenshotsOutsideGit": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/motion-story-20261102/"
+}
