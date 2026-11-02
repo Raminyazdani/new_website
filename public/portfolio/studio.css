@@ -14,3 +14,17 @@ body{color:var(--text)}.science-controls button{min-height:44px}.science-art fig
 @media(max-width:620px){.st-atlas-scene,.st-molecule-scene{left:0}.st-atlas-scene .science-art figcaption,.st-molecule-scene .science-art figcaption{max-width:100%}}
 
 [data-section]{overflow-x:clip}
+
+/* Keep scientific captions and portrait metadata in separate flow tracks on compact screens. */
+@media(max-width:800px){
+.st-atlas-hero,.st-molecular-hero{grid-template-columns:1fr}
+.st-atlas-visual{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);gap:14px;width:min(100%,500px);justify-self:center;align-items:center;padding:20px 0 40px;min-height:0}
+.st-atlas-visual>.st-portrait-unit{width:100%;max-width:none;transform:none}
+.st-atlas-scene{position:static;inset:auto;width:100%;max-width:none;aspect-ratio:auto}
+.st-atlas-scene .science-art figcaption{max-width:100%}
+.st-molecular-stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;width:min(100%,500px);margin-inline:auto;min-height:0;align-items:center}
+.st-molecule-scene{position:static;inset:auto;width:100%;display:block}
+.st-molecular-stage>.st-portrait-unit{width:100%;max-width:none;transform:none}
+.st-atlas-visual .st-photo-caption,.st-molecular-stage .st-photo-caption{flex-direction:column;gap:5px}
+.science-controls{flex-wrap:wrap}
+}

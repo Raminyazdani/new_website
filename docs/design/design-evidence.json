@@ -20,6 +20,7 @@
     "widths_tested": [
       320,
       390,
+      640,
       1024,
       1280
     ],
@@ -39,7 +40,12 @@
     "catalog_rows": 350,
     "catalog_search_BIO_093_rows": 1,
     "preserved_bioteal_sections": 11,
-    "preserved_bioteal_portrait_loaded": true
+    "preserved_bioteal_portrait_loaded": true,
+    "compact_640_client_scroll": [
+      625,
+      625
+    ],
+    "compact_640_cell_or_molecule_caption_overlaps_portrait_caption": false
   },
   "contrast_samples": {
     "scope": "Five selected foreground/background pairs at the sampled Atlas state; no comprehensive WCAG certification.",
@@ -83,7 +89,8 @@
       "Secondary controls grouped in Designs; right gutter reserved",
       "Actual portrait verified loaded in all compositions",
       "Dark inherited brand color fixed; record background/color theme flash removed",
-      "Certificate page limit preserved across concept switches; mobile illustration controls stay inside viewport"
+      "Certificate page limit preserved across concept switches; mobile illustration controls stay inside viewport",
+      "Final live 640px review found illustration controls crowding portrait metadata: compact screens now place scene and portrait in separate grid tracks; both Atlas and Molecular retested with no caption intersection."
     ],
     "recheck": "Reviewer saw no remaining P1/P2 in the updated dark Atlas screenshot; this is not a site-wide audit sign-off."
   },
