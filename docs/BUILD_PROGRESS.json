@@ -485,8 +485,8 @@
     }
   },
   "cinematic_portfolio": {
-    "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
-    "tests_passed": 32,
+    "state": "DEPLOYED_AND_VERIFIED",
+    "tests_passed": 33,
     "continuous_morph_vertices": 72,
     "project_previews": 87,
     "preview_layouts": 7,
@@ -498,6 +498,46 @@
       1024,
       1440
     ],
-    "evidence": "docs/design/CINEMATIC_PORTFOLIO_RESULTS.json"
+    "evidence": "docs/design/CINEMATIC_PORTFOLIO_RESULTS.json",
+    "publication": {
+      "state": "READY",
+      "commit": "1c694386fcc0ed0c294586779066567751f6c6b3",
+      "deployment": "dpl_6ELVX2kUbn2osC4qyL223fX6fVuG",
+      "url": "https://new-website-hero-lab.vercel.app/?design=unified&theme=light",
+      "assetsMatchedAfterLineEndingNormalization": 42,
+      "anonymousApi": 401,
+      "cacheControl": "private, no-store, max-age=0",
+      "connectDirective": "connect-src 'self' https://api.github.com",
+      "browser": {
+        "readme": {
+          "background": "rgb(19, 40, 63)",
+          "characters": 15578,
+          "color": "rgb(237, 245, 255)",
+          "loaded": true
+        },
+        "mobile": {
+          "chapters": [
+            "1",
+            "1",
+            "1"
+          ],
+          "previewParentWidth": 335.8645935058594,
+          "previewWidth": 335.8645935058594,
+          "scrollWidth": 375,
+          "width": 375
+        },
+        "morph": {
+          "start": "0.0000",
+          "end": "1.0000",
+          "vertices": 72,
+          "pathChanged": true
+        },
+        "documentImage": {
+          "loaded": true,
+          "width": 1240
+        }
+      },
+      "consoleErrorsObserved": 0
+    }
   }
 }
