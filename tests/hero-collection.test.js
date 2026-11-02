@@ -4,7 +4,7 @@ const {parseHTML}=require('linkedom');
 const root=path.join(__dirname,'../public');
 const fixture={basics:[{fname:'Synthetic',lname:'Person',label:['Role <A>','Role B'],summary:'Exact synthetic summary & detail. '.repeat(24),location:[{city:'Synthetic City',country:'Example Country'}],Pictures:[{type_of:'profile',URL:'https://example.test/owner.jpg'},{type_of:'cover',URL:'https://example.test/cover.jpg'}]}],unusedSection:{preserved:true,nullable:null}};
 function setup({reduce=false}={}){
-  const dom=parseHTML(fs.readFileSync(path.join(root,'index.html'),'utf8')),win={HeroLabDesigns:[],matchMedia:()=>({matches:reduce})};
+  const dom=parseHTML(fs.readFileSync(path.join(root,'lab.html'),'utf8')),win={HeroLabDesigns:[],matchMedia:()=>({matches:reduce})};
   // LinkeDOM implements a read-only select.value; emulate the browser's setter.
   Object.defineProperty(dom.document.querySelector('#designSelect'),'value',{value:'',writable:true});
   const calls=[];

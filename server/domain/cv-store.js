@@ -1,7 +1,9 @@
 'use strict';
 async function importDocument(client, { principal, document, sourceHash, expectedRevision }) {
   if (!principal?.owner || principal.scope !== 'cv:import') throw new Error('IMPORT_NOT_AUTHORIZED');
-  if (!document || typeof document !== 'object' || Array.isArray(document) || !Array.isArray(document.basics)) throw new Error('INVALID_CV');
+  // Storage owns the document envelope, not a particular source's CV schema.
+  // Source-specific keys are interpreted only at the adapter boundary.
+  if (!document || typeof document !== 'object' || Array.isArray(document)) throw new Error('INVALID_CV');
   if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 0) throw new Error('INVALID_REVISION');
   const key = `import:${sourceHash}`;
   await client.query('BEGIN');

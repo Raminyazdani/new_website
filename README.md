@@ -1,10 +1,16 @@
-# Hero Lab
+# Portfolio / Field Notes
 
-A collection of 20 distinct Hero compositions, each displaying the profile photograph and identity read only from the complete CV JSON stored in Neon Postgres.
+A complete animated CV portfolio, with the original collection of 20 Hero concepts retained at `/lab.html`. Profile facts and photographs are read from the complete private CV document in Neon Postgres.
 
 ## Data flow
 
-Private import → Neon `hero_lab.cv_documents.document` (JSONB) → authenticated `GET /api/cv` → complete in-memory `window.heroLabView.cv` → `basics[0]` Hero mapping, including `Pictures[type_of=profile].URL` for every portrait. Missing fields are hidden. No sample-profile fallback exists. Other portfolio sections remain unimplemented.
+Private import → Neon `hero_lab.cv_documents.document` (opaque JSONB object) → authenticated `GET /api/cv` → source boundary → adapter → stable `PortfolioModel v1` → section renderers. The complete document is retained in memory; renderers receive only the normalized model. No sample-profile fallback exists.
+
+`public/data/cv-adapter.js` alone understands the current CV keys. `public/data/portfolio-source.js` owns transport/parsing and supports injected sources/adapters. A different future schema or non-JSON source is handled at that boundary while the UI contract stays fixed; no Renderer reads raw CV keys. Storage validates only the document envelope. See [the model contract](docs/PORTFOLIO_CONTRACT.md) and [the phased plan](docs/PORTFOLIO_PLAN_FA.md).
+
+The main portfolio includes introduction, projects, experience, publications, education, skills, certificates, languages, references and contact. Search, filters, progressive lists and project dialogs retain access to all records. Motion `Auto` respects the system preference; `Full` explicitly enables effects locally and `Still` stops them. No system accessibility setting is changed.
+
+The preserved laboratory keeps its original `window.heroLabView.cv` interface and its 20 standalone Hero proposals.
 
 The API returns the entire CV object without an envelope. `X-CV-Revision` and `X-CV-SHA256` carry import metadata. Responses are private/no-store. The original CV and credentials must never be committed or placed under `public/`.
 

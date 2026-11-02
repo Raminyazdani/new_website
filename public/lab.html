@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Hero Lab — 20 directions</title>
+  <link rel="stylesheet" href="/hero-base.css">
+  <link rel="stylesheet" href="/designs/collection-a.css">
+  <link rel="stylesheet" href="/designs/collection-b.css">
+  <link rel="stylesheet" href="/designs/collection-c.css">
+  <script src="/designs/collection-a.js" defer></script>
+  <script src="/designs/collection-b.js" defer></script>
+  <script src="/designs/collection-c.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="brand" dir="ltr">HERO LAB <span>PORTRAIT EDITION</span></div>
+      <nav class="nav" aria-label="انتخاب بخش">
+        <button data-section="hero" class="active" aria-pressed="true">Hero</button>
+        <button data-section="projects" aria-pressed="false">پروژه‌ها</button>
+        <button data-section="research" aria-pressed="false">پژوهش</button>
+        <button data-section="skills" aria-pressed="false">مهارت‌ها</button>
+        <button data-section="about" aria-pressed="false">درباره</button>
+        <button data-section="contact" aria-pressed="false">تماس</button>
+      </nav>
+      <span class="edition">۲۰ نگاه متفاوت</span>
+    </header>
+    <main class="workspace">
+      <section class="stage" aria-label="پیش‌نمایش Hero">
+        <div class="stagebar">
+          <div class="selection"><span class="selection-label" id="section-label" role="status" aria-live="polite">ورود لازم است</span><strong id="designTitle"></strong></div>
+          <div class="stage-controls">
+            <button id="prevBtn" aria-label="طرح قبلی">→</button>
+            <span id="designCounter" class="counter" dir="ltr"></span>
+            <button id="nextBtn" aria-label="طرح بعدی">←</button>
+            <button id="replayBtn">بازپخش</button>
+            <button id="motionBtn" aria-pressed="false">توقف حرکت</button>
+          </div>
+        </div>
+        <label class="mobile-picker">انتخاب طرح<select id="designSelect"></select></label>
+        <div class="canvas" id="canvas"></div>
+        <div class="preview-note"><span id="motionNote"></span><button id="summaryBtn" aria-pressed="false" hidden>معرفی کامل</button></div>
+      </section>
+      <aside class="rail" aria-label="مجموعهٔ طرح‌ها">
+        <div class="rail-header"><div><span class="eyebrow-ui">DESIGN COLLECTION</span><h2 id="collectionTitle">پیشنهادهای Hero</h2></div><span class="collection-count" id="collectionCount"></span></div>
+        <div class="designs" id="designList" role="group" aria-label="انتخاب ظاهر Hero"></div>
+        <div class="rail-tools"><button id="reloadBtn" hidden>دریافت دوبارهٔ JSON</button><button id="logoutBtn" hidden>خروج</button></div>
+        <details class="inspector" id="sourceInspector" hidden>
+          <summary>منبع اطلاعات و عکس</summary>
+          <p class="source-hint">فقط از JSON دریافتی · basics[0]</p>
+          <dl><dt>fname / lname</dt><dd id="srcName"></dd><dt>label[]</dt><dd id="srcLabels"></dd><dt>summary</dt><dd id="srcSummary"></dd><dt>location[]</dt><dd id="srcLocation"></dd><dt>Pictures → profile</dt><dd><a id="srcPhoto" target="_blank" rel="noreferrer"></a></dd></dl>
+          <details><summary>JSON کامل دریافتی</summary><pre id="fullJson"></pre></details>
+        </details>
+      </aside>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

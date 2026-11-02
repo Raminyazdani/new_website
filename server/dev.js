@@ -11,6 +11,16 @@ const server = http.createServer(async (req, res) => {
   if (path === '/api/session') return session(req, res);
   const files = { '/': ['index.html', 'text/html; charset=utf-8'], '/index.html': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'] };
   files['/hero-base.css'] = ['hero-base.css', 'text/css; charset=utf-8'];
+  files['/lab.html'] = ['lab.html', 'text/html; charset=utf-8'];
+  for (const file of ['cv-adapter', 'portfolio-source']) {
+    files[`/data/${file}.js`] = [`data/${file}.js`, 'text/javascript; charset=utf-8'];
+  }
+  for (const file of ['runtime', 'intro', 'records']) {
+    files[`/portfolio/${file}.js`] = [`portfolio/${file}.js`, 'text/javascript; charset=utf-8'];
+  }
+  for (const file of ['base', 'intro', 'records']) {
+    files[`/portfolio/${file}.css`] = [`portfolio/${file}.css`, 'text/css; charset=utf-8'];
+  }
   for (const group of ['a', 'b', 'c']) {
     files[`/designs/collection-${group}.js`] = [`designs/collection-${group}.js`, 'text/javascript; charset=utf-8'];
     files[`/designs/collection-${group}.css`] = [`designs/collection-${group}.css`, 'text/css; charset=utf-8'];

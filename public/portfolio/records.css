@@ -1,0 +1,56 @@
+.record-publications,.record-education,.record-skills,.record-certificates,.record-languages,.record-references{position:relative;overflow:hidden}
+.record-paper-ledger{border-top:1px solid var(--line);margin-top:3.3rem}
+.record-paper{display:grid;grid-template-columns:3.5rem minmax(0,1fr) minmax(9rem,13rem);gap:1.5rem;padding:2rem 1.25rem;border-bottom:1px solid var(--line);position:relative;transition:background .35s,transform .35s}
+.record-paper:hover{background:rgba(217,245,117,.035)}
+.record-paper-index,.record-edu-number,.record-cert-top,.record-language-index{font: .78rem ui-monospace,monospace;color:var(--lime);letter-spacing:.08em}
+.record-paper-main h3,.record-edu-copy h3,.record-cert-card h3,.record-language h3{font:clamp(1.45rem,2.8vw,2.4rem)/1.08 Georgia,serif;letter-spacing:-.035em;margin:.65rem 0}
+.record-paper-meta{display:flex;flex-wrap:wrap;gap:.45rem .8rem;color:var(--muted);font:.68rem ui-monospace,monospace;text-transform:uppercase;letter-spacing:.06em}
+.record-paper-meta span+span:before{content:'·';margin-right:.8rem;color:var(--coral)}
+.record-authors{color:var(--muted);line-height:1.6;margin:.7rem 0}
+.record-paper-actions{display:flex;flex-direction:column;align-items:flex-start;gap:.65rem;justify-content:center}
+.record-copy{cursor:pointer;font:inherit}
+.record-outlink{color:var(--lime);font-size:.85rem;text-underline-offset:4px}
+.record-notes{margin-top:1rem;color:var(--muted)}
+.record-notes summary,.record-language details summary{cursor:pointer;color:var(--lime);font-size:.85rem}
+.record-notes p{max-width:65ch;line-height:1.7}
+.record-education{margin-top:3rem;border-top:1px solid var(--line)}
+.record-edu-row{display:grid;grid-template-columns:minmax(8rem,15rem) 3rem minmax(0,1fr) 3rem;gap:1rem;align-items:start;padding:2.4rem 0;border-bottom:1px solid var(--line)}
+.record-edu-date{font:clamp(1.25rem,2.4vw,2rem)/1.1 Georgia,serif;color:var(--paper);display:flex;gap:.55rem;flex-wrap:wrap}
+.record-edu-date i{color:var(--coral);font-style:normal}
+.record-edu-copy .record-overline,.record-overline{color:var(--lime);font:.7rem ui-monospace,monospace;letter-spacing:.09em;text-transform:uppercase;margin:.1rem 0 .7rem}
+.record-edu-copy h3{margin:.1rem 0 .4rem}
+.record-edu-degree{font:1rem/1.6 Georgia,serif;color:var(--muted);margin:.4rem 0}
+.record-edu-degree span{color:var(--coral);padding:0 .25rem}
+.record-smallfact{font:.8rem ui-monospace,monospace;color:var(--muted)}
+.record-smallfact b{color:var(--paper);font-weight:500}
+.record-edu-logo,.record-edu-mark{width:2.6rem;height:2.6rem;object-fit:contain;color:var(--coral)}
+.record-edu-mark{font-size:2rem;text-align:center;line-height:1.2}
+.record-skills .pf-heading{margin-bottom:2.5rem}
+.record-skill-tools{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;color:var(--muted);font-size:.85rem}
+.record-skill-tools input,.record-search-label input,.record-search-label select{background:var(--surface);border:1px solid var(--line);border-radius:0;color:var(--text);padding:.8rem 1rem;font:inherit;min-width:12rem}
+.record-skill-atlas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+.record-skill-group{border:1px solid var(--line);background:linear-gradient(145deg,rgba(217,245,117,.055),transparent 55%);padding:0 1.25rem}
+.record-skill-group>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 0;font:1.4rem Georgia,serif}
+.record-skill-group>summary::-webkit-details-marker{display:none}.record-skill-group>summary i{color:var(--lime);font-style:normal;font:1rem ui-monospace,monospace;transition:transform .2s}.record-skill-group[open]>summary i{transform:rotate(45deg)}
+.record-skill-subgroups{border-top:1px solid var(--line);padding:.2rem 0 1.3rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.record-skill-sub h3{font:.68rem ui-monospace,monospace;color:var(--coral);text-transform:uppercase;letter-spacing:.09em;margin:1rem 0 .65rem}
+.record-skill-sub ul{padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.4rem;list-style:none}
+.record-skill-sub li{border:1px solid rgba(237,234,222,.19);border-radius:99px;padding:.42rem .68rem;color:var(--paper);font-size:.78rem;line-height:1.2}
+.record-cert-tools{display:flex;align-items:end;gap:.8rem;margin:2.5rem 0 1.25rem}.record-search-label{display:grid;gap:.45rem;color:var(--muted);font:.72rem ui-monospace,monospace;text-transform:uppercase;letter-spacing:.07em}
+.record-cert-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.record-cert-card{min-height:15rem;border:1px solid var(--line);padding:1.15rem;display:flex;flex-direction:column;background:linear-gradient(160deg,rgba(236,156,125,.08),rgba(20,37,38,.25) 55%);transition:border-color .25s,transform .25s}
+.record-cert-card:hover{border-color:rgba(217,245,117,.55)}.record-cert-top{display:flex;justify-content:space-between;gap:.5rem;margin-bottom:1.5rem}.record-cert-top span+span{color:var(--muted);font-size:.62rem;text-align:right}
+.record-cert-card h3{font-size:1.45rem;margin:.1rem 0 1.1rem}.record-cert-bottom{display:flex;gap:1rem;color:var(--muted);font:.72rem ui-monospace,monospace;margin-top:auto}.record-cert-card .record-outlink{margin-top:.9rem}.record-cert-empty{color:var(--muted);padding:2rem 0}.record-more{margin:1.5rem auto;display:block}
+.record-language-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:3rem}
+.record-language{background:var(--ink);padding:1.4rem;min-height:16rem;position:relative;display:flex;flex-direction:column}
+.record-language:after{content:'';position:absolute;width:2.8rem;height:2.8rem;border:1px solid rgba(217,245,117,.23);border-radius:50%;right:1.2rem;top:1.2rem;box-shadow:0 0 0 .5rem rgba(217,245,117,.035)}
+.record-language h3{font-size:clamp(1.5rem,2.5vw,2.1rem);margin:1.2rem 0 .4rem}.record-language-level{font:clamp(2.7rem,5vw,4.5rem)/1 Georgia,serif;color:var(--lime);letter-spacing:-.06em}.record-language-status{color:var(--muted);font-size:.82rem;margin:.5rem 0 1rem}.record-language details{margin-top:auto;border-top:1px solid var(--line);padding-top:.8rem}.record-language details summary{display:flex;justify-content:space-between}.record-language details summary span{font-family:monospace}.record-test-list>div{display:grid;grid-template-columns:1fr auto;gap:.4rem;padding:.8rem 0;border-bottom:1px solid var(--line);font-size:.78rem}.record-test-list small{grid-column:1/-1;color:var(--muted)}.record-test-list>div>span{color:var(--muted)}.record-test-list>div>span b{color:var(--paper)}
+.record-reference-list{border-top:1px solid var(--line);margin-top:2.7rem}.record-reference{border-bottom:1px solid var(--line)}.record-reference>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:3.3rem minmax(11rem,1fr) minmax(9rem,1fr) 1.5rem;gap:1rem;align-items:center;padding:1.1rem 0}.record-reference>summary::-webkit-details-marker{display:none}.record-reference>summary>i{color:var(--lime);font-style:normal;transition:transform .2s}.record-reference[open]>summary>i{transform:rotate(45deg)}
+.record-monogram{width:2.8rem;height:2.8rem;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--lime);font: .8rem ui-monospace,monospace;border:1px solid var(--line)}.record-ref-name b{display:block;font:1.1rem Georgia,serif}.record-ref-name small,.record-ref-org{display:block;color:var(--muted);font-size:.78rem;line-height:1.5;margin-top:.25rem}.record-ref-contact{display:flex;flex-wrap:wrap;gap:1.5rem;padding:0 0 1.3rem 4.3rem}.record-ref-contact a{color:var(--lime);font-size:.85rem}
+.record-contact-finale{margin:0 calc((100vw - min(100vw, var(--pf-max, 1200px))) / -2);padding:clamp(2rem,7vw,6rem) max(1.25rem,calc((100vw - min(100vw, var(--pf-max, 1200px))) / 2));background:var(--lime);color:var(--ink);position:relative;overflow:hidden}
+.record-contact-finale:after{content:'';position:absolute;width:min(50vw,35rem);aspect-ratio:1;border:1px solid rgba(12,23,24,.18);border-radius:50%;right:-10%;top:4%;box-shadow:0 0 0 3rem rgba(12,23,24,.025),0 0 0 7rem rgba(12,23,24,.025);pointer-events:none}
+.record-contact-top{display:flex;justify-content:space-between;font:.72rem ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(12,23,24,.24);padding-bottom:1rem}.record-contact-prelude{font:.85rem ui-monospace,monospace;margin:clamp(2.8rem,6vw,5rem) 0 1rem}.record-contact-finale h2{font:clamp(4rem,12vw,10rem)/.82 Georgia,serif;letter-spacing:-.075em;margin:0;position:relative;z-index:1}.record-contact-finale h2 em{font-weight:400;color:#385344}.record-contact-bottom{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-top:3rem;position:relative;z-index:1}.record-contact-bottom>div,.record-contact-bottom nav{display:flex;flex-wrap:wrap;gap:.7rem 1.2rem}.record-contact-mail,.record-contact-phone,.record-social{color:var(--ink);text-underline-offset:4px;font-size:.88rem}.record-social{border:1px solid rgba(12,23,24,.35);border-radius:99px;padding:.55rem .8rem;text-decoration:none}
+@media(max-width:760px){.record-paper{grid-template-columns:2rem minmax(0,1fr);gap:.8rem;padding:1.5rem .4rem}.record-paper-actions{grid-column:2;flex-direction:row;flex-wrap:wrap}.record-edu-row{grid-template-columns:minmax(0,1fr) 2.3rem;gap:.5rem 1rem}.record-edu-date{grid-column:1/-1}.record-edu-number{grid-column:2;grid-row:2}.record-edu-copy{grid-column:1;grid-row:2}.record-edu-logo,.record-edu-mark{grid-column:2;grid-row:3}.record-skill-atlas{grid-template-columns:1fr}.record-cert-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.record-language-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.record-reference>summary{grid-template-columns:2.8rem 1fr 1.2rem}.record-ref-org{grid-column:2}.record-reference>summary>i{grid-column:3;grid-row:1}.record-contact-bottom{align-items:flex-start;flex-direction:column}}
+@media(max-width:480px){.record-edu-row{padding:1.6rem 0}.record-edu-date{font-size:1.35rem}.record-skill-subgroups{grid-template-columns:1fr;gap:.2rem}.record-cert-tools{align-items:stretch;flex-direction:column}.record-search-label input,.record-search-label select{width:100%;min-width:0}.record-cert-grid,.record-language-grid{grid-template-columns:1fr}.record-language{min-height:13rem}.record-reference>summary{gap:.6rem}.record-ref-contact{padding-left:0;gap:.8rem 1rem}.record-contact-finale h2{font-size:clamp(3.8rem,17vw,5.4rem)}.record-contact-top{font-size:.62rem}}
+body[data-effects="on"] .record-edu-mark{animation:record-drift 7s ease-in-out infinite}body[data-effects="on"] .record-contact-finale:after{animation:record-orbit 28s linear infinite}
+@keyframes record-drift{50%{transform:rotate(30deg) translateY(-4px)}}@keyframes record-orbit{to{transform:rotate(360deg)}}

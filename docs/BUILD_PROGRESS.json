@@ -1,7 +1,7 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-10-15T04:10:12.135688+00:00",
-  "scope": "20 distinct JSON-backed Hero compositions with actual profile portrait; existing API/auth/Neon retained",
+  "checked_at": "2026-11-02T15:00:27.340601+00:00",
+  "scope": "Full CV portfolio with independent source/adapter boundary; Hero Lab retained at /lab.html",
   "observed_checks": [
     {
       "kind": "synthetic_contract_tests",
@@ -64,9 +64,15 @@
       "cover_status": 200,
       "content_type": "image/jpeg",
       "source": "basics[0].Pictures from original private JSON; no photo URL hardcoded in frontend"
+    },
+    {
+      "kind": "full_portfolio_adapter_and_ui_2026_11_02",
+      "result": "passed",
+      "scope": "Pure adapter completeness and future-schema injection, stable-model renderer integration, project/certificate pagination, modal, auth clearing, reduced-motion local Full control, real desktop/mobile browser with actual CV and portrait.",
+      "synthetic_tests": 17
     }
   ],
-  "browser_visual_geometry_verified": false,
+  "browser_visual_geometry_verified": true,
   "production_ready_claimed": false,
   "deployment": {
     "project": "new-website-hero-lab",
@@ -96,6 +102,40 @@
     "spotlight",
     "ribbon"
   ],
-  "browser_verification_limit": "CUA reported in-app browser unavailable; no alternate browser automation attempted.",
-  "design_provenance": "Original proposed combinations; not 20 freshly audited reference sites."
+  "browser_verification_limit": "Representative desktop and 390/320 viewport states observed, not every possible browser/device.",
+  "design_provenance": "Original proposed combinations; not 20 freshly audited reference sites.",
+  "full_portfolio": {
+    "sections": 11,
+    "data_boundary": "public/data/",
+    "stable_model": "PortfolioModel v1",
+    "complete_records": {
+      "projects": 79,
+      "experience": 15,
+      "education": 5,
+      "publications": 5,
+      "skills": 202,
+      "certificates": 40,
+      "languages": 3,
+      "references": 5
+    },
+    "synthetic_tests_passed": 17,
+    "alternate_schema_same_model_test_passed": true,
+    "real_browser": {
+      "desktop_client_width": 1265,
+      "desktop_scroll_width": 1265,
+      "mobile_390_client_width": 375,
+      "mobile_390_scroll_width": 375,
+      "mobile_320_client_width": 305,
+      "mobile_320_scroll_width": 305,
+      "profile_image_loaded": true,
+      "portrait_animation": "intro-breathe",
+      "animation_play_state": "running",
+      "still_mode_animation": "none",
+      "full_mode_animation": "intro-breathe",
+      "project_search_and_dialog_passed": true,
+      "reference_contacts_default_closed": true,
+      "console_errors_observed": 0
+    },
+    "publication_state": "pending"
+  }
 }

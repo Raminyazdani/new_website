@@ -1,62 +1,37 @@
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>Hero Lab — 20 directions</title>
-  <link rel="stylesheet" href="/hero-base.css">
-  <link rel="stylesheet" href="/designs/collection-a.css">
-  <link rel="stylesheet" href="/designs/collection-b.css">
-  <link rel="stylesheet" href="/designs/collection-c.css">
-  <script src="/designs/collection-a.js" defer></script>
-  <script src="/designs/collection-b.js" defer></script>
-  <script src="/designs/collection-c.js" defer></script>
-  <script src="/app.js" defer></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0c1718"><meta name="color-scheme" content="dark">
+  <title>Portfolio — Field Notes</title>
+  <link rel="stylesheet" href="/portfolio/base.css">
+  <link rel="stylesheet" href="/portfolio/intro.css">
+  <link rel="stylesheet" href="/portfolio/records.css">
+  <script src="/data/cv-adapter.js" defer></script>
+  <script src="/data/portfolio-source.js" defer></script>
+  <script src="/portfolio/intro.js" defer></script>
+  <script src="/portfolio/records.js" defer></script>
+  <script src="/portfolio/runtime.js" defer></script>
 </head>
-<body>
-  <div class="app">
-    <header class="top">
-      <div class="brand" dir="ltr">HERO LAB <span>PORTRAIT EDITION</span></div>
-      <nav class="nav" aria-label="انتخاب بخش">
-        <button data-section="hero" class="active" aria-pressed="true">Hero</button>
-        <button data-section="projects" aria-pressed="false">پروژه‌ها</button>
-        <button data-section="research" aria-pressed="false">پژوهش</button>
-        <button data-section="skills" aria-pressed="false">مهارت‌ها</button>
-        <button data-section="about" aria-pressed="false">درباره</button>
-        <button data-section="contact" aria-pressed="false">تماس</button>
-      </nav>
-      <span class="edition">۲۰ نگاه متفاوت</span>
-    </header>
-    <main class="workspace">
-      <section class="stage" aria-label="پیش‌نمایش Hero">
-        <div class="stagebar">
-          <div class="selection"><span class="selection-label" id="section-label" role="status" aria-live="polite">ورود لازم است</span><strong id="designTitle"></strong></div>
-          <div class="stage-controls">
-            <button id="prevBtn" aria-label="طرح قبلی">→</button>
-            <span id="designCounter" class="counter" dir="ltr"></span>
-            <button id="nextBtn" aria-label="طرح بعدی">←</button>
-            <button id="replayBtn">بازپخش</button>
-            <button id="motionBtn" aria-pressed="false">توقف حرکت</button>
-          </div>
-        </div>
-        <label class="mobile-picker">انتخاب طرح<select id="designSelect"></select></label>
-        <div class="canvas" id="canvas"></div>
-        <div class="preview-note"><span id="motionNote"></span><button id="summaryBtn" aria-pressed="false" hidden>معرفی کامل</button></div>
-      </section>
-      <aside class="rail" aria-label="مجموعهٔ طرح‌ها">
-        <div class="rail-header"><div><span class="eyebrow-ui">DESIGN COLLECTION</span><h2 id="collectionTitle">پیشنهادهای Hero</h2></div><span class="collection-count" id="collectionCount"></span></div>
-        <div class="designs" id="designList" role="group" aria-label="انتخاب ظاهر Hero"></div>
-        <div class="rail-tools"><button id="reloadBtn" hidden>دریافت دوبارهٔ JSON</button><button id="logoutBtn" hidden>خروج</button></div>
-        <details class="inspector" id="sourceInspector" hidden>
-          <summary>منبع اطلاعات و عکس</summary>
-          <p class="source-hint">فقط از JSON دریافتی · basics[0]</p>
-          <dl><dt>fname / lname</dt><dd id="srcName"></dd><dt>label[]</dt><dd id="srcLabels"></dd><dt>summary</dt><dd id="srcSummary"></dd><dt>location[]</dt><dd id="srcLocation"></dd><dt>Pictures → profile</dt><dd><a id="srcPhoto" target="_blank" rel="noreferrer"></a></dd></dl>
-          <details><summary>JSON کامل دریافتی</summary><pre id="fullJson"></pre></details>
-        </details>
-      </aside>
-    </main>
-  </div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<body data-motion="auto" data-effects="off">
+  <div class="pf-ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="pf-reading" aria-hidden="true"><i id="readingProgress"></i></div>
+  <header class="pf-header">
+    <a href="#hero" class="pf-brand" aria-label="Back to top"><span id="brandMark">✳</span><b id="brandName">FIELD NOTES</b></a>
+    <nav class="pf-nav" id="mainNav" aria-label="Main navigation" hidden></nav>
+    <div class="pf-header-tools">
+      <button id="jumpBtn" class="pf-tool" aria-label="Jump to section" hidden>⌘ K</button>
+      <label class="pf-motion-control"><span>Motion</span><select id="motionMode" aria-label="Animation preference"><option value="auto">Auto</option><option value="full">Full</option><option value="still">Still</option></select></label>
+      <a class="pf-tool pf-lab-link" href="/lab.html">Hero Lab ↗</a>
+      <button id="logoutBtn" class="pf-tool" hidden>Lock</button>
+    </div>
+  </header>
+  <aside class="pf-motion-notice" id="motionNotice" hidden><span>Your system prefers less motion. You can preview the effects here.</span><button id="enableEffects">Play effects ↗</button></aside>
+  <div id="accessPanel" class="pf-access"><div class="pf-access-art" aria-hidden="true"><i></i><i></i><span>✳</span></div><div class="pf-access-copy"><span class="pf-kicker">PRIVATE PREVIEW / FIELD NOTES</span><h1>A little<br><em>closer.</em></h1><p id="accessMessage" role="status">Opening the portfolio…</p><form id="accessForm" hidden><label for="accessPassword">Access phrase</label><div class="pf-access-field"><input id="accessPassword" type="password" autocomplete="current-password" required><button class="pf-button primary" type="submit">Enter ↗</button></div></form><button id="retryBtn" class="pf-button" hidden>Try again ↗</button></div><span class="pf-access-caption">A SPACE FOR WORK, IDEAS &amp; CURIOSITY.</span></div>
+  <main id="portfolio" hidden></main>
+  <footer class="pf-footer" id="siteFooter" hidden><span id="footerName"></span><span>FIELD NOTES / PERSONAL PORTFOLIO</span><a href="#hero">Back to the beginning ↑</a></footer>
+  <dialog id="projectDialog" class="pf-dialog" aria-labelledby="projectDialogTitle"><button class="pf-dialog-close" data-close-dialog aria-label="Close project">×</button><div id="projectDialogBody"></div></dialog>
+  <dialog id="jumpDialog" class="pf-dialog pf-jump-dialog" aria-labelledby="jumpTitle"><button class="pf-dialog-close" data-close-dialog aria-label="Close navigation">×</button><p class="pf-kicker">QUICK NAVIGATION</p><h2 id="jumpTitle">Find your way.</h2><input id="jumpSearch" type="search" placeholder="Jump to a section…" aria-label="Search sections"><nav id="jumpLinks" aria-label="All sections"></nav></dialog>
+  <div class="pf-toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
