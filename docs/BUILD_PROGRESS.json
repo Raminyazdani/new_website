@@ -114,14 +114,15 @@
     "data_boundary": "public/data/",
     "stable_model": "PortfolioModel v1",
     "complete_records": {
-      "projects": 79,
-      "experience": 15,
+      "projects": 87,
+      "experience": 17,
       "education": 5,
       "publications": 5,
-      "skills": 202,
+      "skills": 223,
       "certificates": 40,
       "languages": 3,
-      "references": 5
+      "references": 5,
+      "interests": 5
     },
     "synthetic_tests_passed": 17,
     "alternate_schema_same_model_test_passed": true,
@@ -142,6 +143,8 @@
       "console_errors_observed": 0
     },
     "publication_state": "pending",
-    "legacy_lab_uses_same_adapter": true
+    "legacy_lab_uses_same_adapter": true,
+    "source_updated_during_work": true,
+    "latest_api_revision": 2
   }
 }

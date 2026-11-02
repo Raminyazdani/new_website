@@ -60,6 +60,7 @@
         }) };
       }),
       references: list(raw.references).map(function (v, i) { v = object(v); return { id: 'reference-' + i, name: str(v.name), title: str(v.position), department: str(v.department), organization: str(v.institution), location: str(v.location), email: strings(v.email).join(', '), phone: phone(v.phone), url: safeUrl(v.URL) }; }),
+      interests: list(raw.interests).map(function (v, i) { v = object(v); return { id: 'interest-' + i, title: str(v.name), description: str(v.description), icon: str(v.icon) }; }),
       stats: {}, warnings: []
     };
     list(raw.workshop_and_certifications).forEach(function (issuer, i) { issuer = object(issuer); list(issuer.certifications).forEach(function (v, j) { v = object(v); model.certificates.push({ id: 'certificate-' + i + '-' + j, issuer: str(issuer.issuer), title: str(v.name), date: str(v.date), duration: str(v.duration), url: safeUrl(v.URL), hasCertificate: v.certificate == null ? '' : v.certificate, tags: tags(v) }); }); });

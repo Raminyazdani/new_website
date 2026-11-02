@@ -48,6 +48,7 @@
         <div class="intro-about-head pf-reveal"><p class="pf-kicker">02 / THE THROUGHLINE</p><h2 class="intro-about-title" id="intro-about-title">${statement ? `${esc(h, statement)}<span class="intro-period">.</span>` : 'Profile'}</h2></div>
         <div class="intro-about-side pf-reveal"><span class="intro-crosshair" aria-hidden="true">✳</span><p>${esc(h, summary)}</p><a href="#experience" class="intro-text-link">Follow the path <span aria-hidden="true">↗</span></a></div>
         <div class="intro-stats" aria-label="Portfolio overview">${metrics.map(([key, title, index]) => `<div class="intro-stat pf-reveal"><span class="intro-stat-index">${index}</span><strong>${h.number(stats[key])}</strong><span>${title}</span></div>`).join('')}</div>
+        ${(vm.interests || []).length ? `<div class="intro-interests"><p class="pf-kicker">INTERESTS &amp; CURIOSITY</p><div>${vm.interests.map((item, i) => `<details class="intro-interest"><summary><span>${String(i + 1).padStart(2, '0')}</span><b>${esc(h, item.title)}</b><i aria-hidden="true">+</i></summary><p>${esc(h, item.description)}</p></details>`).join('')}</div></div>` : ''}
       </div>
     </section>`;
   }

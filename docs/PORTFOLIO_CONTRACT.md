@@ -18,6 +18,7 @@ Stable model:
  certificates: [{id,issuer,title,date,duration,url,hasCertificate,tags:[]}],
  languages: [{id,name,level,cefr,status,tests:[{id,name,issuer,date,url,scores:[{label,value,max}]}]}],
  references: [{id,name,title,department,organization,location,email,phone,url}],
+ interests: [{id,title,description,icon}],
  stats: {projects,experience,education,publications,skills,certificates,languages,references},
  warnings: string[]
 }
