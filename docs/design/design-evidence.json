@@ -161,6 +161,25 @@
         625
       ]
     },
-    "production": "pending"
+    "production": {
+      "state": "READY",
+      "release_commit": "c6cb11899d6d74c6d4c1c9a92631d9330a6c327d",
+      "deployment": "dpl_43rDU8uao3fdLTvtGUrgT5mY6j2U",
+      "changed_assets_matched": 7,
+      "anonymous_api_status": 401,
+      "old_atlas_url_opens_unified": true,
+      "live_browser": {
+        "cell_in_hero": true,
+        "code_frame": true,
+        "molecule_in_about": true,
+        "readme_projects": true,
+        "sections": 11,
+        "real_portrait_loaded": true,
+        "desktop_client_scroll": [
+          1265,
+          1265
+        ]
+      }
+    }
   }
 }
