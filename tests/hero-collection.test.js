@@ -1,6 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {parseHTML}=require('linkedom');
+const {adaptCV}=require('../public/data/cv-adapter');
 const root=path.join(__dirname,'../public');
 const fixture={basics:[{fname:'Synthetic',lname:'Person',label:['Role <A>','Role B'],summary:'Exact synthetic summary & detail. '.repeat(24),location:[{city:'Synthetic City',country:'Example Country'}],Pictures:[{type_of:'profile',URL:'https://example.test/owner.jpg'},{type_of:'cover',URL:'https://example.test/cover.jpg'}]}],unusedSection:{preserved:true,nullable:null}};
 function setup({reduce=false}={}){
@@ -9,6 +10,7 @@ function setup({reduce=false}={}){
   Object.defineProperty(dom.document.querySelector('#designSelect'),'value',{value:'',writable:true});
   const calls=[];
   const transport=async(url,options={})=>{calls.push(url);return {ok:true,status:200,json:async()=>url==='/api/cv'?structuredClone(fixture):{ok:true}};};
+  win.PortfolioData={load:async()=>{const r=await transport('/api/cv');const raw=await r.json();return {raw,model:adaptCV(raw)};}};
   for(const group of ['a','b','c'])new Function('window',fs.readFileSync(path.join(root,`designs/collection-${group}.js`),'utf8'))(win);
   new Function('window','document','fetch','setTimeout','clearTimeout',fs.readFileSync(path.join(root,'app.js'),'utf8'))(win,dom.document,transport,()=>1,()=>{});
   const click=selector=>{const el=dom.document.querySelector(selector);assert(el,selector);el.dispatchEvent(new dom.Event('click',{bubbles:true}));};

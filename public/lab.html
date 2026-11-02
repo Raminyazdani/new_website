@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/designs/collection-a.css">
   <link rel="stylesheet" href="/designs/collection-b.css">
   <link rel="stylesheet" href="/designs/collection-c.css">
-  <script src="/designs/collection-a.js" defer></script>
+  <script src="/data/cv-adapter.js" defer></script><script src="/data/portfolio-source.js" defer></script><script src="/designs/collection-a.js" defer></script>
   <script src="/designs/collection-b.js" defer></script>
   <script src="/designs/collection-c.js" defer></script>
   <script src="/app.js" defer></script>
@@ -50,8 +50,8 @@
         <div class="rail-tools"><button id="reloadBtn" hidden>دریافت دوبارهٔ JSON</button><button id="logoutBtn" hidden>خروج</button></div>
         <details class="inspector" id="sourceInspector" hidden>
           <summary>منبع اطلاعات و عکس</summary>
-          <p class="source-hint">فقط از JSON دریافتی · basics[0]</p>
-          <dl><dt>fname / lname</dt><dd id="srcName"></dd><dt>label[]</dt><dd id="srcLabels"></dd><dt>summary</dt><dd id="srcSummary"></dd><dt>location[]</dt><dd id="srcLocation"></dd><dt>Pictures → profile</dt><dd><a id="srcPhoto" target="_blank" rel="noreferrer"></a></dd></dl>
+          <p class="source-hint">فقط از JSON دریافتی · PortfolioModel</p>
+          <dl><dt>givenName / familyName</dt><dd id="srcName"></dd><dt>label[]</dt><dd id="srcLabels"></dd><dt>summary</dt><dd id="srcSummary"></dd><dt>location[]</dt><dd id="srcLocation"></dd><dt>identity.avatarUrl</dt><dd><a id="srcPhoto" target="_blank" rel="noreferrer"></a></dd></dl>
           <details><summary>JSON کامل دریافتی</summary><pre id="fullJson"></pre></details>
         </details>
       </aside>

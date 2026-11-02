@@ -10,7 +10,7 @@ Private import â†’ Neon `hero_lab.cv_documents.document` (opaque JSONB object) â
 
 The main portfolio includes introduction, projects, experience, publications, education, skills, certificates, languages, references and contact. Search, filters, progressive lists and project dialogs retain access to all records. Motion `Auto` respects the system preference; `Full` explicitly enables effects locally and `Still` stops them. No system accessibility setting is changed.
 
-The preserved laboratory keeps its original `window.heroLabView.cv` interface and its 20 standalone Hero proposals.
+The preserved laboratory keeps its original `window.heroLabView.cv` interface and its 20 standalone Hero proposals, and also consumes the same source/adapter boundary rather than raw CV keys.
 
 The API returns the entire CV object without an envelope. `X-CV-Revision` and `X-CV-SHA256` carry import metadata. Responses are private/no-store. The original CV and credentials must never be committed or placed under `public/`.
 
