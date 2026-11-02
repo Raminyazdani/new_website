@@ -1,6 +1,6 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-11-02T15:00:27.340601+00:00",
+  "checked_at": "2026-11-02T15:17:29.891236+00:00",
   "scope": "Full CV portfolio with independent source/adapter boundary; Hero Lab retained at /lab.html",
   "observed_checks": [
     {
@@ -75,6 +75,12 @@
       "kind": "shared_adapter_including_legacy_lab",
       "result": "passed",
       "scope": "Main portfolio and all20 legacy Hero templates consume the same normalized source boundary; four relevant UI tests passed after migration."
+    },
+    {
+      "kind": "full_portfolio_production_delivery",
+      "result": "passed",
+      "scope": "READY deployment,11 assets match committed source, authenticated API equals latest imported CV checkpoint at revision2, unauthorized401; real production browser shows11 sections,87 projects,223 skills,5 interests, actual portrait and enabled motion.",
+      "url": "https://new-website-hero-lab.vercel.app"
     }
   ],
   "browser_visual_geometry_verified": true,
@@ -142,9 +148,13 @@
       "reference_contacts_default_closed": true,
       "console_errors_observed": 0
     },
-    "publication_state": "pending",
+    "publication_state": "READY",
     "legacy_lab_uses_same_adapter": true,
     "source_updated_during_work": true,
-    "latest_api_revision": 2
+    "latest_api_revision": 2,
+    "release_commit": "6313ac8ddfd52a235ff554a65c168b447776d0be",
+    "deployed_assets_verified": 11,
+    "production_browser_verified": true,
+    "latest_input_matches_imported_snapshot": true
   }
 }
