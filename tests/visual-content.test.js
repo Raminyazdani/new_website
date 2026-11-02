@@ -64,3 +64,13 @@ test('source links accept only safe web URLs and README loading is explicit', as
   assert.equal(env.fetches, 1);
   api.unmount();
 });
+
+
+test('production permits only the explicit public README API alongside same-origin connections', () => {
+  const config = JSON.parse(fs.readFileSync(path.join(__dirname, '../vercel.json'), 'utf8'));
+  const csp = config.headers.flatMap(rule => rule.headers).find(header => header.key === 'Content-Security-Policy').value;
+  const connect = csp.split(';').map(part => part.trim()).find(part => part.startsWith('connect-src '));
+  assert.deepEqual(connect.split(/\s+/).slice(1), ["'self'", 'https://api.github.com']);
+  assert(csp.includes("frame-ancestors 'none'"));
+  assert(csp.includes("form-action 'self'"));
+});
