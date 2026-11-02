@@ -1,6 +1,6 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-11-02T18:49:37.156030+00:00",
+  "checked_at": "2026-11-02T18:56:06.979006+00:00",
   "scope": "Full CV portfolio with independent source/adapter boundary; Hero Lab retained at /lab.html",
   "observed_checks": [
     {
@@ -345,6 +345,71 @@
       "HERO-04"
     ],
     "evidence": "docs/design/HERO_FIVE_VIEWPORT_RESULTS.json",
-    "publication": "pending"
+    "publication": {
+      "state": "READY",
+      "release_commit": "6b3190fee28f52a56f5f3aa78fcfea27fe8ebf24",
+      "deployment": "dpl_DWMas5VM28wSdaue1Sx5dRTtYogT",
+      "public_assets_matched": 34,
+      "anonymous_api": 401,
+      "cache_control": "private, no-store, max-age=0",
+      "live_motion_moved": true,
+      "five_live_viewports": [
+        {
+          "codeBottom": 696.90625,
+          "photo": 720,
+          "requested": {
+            "height": 740,
+            "width": 320
+          },
+          "scroll": 305,
+          "sections": 11,
+          "w": 305
+        },
+        {
+          "codeBottom": 733.2916870117188,
+          "photo": 720,
+          "requested": {
+            "height": 844,
+            "width": 390
+          },
+          "scroll": 375,
+          "sections": 11,
+          "w": 375
+        },
+        {
+          "codeBottom": 785.03125,
+          "photo": 720,
+          "requested": {
+            "height": 1024,
+            "width": 768
+          },
+          "scroll": 753,
+          "sections": 11,
+          "w": 753
+        },
+        {
+          "codeBottom": 595.59375,
+          "photo": 720,
+          "requested": {
+            "height": 768,
+            "width": 1024
+          },
+          "scroll": 1009,
+          "sections": 11,
+          "w": 1009
+        },
+        {
+          "codeBottom": 723.53125,
+          "photo": 720,
+          "requested": {
+            "height": 900,
+            "width": 1440
+          },
+          "scroll": 1425,
+          "sections": 11,
+          "w": 1425
+        }
+      ]
+    }
   }
 }

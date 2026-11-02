@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-11-02T18:49:37.156030+00:00",
+  "checked_at_utc": "2026-11-02T18:56:06.979006+00:00",
   "objective": "Integrated cell, chemical bond graph and source-backed code inside the same hero; responsive UI audit at five representative widths.",
   "cell_preference": "Retained, finer and more abstract as explicitly selected by the user.",
   "method": "Real IAB browser with CSS viewport overrides and actual private CV API. Not physical-device or screen-reader testing.",
@@ -863,5 +863,70 @@
     "Scientific geometry is illustrative, not experimental results or an identified molecular structure",
     "Some viewport rasters were scaled by IAB; full-section captures and actual DOM geometry were used for review"
   ],
-  "publication": "pending"
+  "publication": {
+    "state": "READY",
+    "release_commit": "6b3190fee28f52a56f5f3aa78fcfea27fe8ebf24",
+    "deployment": "dpl_DWMas5VM28wSdaue1Sx5dRTtYogT",
+    "public_assets_matched": 34,
+    "anonymous_api": 401,
+    "cache_control": "private, no-store, max-age=0",
+    "live_motion_moved": true,
+    "five_live_viewports": [
+      {
+        "codeBottom": 696.90625,
+        "photo": 720,
+        "requested": {
+          "height": 740,
+          "width": 320
+        },
+        "scroll": 305,
+        "sections": 11,
+        "w": 305
+      },
+      {
+        "codeBottom": 733.2916870117188,
+        "photo": 720,
+        "requested": {
+          "height": 844,
+          "width": 390
+        },
+        "scroll": 375,
+        "sections": 11,
+        "w": 375
+      },
+      {
+        "codeBottom": 785.03125,
+        "photo": 720,
+        "requested": {
+          "height": 1024,
+          "width": 768
+        },
+        "scroll": 753,
+        "sections": 11,
+        "w": 753
+      },
+      {
+        "codeBottom": 595.59375,
+        "photo": 720,
+        "requested": {
+          "height": 768,
+          "width": 1024
+        },
+        "scroll": 1009,
+        "sections": 11,
+        "w": 1009
+      },
+      {
+        "codeBottom": 723.53125,
+        "photo": 720,
+        "requested": {
+          "height": 900,
+          "width": 1440
+        },
+        "scroll": 1425,
+        "sections": 11,
+        "w": 1425
+      }
+    ]
+  }
 }
