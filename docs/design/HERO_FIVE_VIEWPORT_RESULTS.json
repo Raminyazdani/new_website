@@ -1,0 +1,867 @@
+{
+  "checked_at_utc": "2026-11-02T18:49:37.156030+00:00",
+  "objective": "Integrated cell, chemical bond graph and source-backed code inside the same hero; responsive UI audit at five representative widths.",
+  "cell_preference": "Retained, finer and more abstract as explicitly selected by the user.",
+  "method": "Real IAB browser with CSS viewport overrides and actual private CV API. Not physical-device or screen-reader testing.",
+  "motion_render_mode": "Still used for comparable layout captures; Full/Pause/Resume/Still separately verified in the real browser.",
+  "viewports": [
+    {
+      "actions": {
+        "bottom": 1167.604248046875,
+        "h": 104,
+        "w": 274.19793701171875,
+        "x": 15.229166984558104,
+        "y": 1063.604248046875
+      },
+      "badBoxes": [],
+      "certificatesShown": 40,
+      "client": {
+        "h": 740,
+        "scroll": 305,
+        "w": 305
+      },
+      "code": {
+        "bottom": 696.90625,
+        "h": 116.1875,
+        "w": 226.48959350585935,
+        "x": 48.63541793823242,
+        "y": 580.71875
+      },
+      "columns": {
+        "certificate": 274.19793701171875,
+        "paperText": 237.67709350585935,
+        "projectText": 249.1979217529297
+      },
+      "header": {
+        "bottom": 110.66667175292967,
+        "h": 110.66667175292967,
+        "w": 304.66668701171875,
+        "x": 0,
+        "y": 0
+      },
+      "molecule": {
+        "bottom": 553.8265800476074,
+        "h": 39.01420211791992,
+        "w": 95.7099838256836,
+        "x": 45.73630905151367,
+        "y": 514.8123779296875
+      },
+      "projectsShown": 87,
+      "requested": {
+        "height": 740,
+        "width": 320
+      },
+      "scene": {
+        "bottom": 774.6041870117188,
+        "h": 431.9375,
+        "w": 274.19793701171875,
+        "x": 15.229166984558104,
+        "y": 342.66668701171875
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "about",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "projects",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "experience",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "publications",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "education",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "skills",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "certificates",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "languages",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "references",
+          "scroll": 305,
+          "w": 305
+        },
+        {
+          "id": "contact",
+          "scroll": 305,
+          "w": 305
+        }
+      ]
+    },
+    {
+      "actions": {
+        "bottom": 1117.4375,
+        "h": 48,
+        "w": 337.19793701171875,
+        "x": 18.729167938232425,
+        "y": 1069.4375
+      },
+      "badBoxes": [],
+      "certificatesShown": 40,
+      "client": {
+        "h": 844,
+        "scroll": 375,
+        "w": 375
+      },
+      "code": {
+        "bottom": 733.2916870117188,
+        "h": 125.1875,
+        "w": 261.97918701171875,
+        "x": 76.48958587646484,
+        "y": 608.1041870117188
+      },
+      "columns": {
+        "certificate": 337.19793701171875,
+        "paperText": 300.6770935058594,
+        "projectText": 312.19793701171875
+      },
+      "header": {
+        "bottom": 110.66667175292967,
+        "h": 110.66667175292967,
+        "w": 374.6666870117187,
+        "x": 0,
+        "y": 0
+      },
+      "molecule": {
+        "bottom": 585.0718612670898,
+        "h": 48.021934509277344,
+        "w": 117.80785369873048,
+        "x": 56.1259880065918,
+        "y": 537.0499267578125
+      },
+      "projectsShown": 87,
+      "requested": {
+        "height": 844,
+        "width": 390
+      },
+      "scene": {
+        "bottom": 816.7708435058594,
+        "h": 491.4583435058594,
+        "w": 337.19793701171875,
+        "x": 18.729167938232425,
+        "y": 325.3125
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "about",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "projects",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "experience",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "publications",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "education",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "skills",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "certificates",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "languages",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "references",
+          "scroll": 375,
+          "w": 375
+        },
+        {
+          "id": "contact",
+          "scroll": 375,
+          "w": 375
+        }
+      ]
+    },
+    {
+      "actions": {
+        "bottom": 1110.8125,
+        "h": 48,
+        "w": 592.6666870117188,
+        "x": 80,
+        "y": 1062.8125
+      },
+      "badBoxes": [],
+      "certificatesShown": 40,
+      "client": {
+        "h": 1024,
+        "scroll": 753,
+        "w": 753
+      },
+      "code": {
+        "bottom": 785.03125,
+        "h": 125.1875,
+        "w": 326.57293701171875,
+        "x": 238.1666717529297,
+        "y": 659.84375
+      },
+      "columns": {
+        "certificate": 289.9375,
+        "paperText": 556.1458740234375,
+        "projectText": 390.6666870117187
+      },
+      "header": {
+        "bottom": 80,
+        "h": 80,
+        "w": 752.6666870117188,
+        "x": 0,
+        "y": 0
+      },
+      "molecule": {
+        "bottom": 631.1345634460449,
+        "h": 59.86100387573242,
+        "w": 146.85150146484375,
+        "x": 212.7853851318359,
+        "y": 571.2735595703125
+      },
+      "projectsShown": 87,
+      "requested": {
+        "height": 1024,
+        "width": 768
+      },
+      "scene": {
+        "bottom": 873.4791870117188,
+        "h": 565.9791870117188,
+        "w": 420,
+        "x": 166.33334350585938,
+        "y": 307.5
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "about",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "projects",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "experience",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "publications",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "education",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "skills",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "certificates",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "languages",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "references",
+          "scroll": 753,
+          "w": 753
+        },
+        {
+          "id": "contact",
+          "scroll": 753,
+          "w": 753
+        }
+      ]
+    },
+    {
+      "actions": {
+        "bottom": 699.8958740234375,
+        "h": 48,
+        "w": 479.3125,
+        "x": 50.4375,
+        "y": 651.8958740234375
+      },
+      "badBoxes": [],
+      "certificatesShown": 40,
+      "client": {
+        "h": 768,
+        "scroll": 1009,
+        "w": 1009
+      },
+      "code": {
+        "bottom": 595.59375,
+        "h": 125.1875,
+        "w": 304.8645935058594,
+        "x": 633.15625,
+        "y": 470.40625
+      },
+      "columns": {
+        "certificate": 294.0625,
+        "paperText": 410.9791870117187,
+        "projectText": 602.6458740234375
+      },
+      "header": {
+        "bottom": 80,
+        "h": 80,
+        "w": 1008.6666870117188,
+        "x": 0,
+        "y": 0
+      },
+      "molecule": {
+        "bottom": 443.6088676452637,
+        "h": 55.88285446166992,
+        "w": 137.09237670898438,
+        "x": 609.46142578125,
+        "y": 387.72601318359375
+      },
+      "projectsShown": 87,
+      "requested": {
+        "height": 768,
+        "width": 1024
+      },
+      "scene": {
+        "bottom": 682.375,
+        "h": 540.9375,
+        "w": 392.1770935058594,
+        "x": 566.0521240234375,
+        "y": 141.4375
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "about",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "projects",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "experience",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "publications",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "education",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "skills",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "certificates",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "languages",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "references",
+          "scroll": 1009,
+          "w": 1009
+        },
+        {
+          "id": "contact",
+          "scroll": 1009,
+          "w": 1009
+        }
+      ]
+    },
+    {
+      "actions": {
+        "bottom": 792.8229370117188,
+        "h": 48,
+        "w": 675.8333740234375,
+        "x": 72.33333587646484,
+        "y": 744.8229370117188
+      },
+      "badBoxes": [],
+      "certificatesShown": 40,
+      "client": {
+        "h": 900,
+        "scroll": 1425,
+        "w": 1425
+      },
+      "code": {
+        "bottom": 723.53125,
+        "h": 125.1875,
+        "w": 404.5729370117187,
+        "x": 921.1666870117188,
+        "y": 598.34375
+      },
+      "columns": {
+        "certificate": 418.1354370117187,
+        "paperText": 597.0833740234375,
+        "projectText": 862.9271240234375
+      },
+      "header": {
+        "bottom": 80,
+        "h": 80,
+        "w": 1424.666748046875,
+        "x": 0,
+        "y": 0
+      },
+      "molecule": {
+        "bottom": 562.7765350341797,
+        "h": 74.15898132324219,
+        "w": 181.92758178710935,
+        "x": 889.7213745117188,
+        "y": 488.6175537109375
+      },
+      "projectsShown": 87,
+      "requested": {
+        "height": 900,
+        "width": 1440
+      },
+      "scene": {
+        "bottom": 817.9791870117188,
+        "h": 655.9791870117188,
+        "w": 520,
+        "x": 832.3333740234375,
+        "y": 162
+      },
+      "sections": [
+        {
+          "id": "hero",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "about",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "projects",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "experience",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "publications",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "education",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "skills",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "certificates",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "languages",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "references",
+          "scroll": 1425,
+          "w": 1425
+        },
+        {
+          "id": "contact",
+          "scroll": 1425,
+          "w": 1425
+        }
+      ]
+    }
+  ],
+  "expanded_records_audit": [
+    {
+      "bad": [],
+      "openSkillGroups": 8,
+      "requested": {
+        "height": 740,
+        "width": 320
+      },
+      "scroll": 305,
+      "skillItems": 223,
+      "w": 305
+    },
+    {
+      "bad": [],
+      "openSkillGroups": 8,
+      "requested": {
+        "height": 844,
+        "width": 390
+      },
+      "scroll": 375,
+      "skillItems": 223,
+      "w": 375
+    },
+    {
+      "bad": [],
+      "openSkillGroups": 8,
+      "requested": {
+        "height": 1024,
+        "width": 768
+      },
+      "scroll": 753,
+      "skillItems": 223,
+      "w": 753
+    },
+    {
+      "bad": [],
+      "openSkillGroups": 8,
+      "requested": {
+        "height": 768,
+        "width": 1024
+      },
+      "scroll": 1009,
+      "skillItems": 223,
+      "w": 1009
+    },
+    {
+      "bad": [],
+      "openSkillGroups": 8,
+      "requested": {
+        "height": 900,
+        "width": 1440
+      },
+      "scroll": 1425,
+      "skillItems": 223,
+      "w": 1425
+    }
+  ],
+  "dialogs": [
+    {
+      "client": 250,
+      "closeInside": true,
+      "closeSize": [
+        44,
+        44
+      ],
+      "open": true,
+      "requested": {
+        "height": 740,
+        "width": 320
+      },
+      "scroll": 250,
+      "w": 266.66668701171875,
+      "escapeClosed": true
+    },
+    {
+      "client": 335,
+      "closeInside": true,
+      "closeSize": [
+        44,
+        44
+      ],
+      "open": true,
+      "requested": {
+        "height": 844,
+        "width": 390
+      },
+      "scroll": 335,
+      "w": 336.66668701171875,
+      "escapeClosed": true
+    },
+    {
+      "client": 713,
+      "closeInside": true,
+      "closeSize": [
+        44,
+        44
+      ],
+      "open": true,
+      "requested": {
+        "height": 1024,
+        "width": 768
+      },
+      "scroll": 713,
+      "w": 714.6666870117188,
+      "escapeClosed": true
+    },
+    {
+      "client": 759,
+      "closeInside": true,
+      "closeSize": [
+        44,
+        44
+      ],
+      "open": true,
+      "requested": {
+        "height": 768,
+        "width": 1024
+      },
+      "scroll": 759,
+      "w": 760,
+      "escapeClosed": true
+    },
+    {
+      "client": 759,
+      "closeInside": true,
+      "closeSize": [
+        44,
+        44
+      ],
+      "open": true,
+      "requested": {
+        "height": 900,
+        "width": 1440
+      },
+      "scroll": 759,
+      "w": 760,
+      "escapeClosed": true
+    }
+  ],
+  "dark_theme": [
+    {
+      "captionColor": "rgb(176, 197, 221)",
+      "codeColor": "rgb(124, 214, 212)",
+      "portrait": 720,
+      "requested": {
+        "height": 740,
+        "width": 320
+      },
+      "scroll": 305,
+      "theme": "dark",
+      "w": 305
+    },
+    {
+      "captionColor": "rgb(176, 197, 221)",
+      "codeColor": "rgb(124, 214, 212)",
+      "portrait": 720,
+      "requested": {
+        "height": 844,
+        "width": 390
+      },
+      "scroll": 375,
+      "theme": "dark",
+      "w": 375
+    },
+    {
+      "captionColor": "rgb(176, 197, 221)",
+      "codeColor": "rgb(124, 214, 212)",
+      "portrait": 720,
+      "requested": {
+        "height": 1024,
+        "width": 768
+      },
+      "scroll": 753,
+      "theme": "dark",
+      "w": 753
+    },
+    {
+      "captionColor": "rgb(176, 197, 221)",
+      "codeColor": "rgb(124, 214, 212)",
+      "portrait": 720,
+      "requested": {
+        "height": 768,
+        "width": 1024
+      },
+      "scroll": 1009,
+      "theme": "dark",
+      "w": 1009
+    },
+    {
+      "captionColor": "rgb(176, 197, 221)",
+      "codeColor": "rgb(124, 214, 212)",
+      "portrait": 720,
+      "requested": {
+        "height": 900,
+        "width": 1440
+      },
+      "scroll": 1425,
+      "theme": "dark",
+      "w": 1425
+    }
+  ],
+  "motion": {
+    "fullChanges": true,
+    "localPauseExact": true,
+    "resumeMoves": true,
+    "globalStillExact": true
+  },
+  "tests": {
+    "command": "npm test",
+    "passed": 23,
+    "failed": 0,
+    "kind": "Synthetic Node/Linkedom, including source escaping, synchronized frame updates, pause/reset, offscreen/visibility/effects gating and cleanup."
+  },
+  "fixes": [
+    {
+      "id": "HERO-01",
+      "observed": "320px integrated scene started below the initial viewport at y814.",
+      "change": "Natural DOM identity→study→profile order; desktop grid places the study beside text, mobile shows it before copy/roles/CTA.",
+      "retest": "320px scene y343 and source code bottom697 within height740; all five code blocks end within the requested initial viewport."
+    },
+    {
+      "id": "HERO-02",
+      "observed": "320px header name broke over three lines.",
+      "change": "Compact header shows source initials at <=360px; full source name remains the main heading.",
+      "retest": "All header controls fit in every sampled width."
+    },
+    {
+      "id": "HERO-03",
+      "observed": "Fixed preview return button covered the primary CTA at 320px.",
+      "change": "Return control now lives in the navigation during isolated previews.",
+      "retest": "No floating occlusion; preview return and ordinary navigation function."
+    },
+    {
+      "id": "HERO-04",
+      "observed": "Hero metadata and local controls were too small.",
+      "change": "Readable 12px code/caption labels; local controls at least44x44 CSSpx.",
+      "retest": "320px buttons measured74.7x44 and44x44, no page overflow."
+    }
+  ],
+  "independent_visual_review": {
+    "scope": "Five revised hero/full-section captures, normal-top captures, targeted project/publication/skills/certificate captures at320/768/1024/1440, two dark captures and recaptured320 dialog.",
+    "result": "No remaining P1/P2 found in the reviewed images. Long full publication titles remain intentionally tall on narrow screens."
+  },
+  "evidence": {
+    "storage": "Real images stay outside the public repository. File names refer to the private evidence set hero-five-20261102.",
+    "files": [
+      "1024-certificates.jpg",
+      "1024-hero-revised.jpg",
+      "1024-hero.jpg",
+      "1024-normal-top.jpg",
+      "1024-projects.jpg",
+      "1024-publications.jpg",
+      "1024-skills.jpg",
+      "1440-certificates.jpg",
+      "1440-dark-top.jpg",
+      "1440-hero-revised.jpg",
+      "1440-hero.jpg",
+      "1440-normal-top.jpg",
+      "1440-projects.jpg",
+      "1440-publications.jpg",
+      "1440-skills.jpg",
+      "320-certificates.jpg",
+      "320-dark-top.jpg",
+      "320-hero-final.jpg",
+      "320-hero-revised.jpg",
+      "320-hero.jpg",
+      "320-normal-top.jpg",
+      "320-project-dialog-full.jpg",
+      "320-project-dialog.jpg",
+      "320-projects.jpg",
+      "320-publications.jpg",
+      "320-skills.jpg",
+      "390-certificates.jpg",
+      "390-hero-revised.jpg",
+      "390-hero.jpg",
+      "390-normal-top.jpg",
+      "390-projects.jpg",
+      "390-publications.jpg",
+      "390-skills.jpg",
+      "768-certificates.jpg",
+      "768-hero-revised.jpg",
+      "768-hero.jpg",
+      "768-normal-top.jpg",
+      "768-projects.jpg",
+      "768-publications.jpg",
+      "768-skills.jpg"
+    ],
+    "nonrepresentative_capture": "320-project-dialog.jpg is downscaled IAB raster output; not used as visual proof. Replaced by320-project-dialog-full.jpg; native geometry/keyboard observations are independent."
+  },
+  "privacy": {
+    "public_assets_scanned": 34,
+    "known_private_values_checked": 4,
+    "matches": 0,
+    "source_cv_api_database_unchanged": true,
+    "new_scene_source_bytes": 15914
+  },
+  "limits": [
+    "Representative CSS viewports, not all devices or all browser engines",
+    "No screen-reader session or Core Web Vitals measurement",
+    "Scientific geometry is illustrative, not experimental results or an identified molecular structure",
+    "Some viewport rasters were scaled by IAB; full-section captures and actual DOM geometry were used for review"
+  ],
+  "publication": "pending"
+}

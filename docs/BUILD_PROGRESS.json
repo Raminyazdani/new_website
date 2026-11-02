@@ -1,6 +1,6 @@
 {
   "project": "new-website-hero-lab",
-  "checked_at": "2026-11-02T18:09:49.400494+00:00",
+  "checked_at": "2026-11-02T18:49:37.156030+00:00",
   "scope": "Full CV portfolio with independent source/adapter boundary; Hero Lab retained at /lab.html",
   "observed_checks": [
     {
@@ -316,5 +316,35 @@
         ]
       }
     }
+  },
+  "integrated_hero_five_viewports": {
+    "scope": "Integrated cell, chemical bond graph and source-backed code inside the same hero; responsive UI audit at five representative widths.",
+    "tests_passed": 23,
+    "viewport_widths": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "all_records_expanded_for_check": {
+      "projects": 87,
+      "certificates": 40,
+      "skills": 223
+    },
+    "real_motion": {
+      "fullChanges": true,
+      "localPauseExact": true,
+      "resumeMoves": true,
+      "globalStillExact": true
+    },
+    "issues_fixed": [
+      "HERO-01",
+      "HERO-02",
+      "HERO-03",
+      "HERO-04"
+    ],
+    "evidence": "docs/design/HERO_FIVE_VIEWPORT_RESULTS.json",
+    "publication": "pending"
   }
 }

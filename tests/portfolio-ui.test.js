@@ -8,7 +8,7 @@ const { parseHTML } = require('linkedom');
 const { adaptCV } = require('../public/data/cv-adapter');
 
 const publicRoot = path.join(__dirname, '../public');
-const files = ['science.js', 'studio.js', 'studio-intro.js', 'records.js', 'runtime.js'];
+const files = ['science.js', 'studio.js', 'hero-scene.js', 'studio-intro.js', 'records.js', 'runtime.js'];
 const raw = {
   basics: [{
     fname: 'Synthetic', lname: 'Profile',
@@ -78,7 +78,7 @@ async function boot({ search = '', auth = false, reduce = true, stored = null } 
     addEventListener() {},
     navigator: { clipboard: { writeText: async () => {} } },
   };
-  for (const file of files.slice(0, 4)) {
+  for (const file of files.slice(0, 5)) {
     new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8'))(win, document);
   }
   new Function('window', 'document', 'fetch', 'setTimeout', 'clearTimeout', fs.readFileSync(path.join(publicRoot, 'portfolio/runtime.js'), 'utf8'))(
@@ -104,12 +104,15 @@ test('unified default combines the three disciplines while preserving the synthe
   assert.equal(document.querySelectorAll('#references details[open]').length, 0);
   assert.equal(document.querySelector('#hero h1').textContent.replace(/\s+/g, ''), 'SyntheticProfile');
   assert.equal(win.PortfolioStudio.concept, 'unified');
-  assert(document.querySelector('#hero [data-science="cell"]'), 'unified hero keeps the cell illustration');
-  assert(document.querySelector('#hero .st-code-frame'), 'unified hero includes the code identity frame');
+  assert(document.querySelector('#hero [data-hero-scene]'), 'unified hero uses the integrated scene');
+  assert(document.querySelector('#hero [data-hs-cell]'), 'integrated hero includes cell geometry');
+  assert(document.querySelector('#hero .hs-bond-graph [data-hs-bond]'), 'integrated hero includes molecular bonds');
+  assert(document.querySelector('#hero .hs-source'), 'integrated hero includes the code identity panel');
+  assert(document.querySelector('#hero .hs-person .hs-portrait'), 'integrated hero includes the portrait');
   assert(document.querySelector('#about [data-science="molecule"]'), 'unified profile includes molecular art');
   assert(document.querySelector('[data-project-card].st-project-terminal'), 'unified projects use notebook cards');
   assert(document.querySelector('.st-timeline-molecular'), 'unified experience uses the molecular path');
-  assert.equal(document.querySelector('.pf-portrait img')?.getAttribute('src'), 'https://example.test/portrait.jpg');
+  assert.equal(document.querySelector('#hero .hs-person img')?.getAttribute('src'), 'https://example.test/portrait.jpg');
   assert(document.querySelector('#about').textContent.includes('Exact fictional summary'));
   assert.equal(document.querySelectorAll('#portfolio img[onerror]').length, 0);
   assert.deepStrictEqual(win.portfolioView.raw, raw);
@@ -225,6 +228,83 @@ test('illustrative geometry stays finite and its explicit rotate control changes
   click('[data-science-turn]');
   assert.notDeepEqual([node.getAttribute('cx'), node.getAttribute('cy')], initial);
   assert([...scene.querySelectorAll('circle')].every(circle => Number.isFinite(Number(circle.getAttribute('cx'))) && Number.isFinite(Number(circle.getAttribute('cy')))));
+});
+
+test('integrated hero renders the supplied name as escaped source text and no inferred profile facts', () => {
+  const { document, Event } = parseHTML('<!doctype html><html><body data-effects="on"></body></html>');
+  const win = { Event };
+  new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio/hero-scene.js'), 'utf8'))(win, document);
+  const identity = { name: '<img src=x onerror=alert(1)> Synthetic', photo: 'https://example.test/portrait.jpg' };
+  const h = {
+    e: value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]),
+    portrait: (_identity, className) => `<div class="${className}"><img src="https://example.test/portrait.jpg" alt="Synthetic"></div>`,
+  };
+  const root = document.createElement('main');
+  root.innerHTML = win.PortfolioHeroScene.render(identity, h);
+  document.body.append(root);
+  const scene = root.querySelector('[data-hero-scene]');
+  assert(scene);
+  assert(scene.querySelector('[data-hs-cell]'));
+  assert(scene.querySelector('.hs-bond-graph [data-hs-bond]'));
+  assert(scene.querySelector('.hs-source'));
+  assert.equal(scene.querySelector('.hs-source strong').textContent, JSON.stringify(identity.name));
+  assert.equal(scene.querySelector('.hs-source img'), null);
+  assert.equal(scene.querySelector('.hs-portrait img').getAttribute('src'), 'https://example.test/portrait.jpg');
+  assert.equal(scene.querySelectorAll('img[onerror]').length, 0);
+  assert(!scene.textContent.includes('Synthetic role'));
+  assert(!scene.textContent.includes('Example organization'));
+});
+
+test('integrated hero gates animation by visibility and effects, supports pause/reset, and cleans up', () => {
+  const { document, Event } = parseHTML('<!doctype html><html><body data-effects="on"></body></html>');
+  let observerCallback;
+  let disconnects = 0;
+  const frames = new Map();
+  let nextFrame = 0;
+  const win = {
+    Event,
+    requestAnimationFrame(callback) { const id = ++nextFrame; frames.set(id, callback); return id; },
+    cancelAnimationFrame(id) { frames.delete(id); },
+    IntersectionObserver: class {
+      constructor(callback) { observerCallback = callback; }
+      observe() {}
+      disconnect() { disconnects++; }
+    },
+  };
+  new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio/hero-scene.js'), 'utf8'))(win, document);
+  const h = { e: value => String(value), portrait: () => '<div></div>' };
+  const root = document.createElement('main');
+  root.innerHTML = win.PortfolioHeroScene.render({ name: 'Synthetic' }, h);
+  document.body.append(root);
+  const scene = root.querySelector('[data-hero-scene]');
+  win.PortfolioHeroScene.mount(root);
+  assert.equal(frames.size, 0, 'offscreen scenes do not animate');
+  observerCallback([{ target: scene, isIntersecting: true }]);
+  assert.equal(frames.size, 1);
+
+  const play = scene.querySelector('[data-hs-play]');
+  play.dispatchEvent(new Event('click'));
+  assert.equal(play.textContent, 'Play');
+  assert.equal(frames.size, 0, 'local pause cancels the scheduled frame');
+  scene.querySelector('[data-hs-reset]').dispatchEvent(new Event('click'));
+  assert.equal(scene.querySelector('[data-hs-cell]').getAttribute('transform'), 'translate(0.000 0.000)');
+
+  play.dispatchEvent(new Event('click'));
+  assert.equal(frames.size, 1);
+  const [frameId, tick] = [...frames.entries()][0];
+  frames.delete(frameId);
+  tick(40);
+  assert.equal(frames.size, 1);
+  const [nextId, nextTick] = [...frames.entries()][0];
+  frames.delete(nextId);
+  nextTick(90);
+  assert.notEqual(scene.querySelector('[data-hs-cell]').getAttribute('transform'), 'translate(0.000 0.000)');
+
+  document.body.dataset.effects = 'off';
+  play.dispatchEvent(new Event('click'));
+  assert.equal(frames.size, 0, 'page effects-off state stops scene animation');
+  win.PortfolioHeroScene.unmount();
+  assert.equal(disconnects, 1);
 });
 
 test('project search, open detail, and project/certificate pagination survive concept changes', async () => {
