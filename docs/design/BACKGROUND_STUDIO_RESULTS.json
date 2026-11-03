@@ -1,5 +1,5 @@
 {
-  "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+  "state": "DEPLOYED_AND_VERIFIED",
   "testsPassed": 35,
   "modes": [
     {
@@ -49,5 +49,25 @@
     "publicFiles": 44,
     "sensitiveValuesChecked": 4,
     "leaks": 0
+  },
+  "publication": {
+    "state": "READY",
+    "commit": "a43eb4972772c546d84cfb2a9227b4d30db79f4b",
+    "deployment": "dpl_4soCW3rgd1V4Ht86XgWzqbXtBwvZ",
+    "url": "https://new-website-hero-lab.vercel.app/?design=unified&theme=light&background=silk",
+    "assetsMatchedAfterLineEndingNormalization": 44,
+    "anonymousApi": 401,
+    "cacheControl": "private, no-store, max-age=0",
+    "browser": {
+      "choices": 6,
+      "layers": 2,
+      "activePreview": "membrane",
+      "previewPointerChanged": true,
+      "finalSelection": "silk",
+      "viewportWidth": 1425,
+      "scrollWidth": 1425,
+      "consoleErrorsObserved": 0
+    },
+    "screenshotsOutsideGit": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/backgrounds-20261103/"
   }
 }
