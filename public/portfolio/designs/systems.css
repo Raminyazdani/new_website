@@ -1,0 +1,325 @@
+/* Five original system compositions. Every rule is confined to a design or ds-* component. */
+body[data-design="pipeline"] { --paper:#f4f7fa; --surface:#fff; --surface-strong:#e5edf5; --ink:#172638; --text:var(--ink); --muted:#4a6176; --lime:#176341; --coral:#205ca9; --line:#bfcfdd; --on-accent:#fff; --ds-radius:5px; }
+body[data-design="pipeline"][data-theme="dark"] { --paper:#10151c; --surface:#17202b; --surface-strong:#222f3e; --ink:#e8f0f9; --muted:#a7b9cc; --lime:#90dfa8; --coral:#91bff5; --line:#35475b; --on-accent:#10251a; }
+body[data-design="bento"] { --paper:#f1f1ec; --surface:#fff; --surface-strong:#e1e7ca; --ink:#20251a; --text:var(--ink); --muted:#586148; --lime:#45611a; --coral:#0a6c73; --line:#d3dac6; --on-accent:#fff; --ds-radius:26px; }
+body[data-design="bento"][data-theme="dark"] { --paper:#12150f; --surface:#1e2419; --surface-strong:#313d22; --ink:#f0f4e8; --muted:#b5c3a5; --lime:#c5ef75; --coral:#80d2cd; --line:#404c32; --on-accent:#1b290c; }
+body[data-design="atlas-map"] { --paper:#fafbfe; --surface:#fff; --surface-strong:#e9edf9; --ink:#152343; --text:var(--ink); --muted:#55627c; --lime:#354fbb; --coral:#9d4527; --line:#d3dbed; --on-accent:#fff; --ds-radius:3px; }
+body[data-design="atlas-map"][data-theme="dark"] { --paper:#10182a; --surface:#182339; --surface-strong:#253452; --ink:#eaf0ff; --muted:#b1bed9; --lime:#a8baff; --coral:#f7b19a; --line:#3c4d70; --on-accent:#17234d; }
+body[data-design="console"] { --paper:#f7f7f4; --surface:#fff; --surface-strong:#e7e9df; --ink:#24291f; --text:var(--ink); --muted:#57654c; --lime:#476127; --coral:#886021; --line:#c6cebb; --on-accent:#fff; --ds-radius:2px; }
+body[data-design="console"][data-theme="dark"] { --paper:#151811; --surface:#20251a; --surface-strong:#303a25; --ink:#edf1e4; --muted:#b8c5a6; --lime:#d0e59c; --coral:#e9c18d; --line:#45513a; --on-accent:#23310e; }
+body[data-design="blueprint"] { --paper:#edf4fc; --surface:#f8fbff; --surface-strong:#d9e9f9; --ink:#173e69; --text:var(--ink); --muted:#4b6a8b; --lime:#1d579b; --coral:#8b4723; --line:#a8c2dd; --on-accent:#fff; --ds-radius:0px; }
+body[data-design="blueprint"][data-theme="dark"] { --paper:#102b4c; --surface:#143659; --surface-strong:#204770; --ink:#edf6ff; --muted:#b5d1eb; --lime:#c1e0ff; --coral:#f1c49c; --line:#527da4; --on-accent:#13314f; }
+
+.ds-system { padding-block:clamp(3.5rem,7vw,6rem); border-bottom:1px solid var(--line); color:var(--text); }
+.ds-system.ds-hero { padding-block:clamp(2rem,5vw,4rem); }
+.ds-system .pf-wrap { width:min(1320px,90%); }
+.ds-system :is(h1,h2,h3,p,figure) { margin-top:0; }
+.ds-system .dl-name { font:650 clamp(2.7rem,5.7vw,6.1rem)/1.03 Arial,"Segoe UI",sans-serif; letter-spacing:-.055em; margin-bottom:1.4rem; }
+.ds-system .dl-name span { display:block; }
+.ds-system .dl-lead { max-width:65ch; font:1rem/1.8 Arial,"Segoe UI",sans-serif; white-space:pre-line; color:var(--muted); }
+.ds-system .dl-roles { display:flex; flex-wrap:wrap; gap:.45rem .75rem; color:var(--lime); font-size:.85rem; line-height:1.65; margin-bottom:1.3rem; }
+.ds-system .dl-actions { display:flex; flex-wrap:wrap; gap:.65rem; margin-top:1.5rem; }
+.ds-system .dl-section-heading { border-bottom:1px solid var(--line); padding-bottom:1.3rem; margin-bottom:1.5rem; }
+.ds-system .dl-section-heading h2 { margin:0; font:600 clamp(2rem,4.2vw,3.7rem)/1.1 Arial,"Segoe UI",sans-serif; letter-spacing:-.045em; }
+.ds-eyebrow, .ds-system .dl-kicker { color:var(--lime); font:12px/1.7 ui-monospace,Consolas,monospace; letter-spacing:.1em; text-transform:uppercase; margin-bottom:1.2rem; }
+.ds-section-note { color:var(--muted); font:14px/1.8 Arial,"Segoe UI",sans-serif; max-width:70ch; margin-bottom:1.7rem; }
+.ds-note { color:var(--muted); font:12px/1.7 ui-monospace,Consolas,monospace; }
+.ds-photo { min-width:0; display:flex; flex-direction:column; height:100%; }
+.ds-photo .dl-portrait { flex:1; min-height:240px; aspect-ratio:4/5; width:100%; border-radius:0; margin:0; }
+.ds-photo .pf-portrait img { object-position:center 28%; }
+.ds-photo-label { color:var(--muted); font:12px/1.6 ui-monospace,Consolas,monospace; padding-top:.8rem; margin-bottom:0; }
+.ds-counts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); }
+.ds-counts a { display:flex; flex-direction:column; gap:.5rem; padding:1rem; text-decoration:none; background:var(--surface); }
+.ds-counts a:hover { background:var(--surface-strong); }
+.ds-counts strong { color:var(--lime); font:600 clamp(1.8rem,3vw,3.1rem)/1 ui-monospace,Consolas,monospace; }
+.ds-counts a>span { color:var(--muted); font:12px/1.5 ui-monospace,Consolas,monospace; }
+.ds-collection .dl-projects { gap:1.2rem; }
+.ds-collection .dl-project { min-width:0; border:1px solid var(--line); background:var(--surface); border-radius:var(--ds-radius); overflow:hidden; }
+.ds-collection .dl-project-copy { padding:1.3rem; min-width:0; }
+.ds-collection .dl-project h3 { font:600 clamp(1.15rem,2vw,1.6rem)/1.3 Arial,"Segoe UI",sans-serif; letter-spacing:-.025em; margin:.6rem 0 .9rem; }
+.ds-collection .dl-project-description { font:14px/1.8 Arial,"Segoe UI",sans-serif; color:var(--muted); }
+.ds-collection .dl-project-media { border-bottom:1px solid var(--line); min-width:0; }
+.ds-system .dl-tags { display:flex; flex-wrap:wrap; gap:.4rem; }
+.ds-system .dl-project-actions { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.1rem; }
+.ds-system .dl-index { color:var(--lime); font:12px/1.6 ui-monospace,Consolas,monospace; }
+.ds-system .dl-role { min-width:0; }
+.ds-system .dl-period { color:var(--lime); font:12px/1.7 ui-monospace,Consolas,monospace; }
+.ds-system .dl-role h3 { font:600 clamp(1.3rem,2.3vw,1.9rem)/1.25 Arial,"Segoe UI",sans-serif; letter-spacing:-.025em; margin:0 0 .6rem; }
+.ds-system .dl-org { color:var(--muted); font:14px/1.7 Arial,"Segoe UI",sans-serif; }
+.ds-system .dl-role-more summary { min-height:44px; display:flex; align-items:center; color:var(--lime); font:12px/1.5 ui-monospace,Consolas,monospace; }
+.ds-system .dl-role-more p { white-space:pre-line; color:var(--muted); font:14px/1.85 Arial,"Segoe UI",sans-serif; }
+.ds-system .dl-metrics { margin-block:1.5rem; }
+.ds-system .dl-metric { border-radius:var(--ds-radius); }
+
+/* PIPELINE: explorer + source panes, horizontal file rows and a log register. */
+.ds-pipeline .dl-name { font-size:clamp(2.5rem,4.7vw,5rem); }
+.ds-editor { display:grid; grid-template-columns:190px minmax(0,1fr); border:1px solid var(--line); border-radius:7px; overflow:hidden; background:var(--surface); }
+.ds-explorer { display:flex; flex-direction:column; padding:1.2rem .8rem; border-right:1px solid var(--line); background:var(--paper); }
+.ds-explorer>.ds-eyebrow { padding-inline:.35rem; font-size:10px; }
+.ds-index { display:grid; }
+.ds-index a { display:flex; gap:12px; min-height:42px; align-items:center; padding:.5rem; font:12px/1.5 ui-monospace,Consolas,monospace; text-decoration:none; border-bottom:1px solid color-mix(in srgb,var(--line) 50%,transparent); }
+.ds-index a:hover { color:var(--lime); background:var(--surface-strong); }
+.ds-index a>span { color:var(--muted); font-size:10px; }
+.ds-explorer-footer { margin-top:auto; padding:.8rem .35rem 0; color:var(--muted); font:10px/1.6 ui-monospace,Consolas,monospace; }
+.ds-editor-main { min-width:0; }
+.ds-pane { border:1px solid var(--line); border-radius:5px; background:var(--surface); overflow:hidden; }
+.ds-editor-main>.ds-pane { border:0; border-radius:0; }
+.ds-pane-bar { display:flex; align-items:center; gap:9px; min-height:43px; padding:.7rem 1.2rem; border-bottom:1px solid var(--line); color:var(--muted); background:var(--paper); font:12px/1.5 ui-monospace,Consolas,monospace; }
+.ds-pane-light { width:7px; height:7px; border:1px solid var(--lime); background:var(--lime); border-radius:50%; }
+.ds-pane-content { padding:clamp(1rem,2.5vw,2.2rem); }
+.ds-pipeline-intro { display:grid; grid-template-columns:minmax(0,1fr) minmax(145px,.52fr); gap:2rem; }
+.ds-pipeline-intro .ds-photo .dl-portrait { min-height:220px; }
+.ds-workflow { padding:1.6rem; border-top:1px solid var(--line); background:var(--paper); }
+.ds-workflow ol { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin:0 0 1.3rem; padding:0; list-style:none; }
+.ds-workflow li { position:relative; min-width:0; }
+.ds-workflow li:not(:last-child):after { content:'→'; position:absolute; inset-inline-end:-.85rem; top:25%; color:var(--muted); }
+.ds-workflow a { display:flex; flex-direction:column; gap:.55rem; min-height:120px; text-decoration:none; padding:.8rem; border:1px solid var(--line); background:var(--surface); }
+.ds-workflow a:hover { border-color:var(--lime); }
+.ds-workflow-step { font:11px ui-monospace,Consolas,monospace; color:var(--lime); }
+.ds-workflow b { font:600 12px/1.4 ui-monospace,Consolas,monospace; }
+.ds-workflow small { font:11px/1.5 ui-monospace,Consolas,monospace; color:var(--muted); }
+.ds-workflow .ds-note { margin:0; }
+.ds-pipeline-status { margin-top:1.5rem; }
+.ds-pipeline-status>span { display:block; font:12px/1.6 ui-monospace,Consolas,monospace; margin-bottom:.7rem; color:var(--muted); }
+.ds-project-files .dl-projects { grid-template-columns:1fr; gap:0; }
+.ds-project-files .dl-project { display:grid; grid-template-columns:210px minmax(0,1fr); border:0; border-bottom:1px solid var(--line); border-radius:0; }
+.ds-project-files .dl-project-media { border-bottom:0; border-right:1px solid var(--line); align-self:stretch; background:var(--paper); display:grid; align-items:center; }
+.ds-pipeline .dl-experience { display:grid; gap:0; }
+.ds-pipeline .dl-role { display:grid; grid-template-columns:minmax(120px,.35fr) minmax(0,1fr); gap:1.5rem; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:1.6rem 0; background:none; }
+.ds-pipeline .dl-role:last-child { border-bottom:0; }
+body[data-design="pipeline"] :is(.record-paper-main h3,.record-edu-copy h3,.record-cert-card h3,.record-language h3,.record-skill-group>summary) { font-family:ui-monospace,Consolas,monospace; font-weight:500; letter-spacing:-.04em; }
+body[data-design="pipeline"] :is(.record-paper,.record-edu-row) { background:var(--surface); padding-inline:1.25rem; }
+body[data-design="pipeline"] :is(.record-cert-card,.record-reference,.record-skill-group) { border-radius:4px; background:var(--surface); }
+body[data-design="pipeline"] .record-contact-finale { border:1px solid var(--line); border-radius:4px; background:var(--surface); }
+body[data-design="pipeline"] .record-contact-content h2 { font-family:ui-monospace,Consolas,monospace; }
+
+/* BENTO: a genuine variable-span dashboard and source preview mosaic. */
+.ds-bento-grid { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:1rem; }
+.ds-tile { position:relative; min-width:0; padding:clamp(1.5rem,3vw,2.7rem); border:1px solid var(--line); border-radius:26px; background:var(--surface); overflow:hidden; }
+.ds-bento-identity { grid-column:span 8; background:var(--surface-strong); }
+.ds-bento-identity .dl-name { font-size:clamp(3rem,6.5vw,6.4rem); }
+.ds-bento-photo { grid-column:9/-1; grid-row:1/3; padding:0; min-height:430px; }
+.ds-bento-photo .ds-photo { position:relative; }
+.ds-bento-photo .dl-portrait { height:100%; aspect-ratio:auto; }
+.ds-bento-photo .ds-photo-label { position:absolute; inset:auto 0 0; margin:0; padding:1rem; background:var(--paper); border-top:1px solid var(--line); color:var(--text); }
+.ds-bento-summary { grid-column:span 8; }
+.ds-bento-summary .dl-lead { margin-bottom:0; }
+.ds-bento-numbers { grid-column:1/-1; }
+.ds-bento-numbers .ds-counts { grid-template-columns:repeat(7,minmax(0,1fr)); border:0; background:none; gap:.75rem; }
+.ds-bento-numbers .ds-counts a { border:1px solid var(--line); border-radius:15px; padding:1.15rem; background:var(--paper); }
+.ds-bento-about { border-radius:30px 30px 8px 30px; }
+.ds-bento-mosaic .dl-projects { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:stretch; gap:1rem; }
+.ds-bento-mosaic .dl-project { border-radius:24px; }
+.ds-bento-mosaic .dl-project:nth-child(6n+1) { grid-column:span 2; display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); }
+.ds-bento-mosaic .dl-project:nth-child(6n+1) .dl-project-media { display:grid; align-items:center; border-bottom:0; border-right:1px solid var(--line); background:var(--surface-strong); }
+.ds-bento-mosaic .dl-project:nth-child(6n+4) { background:var(--surface-strong); }
+.ds-bento .dl-experience { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.ds-bento .dl-role { display:flex; flex-direction:column; gap:1.2rem; border:1px solid var(--line); border-radius:24px; padding:1.8rem; background:var(--surface); }
+.ds-bento .dl-role:nth-child(3n+1) { background:var(--surface-strong); }
+body[data-design="bento"] :is(.record-paper,.record-edu-row,.record-reference,.record-skill-group,.record-language,.record-cert-card) { border:1px solid var(--line); border-radius:22px; background:var(--surface); }
+body[data-design="bento"] :is(.record-paper-ledger,.record-education:not(.pf-section),.record-reference-list) { display:grid; gap:1rem; border:0; }
+body[data-design="bento"] :is(.record-paper,.record-edu-row) { padding:1.5rem; }
+body[data-design="bento"] .record-cert-grid { gap:1rem; }
+body[data-design="bento"] .record-language-grid { background:none; border:0; gap:1rem; }
+body[data-design="bento"] .record-contact-finale { border-radius:30px; padding:clamp(1.5rem,5vw,4rem); background:var(--surface-strong); border:1px solid var(--line); }
+body[data-design="bento"] :is(.record-paper-main h3,.record-edu-copy h3,.record-cert-card h3,.record-language h3,.record-skill-group>summary,.record-contact-content h2) { font-family:Arial,"Segoe UI",sans-serif; font-weight:600; }
+
+/* ATLAS: counted entities, category keys and a ruled, spacious register. */
+.ds-atlas-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.07fr); gap:clamp(2rem,5vw,5rem); align-items:start; }
+.ds-atlas-copy .dl-name { font-size:clamp(3.2rem,6vw,6rem); }
+.ds-atlas-profile { margin-top:2rem; max-width:230px; }
+.ds-atlas-profile .dl-portrait { aspect-ratio:1; min-height:180px; border-radius:50%; border:1px solid var(--line); }
+.ds-atlas-profile .ds-photo-label { text-align:center; }
+.ds-unit-chart { margin:0; padding:clamp(1rem,2vw,1.7rem); border:1px solid var(--line); border-radius:4px; background:var(--surface); }
+.ds-unit-chart figcaption { display:flex; flex-direction:column; gap:.55rem; padding-bottom:1.4rem; border-bottom:1px solid var(--line); }
+.ds-unit-chart figcaption b { font:600 1.3rem/1.3 Arial,"Segoe UI",sans-serif; }
+.ds-unit-chart figcaption span { color:var(--muted); font:11px/1.7 ui-monospace,Consolas,monospace; }
+.ds-unit-rows { display:grid; }
+.ds-unit-row { display:block; text-decoration:none; padding:1.1rem 0; border-bottom:1px solid var(--line); --ds-category:var(--lime); }
+.ds-unit-row:hover .ds-unit-label { text-decoration:underline; text-underline-offset:5px; }
+.ds-unit-1,.ds-unit-5 { --ds-category:var(--coral); }
+.ds-unit-2,.ds-unit-6 { --ds-category:var(--text); }
+.ds-unit-3 { --ds-category:var(--muted); }
+.ds-unit-label { display:flex; justify-content:space-between; gap:.8rem; font:12px/1.7 ui-monospace,Consolas,monospace; margin-bottom:.6rem; }
+.ds-unit-label b { color:var(--ds-category); font-size:14px; }
+.ds-unit-dots { display:flex; flex-wrap:wrap; gap:5px; }
+.ds-unit-dots i { display:block; flex:0 0 6px; width:6px; height:6px; border-radius:50%; background:var(--ds-category); }
+.ds-unit-chart>.ds-note { margin:1rem 0 0; }
+.ds-atlas-about { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr); gap:4rem; align-items:start; }
+.ds-atlas-key { border-left:1px solid var(--line); padding-left:1.5rem; }
+.ds-category-index { display:grid; }
+.ds-category-index a { display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:.7rem; align-items:center; padding:1.2rem 0; border-bottom:1px solid var(--line); text-decoration:none; }
+.ds-category-index a:hover b { color:var(--lime); }
+.ds-category-dot { display:grid; place-items:center; width:30px; height:30px; border:1px solid var(--lime); border-radius:50%; color:var(--lime); font:10px ui-monospace,Consolas,monospace; }
+.ds-category-index b { font:500 14px/1.5 Arial,"Segoe UI",sans-serif; }
+.ds-category-index a>span:last-child { color:var(--muted); font:10px/1.5 ui-monospace,Consolas,monospace; }
+.ds-atlas-catalogue .dl-projects { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2rem; }
+.ds-atlas-catalogue .dl-project { background:none; border:0; border-bottom:1px solid var(--line); }
+.ds-atlas-catalogue .dl-project-copy { padding:1.4rem 0; }
+.ds-atlas-catalogue .dl-project-media { border:1px solid var(--line); }
+.ds-atlas .dl-experience { display:grid; gap:0; border-top:1px solid var(--line); }
+.ds-atlas .dl-role { display:grid; grid-template-columns:minmax(140px,.45fr) minmax(0,1fr); gap:2rem; padding:2rem 0; background:none; border:0; border-bottom:1px solid var(--line); border-radius:0; }
+body[data-design="atlas-map"] :is(.record-paper,.record-edu-row) { padding-block:2rem; background:none; }
+body[data-design="atlas-map"] :is(.record-cert-card,.record-language,.record-skill-group,.record-reference) { border-radius:3px; background:var(--surface); }
+body[data-design="atlas-map"] :is(.record-paper-main h3,.record-edu-copy h3,.record-cert-card h3,.record-language h3,.record-skill-group>summary) { font-family:Arial,"Segoe UI",sans-serif; font-weight:500; }
+body[data-design="atlas-map"] .record-contact-finale { border-top:2px solid var(--lime); background:none; border-radius:0; }
+
+/* CONSOLE: native, keyboard-operable record inspectors with readable content. */
+.ds-console .dl-name { font:500 clamp(2.5rem,4.7vw,5rem)/1.08 ui-monospace,Consolas,monospace; letter-spacing:-.06em; }
+.ds-console-topline { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 0; margin-bottom:2rem; border-top:1px solid var(--line); border-bottom:1px solid var(--line); color:var(--muted); font:11px/1.7 ui-monospace,Consolas,monospace; }
+.ds-console-topline a { min-height:44px; display:flex; align-items:center; color:var(--lime); text-underline-offset:4px; }
+.ds-console-layout { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); gap:clamp(2rem,6vw,6rem); }
+.ds-console-inspector { min-width:0; }
+.ds-console-inspector>.ds-photo { height:auto; display:grid; grid-template-columns:100px minmax(0,1fr); gap:1rem; align-items:end; margin-bottom:1.3rem; }
+.ds-console-inspector>.ds-photo .dl-portrait { min-height:100px; aspect-ratio:1; }
+.ds-console-inspector>.ds-photo .ds-photo-label { padding:0; }
+.ds-inspect { min-width:0; border:1px solid var(--line); background:var(--surface); margin-bottom:.7rem; }
+.ds-inspect>summary { display:flex; gap:1rem; align-items:center; justify-content:space-between; min-height:52px; padding:.8rem 1rem; font:12px/1.6 ui-monospace,Consolas,monospace; color:var(--text); }
+.ds-inspect>summary:before { content:'+'; color:var(--lime); }
+.ds-inspect[open]>summary:before { content:'−'; }
+.ds-inspect>summary>span { margin-right:auto; }
+.ds-inspect>summary>small { color:var(--muted); font-size:10px; }
+.ds-inspect[open]>summary { border-bottom:1px solid var(--line); background:var(--surface-strong); }
+.ds-json { padding:1.25rem; overflow-wrap:anywhere; white-space:pre-wrap; margin:0; color:var(--lime); font:12px/1.9 ui-monospace,Consolas,monospace; }
+.ds-inspect>.ds-counts { grid-template-columns:repeat(2,minmax(0,1fr)); border:0; }
+.ds-inspect-body { padding:clamp(1.2rem,3vw,2.5rem); }
+.ds-console-projects .dl-projects { display:grid; grid-template-columns:1fr; gap:.7rem; }
+.ds-console-projects .dl-project { display:grid; grid-template-columns:150px minmax(0,1fr); border-left:3px solid var(--lime); }
+.ds-console-projects .dl-project-media { display:grid; align-items:center; border:0; border-right:1px solid var(--line); background:var(--paper); }
+.ds-console-projects .dl-project-copy { padding:1rem 1.3rem; }
+.ds-console-projects .dl-project h3 { font:500 1.1rem/1.5 ui-monospace,Consolas,monospace; }
+.ds-console .dl-experience { display:grid; gap:.75rem; }
+.ds-console .dl-role { padding:1.4rem; border:1px solid var(--line); border-inline-start:3px solid var(--coral); border-radius:0; background:var(--surface); display:grid; grid-template-columns:180px minmax(0,1fr); gap:1.5rem; }
+.ds-console .dl-role h3 { font:500 1.3rem/1.45 ui-monospace,Consolas,monospace; }
+body[data-design="console"] :is(.record-paper-main h3,.record-edu-copy h3,.record-cert-card h3,.record-language h3,.record-skill-group>summary) { font-family:ui-monospace,Consolas,monospace; font-size:clamp(1.1rem,2vw,1.6rem); font-weight:500; }
+body[data-design="console"] :is(.record-paper,.record-edu-row,.record-reference,.record-skill-group,.record-cert-card,.record-language) { border-radius:0; background:var(--surface); }
+body[data-design="console"] :is(.record-paper,.record-edu-row) { padding-inline:1.25rem; }
+body[data-design="console"] .record-language-grid { grid-template-columns:1fr; gap:.7rem; background:none; border:0; }
+body[data-design="console"] .record-language { display:grid; grid-template-columns:35px 1fr minmax(100px,.4fr); gap:.5rem 1rem; min-height:0; border:1px solid var(--line); }
+body[data-design="console"] .record-language h3 { margin:0; }
+body[data-design="console"] .record-language-level { font:500 1.4rem/1.3 ui-monospace,Consolas,monospace; margin:0; }
+body[data-design="console"] .record-language :is(details,.record-language-status) { grid-column:2/-1; }
+body[data-design="console"] .record-language:after { display:none; }
+body[data-design="console"] .record-contact-finale { background:var(--surface); border:1px solid var(--line); border-radius:0; }
+body[data-design="console"] .record-contact-content h2 { font-family:ui-monospace,Consolas,monospace; }
+
+/* BLUEPRINT: measured drafting sheets, source labels and technical schedules. */
+body[data-design="blueprint"] #portfolio { background-image:linear-gradient(color-mix(in srgb,var(--line) 20%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--line) 20%,transparent) 1px,transparent 1px); background-size:25px 25px; }
+.ds-blueprint .dl-name { font-weight:500; letter-spacing:-.045em; }
+.ds-blueprint-sheet { border:1px solid var(--lime); background:color-mix(in srgb,var(--surface) 90%,transparent); padding:clamp(.7rem,2vw,1.5rem); }
+.ds-drawing-header { display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; padding:.8rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); color:var(--lime); font:10px/1.7 ui-monospace,Consolas,monospace; letter-spacing:.05em; }
+.ds-blueprint-hero { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr); gap:clamp(2rem,5vw,5rem); padding:clamp(2rem,4vw,4rem) clamp(.5rem,2vw,1.5rem); }
+.ds-blueprint-photo { position:relative; margin:1.8rem 1.6rem; align-self:start; border:1px solid var(--lime); padding:.8rem; }
+.ds-blueprint-photo:before,.ds-blueprint-photo:after { content:''; position:absolute; width:20px; height:20px; border:1px solid var(--lime); pointer-events:none; }
+.ds-blueprint-photo:before { top:-6px; left:-6px; border-right:0; border-bottom:0; }
+.ds-blueprint-photo:after { bottom:-6px; right:-6px; border-top:0; border-left:0; }
+.ds-dimension { position:absolute; color:var(--lime); font:10px/1.6 ui-monospace,Consolas,monospace; letter-spacing:.06em; }
+.ds-dimension-top { left:0; top:-2rem; width:100%; text-align:center; border-bottom:1px solid var(--line); padding-bottom:.35rem; }
+.ds-dimension-side { writing-mode:vertical-rl; right:-1.8rem; top:0; height:100%; text-align:center; border-right:1px solid var(--line); padding-right:.35rem; }
+.ds-title-block { display:grid; grid-template-columns:120px 1fr auto; gap:1rem; align-items:center; border-top:1px solid var(--lime); padding:1rem .5rem 0; color:var(--muted); font:11px/1.7 ui-monospace,Consolas,monospace; }
+.ds-title-block b { font-weight:500; color:var(--text); }
+.ds-blueprint-about { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:2rem; align-items:start; }
+.ds-specification { border-left:2px solid var(--lime); padding-left:1.5rem; }
+.ds-schematic { margin:0; color:var(--lime); min-width:0; padding:1rem; border:1px solid var(--line); background:var(--surface); }
+.ds-schematic svg { display:block; width:100%; height:auto; }
+.ds-schematic figcaption { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:.8rem; color:var(--muted); font:10px/1.7 ui-monospace,Consolas,monospace; }
+.ds-blueprint-projects { margin-top:1.5rem; }
+.ds-blueprint-projects .dl-projects { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
+.ds-blueprint-projects .dl-project { position:relative; padding:.5rem; border:1px solid var(--lime); background:var(--surface); }
+.ds-blueprint-projects .dl-project-copy { border-top:1px solid var(--line); padding:1.2rem .6rem; }
+.ds-blueprint-projects .dl-project-media { border:0; }
+.ds-blueprint-projects .dl-index { display:block; border-bottom:1px solid var(--line); padding-bottom:.6rem; }
+.ds-blueprint .dl-experience { display:grid; gap:0; }
+.ds-blueprint .dl-role { display:grid; grid-template-columns:minmax(140px,.4fr) minmax(0,1fr); gap:2rem; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:1.8rem 1rem; background:color-mix(in srgb,var(--surface) 90%,transparent); }
+.ds-blueprint .dl-role .dl-period { border-right:1px solid var(--line); padding-right:1rem; }
+body[data-design="blueprint"] :is(.record-paper,.record-edu-row,.record-reference,.record-skill-group,.record-cert-card,.record-language) { border:1px solid var(--line); border-radius:0; background:var(--surface); }
+body[data-design="blueprint"] :is(.record-paper-ledger,.record-education:not(.pf-section),.record-reference-list) { display:grid; gap:.8rem; border:0; }
+body[data-design="blueprint"] :is(.record-paper,.record-edu-row) { padding:1.5rem; }
+body[data-design="blueprint"] :is(.record-paper-main h3,.record-edu-copy h3,.record-cert-card h3,.record-language h3,.record-skill-group>summary) { font-family:Arial,"Segoe UI",sans-serif; font-weight:500; }
+body[data-design="blueprint"] .record-contact-finale { border:1px solid var(--lime); border-radius:0; padding:clamp(1.4rem,4vw,3rem); background:var(--surface); }
+
+@media (max-width:1100px) {
+  .ds-editor { grid-template-columns:160px minmax(0,1fr); }
+  .ds-pipeline-intro { grid-template-columns:minmax(0,1fr) 150px; gap:1rem; }
+  .ds-pipeline .dl-name { font-size:clamp(2.3rem,4.8vw,4.5rem); }
+  .ds-workflow ol { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ds-workflow li:nth-child(2):after { display:none; }
+  .ds-bento-numbers .ds-counts { grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .ds-bento-mosaic .dl-projects { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ds-bento-mosaic .dl-project:nth-child(6n+1) { grid-column:span 2; }
+  .ds-atlas-about { gap:2rem; }
+  .ds-blueprint-hero { gap:2rem; grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr); }
+}
+@media (max-width:800px) {
+  .ds-system .pf-wrap { width:90%; }
+  .ds-editor { grid-template-columns:1fr; }
+  .ds-explorer { border-right:0; border-bottom:1px solid var(--line); padding:.7rem 1rem; }
+  .ds-explorer>.ds-eyebrow,.ds-explorer-footer { display:none; }
+  .ds-index { display:flex; flex-wrap:wrap; gap:.2rem .6rem; }
+  .ds-index a { padding:.4rem; border:0; min-height:44px; font-size:11px; }
+  .ds-index a>span { display:none; }
+  .ds-pipeline-intro { grid-template-columns:minmax(0,1fr) minmax(130px,.5fr); }
+  .ds-atlas-layout,.ds-atlas-about,.ds-console-layout,.ds-blueprint-about { grid-template-columns:1fr; gap:2rem; }
+  .ds-atlas-profile { max-width:160px; }
+  .ds-atlas-profile .dl-portrait { min-height:150px; }
+  .ds-atlas-key { padding-left:0; border-left:0; }
+  .ds-atlas-chart { max-width:620px; }
+  .ds-atlas-copy .dl-name { font-size:clamp(3rem,10vw,5rem); }
+  .ds-console-inspector>.ds-photo { grid-template-columns:120px minmax(0,1fr); }
+  .ds-console-inspector>.ds-photo .dl-portrait { min-height:120px; }
+  .ds-console .dl-role { grid-template-columns:140px minmax(0,1fr); }
+  .ds-blueprint-hero { grid-template-columns:1fr; }
+  .ds-blueprint-photo { width:min(280px,calc(100% - 3.2rem)); margin-inline:auto; }
+  .ds-title-block { grid-template-columns:80px 1fr; }
+  .ds-title-block>span:last-child { grid-column:2; }
+}
+@media (max-width:600px) {
+  .ds-system { padding-block:3rem; }
+  .ds-system .dl-name { font-size:clamp(2.3rem,11vw,4rem); }
+  .ds-system .dl-section-heading h2 { font-size:clamp(1.9rem,8vw,2.8rem); }
+  .ds-system .dl-lead { font-size:15px; line-height:1.85; }
+  .ds-pipeline-intro { grid-template-columns:1fr; }
+  .ds-pipeline-intro .ds-photo { max-width:220px; }
+  .ds-pipeline-intro .ds-photo .dl-portrait { min-height:220px; }
+  .ds-pane-content { padding:1rem; }
+  .ds-workflow { padding:1rem; }
+  .ds-workflow ol { gap:.65rem; }
+  .ds-workflow li:not(:last-child):after { display:none; }
+  .ds-counts { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ds-project-files .dl-project { grid-template-columns:1fr; }
+  .ds-project-files .dl-project-media { border-right:0; border-bottom:1px solid var(--line); }
+  .ds-pipeline .dl-role,.ds-atlas .dl-role,.ds-console .dl-role,.ds-blueprint .dl-role { grid-template-columns:1fr; gap:.8rem; padding:1.3rem .5rem; }
+  .ds-bento-grid { grid-template-columns:1fr; gap:.8rem; }
+  .ds-bento-grid>.ds-tile { grid-column:auto; grid-row:auto; }
+  .ds-bento-identity { order:0; }
+  .ds-bento-photo { order:1; min-height:320px; max-height:460px; }
+  .ds-bento-summary { order:2; }
+  .ds-bento-numbers { order:3; }
+  .ds-bento-photo .dl-portrait { min-height:320px; height:400px; }
+  .ds-tile { padding:1.3rem; border-radius:22px; }
+  .ds-bento-photo { padding:0; }
+  .ds-bento-numbers .ds-counts { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.6rem; }
+  .ds-bento-numbers .ds-counts a { padding:.9rem; }
+  .ds-bento-mosaic .dl-projects,.ds-bento .dl-experience,.ds-atlas-catalogue .dl-projects,.ds-blueprint-projects .dl-projects { grid-template-columns:1fr; }
+  .ds-bento-mosaic .dl-project:nth-child(6n+1) { grid-column:auto; grid-template-columns:1fr; }
+  .ds-bento-mosaic .dl-project:nth-child(6n+1) .dl-project-media { border-right:0; border-bottom:1px solid var(--line); }
+  .ds-unit-chart { padding:1rem; }
+  .ds-unit-dots { gap:4px; }
+  .ds-unit-dots i { flex-basis:5px; width:5px; height:5px; }
+  .ds-category-index a { grid-template-columns:30px minmax(0,1fr); }
+  .ds-category-index a>span:last-child { grid-column:2; }
+  .ds-console-topline { flex-wrap:wrap; margin-bottom:1.5rem; }
+  .ds-console-projects .dl-project { grid-template-columns:1fr; }
+  .ds-console-projects .dl-project-media { border-right:0; border-bottom:1px solid var(--line); }
+  .ds-console .dl-role { padding:1rem; }
+  .ds-json { padding:.9rem; font-size:11px; }
+  .ds-blueprint-hero { padding:1.5rem .2rem; }
+  .ds-blueprint .dl-role .dl-period { border-right:0; padding:0; }
+  .ds-specification { padding-left:1rem; }
+  body[data-design="console"] .record-language { grid-template-columns:25px minmax(0,1fr); }
+  body[data-design="console"] .record-language-level { grid-column:2; }
+  body:is([data-design="bento"],[data-design="blueprint"]) :is(.record-paper,.record-edu-row) { padding:1rem; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ds-system *, .ds-system *:before, .ds-system *:after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+}

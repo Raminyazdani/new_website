@@ -1,0 +1,156 @@
+{
+  "collection": "fifteen_designs_collection",
+  "recorded_at": "2026-11-03T03:20:50.654Z",
+  "status": "LOCAL_RESPONSIVE_EVIDENCE_COMPLETE_PUBLICATION_PENDING",
+  "scope": "Fifteen distinct visual presentation recipes over one shared portfolio view model and data source.",
+  "evidence_source": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/fifteen-designs-20261103/responsive-evidence.json",
+  "test_evidence": {
+    "passed": 41,
+    "failed": 0,
+    "basis": "Coordinator-reported aggregate of 41/41 modified tests passed; this reporting task did not rerun them.",
+    "focused_registry_tests": "tests/design-registry.test.js verifies all 15 unique registrations, required metadata/renderers, distinct hero markup, exactly one h1, portrait/source-content retention, escaped hostile synthetic content, and duplicate/malformed/incomplete rejection."
+  },
+  "real_responsive_evidence": {
+    "cases": 75,
+    "design_count": 15,
+    "nominal_viewports_px": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "measured_content_widths_px": [
+      305,
+      375,
+      753,
+      1009,
+      1425
+    ],
+    "cases_per_width": 15,
+    "evidence_timestamp": "2026-11-03T03:20:50.654Z",
+    "horizontal_overflow_cases": 0,
+    "name_overflow_cases": 0,
+    "section_count": 11,
+    "primary_heading_per_case": 1,
+    "portrait_loaded_dimensions_reported_px": 720,
+    "project_records_reported": 87,
+    "theme_varies_in_wide_cases": true,
+    "raw_measurements_are_outside_repository": true,
+    "summary_method": "Counted the 5 arrays × 15 design rows in responsive-evidence.json. Each row had scrollWidth equal to its measured width and nameOverflow zero. For the 305px and larger width rows, the evidence contains width, scrollWidth, photoWidth, and nameOverflow fields; the 375px and 1425px arrays also record 11 sections, and the 1425px array records one h1, loaded portrait dimension, 87 project records, theme and hero height."
+  },
+  "designs": [
+    {
+      "id": "journal",
+      "name": "Research Journal",
+      "distinct_presentation": "Article-like editorial layout with margin notes, numbered figures, row-style work list, and career ledger."
+    },
+    {
+      "id": "helix",
+      "name": "Helix",
+      "distinct_presentation": "Cinematic scientific hero with DNA illustration, luminous panels, and double-rail career timeline."
+    },
+    {
+      "id": "organic",
+      "name": "Organic",
+      "distinct_presentation": "Organic/natural composition with source-based profile and project presentation."
+    },
+    {
+      "id": "monograph",
+      "name": "Monograph",
+      "distinct_presentation": "Long-form publication-like composition with typographic emphasis and structured sections."
+    },
+    {
+      "id": "specimen",
+      "name": "Specimen",
+      "distinct_presentation": "Laboratory specimen-sheet framing and source-category presentation."
+    },
+    {
+      "id": "pipeline",
+      "name": "Pipeline",
+      "distinct_presentation": "Process/pipeline-oriented composition and sequence for work and experience records."
+    },
+    {
+      "id": "bento",
+      "name": "Bento",
+      "distinct_presentation": "Modular bento-grid presentation that groups identity and record collections into distinct tiles."
+    },
+    {
+      "id": "atlas-map",
+      "name": "Atlas Map",
+      "distinct_presentation": "Source-count atlas with category index, truthful record census, and catalogue layout; charts organize categories rather than claiming measured skills."
+    },
+    {
+      "id": "console",
+      "name": "Record Console",
+      "distinct_presentation": "Readable source inspector using native disclosures, actual identity JSON, and compact record shelves."
+    },
+    {
+      "id": "blueprint",
+      "name": "Portfolio Blueprint",
+      "distinct_presentation": "Drafting-sheet layout with annotated identity, source-count schematics, and technical schedules."
+    },
+    {
+      "id": "chromatography",
+      "name": "Chromatography",
+      "distinct_presentation": "Colored source lanes and transparent layers with laboratory-notebook rhythm."
+    },
+    {
+      "id": "gallery",
+      "name": "Gallery",
+      "distinct_presentation": "Editorial oversized covers, horizontal poster-style work gallery, and card experience presentation."
+    },
+    {
+      "id": "dossier",
+      "name": "Dossier",
+      "distinct_presentation": "Indexed archive with profile sheet, compact project ledger, and source records."
+    },
+    {
+      "id": "kinetic",
+      "name": "Kinetic",
+      "distinct_presentation": "Large expressive type, portrait portal, high-contrast project sequence, and timeline; animation behavior must still respect accessibility settings."
+    },
+    {
+      "id": "horizon",
+      "name": "Horizon",
+      "distinct_presentation": "Panoramic layered scientific landscape with alternating work presentation."
+    }
+  ],
+  "retained_shared_capabilities": {
+    "shared_normalized_view_model": "Registry renderers consume shared source-backed model/helpers rather than cloning or inventing project/experience records.",
+    "portrait_and_identity": "Each focused registry test renders the supplied synthetic portrait and identity; real responsive evidence reports portrait dimensions.",
+    "sections": "All designs register renderers for hero, about, projects, and experience; real evidence reports 11 page sections for the measured full-page cases.",
+    "project_records_and_controls": "Shared renderer provides project search, topic filter, card actions, project modal trigger, optional source link, and empty state; registry tests verify project sections render, not every control in every design in a real browser.",
+    "source_integrity_and_security": "Source strings are escaped. Tests verify hostile synthetic markup is not emitted as active HTML. Source-derived counts/categories are labels, not fabricated proficiency measurements.",
+    "themes_and_background": "Design metadata supplies default themes and the wider portfolio/studio manages theme/background preferences; this evidence set does not independently verify every theme/background × design combination.",
+    "other_portfolio_features": "This responsive evidence does not prove real-browser operation of README, certificates, skills, search, project modal, or every interaction in all 15 designs; retain the existing shared implementations and rely on their separate tests/evidence."
+  },
+  "publication": {
+    "state": "PENDING_NOT_DEPLOYED",
+    "deployment_verified": false,
+    "production_browser_verified": false,
+    "note": "Local responsive evidence and reported test pass do not establish publication or production verification."
+  },
+  "limitations": [
+    "The supplied responsive evidence is a private artifact and remains outside public Git.",
+    "The 75 responsive rows evidence layout widths and name overflow only; it does not establish all interactions, accessibility, browser/device combinations, or production behavior.",
+    "Measured width is the available layout/client width (305, 375, 753, 1009, 1425px), corresponding to the five nominal viewport classes supplied by the coordinator (320, 390, 768, 1024, 1440px).",
+    "No publication/deployment has occurred for this collection."
+  ],
+  "local_interactions": {
+    "gallery_search": "Helix filtered to one design; selection applied",
+    "background": "Silk selection persisted on Helix",
+    "story": "Native study opened; SVG path changed after keyboard slider input",
+    "certificate_modal": {
+      "opened": true,
+      "image_loaded": true,
+      "image_natural_width": 1240
+    },
+    "mobile_gallery": {
+      "client_width": 320,
+      "scroll_width": 320,
+      "layout_cards": 15
+    },
+    "project_modal_and_filter": "Chromatography modal opened; Pipeline search returned one matching record"
+  }
+}

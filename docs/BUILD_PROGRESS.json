@@ -567,5 +567,33 @@
       },
       "screenshotsOutsideGit": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/backgrounds-20261103/"
     }
+  },
+  "fifteen_designs_collection": {
+    "recorded_at": "2026-11-03T03:20:50.654Z",
+    "status": "LOCAL_RESPONSIVE_EVIDENCE_COMPLETE_PUBLICATION_PENDING",
+    "evidence_source": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/fifteen-designs-20261103/responsive-evidence.json",
+    "responsive_cases": 75,
+    "designs": 15,
+    "nominal_viewports_px": [320, 390, 768, 1024, 1440],
+    "measured_content_widths_px": [305, 375, 753, 1009, 1425],
+    "horizontal_overflow_cases": 0,
+    "name_overflow_cases": 0,
+    "sections": 11,
+    "project_records": 87,
+    "portrait_loaded": true,
+    "modified_tests": {
+      "passed": 41,
+      "failed": 0,
+      "basis": "Coordinator-reported aggregate; not rerun during report preparation."
+    },
+    "publication": {
+      "state": "PENDING_NOT_DEPLOYED",
+      "deployment_verified": false,
+      "production_browser_verified": false
+    },
+    "limitations": [
+      "Responsive evidence covers width/name-overflow observations and does not prove every interaction or accessibility state.",
+      "Private raw evidence remains outside public Git."
+    ]
   }
 }

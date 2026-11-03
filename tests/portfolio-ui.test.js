@@ -8,7 +8,7 @@ const { parseHTML } = require('linkedom');
 const { adaptCV } = require('../public/data/cv-adapter');
 
 const publicRoot = path.join(__dirname, '../public');
-const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'visual-previews.js', 'portfolio-insights.js', 'studio.js', 'studio-intro.js', 'records.js'];
+const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'visual-previews.js', 'portfolio-insights.js', 'design-registry.js', 'designs/editorial.js', 'designs/systems.js', 'designs/experimental.js', 'design-gallery.js', 'studio.js', 'studio-intro.js', 'records.js'];
 const raw = {
   basics: [{
     fname: 'Synthetic', lname: 'Profile',
@@ -35,7 +35,7 @@ const raw = {
 };
 
 function setSelectValues(document) {
-  for (const selector of ['#motionMode', '#studioMotion', '#studioSection', '[data-project-filter]', '[data-cert-issuer]']) {
+  for (const selector of ['#motionMode', '#studioMotion', '#studioSection', '#designGalleryFamily', '[data-project-filter]', '[data-cert-issuer]']) {
     const select = document.querySelector(selector);
     if (select) Object.defineProperty(select, 'value', { value: select.value, writable: true, configurable: true });
   }
@@ -56,11 +56,13 @@ async function boot({ search = '', auth = false, reduce = true, stored = null } 
   setSelectValues(document);
   const storedValues = new Map(stored ? [['portfolio.design.preferences.v1', JSON.stringify(stored)]] : []);
   const location = { href: `https://example.test/${search}`, search };
+  let cvLoads = 0;
   const win = {
     Event,
     PortfolioRenderers: {},
     PortfolioData: {
       load: async () => {
+        cvLoads++;
         if (auth) { const error = Error('authentication required'); error.code = 'AUTH_REQUIRED'; throw error; }
         return { raw: structuredClone(raw), model: structuredClone(adaptCV(raw)) };
       },
@@ -93,7 +95,7 @@ async function boot({ search = '', auth = false, reduce = true, stored = null } 
     assert(node, `missing control ${selector}`);
     node.dispatchEvent(new Event('click', { bubbles: true }));
   };
-  return { win, document, Event, click, storedValues };
+  return { win, document, Event, click, storedValues, get cvLoads() { return cvLoads; } };
 }
 
 test('unified default combines the three disciplines while preserving the synthetic CV model', async () => {
@@ -200,6 +202,77 @@ test('legacy design URLs upgrade to unified; archived explorations require an ex
     const archived = await boot({ search: `?edition=exploration&design=${design}` });
     assert.equal(archived.win.PortfolioStudio.concept, design, `${design} remains available in exploration edition`);
     assert(archived.document.querySelector('#hero').classList.contains(`st-${design}`));
+  }
+});
+
+test('the design gallery filters all recipes, renders source records, and switches without reloading the CV', async () => {
+  const env = await boot({ search: '?design=helix&theme=unknown&section=projects', stored: { background: 'aurora', pointer: false } });
+  const { document, win, click, Event, storedValues } = env;
+  const initialLoads = env.cvLoads;
+  assert.equal(win.PortfolioStudio.concept, 'helix');
+  assert.equal(win.PortfolioStudio.theme, 'dark', 'an invalid theme falls back to the selected recipe default');
+  assert.equal(win.PortfolioStudio.section, 'projects');
+  assert.equal(document.body.dataset.design, 'helix');
+  assert.equal(document.body.dataset.concept, 'unified', 'new recipe style maps safely to the legacy style fallback');
+  assert.equal(document.body.dataset.background, 'aurora');
+  assert.equal(document.querySelectorAll('#designGalleryBody [data-gallery-design]').length, 15);
+  assert.equal(document.querySelectorAll('[data-design-choice][aria-pressed="true"]').length, 1);
+  assert(document.querySelector('#projects').hasAttribute('data-studio-selected'));
+  assert(!document.querySelector('#hero').hasAttribute('data-studio-selected'));
+  assert.equal(document.querySelectorAll('#projects [data-project-card]').length, 12);
+  assert.equal(document.querySelectorAll('#certificates [data-cert-card]').length, 15);
+
+  click('[data-open-design-gallery]');
+  const gallery = document.querySelector('#designGallery');
+  assert(gallery.hasAttribute('open'));
+  const search = document.querySelector('#designGallerySearch');
+  search.value = 'pipeline';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  assert.equal(document.querySelectorAll('#designGalleryBody [data-gallery-design]:not([hidden])').length, 1);
+  assert.equal(document.querySelector('#designGalleryResults').textContent, '1 designs');
+  search.value = '';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  const family = document.querySelector('#designGalleryFamily');
+  family.value = 'editorial';
+  family.dispatchEvent(new Event('change', { bubbles: true }));
+  assert.equal(document.querySelectorAll('#designGalleryBody [data-gallery-design]:not([hidden])').length, 2);
+  family.value = '';
+  family.dispatchEvent(new Event('change', { bubbles: true }));
+
+  click('[data-design-choice="gallery"]');
+  assert.equal(win.PortfolioStudio.concept, 'gallery');
+  assert.equal(win.PortfolioStudio.theme, 'light');
+  assert.equal(win.PortfolioStudio.section, 'projects', 'switching recipe retains section isolation');
+  assert.equal(document.body.dataset.background, 'aurora', 'switching recipe retains background choice');
+  assert.equal(document.body.dataset.design, 'gallery');
+  assert.equal(document.querySelectorAll('#projects [data-project-card]').length, 12);
+  assert.equal(document.querySelectorAll('#certificates [data-cert-card]').length, 15);
+  assert.equal(document.querySelectorAll('#portfolio h1').length, 1);
+  assert.equal(document.querySelector('#designGallery').hasAttribute('open'), false);
+  assert.equal(env.cvLoads, initialLoads, 'design selection reuses the already loaded CV');
+  const saved = JSON.parse(storedValues.get('portfolio.design.preferences.v1'));
+  assert.equal(saved.concept, 'gallery');
+  assert.equal(saved.theme, 'light');
+  assert.equal(saved.background, 'aurora');
+  assert.equal(new URL(win.location.href).searchParams.get('design'), 'gallery');
+  assert.equal(new URL(win.location.href).searchParams.get('section'), 'projects');
+
+  click('[data-open-project="project-0"]');
+  assert(document.querySelector('#projectDialog').hasAttribute('open'));
+  assert(document.querySelector('#projectDialogBody').textContent.includes('Full description 0'));
+});
+
+test('every registered design boots all eleven portfolio sections with complete project and credential collections', async () => {
+  const expectedSections = ['hero', 'about', 'projects', 'experience', 'publications', 'education', 'skills', 'certificates', 'languages', 'references', 'contact'];
+  for (const id of ['journal', 'helix', 'organic', 'monograph', 'specimen', 'pipeline', 'bento', 'atlas-map', 'console', 'blueprint', 'chromatography', 'gallery', 'dossier', 'kinetic', 'horizon']) {
+    const env = await boot({ search: `?design=${id}` });
+    assert.equal(env.win.PortfolioStudio.concept, id);
+    for (const section of expectedSections) assert(env.document.querySelector(`#portfolio #${section}`), `${id} boot omitted ${section}`);
+    assert.equal(env.document.querySelectorAll('#portfolio h1').length, 1, `${id} renders one primary heading`);
+    assert.equal(env.document.querySelectorAll('#projects [data-project-card]').length, 12, `${id} retains all projects`);
+    assert.equal(env.document.querySelectorAll('#certificates [data-cert-card]').length, 15, `${id} retains all credentials`);
+    assert.equal(env.document.querySelectorAll('#hero img[src="https://example.test/portrait.jpg"]').length, 1, `${id} renders the source portrait`);
+    assert.equal(env.cvLoads, 1, `${id} loads the CV once`);
   }
 });
 
