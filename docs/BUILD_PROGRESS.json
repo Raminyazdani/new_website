@@ -766,7 +766,7 @@
   },
   "independent_directions_20261103": {
     "date": "2026-11-03",
-    "status": "LOCAL_VERIFIED_AWAITING_PUBLISH",
+    "status": "DEPLOYED_AND_VERIFIED",
     "directions": [
       "folio",
       "vitro",
@@ -867,17 +867,45 @@
         "bulkSkillsGitIgnored": true
       }
     },
-    "deployment": null,
+    "deployment": {
+      "readyState": "READY",
+      "productionUrl": "https://new-website-hero-lab.vercel.app/?design=folio&theme=light",
+      "applicationCommit": "e9b6bc7fa3e0a1631da2cec73b5bdce8eb9834ce",
+      "publicAssetsCompared": 75,
+      "publicAssetsMatching": 75,
+      "comparison": "Text normalized only for CRLF/LF; binaries exact.",
+      "anonymousCvApi": {
+        "status": 401,
+        "cacheControl": "private, no-store, max-age=0"
+      },
+      "cspPresent": true,
+      "browser": {
+        "actualSourceLoaded": true,
+        "realPortraitLoaded": true,
+        "collectionChoices": 15,
+        "selectedFolioAndStrata": true,
+        "sourceSections": 11,
+        "mobileWidth": 390,
+        "mobilePageOverflow": false,
+        "consoleErrorsObserved": 0
+      },
+      "privateEvidence": [
+        "production-deployment.json",
+        "production-assets.json",
+        "production-browser.json",
+        "production-mobile.json",
+        "production-folio.jpg",
+        "production-gallery.jpg",
+        "production-strata-mobile.jpg"
+      ],
+      "documentationNote": "This report is committed after application publication; public runtime assets stay identical to applicationCommit."
+    },
     "limitations": [
       "No FPS profile",
       "No real-device or cross-browser run",
       "OS reduced-motion was false in browser; manual Still and Full tested",
       "Not every theme x motion x design combination was rendered"
     ],
-    "remainingRequired": [
-      "Publish current source commit",
-      "Verify production static assets and unauthenticated API boundary",
-      "Observe new collection in production browser"
-    ]
+    "remainingRequired": []
   }
 }
