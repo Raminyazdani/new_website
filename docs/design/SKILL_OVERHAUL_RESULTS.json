@@ -270,7 +270,24 @@
   },
   "limitations": [
     "No numeric design-quality self-score is used.",
-    "The supplied evidence does not establish actual OS-level reduced motion, cross-browser behavior, real-phone behavior, or an FPS/performance profile.",
-    "The final 48-test suite and release verification remain pending at the time of this snapshot."
-  ]
+    "The supplied evidence does not establish actual OS-level reduced motion, cross-browser behavior, real-phone behavior, or an FPS/performance profile."
+  ],
+  "checkpoint_recheck": {
+    "date": "2026-11-03",
+    "reason": "Repeated user request resumed from completed checkpoint",
+    "installed_entrypoints_present": 528,
+    "independent_document_review": "All 13 source URLs covered; stale pending limitation corrected",
+    "deployment_state": "READY",
+    "duplicate_installation_performed": false,
+    "verified_installed_files": 4186,
+    "installed_bytes": 127040286,
+    "verification_command": "python -X utf8 docs/design/skill-audit/install_project_skills.py --verify-only",
+    "installer_fix": "verify-only now reads and validates without rewriting installation timestamps, reports or provenance files",
+    "verify_only_regression": {
+      "exit_code": 0,
+      "metadata_files_checked_for_writes": 530,
+      "metadata_files_changed": 0,
+      "installed_files_verified": 4186
+    }
+  }
 }

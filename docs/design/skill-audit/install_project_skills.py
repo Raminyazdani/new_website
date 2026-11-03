@@ -469,6 +469,34 @@ def main():
         'prepared_repositories': [], 'skills': [], 'errors': [],
         'discovery_limit': 'Files and metadata are verified locally under the nested apps/new_website project. Automatic discovery from the current parent workspace/chat has not been observed or verified. A subsequent turn scoped to the website project may refresh discovery; explicit source paths remain reviewable. Explicit-only upstream policies remain explicit-only.',
     }
+    if opts.verify_only:
+        expected = {row['installed_name'] for row in plan}
+        actual = {row['installed_name'] for row in report['skills']}
+        if expected != actual or len(actual) != len(report['skills']):
+            raise ValueError('Installed skill ledger does not match the canonical plan')
+        verified_files = 0
+        installed_bytes = 0
+        for row in report['skills']:
+            dest = Path(row['destination'])
+            valid, message = validator.validate_skill(dest)
+            if not valid:
+                raise ValueError('Metadata validation failed: ' + row['installed_name'] + ': ' + message)
+            if sha256((dest / 'SKILL.md').read_bytes()) != row['installed_entrypoint_sha256']:
+                raise ValueError('Entrypoint hash mismatch: ' + row['installed_name'])
+            if sha256((dest / 'references/UPSTREAM_SKILL.md').read_bytes()) != row['source_body_sha256']:
+                raise ValueError('Upstream body hash mismatch: ' + row['installed_name'])
+            for file in row['files']:
+                data = (dest / file['path']).read_bytes()
+                if sha256(data) != file['sha256']:
+                    raise ValueError('File hash mismatch: ' + row['installed_name'] + '/' + file['path'])
+                verified_files += 1
+                installed_bytes += len(data)
+        # A verification must not rewrite installation dates, applicability
+        # annotations, receipts or installed provenance files.
+        print(json.dumps({'status': 'complete', 'installed_count': len(actual),
+                          'verified_file_count': verified_files,
+                          'installed_bytes': installed_bytes}, indent=2), flush=True)
+        return
     existing = {r['installed_name']: r for r in report['skills']}
     report['authorized_total'] = len(plan)
     report['discovery_limit'] = 'Files and metadata are verified locally under the nested apps/new_website project. Automatic discovery from the current parent workspace/chat has not been observed or verified. A subsequent turn scoped to the website project may refresh discovery; explicit source paths remain reviewable. Explicit-only upstream policies remain explicit-only.'

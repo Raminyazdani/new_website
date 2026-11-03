@@ -24,7 +24,7 @@
 python -X utf8 docs/design/skill-audit/install_project_skills.py --verify-only
 ```
 
-این فرمان دانلود یا نصب مجدد package و اجرای vendor ندارد. manifest منشأ و وضعیت را تازه و هش فایل‌های نصب‌شده را دوباره بررسی می‌کند. کپی تازه فقط با `--execute` و manifest نسخه‌ثابت انجام می‌شود؛ برخورد با پوشهٔ موجود به‌جای بازنویسی متوقف می‌شود.
+این فرمان دانلود یا نصب مجدد package و اجرای vendor ندارد. هش فایل‌های نصب‌شده و اعتبار metadata را فقط می‌خواند و بررسی می‌کند؛ تاریخ نصب، گزارش‌ها و فایل‌های provenance را تغییر نمی‌دهد. کپی تازه فقط با `--execute` و manifest نسخه‌ثابت انجام می‌شود؛ برخورد با پوشهٔ موجود به‌جای بازنویسی متوقف می‌شود.
 
 نام، منبع، نسخه، وضعیت، هش ورودی و اصل آن، فاز/بخش کاربرد و دلیل N/A برای هر مهارت در [INSTALLATION.json](INSTALLATION.json) آمده است. ledger کامل هش تک‌تک ۴۱۸۶ فایل در `skill_sources_20261103/INSTALLATION_FULL.json` خارج از Git عمومی نگهداری می‌شود؛ helper برای بررسی دوباره از همان ledger استفاده می‌کند. ممیزی همهٔ occurrenceها، aliasها و دستورهای حساس در [REPOSITORY_SOURCES.json](REPOSITORY_SOURCES.json) قرار دارد.
 
