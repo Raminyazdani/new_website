@@ -574,8 +574,20 @@
     "evidence_source": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/fifteen-designs-20261103/responsive-evidence.json",
     "responsive_cases": 75,
     "designs": 15,
-    "nominal_viewports_px": [320, 390, 768, 1024, 1440],
-    "measured_content_widths_px": [305, 375, 753, 1009, 1425],
+    "nominal_viewports_px": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "measured_content_widths_px": [
+      305,
+      375,
+      753,
+      1009,
+      1425
+    ],
     "horizontal_overflow_cases": 0,
     "name_overflow_cases": 0,
     "sections": 11,
@@ -587,13 +599,29 @@
       "basis": "Coordinator-reported aggregate; not rerun during report preparation."
     },
     "publication": {
-      "state": "PENDING_NOT_DEPLOYED",
-      "deployment_verified": false,
-      "production_browser_verified": false
+      "state": "READY",
+      "commit": "215d2e6304a83a5ea7ab39194101b0dc63fa5101",
+      "deployment": "dpl_BLeMiLZFiS8tbaXEiQXAVV2myoBp",
+      "url": "https://new-website-hero-lab.vercel.app/?design=journal&theme=light&background=off&gallery=1",
+      "matched_public_assets": 54,
+      "anonymous_api": 401,
+      "cache_control": "private, no-store, max-age=0",
+      "browser": {
+        "gallery_designs": 15,
+        "initial_design": "journal",
+        "changed_design": "bento",
+        "theme_after_switch": "dark",
+        "sections": 11,
+        "projects": 87,
+        "portrait_loaded_width": 720,
+        "console_errors_observed": 0
+      },
+      "screenshots_outside_git": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/fifteen-designs-20261103/"
     },
     "limitations": [
       "Responsive evidence covers width/name-overflow observations and does not prove every interaction or accessibility state.",
       "Private raw evidence remains outside public Git."
-    ]
+    ],
+    "state": "DEPLOYED_AND_VERIFIED"
   }
 }

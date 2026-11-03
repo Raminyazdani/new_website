@@ -1,7 +1,7 @@
 {
   "collection": "fifteen_designs_collection",
   "recorded_at": "2026-11-03T03:20:50.654Z",
-  "status": "LOCAL_RESPONSIVE_EVIDENCE_COMPLETE_PUBLICATION_PENDING",
+  "status": "DEPLOYED_AND_VERIFIED",
   "scope": "Fifteen distinct visual presentation recipes over one shared portfolio view model and data source.",
   "evidence_source": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/fifteen-designs-20261103/responsive-evidence.json",
   "test_evidence": {
@@ -126,10 +126,24 @@
     "other_portfolio_features": "This responsive evidence does not prove real-browser operation of README, certificates, skills, search, project modal, or every interaction in all 15 designs; retain the existing shared implementations and rely on their separate tests/evidence."
   },
   "publication": {
-    "state": "PENDING_NOT_DEPLOYED",
-    "deployment_verified": false,
-    "production_browser_verified": false,
-    "note": "Local responsive evidence and reported test pass do not establish publication or production verification."
+    "state": "READY",
+    "commit": "215d2e6304a83a5ea7ab39194101b0dc63fa5101",
+    "deployment": "dpl_BLeMiLZFiS8tbaXEiQXAVV2myoBp",
+    "url": "https://new-website-hero-lab.vercel.app/?design=journal&theme=light&background=off&gallery=1",
+    "matched_public_assets": 54,
+    "anonymous_api": 401,
+    "cache_control": "private, no-store, max-age=0",
+    "browser": {
+      "gallery_designs": 15,
+      "initial_design": "journal",
+      "changed_design": "bento",
+      "theme_after_switch": "dark",
+      "sections": 11,
+      "projects": 87,
+      "portrait_loaded_width": 720,
+      "console_errors_observed": 0
+    },
+    "screenshots_outside_git": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/fifteen-designs-20261103/"
   },
   "limitations": [
     "The supplied responsive evidence is a private artifact and remains outside public Git.",
