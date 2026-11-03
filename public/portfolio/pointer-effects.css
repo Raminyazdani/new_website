@@ -1,13 +1,5 @@
-/* Mounted only by PortfolioPointer; decoration stays behind page content. */
+/* Mounted only by PortfolioPointer. */
 @media (hover:hover) and (pointer:fine) {
-  .pf-pointer-field {
-    position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0;
-    background:
-      radial-gradient(ellipse 270px 220px at var(--pointer-x, -1000px) var(--pointer-y, -1000px), color-mix(in srgb,var(--lime,#155faf) 9%,transparent), transparent 73%),
-      radial-gradient(ellipse 160px 140px at var(--pointer-x, -1000px) var(--pointer-y, -1000px), color-mix(in srgb,var(--coral,#08747e) 5%,transparent), transparent 78%);
-    transition:opacity .35s ease;
-  }
-  .pf-pointer-field.is-visible { opacity:1; }
   .pf-pointer-cursor {
     position:fixed; top:0; left:0; z-index:120; width:0; height:0;
     pointer-events:none; opacity:0; color:var(--lime,#155faf);
@@ -25,15 +17,9 @@
     position:absolute; left:0; top:0; width:3px; height:3px; border-radius:50%;
     background:var(--lime,#155faf); transform:translate(-50%,-50%);
   }
-  .pf-pointer-cursor.is-target i {
-    width:32px; height:32px;
-    border-color:color-mix(in srgb,var(--lime,#155faf) 62%,transparent);
-    background-color:color-mix(in srgb,var(--paper,#f8fcff) 15%,transparent);
-  }
   body.pf-pointer-active,body.pf-pointer-active a,body.pf-pointer-active button,
   body.pf-pointer-active summary,body.pf-pointer-active [role="button"] { cursor:none; }
   body.pf-pointer-active input,body.pf-pointer-active textarea,body.pf-pointer-active select,
   body.pf-pointer-active [contenteditable="true"],body.pf-pointer-active iframe { cursor:auto; }
   body.pf-pointer-active dialog[open],body.pf-pointer-active dialog[open] * { cursor:auto; }
 }
-#portfolio>.pf-section>.pf-wrap { position:relative; z-index:2; }

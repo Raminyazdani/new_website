@@ -15,10 +15,10 @@ const server = http.createServer(async (req, res) => {
   for (const file of ['cv-adapter', 'portfolio-source']) {
     files[`/data/${file}.js`] = [`data/${file}.js`, 'text/javascript; charset=utf-8'];
   }
-  for (const file of ['runtime', 'intro', 'records', 'science', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'visual-previews', 'portfolio-insights']) {
+  for (const file of ['runtime', 'intro', 'records', 'science', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights']) {
     files[`/portfolio/${file}.js`] = [`portfolio/${file}.js`, 'text/javascript; charset=utf-8'];
   }
-  for (const file of ['base', 'intro', 'records', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'visual-previews', 'portfolio-insights']) {
+  for (const file of ['base', 'intro', 'records', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights']) {
     files[`/portfolio/${file}.css`] = [`portfolio/${file}.css`, 'text/css; charset=utf-8'];
   }
   for (const group of ['a', 'b', 'c']) {

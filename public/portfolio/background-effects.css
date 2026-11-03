@@ -1,0 +1,49 @@
+/* Backgrounds share the portfolio palette, but each has its own visual form. */
+.pf-background-field{--bg-blue:#559fe4;--bg-teal:#61b6bb;--bg-pearl:#bbd6fa;position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;contain:strict;isolation:isolate;opacity:1;transition:opacity .25s ease;background:transparent}
+body[data-theme="dark"] .pf-background-field{--bg-blue:#5598e0;--bg-teal:#4b9eac;--bg-pearl:#8bace3;opacity:.82}
+.pf-background-field.is-obscured{visibility:hidden;opacity:0}
+.pf-background-field[data-background="off"]{display:none}
+.pf-background-svg{display:block;width:100%;height:100%;max-width:none;overflow:visible}
+#portfolio{position:relative}
+#portfolio>.pf-section>.pf-wrap{position:relative;z-index:2}
+.pf-footer{position:relative;z-index:2}
+.pf-bg-thread{fill:none;stroke:var(--bg-blue);stroke-width:.8;vector-effect:non-scaling-stroke}
+.pf-bg-thread-teal{stroke:var(--bg-teal);stroke-width:.65}
+.pf-bg-silk-wash{stroke:none;opacity:.6}
+.pf-bg-membrane{stroke:var(--bg-blue);stroke-width:.8;stroke-opacity:.48;vector-effect:non-scaling-stroke}
+.pf-bg-membrane-teal{stroke:var(--bg-teal)}
+.pf-bg-cell-core{stroke:var(--bg-blue);stroke-width:.7;stroke-opacity:.3}
+.pf-bg-molecule-envelope{stroke:var(--bg-blue);stroke-opacity:.18;stroke-width:1}
+.pf-bg-bond{fill:none;stroke:var(--bg-blue);stroke-width:1.15;stroke-opacity:.43;vector-effect:non-scaling-stroke}
+.pf-bg-atom{fill:var(--paper);stroke:var(--bg-blue);stroke-width:1.5;stroke-opacity:.68}
+.pf-bg-atom-teal{stroke:var(--bg-teal);fill:color-mix(in srgb,var(--bg-teal) 18%,var(--paper))}
+.pf-bg-atom-halo{fill:none;stroke:var(--bg-blue);stroke-width:.65;stroke-opacity:.2}
+.pf-bg-aurora-edge{fill:none;stroke:var(--bg-blue);stroke-width:.7;vector-effect:non-scaling-stroke}
+.pf-bg-aurora-ribbon{stroke:none}
+.pf-background-atmosphere{transform-origin:center}
+.pf-background-field:not(.is-still) .pf-background-atmosphere{animation:pf-background-breathe 24s ease-in-out infinite alternate}
+.pf-background-field[data-background="molecular"] .pf-background-atmosphere{animation-duration:32s}
+.pf-background-field.is-still .pf-background-atmosphere{animation:none}
+@keyframes pf-background-breathe{from{transform:translate(0,0) scale(1)}to{transform:translate(-6px,5px) scale(1.018)}}
+
+/* The preview uses the actual scene and interaction code, not a screenshot. */
+[data-background-preview]{position:relative;isolation:isolate}
+.background-preview-stage{position:relative;isolation:isolate;overflow:hidden;background:var(--paper)}
+.pf-background-preview-field{position:absolute;inset:0;z-index:0;border-radius:inherit;opacity:1;contain:strict}
+body[data-theme="dark"] .pf-background-preview-field{opacity:1}
+.pf-background-preview-field .pf-bg-thread{stroke-width:.85;opacity:.7}
+.pf-background-preview-field .pf-bg-membrane{stroke-opacity:.65}
+.pf-background-preview-field .pf-bg-bond{stroke-opacity:.65}
+.background-preview-stage>:not(.pf-background-field){position:relative;z-index:1}
+
+/* Small material samples for the selector. */
+:is(.background-swatch-glow,.background-swatch-silk,.background-swatch-membrane,.background-swatch-molecular,.background-swatch-aurora,.background-swatch-off){display:block;position:relative;overflow:hidden;background-color:var(--paper)}
+.background-swatch-glow{background-image:radial-gradient(ellipse at 20% 25%,#66a9ed65,transparent 65%),radial-gradient(ellipse at 90% 90%,#69bec74d,transparent 65%)}
+.background-swatch-silk{background-image:repeating-radial-gradient(ellipse at -20% -80%,transparent 0 7px,#69a8df61 7.5px 8px,transparent 8.5px 13px);background-size:150% 220%;background-position:35% 40%}
+.background-swatch-membrane{background-image:repeating-radial-gradient(ellipse at 5% 60%,transparent 0 9px,#69a8df60 9.5px 10px,transparent 10.5px 16px),radial-gradient(ellipse at 0 50%,#94c1e83d,transparent 80%)}
+.background-swatch-aurora{background-image:linear-gradient(145deg,transparent 18%,#8fbdeb45 30%,transparent 43%,#69b9c23d 50%,transparent 62%,#aac9ef5e 70%,transparent 82%)}
+.background-swatch-molecular{background-image:radial-gradient(circle at 25% 35%,var(--paper) 3px,#72a6d8b3 3.5px 4.5px,transparent 5px),radial-gradient(circle at 47% 65%,var(--paper) 5px,#72a6d8b3 5.5px 6.5px,transparent 7px),radial-gradient(circle at 70% 30%,var(--paper) 3px,#72a6d8b3 3.5px 4.5px,transparent 5px)}
+.background-swatch-molecular:after{content:"";position:absolute;left:25%;top:32%;width:45%;height:35%;border-bottom:1px solid #72a6d873;border-left:1px solid #72a6d873;transform:rotate(-18deg);border-radius:12% 0 0 30%}
+.background-swatch-off{background-image:none}
+@media(hover:none),(pointer:coarse){.pf-background-field .pf-background-atmosphere{animation:none!important}}
+@media(prefers-reduced-motion:reduce){body:not([data-motion="full"]) .pf-background-field .pf-background-atmosphere{animation:none!important}}

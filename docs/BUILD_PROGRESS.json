@@ -539,5 +539,13 @@
       },
       "consoleErrorsObserved": 0
     }
+  },
+  "background_studio": {
+    "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+    "tests_passed": 35,
+    "models": 5,
+    "off": true,
+    "independent_cursor": true,
+    "evidence": "docs/design/BACKGROUND_STUDIO_RESULTS.json"
   }
 }

@@ -175,7 +175,7 @@ test('section isolation, validated query preferences, themes and motion controls
   assert.equal(win.PortfolioStudio.concept, 'terminal');
   assert.equal(win.PortfolioStudio.section, 'all');
   const preferences = JSON.parse(valid.storedValues.get('portfolio.design.preferences.v1'));
-  assert.deepStrictEqual(preferences, { concept: 'terminal', theme: 'dark', pointer: true });
+  assert.deepStrictEqual(preferences, { concept: 'terminal', theme: 'dark', pointer: true, background: 'silk' });
 
   assert.equal(document.body.dataset.motion, 'auto');
   assert.equal(document.body.dataset.effects, 'off');
@@ -313,6 +313,45 @@ test('integrated hero gates animation by visibility and effects, supports pause/
   assert.equal(frames.size, 0, 'page effects-off state stops scene animation');
   win.PortfolioHeroScene.unmount();
   assert.equal(disconnects, 1);
+});
+
+test('background choices validate, persist, preview live, and stay independent from cursor, theme, and section', async () => {
+  const env = await boot({ search: '?background=invalid&theme=dark&section=projects', stored: { background: 'aurora', pointer: false } });
+  const { document, click, Event, win, storedValues } = env;
+  const studio = win.PortfolioStudio;
+  assert.equal(studio.background, 'aurora', 'an invalid query value falls back to the saved background');
+  assert.equal(document.body.dataset.background, 'aurora');
+  assert.equal(document.querySelector('[data-background-choice="aurora"]').getAttribute('aria-pressed'), 'true');
+  assert.equal(document.querySelector('#pointerEffects').checked, false);
+  assert.equal(studio.theme, 'dark');
+  assert.equal(studio.section, 'projects');
+  click('[data-open-studio]');
+  const dialog = document.querySelector('#designDialog');
+  assert(dialog.hasAttribute('open'));
+
+  for (const mode of ['glow', 'silk', 'membrane', 'molecular', 'aurora', 'off']) {
+    click(`[data-background-choice="${mode}"]`);
+    assert.equal(studio.background, mode);
+    assert.equal(document.body.dataset.background, mode);
+    assert.equal(document.querySelector(`[data-background-choice="${mode}"]`).getAttribute('aria-pressed'), 'true');
+    assert.equal(document.querySelectorAll('[data-background-choice][aria-pressed="true"]').length, 1);
+    assert.equal(dialog.hasAttribute('open'), true, 'choosing a background leaves the design dialog open');
+    const saved = JSON.parse(storedValues.get('portfolio.design.preferences.v1'));
+    assert.equal(saved.background, mode);
+    assert.equal(new URL(win.location.href).searchParams.get('background'), mode);
+  }
+
+  assert.equal(studio.theme, 'dark', 'background selection does not change the theme');
+  assert.equal(studio.section, 'projects', 'background selection does not change section focus');
+  const cursor = document.querySelector('#pointerEffects');
+  cursor.checked = true;
+  cursor.dispatchEvent(new Event('change', { bubbles: true }));
+  assert.equal(studio.pointer, true);
+  assert.equal(studio.background, 'off', 'cursor preference changes independently of background mode');
+  assert.equal(document.body.dataset.background, 'off');
+  assert.equal(JSON.parse(storedValues.get('portfolio.design.preferences.v1')).background, 'off');
+  click('[data-close-studio]');
+  assert.equal(dialog.hasAttribute('open'), false);
 });
 
 test('project search, open detail, and project/certificate pagination survive concept changes', async () => {

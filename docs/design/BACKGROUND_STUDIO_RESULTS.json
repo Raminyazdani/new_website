@@ -1,0 +1,53 @@
+{
+  "state": "LOCAL_VERIFIED_PUBLICATION_PENDING",
+  "testsPassed": 35,
+  "modes": [
+    {
+      "id": "glow",
+      "shapes": 6
+    },
+    {
+      "id": "silk",
+      "shapes": 40
+    },
+    {
+      "id": "membrane",
+      "shapes": 27
+    },
+    {
+      "id": "molecular",
+      "shapes": 77
+    },
+    {
+      "id": "aurora",
+      "shapes": 12
+    },
+    {
+      "id": "off",
+      "display": "none"
+    }
+  ],
+  "observed": {
+    "previewPointerChangesPath": true,
+    "backgroundWithCursorOff": "aurora",
+    "persistedAfterReload": "aurora",
+    "stillHasStaticMembraneShapes": 27,
+    "mobile": {
+      "width": 375,
+      "scrollWidth": 375,
+      "dialogWidth": 336.6667,
+      "dialogClientWidth": 320,
+      "dialogScrollWidth": 320,
+      "previewWidth": 284
+    },
+    "themes": [
+      "light",
+      "dark"
+    ]
+  },
+  "privacy": {
+    "publicFiles": 44,
+    "sensitiveValuesChecked": 4,
+    "leaks": 0
+  }
+}

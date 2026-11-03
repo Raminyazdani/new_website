@@ -102,7 +102,7 @@ test('pointer decoration preserves native input caret behavior and removes liste
   assert(api, 'pointer extension is exposed on window');
   const root = env.document.querySelector('#portfolio');
   api.mount(root);
-  assert.equal(env.document.querySelectorAll('.pf-pointer-field').length, 1);
+  assert.equal(env.document.querySelectorAll('.pf-pointer-cursor').length, 1);
   const input = root.querySelector('input');
   const move = target => {
     const event = new env.Event('pointermove', { bubbles: true });
@@ -114,11 +114,36 @@ test('pointer decoration preserves native input caret behavior and removes liste
   move(input);
   assert.equal(env.document.querySelector('.pf-pointer-cursor').classList.contains('is-visible'), false);
   api.unmount();
-  assert.equal(env.document.querySelector('.pf-pointer-field'), null);
+  assert.equal(env.document.querySelector('.pf-pointer-cursor'), null);
   assert.equal(env.document.querySelector('.pf-pointer-cursor'), null);
   assert.equal(env.document.body.classList.contains('pf-pointer-active'), false);
   assert.equal(env.frames.size, 0);
   assert.equal(env.disconnected, 1);
+});
+
+test('background effects expose validated modes and clean up inert off-mode artwork', () => {
+  const { document } = parseHTML('<!doctype html><html><body data-effects="on" data-motion="full" data-background="off"><main id="portfolio"></main><dialog open><div data-background-preview></div></dialog></body></html>');
+  const frames = new Map();
+  let frameId = 0, disconnects = 0;
+  class Observer { constructor(callback) { this.callback = callback; } observe() {} disconnect() { disconnects++; } }
+  const win = {
+    matchMedia: query => ({ matches: query.includes('pointer: fine'), addEventListener() {}, removeEventListener() {} }),
+    innerWidth: 1200, innerHeight: 800,
+    requestAnimationFrame(fn) { const id = ++frameId; frames.set(id, fn); return id; },
+    cancelAnimationFrame(id) { frames.delete(id); },
+    addEventListener() {}, removeEventListener() {},
+  };
+  const source = fs.readFileSync(path.join(sourceRoot, 'background-effects.js'), 'utf8');
+  new Function('window', 'document', 'MutationObserver', source)(win, document, Observer);
+  const api = win.PortfolioBackground;
+  assert.deepEqual(api.modes.map(mode => mode.id), ['off', 'glow', 'silk', 'membrane', 'molecular', 'aurora']);
+  api.mount(document.querySelector('#portfolio'));
+  assert.equal(document.querySelector('body > .pf-background-field').dataset.background, 'off');
+  assert.equal(document.querySelector('[data-background-preview] .pf-background-preview-field').dataset.background, 'off');
+  assert.equal(frames.size, 0, 'off mode schedules no animation frames');
+  api.unmount();
+  assert.equal(document.querySelector('.pf-background-field'), null, 'unmount removes both page and dialog artwork');
+  assert.equal(disconnects, 1, 'unmount disconnects its mutation observer');
 });
 
 test('scroll story uses escaped project evidence only and omits unmatched synthetic records', () => {

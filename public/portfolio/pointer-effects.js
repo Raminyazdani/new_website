@@ -1,4 +1,4 @@
-/* Opt-in, local-only pointer artwork for the authenticated portfolio. */
+/* Local-only cursor artwork for the authenticated portfolio. */
 (() => {
   'use strict';
 
@@ -11,16 +11,13 @@
 
     const finePointer = window.matchMedia ? window.matchMedia('(hover: hover) and (pointer: fine)') : { matches: false };
     const reducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
-    const field = document.createElement('div');
-    field.className = 'pf-pointer-field';
-    field.setAttribute('aria-hidden', 'true');
     const cursor = document.createElement('div');
     cursor.className = 'pf-pointer-cursor';
     cursor.setAttribute('aria-hidden', 'true');
     cursor.innerHTML = '<i></i><b></b>';
-    document.body.append(field, cursor);
+    document.body.append(cursor);
 
-    const state = { root, field, cursor, finePointer, reducedMotion, x: 0, y: 0,
+    const state = { root, cursor, finePointer, reducedMotion, x: 0, y: 0,
       tx: 0, ty: 0, inside: false, raf: 0, target: null, cleanup: [] };
     active = state;
 
@@ -29,10 +26,11 @@
       state.cleanup.push(() => target.removeEventListener(type, fn, opts));
     }
     function canRun() {
-      const fullMotion = document.body.dataset.motion === 'full';
+      const motion = document.body.dataset.motion || 'auto';
+      const motionAllowed = motion === 'full' || (motion === 'auto' && !reducedMotion.matches);
       return active === state && root.isConnected && document.body.dataset.effects === 'on' &&
-        document.body.dataset.pointer !== 'off' && finePointer.matches &&
-        (fullMotion || !reducedMotion.matches) && document.visibilityState === 'visible' &&
+        document.body.dataset.pointer !== 'off' &&
+        finePointer.matches && motionAllowed && document.visibilityState === 'visible' &&
         !document.querySelector('dialog[open]');
     }
     function nativeCursorTarget(el) {
@@ -43,7 +41,6 @@
       const show = enabled && state.inside && !nativeCursorTarget(state.target);
       document.body.classList.toggle('pf-pointer-active', show);
       cursor.classList.toggle('is-visible', show);
-      field.classList.toggle('is-visible', enabled && state.inside);
       if (!enabled || !state.inside) {
         (window.cancelAnimationFrame || window.clearTimeout)(state.raf);
         state.raf = 0;
@@ -58,9 +55,7 @@
         event.clientX >= 0 && event.clientY >= 0 && event.clientX <= window.innerWidth && event.clientY <= window.innerHeight;
       if (state.inside && !wasInside) { state.x = state.tx; state.y = state.ty; }
       cursor.style.transform = `translate3d(${event.clientX}px,${event.clientY}px,0)`;
-      field.style.setProperty('--pointer-x', `${event.clientX}px`);
-      field.style.setProperty('--pointer-y', `${event.clientY}px`);
-      cursor.classList.toggle('is-target', !!event.target?.closest('a,button,[role="button"],summary'));
+      cursor.classList.remove('is-target');
       refresh();
       schedule();
     }
@@ -113,7 +108,6 @@
     (window.cancelAnimationFrame || window.clearTimeout)(state.raf);
     state.cleanup.forEach((fn) => fn());
     document.body.classList.remove('pf-pointer-active');
-    state.field.remove();
     state.cursor.remove();
   };
 })();
