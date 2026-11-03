@@ -1,0 +1,41 @@
+{
+  "retrievedAt": "2026-11-03T13:22:01.705Z",
+  "fonts": [
+    {
+      "family": "Fraunces",
+      "source": "https://github.com/google/fonts/tree/main/ofl/fraunces",
+      "cssSource": "https://fonts.googleapis.com/css2?family=Fraunces%3Aopsz%2Cwght%409..144%2C100..900&display=swap",
+      "fontSource": "https://fonts.gstatic.com/s/fraunces/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2",
+      "sha256": "7234ed860a9cc83045413c4faee63c960a8f2d1917adcf728119307d56e0d783",
+      "bytes": 67304,
+      "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/fraunces/OFL.txt"
+    },
+    {
+      "family": "Space Grotesk",
+      "source": "https://github.com/google/fonts/tree/main/ofl/spacegrotesk",
+      "cssSource": "https://fonts.googleapis.com/css2?family=Space+Grotesk%3Awght%40300..700&display=swap",
+      "fontSource": "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2",
+      "sha256": "0640890476fc1198ab4de571fb658de443c4d85b66466ec09534a8737ab1ce9d",
+      "bytes": 22288,
+      "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/spacegrotesk/OFL.txt"
+    },
+    {
+      "family": "Barlow Condensed",
+      "source": "https://github.com/google/fonts/tree/main/ofl/barlowcondensed",
+      "cssSource": "https://fonts.googleapis.com/css2?family=Barlow+Condensed%3Awght%40600&display=swap",
+      "fontSource": "https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4873z3bWuQ.woff2",
+      "sha256": "215a93c696f442034a46fbb382958f753fda60e30490683aeea6b235fcbb2b66",
+      "bytes": 22308,
+      "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/OFL.txt"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "https://github.com/google/fonts/tree/main/ofl/ibmplexmono",
+      "cssSource": "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono%3Awght%40400&display=swap",
+      "fontSource": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2",
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+      "bytes": 14708,
+      "license": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/OFL.txt"
+    }
+  ]
+}

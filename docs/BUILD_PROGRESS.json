@@ -763,5 +763,121 @@
         "changed": 0
       }
     }
+  },
+  "independent_directions_20261103": {
+    "date": "2026-11-03",
+    "status": "LOCAL_VERIFIED_AWAITING_PUBLISH",
+    "directions": [
+      "folio",
+      "vitro",
+      "herbarium",
+      "monument",
+      "assay",
+      "workbench",
+      "signal",
+      "connectome",
+      "shell",
+      "draft",
+      "separation",
+      "exhibit",
+      "letter",
+      "velocity",
+      "strata"
+    ],
+    "count": 15,
+    "previousCollectionPreserved": 15,
+    "heroArchivePreserved": 20,
+    "sourceContract": "Existing authenticated API -> source/adapter -> normalized PortfolioModel; no personal data added to source files.",
+    "implementation": {
+      "groups": [
+        "directions/observational.js + .css",
+        "directions/systems.js + .css",
+        "directions/expressive.js + .css"
+      ],
+      "sharedTechnicalAtoms": "directions/kit.js",
+      "independentRenderers": [
+        "hero",
+        "about",
+        "projects",
+        "experience"
+      ],
+      "allSections": 11,
+      "newRuntimeDependencies": 0,
+      "fontFamiliesSelfHosted": 4
+    },
+    "visualReview": {
+      "actualDesktopHeroes": 15,
+      "neutralizedHeroes": 15,
+      "projectViewports": 15,
+      "experienceViewports": 15,
+      "mobileViewports": 15,
+      "method": "Actual in-app browser renders compared as private contact sheets, plus an independent image-only critic. Screens are first viewports, not entire section captures.",
+      "fixes": [
+        "Strata split silhouette -> full-width layered panorama",
+        "Assay source intro and CTA brought into first desktop viewport",
+        "Monument balanced full-width poster and readable 4:3 project visual",
+        "Monument title arrow overflow removed",
+        "Signal and Draft indices kept on one line; Signal portrait bounded",
+        "Muted/accent text pairs corrected on light surfaces",
+        "Motion controls and URL now synchronized"
+      ],
+      "privateEvidenceDirectory": "C:\\Users\\yazda\\Documents\\PORTFOLIO_DESIGN_DIGEST\\independent-directions-20261103",
+      "privateManifest": "final-capture-manifest.json"
+    },
+    "verification": {
+      "tests": {
+        "command": "npm test",
+        "passed": 52,
+        "failed": 0
+      },
+      "layout": {
+        "cases": 75,
+        "designs": 15,
+        "widths": [
+          320,
+          390,
+          768,
+          1024,
+          1440
+        ],
+        "pageOverflowFailures": 0,
+        "measuredHeadingOverflowFailures": 0,
+        "sourceSectionsPerCase": 11,
+        "privateEvidence": "responsive-final.json"
+      },
+      "contrast": {
+        "tokenPairs": 150,
+        "themes": 2,
+        "minimumRatio": 4.544,
+        "failures": 0,
+        "scope": "ink/paper, muted/paper, on-accent/lime, lime/paper, muted/surface; not a full accessibility audit"
+      },
+      "browserInteractions": [
+        "15 current and15 earlier choices",
+        "design search and selection",
+        "project filtering and source detail modal",
+        "real credential first-page modal loaded",
+        "Still paused and Full resumed optical ornament",
+        "stable 72-vertex story changed coordinates; Full scroll mode controlled page position"
+      ],
+      "consoleErrorsInObservedFinalLocalTab": 0,
+      "privacy": {
+        "envValueHits": 0,
+        "realCvOrScreenshotsCommitted": false,
+        "bulkSkillsGitIgnored": true
+      }
+    },
+    "deployment": null,
+    "limitations": [
+      "No FPS profile",
+      "No real-device or cross-browser run",
+      "OS reduced-motion was false in browser; manual Still and Full tested",
+      "Not every theme x motion x design combination was rendered"
+    ],
+    "remainingRequired": [
+      "Publish current source commit",
+      "Verify production static assets and unauthenticated API boundary",
+      "Observe new collection in production browser"
+    ]
   }
 }

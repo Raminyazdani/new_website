@@ -50,5 +50,6 @@
     catalog.set(design.id, Object.freeze({defaultTheme:'light',recordStyle:'unified',family:'Collection',...design}));
   }
   w.PortfolioDesigns = { register, get:id=>catalog.get(id), list:()=>[...catalog.values()], has:id=>catalog.has(id), ui,
-    render(id, sectionName, vm, h) { const renderer=catalog.get(id)?.renderers[sectionName];if(!renderer)return null;let markup=renderer(vm,h,ui);if(sectionName==='about'&&!markup.includes('data-story')&&w.PortfolioStory)markup=markup.replace(/<\/div><\/section>\s*$/,`<details class="dl-shared-study"><summary>Explore the connected visual study ↗</summary>${ui.story(vm,h)}</details></div></section>`);return markup; } };
+    collection:name=>[...catalog.values()].filter(d=>name==='independent'?d.collection==='independent':d.collection!=='independent'),
+    render(id, sectionName, vm, h) { const design=catalog.get(id),renderer=design?.renderers[sectionName];if(!renderer)return null;let markup=renderer(vm,h,ui);if(design.collection!=='independent'&&sectionName==='about'&&!markup.includes('data-story')&&w.PortfolioStory)markup=markup.replace(/<\/div><\/section>\s*$/,`<details class="dl-shared-study"><summary>Explore the connected visual study ↗</summary>${ui.story(vm,h)}</details></div></section>`);return markup; } };
 })(window);

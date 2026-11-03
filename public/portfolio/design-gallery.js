@@ -49,40 +49,64 @@
     if ($('#designGalleryResults')) $('#designGalleryResults').textContent = `${count} ${count === 1 ? 'design' : 'designs'} shown`;
   }
   function sketch(meta) {
-    const colors = palette[meta.id] || palette.journal;
+    const colors = meta.palette || palette[meta.id] || palette.journal;
     return `<div class="dg-sketch dg-sketch-${e(meta.id)}" style="--sk-paper:${colors[0]};--sk-accent:${colors[1]};--sk-ink:${colors[2]}" aria-hidden="true"><span class="dg-mini-nav"></span><span class="dg-mini-title"></span><span class="dg-mini-copy"></span><span class="dg-mini-portrait"></span><span class="dg-mini-figure"></span><div class="dg-mini-records"><i></i><i></i><i></i><i></i></div><small>Schematic layout preview</small></div>`;
   }
-  function init() {
-    const host = $('#designGalleryBody');
-    if (!host) return;
-    const designs = registry.list();
+  let activeId = new URLSearchParams(w.location?.search || '').get('design') || 'unified';
+  let scope = registry.get(activeId) ? (registry.get(activeId).collection === 'independent' ? 'independent' : 'previous') : registry.collection?.('independent').length ? 'independent' : 'previous';
+  const entries = () => registry.collection ? registry.collection(scope) : registry.list();
+  function populate() {
+    const host = $('#designGalleryBody'); if (!host) return;
+    const designs = entries(), familySelect = $('#designGalleryFamily');
     const families = [...new Set(designs.map(design => String(design.family).toLowerCase()))].sort();
-    const familySelect = $('#designGalleryFamily');
-    if (familySelect) familySelect.innerHTML = '<option value="">All directions</option>' + families.map(family => `<option value="${e(family)}">${e(familyLabel(family))}</option>`).join('');
+    if (familySelect) {
+      familySelect.innerHTML = '<option value="">All directions</option>' + families.map(family => `<option value="${e(family)}">${e(familyLabel(family))}</option>`).join('');
+      familySelect.closest('label').hidden = families.length < 2;
+    }
+    if ($('#designGalleryCollection')) $('#designGalleryCollection').value = scope;
+    const intro = $('#designGallery')?.querySelector('.dg-header p');
+    if (intro) intro.textContent = scope === 'independent' ? '15 independent visual worlds. Open a direction to explore its complete portfolio.' : 'The earlier collection, preserved with its original layouts.';
     host.innerHTML = designs.map((design, index) => {
-      const colors = palette[design.id] || palette.journal;
-      return `<article class="dg-card" data-gallery-design="${e(design.id)}" data-gallery-family="${e(String(design.family).toLowerCase())}" data-gallery-search="${e([design.name, design.description, design.family, design.signature].join(' ').toLowerCase())}"><button type="button" data-design-choice="${e(design.id)}" style="--accent:${colors[1]};--accent-ink:${colors[2]}" aria-pressed="false">${sketch(design)}<span class="dg-card-content"><span class="dg-card-meta"><span>${String(index + 1).padStart(2, '0')}</span><span>${e(familyLabel(design.family))}</span></span><strong>${e(design.name)}</strong><span class="dg-card-description">${e(design.description)}</span><span class="dg-card-signature">${e(design.signature)}</span><span class="dg-card-action">Select this design <span aria-hidden="true">↗</span></span><span class="dg-selected" hidden>Current selection</span></span></button></article>`;
+      const colors = design.palette || palette[design.id] || palette.journal;
+      return `<article class="dg-card" data-gallery-design="${e(design.id)}" data-gallery-family="${e(String(design.family).toLowerCase())}" data-gallery-search="${e([design.name,design.description,design.family,design.signature,...Object.values(design.fingerprint||{})].join(' ').toLowerCase())}"><button type="button" data-design-choice="${e(design.id)}" style="--accent:${colors[1]};--accent-ink:${colors[2]}" aria-pressed="false">${sketch(design)}<span class="dg-card-content"><span class="dg-card-meta"><span>${String(index+1).padStart(2,'0')}</span><span>${e(familyLabel(design.family))}</span></span><strong>${e(design.name)}</strong><span class="dg-card-description">${e(design.description)}</span><span class="dg-card-signature">${e(design.signature)}</span><span class="dg-card-action">Explore this world <span aria-hidden="true">↗</span></span><span class="dg-selected" hidden>Current selection</span></span></button></article>`;
     }).join('');
+    filter();
+  }
+  const reflectSelection = reflect;
+  reflect = function (id) {
+    activeId = id;
+    const meta = registry.get(id), desired = meta ? meta.collection === 'independent' ? 'independent' : 'previous' : scope;
+    if (desired !== scope) { scope = desired; populate(); }
+    reflectSelection(id);
+    if ($('#designCollectionCount')) $('#designCollectionCount').textContent = String(entries().length);
+  };
+  function init() {
+    if (!$('#designGalleryBody')) return;
+    populate();
     $('#designGallerySearch')?.addEventListener('input', filter);
-    familySelect?.addEventListener('change', filter);
-    $('#designGallery')?.addEventListener('click', event => {
-      if (event.target === event.currentTarget) close();
+    $('#designGalleryFamily')?.addEventListener('change', filter);
+    $('#designGalleryCollection')?.addEventListener('change', event => {
+      scope = event.target.value === 'previous' ? 'previous' : 'independent';
+      if ($('#designGallerySearch')) $('#designGallerySearch').value = '';
+      populate(); reflectSelection(activeId);
     });
+    $('#designGallery')?.addEventListener('click', event => { if (event.target === event.currentTarget) close(); });
     document.addEventListener('click', event => {
-      if (event.target.closest('[data-open-design-gallery]')) { const dialog = $('#designDialog'); if (dialog?.open) dialog.close(); open(); }
+      if (event.target.closest('[data-open-design-gallery]')) { const dialog=$('#designDialog');if(dialog?.open)dialog.close();open(); }
       if (event.target.closest('[data-close-design-gallery]')) close();
-      const choice = event.target.closest('[data-design-choice]');
-      if (choice) { w.PortfolioStudio?.setConcept(choice.dataset.designChoice); close(); }
-      const step = event.target.closest('[data-design-step]');
-      if (step) {
-        const ids = ['unified', ...registry.list().map(design => design.id)];
-        const index = Math.max(0, ids.indexOf(w.PortfolioStudio?.concept));
-        w.PortfolioStudio?.setConcept(ids[(index + Number(step.dataset.designStep) + ids.length) % ids.length]);
+      const choice=event.target.closest('[data-design-choice]');
+      if(choice){ w.PortfolioStudio?.setConcept(choice.dataset.designChoice);close(); }
+      const step=event.target.closest('[data-design-step]');
+      if(step){
+        const current=registry.get(w.PortfolioStudio?.concept), group=current?.collection==='independent'?'independent':current?'previous':scope;
+        const collection=registry.collection?registry.collection(group):registry.list();
+        const ids=[...(group==='previous'?['unified']:[]),...collection.map(d=>d.id)];
+        const index=ids.indexOf(w.PortfolioStudio?.concept);
+        w.PortfolioStudio?.setConcept(ids[(Math.max(-1,index)+Number(step.dataset.designStep)+ids.length)%ids.length]);
       }
     });
-    filter();
-    reflect(w.PortfolioStudio?.concept || 'unified');
-    if (new URLSearchParams(w.location?.search || '').get('gallery') === '1') open();
+    reflect(w.PortfolioStudio?.concept||activeId);
+    if(new URLSearchParams(w.location?.search||'').get('gallery')==='1')open();
   }
   w.PortfolioDesignGallery = { open, close, reflect, init };
   init();

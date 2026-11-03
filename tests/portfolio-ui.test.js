@@ -35,13 +35,13 @@ const raw = {
 };
 
 function setSelectValues(document) {
-  for (const selector of ['#motionMode', '#studioMotion', '#studioSection', '#designGalleryFamily', '[data-project-filter]', '[data-cert-issuer]']) {
+  for (const selector of ['#motionMode', '#studioMotion', '#studioSection', '#designGalleryFamily', '#designGalleryCollection', '[data-project-filter]', '[data-cert-issuer]']) {
     const select = document.querySelector(selector);
     if (select) Object.defineProperty(select, 'value', { value: select.value, writable: true, configurable: true });
   }
 }
 
-async function boot({ search = '', auth = false, reduce = true, stored = null } = {}) {
+async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, model = null } = {}) {
   const { document, Event } = parseHTML(fs.readFileSync(path.join(publicRoot, 'index.html'), 'utf8'));
   const selectPrototype = Object.getPrototypeOf(document.querySelector('#motionMode'));
   const nativeSelectValue = Object.getOwnPropertyDescriptor(selectPrototype, 'value');
@@ -64,7 +64,7 @@ async function boot({ search = '', auth = false, reduce = true, stored = null } 
       load: async () => {
         cvLoads++;
         if (auth) { const error = Error('authentication required'); error.code = 'AUTH_REQUIRED'; throw error; }
-        return { raw: structuredClone(raw), model: structuredClone(adaptCV(raw)) };
+        return { raw: structuredClone(raw), model: structuredClone(model || adaptCV(raw)) };
       },
     },
     localStorage: {
@@ -83,7 +83,8 @@ async function boot({ search = '', auth = false, reduce = true, stored = null } 
     removeEventListener() {},
     navigator: { clipboard: { writeText: async () => {} } },
   };
-  for (const file of files) {
+  const loadedFiles = independent ? [...files.slice(0, files.indexOf('design-gallery.js')), 'directions/kit.js', 'directions/observational.js', 'directions/systems.js', 'directions/expressive.js', ...files.slice(files.indexOf('design-gallery.js'))] : files;
+  for (const file of loadedFiles) {
     new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8'))(win, document);
   }
   new Function('window', 'document', 'fetch', 'setTimeout', 'clearTimeout', fs.readFileSync(path.join(publicRoot, 'portfolio/runtime.js'), 'utf8'))(
@@ -191,6 +192,35 @@ test('section isolation, validated query preferences, themes and motion controls
   assert.equal(win.portfolioView.motionMode, 'still');
   assert.equal(document.body.dataset.effects, 'off');
   assert.equal(win.PortfolioStudio.theme, 'dark');
+});
+
+test('URL motion initializes both controls and selecting Still persists without replacing source content', async () => {
+  const env = await boot({ independent: true, search: '?design=signal&motion=full', reduce: true });
+  const { document, win, Event } = env;
+  const headerMotion = document.querySelector('#motionMode');
+  const studioMotion = document.querySelector('#studioMotion');
+  assert.equal(headerMotion.value, 'full');
+  assert.equal(studioMotion.value, 'full', 'Studio mirrors the URL motion on first render');
+  assert.equal(document.body.dataset.effects, 'on');
+  const sourceContent = document.querySelector('#portfolio').textContent;
+  const sourceModel = win.portfolioView.model;
+  const loads = env.cvLoads;
+
+  studioMotion.value = 'still';
+  studioMotion.dispatchEvent(new Event('change', { bubbles: true }));
+  assert.equal(headerMotion.value, 'still');
+  assert.equal(studioMotion.value, 'still');
+  assert.equal(win.portfolioView.motionMode, 'still');
+  assert.equal(document.body.dataset.effects, 'off');
+  assert.equal(new URL(win.location.href).searchParams.get('motion'), 'still', 'the URL no longer retains the original full override');
+  assert.equal(env.cvLoads, loads, 'changing motion does not refetch the CV');
+  assert.strictEqual(win.portfolioView.model, sourceModel, 'changing motion retains the loaded model');
+  assert.equal(document.querySelector('#portfolio').textContent, sourceContent, 'all readable source content remains present');
+
+  const reloaded = await boot({ independent: true, search: new URL(win.location.href).search, reduce: true });
+  assert.equal(reloaded.document.querySelector('#motionMode').value, 'still');
+  assert.equal(reloaded.document.querySelector('#studioMotion').value, 'still');
+  assert.equal(reloaded.document.body.dataset.effects, 'off', 'reloading the updated URL keeps Still selected');
 });
 
 test('legacy design URLs upgrade to unified; archived explorations require an explicit edition', async () => {
@@ -457,4 +487,77 @@ test('project search, open detail, and project/certificate pagination survive co
     if (visibleCertificates !== 12) issues.push(`${concept}: visible certificate page ${visibleCertificates}, expected 12`);
   }
   assert.deepStrictEqual(issues, []);
+});
+
+
+const independentIds = ['folio','vitro','herbarium','monument','assay','workbench','signal','connectome','shell','draft','separation','exhibit','letter','velocity','strata'];
+
+test('independent record atoms preserve zero values and distinct supplied language, skill and publication fields', async () => {
+  const model = adaptCV(raw);
+  model.education[0].gpa = 0;
+  model.languages[0].cefr = 'B2';
+  model.languages[0].level = 'Source conversational description';
+  model.languages[0].tests = [{ id: 'synthetic-test', name: 'Synthetic assessment', issuer: 'Example issuer', date: '', url: '', scores: [{ label: 'Source score', value: 0, max: 0 }] }];
+  const skill = model.skillGroups[0].groups[0].items[0];
+  skill.shortName = 'SYN';
+  skill.tags = ['Source context <img src=x onerror=alert(1)>'];
+  model.publications[0].doi = '10.0000/synthetic';
+  model.publications[0].isbn = '000-0-synthetic';
+  const { document } = await boot({ independent: true, model });
+
+  assert.equal(document.querySelector('.di-education-item strong').textContent, '0', 'numeric zero GPA stays visible');
+  const language = document.querySelector('.di-language');
+  assert(language.textContent.includes('B2'), 'CEFR is retained');
+  assert(language.textContent.includes('Source conversational description'), 'the distinct source level is retained alongside CEFR');
+  assert.equal(language.querySelector('.di-language-test strong').textContent, '0 / 0', 'zero score and zero maximum are not treated as missing');
+  const item = document.querySelector('[data-skill-item]');
+  assert(item.textContent.includes(skill.name), 'full skill name is retained');
+  assert(item.textContent.includes('(SYN)'), 'supplied short name is retained');
+  assert(item.textContent.includes(skill.tags[0]), 'source skill tags remain available through disclosure');
+  assert.equal(item.querySelector('.di-skill-context').hasAttribute('open'), false);
+  assert.equal(item.querySelector('img'), null, 'source context remains escaped text');
+  const paper = document.querySelector('.di-paper');
+  assert(paper.textContent.includes('ISBN 000-0-synthetic'), 'literal ISBN remains visible');
+  const doi = paper.querySelector('a[href="https://doi.org/10.0000%2Fsynthetic"]');
+  assert(doi, 'DOI links to the supplied identifier');
+  assert(doi.textContent.includes('DOI 10.0000/synthetic'), 'DOI identifier is readable in the link label');
+});
+
+test('the independent collection is the new default while all previous designs remain addressable', async () => {
+  const env = await boot({ independent:true });
+  assert.equal(env.win.PortfolioStudio.concept,'folio');
+  assert.equal(env.document.body.dataset.collection,'independent');
+  assert.equal(env.document.body.dataset.concept,'independent');
+  assert.deepEqual(env.win.PortfolioDesigns.collection('independent').map(x=>x.id),independentIds);
+  assert.equal(env.win.PortfolioDesigns.collection('previous').length,15);
+  assert.equal(env.document.querySelectorAll('#designGalleryBody [data-design-choice]').length,15);
+  const selector=env.document.querySelector('#designGalleryCollection');selector.value='previous';selector.dispatchEvent(new env.Event('change',{bubbles:true}));
+  assert.equal(env.document.querySelectorAll('#designGalleryBody [data-design-choice]').length,15);
+  env.click('[data-design-choice="journal"]');assert.equal(env.win.PortfolioStudio.concept,'journal');
+  assert.equal(env.document.body.dataset.collection,'previous');
+});
+
+test('all fifteen independent worlds retain complete safe source records and functioning project actions', async () => {
+  for(const id of independentIds){
+    const env=await boot({ independent:true,search:'?design='+id });
+    const {document,win,click,Event}=env;
+    assert.equal(document.querySelectorAll('#portfolio [data-section]').length,11,id+' complete sections');
+    assert.equal(document.querySelectorAll('#portfolio h1').length,1,id+' one h1');
+    assert(document.querySelector('#hero .di-portrait img'),id+' actual portrait');
+    assert.equal(document.querySelectorAll('[data-project-card]').length,12,id+' all projects');
+    assert.equal(document.querySelectorAll('[data-cert-card]').length,15,id+' all credentials');
+    assert.equal(document.querySelectorAll('[data-journey-record]').length,1,id+' all experience');
+    assert(!document.querySelector('#portfolio [onerror]'),id+' escaped hostile summary');
+    assert(document.querySelector('#about').textContent.includes('Exact fictional summary'),id+' full source profile');
+    assert.equal(document.querySelector('.di-reference').hasAttribute('open'),false,id+' reference disclosure');
+    const search=document.querySelector('[data-project-search]');search.value='Project 11';search.dispatchEvent(new Event('input',{bubbles:true}));
+    const visible=[...document.querySelectorAll('[data-project-card]')].filter(n=>!n.hidden);
+    assert.equal(visible.length,1,id+' source search');
+    click('[data-project-card]:not([hidden]) [data-open-project]');
+    assert(document.querySelector('#projectDialog').hasAttribute('open'),id+' modal opens');
+    assert(document.querySelector('#projectDialogBody').textContent.includes('Full description 11'),id+' full source description');
+    assert.equal(env.cvLoads,1,id+' no refetch');
+    assert.equal(document.querySelectorAll('#about [data-story]').length,id==='strata'?1:0,id+' intentional story composition');
+    assert(win.PortfolioDesigns.get(id).fingerprint.composition,id+' authored brief');
+  }
 });

@@ -24,6 +24,15 @@ const server = http.createServer(async (req, res) => {
   for (const group of ['editorial','systems','experimental']) {
     for (const ext of ['js','css']) files[`/portfolio/designs/${group}.${ext}`]=[`portfolio/designs/${group}.${ext}`,ext==='js'?'text/javascript; charset=utf-8':'text/css; charset=utf-8'];
   }
+  for (const file of ['kit.js','foundation.css','observational.js','observational.css','systems.js','systems.css','expressive.js','expressive.css']) {
+    files[`/portfolio/directions/${file}`]=[`portfolio/directions/${file}`,file.endsWith('.js')?'text/javascript; charset=utf-8':'text/css; charset=utf-8'];
+  }
+  files['/fonts/directions-fonts.css']=['fonts/directions-fonts.css','text/css; charset=utf-8'];
+  files['/fonts/SOURCES.json']=['fonts/SOURCES.json','application/json; charset=utf-8'];
+  for (const font of ['fraunces','spacegrotesk','barlowcondensed','ibmplexmono']) {
+    files[`/fonts/${font}-latin.woff2`]=[`fonts/${font}-latin.woff2`,'font/woff2'];
+    files[`/fonts/${font}-OFL.txt`]=[`fonts/${font}-OFL.txt`,'text/plain; charset=utf-8'];
+  }
   for (const group of ['a', 'b', 'c']) {
     files[`/designs/collection-${group}.js`] = [`designs/collection-${group}.js`, 'text/javascript; charset=utf-8'];
     files[`/designs/collection-${group}.css`] = [`designs/collection-${group}.css`, 'text/css; charset=utf-8'];
