@@ -61,3 +61,8 @@
 در زمان این snapshot، `design-gallery.js/css` هنوز نسخهٔ موجودِ مبتنی بر layout sketch بود و تغییر تازه‌ای در Git status آن‌ها دیده نشد. بنابراین تبدیل gallery به preview واقعی یا تغییرات بعدی آن در این گزارش تأیید نشده است. باید بعد از رسیدن نسخهٔ جدید جداگانه بررسی شود.
 
 gateهای باز برای هماهنگ‌کننده: تمام ۱۵ طرح در روشن/تیره و ۳۲۰px/zoom، کنتراست surfaceهای ترکیبی، studio/project close در موبایل، dialog rapid reopen/Escape/focus restoration، Full در Reduced Motion و Still، لغو حرکت هنگام lock/hidden، و profile واقعی هزینهٔ SVG/drop-shadow. شواهد source و هفت unit test اجازهٔ حذف این gateها را نمی‌دهند.
+
+
+## تکمیل بررسی توسط هماهنگ‌کننده
+
+پس از رسیدن gallery، نام کارت‌ها که به اشتباه از طراحی فعال گرفته می‌شد اصلاح شد؛ تست label طرح فعال و غیرفعال پاس شد. پالت schematic به رنگ واقعی recipeها برگشت و badge انتخاب از semantic on-accent استفاده می‌کند. گالری در هر پنج عرض با ۱۵ انتخاب، inputهای ۱۶px و بدون overflow بررسی شد؛ جست‌وجو، خروج بومی و بازگشت focus به opener و خروج از project modal به همان دکمه مشاهده شد. در ماتریس نخست، متن بزرگ‌تر nav در ۳۲۰px دو پیکسل overflow داشت؛ scroll container محدود و targetهای ۴۴px اصلاح شدند و ۸۰ حالت بازبینی‌شده پاس شد. این موارد شواهد coordinator هستند، مستقل از review سورس بالا. FPS و تست cross-browser انجام نشده‌اند.

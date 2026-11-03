@@ -1,6 +1,6 @@
 # گزارش نتیجهٔ بازطراحی skill-guided
 
-**وضعیت این snapshot:** پیاده‌سازی و شواهد مرورگر محلی ثبت شده؛ اجرای نهایی full-suite و انتشار هنوز تأیید نشده‌اند.  
+**وضعیت نهایی: منتشرشده و بررسی‌شده.** هر ۴۸ تست پاس شد؛ deployment همان پروژهٔ Vercel در وضعیت READY است.  
 **شواهد خصوصی:** `C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill-overhaul-20261103/{responsive-evidence.json,interaction-evidence.json}`؛ فایل‌های خصوصی و screenshotها بیرون Git باقی مانده‌اند.
 
 ## نتیجهٔ مرورگر محلی
@@ -16,7 +16,7 @@
 - Modal مدرک ۳۳۵ پیکسل عرض داشت و تصویر منبع با عرض طبیعی ۱۲۴۰ پیکسل بارگذاری شد.
 - Story دستی، ۷۲ vertex ثابت، endpoint کد در progress=1 و تغییر geometry را نشان داد؛ هر سه فصل خوانا ماندند.
 - Still با `effects=off` تصویر atmosphere را متوقف کرد. در همان مشاهده، `prefers-reduced-motion` سیستم فعال نبود؛ پس این شاهد آزمون واقعی OS Reduced Motion نیست.
-- طبق مشاهدهٔ مرورگری ثبت‌شده توسط هماهنگ‌کننده، آرشیو ۲۰ Hero انتخاب و عکس داشت، BioTeal edition یازده بخش و ۸۷ پروژه/عکس ۷۲۰px داشت و کتابخانهٔ ایده ۳۵۰ مورد حفظ شد. این فیلدها در دو JSON خصوصی نام‌برده‌شده نیستند و provenance آن‌ها یادداشت هماهنگ‌کننده است.
+- طبق مشاهدهٔ مرورگری ثبت‌شده توسط هماهنگ‌کننده، آرشیو ۲۰ Hero انتخاب و عکس داشت، BioTeal edition یازده بخش و ۸۷ پروژه/عکس ۷۲۰px داشت و کتابخانهٔ ایده ۳۵۰ مورد حفظ شد. این فیلدها در به‌روزرسانی `interaction-evidence.json` نیز ثبت شده‌اند.
 
 ## Skillها و روش اجراشده
 
@@ -28,13 +28,24 @@ Manifest `docs/design/skill-audit/INSTALLATION.json` نصب/اعتبارسنجی
 
 ## تست‌ها، خطا و حدود شواهد
 
-- هماهنگ‌کننده یک اجرای مقدماتی ۴۷/۴۸ را به‌علت انتظار اشتباه متن تعداد نتیجهٔ Gallery گزارش کرد؛ انتظار اصلاح شد و UI testها ۱۱/۱۱ گزارش شدند. **نتیجهٔ نهایی اجرای کامل ۴۸تایی هنوز دریافت نشده است** و در این گزارش PASS ادعا نمی‌شود.
+- اجرای نهایی `npm test`: **۴۸ تست موفق، صفر شکست**. انتظار اشتباه در تست متن گالری در اجرای مقدماتی اصلاح و سپس کل مجموعه دوباره اجرا شد.
 - تب مرورگر تازه پس از معتبرشدن asset نهایی، صفر خطای console داشت. تب قدیمی‌تر یک SyntaxError تاریخی در 04:00:19 نگه داشته بود که پیش از اصلاح فایل بود؛ بنابراین عبارت «هیچ‌وقت خطا نداشت» نادرست است.
 - Actual OS reduced-motion، browserهای متعدد، گوشی واقعی و FPS/performance profile آزموده نشده‌اند. ماتریس ۸۰تایی فقط layout در حالت spatial را پوشش می‌دهد؛ حاصل ضرب کامل تم/حرکت/طرح نیست.
 - هیچ امتیاز عددیِ خودساخته‌ای برای «کیفیت طراحی» داده نمی‌شود.
 
 ## انتشار
 
-کاربر انتشار روی branch/GitHub و پروژهٔ Vercel موجود را مجاز کرده است؛ این snapshot هنوز commit یا deployment ID ندارد. بنابراین وضعیت فعلی **PENDING** است و ادعای deploy/live verification نشده. هماهنگ‌کننده پس از gateهای نهایی باید شناسهٔ commit/deployment و نتیجهٔ مرورگر production را در گزارش و `docs/BUILD_PROGRESS.json` ثبت کند.
+commit `13746dbd72abac52c66d6aff6099d12d504d519e` و deployment `dpl_EAA981zHCcaQq29desMM73xxe5du` با وضعیت READY روی همان پروژه منتشر شدند. هر ۵۷ فایل عمومی با نسخهٔ محلی تطبیق داشت؛ API ناشناس 401 و private/no-store باقی ماند. در production تعویض unified به Kinetic و حفظ rotate پرتره، گالری، عرض ۳۹۰ اسمی بدون overflow و story با progress=1، ۷۲ رأس و stageTop=92 مشاهده شد؛ تب تازه خطای کنسول نداشت. خروجی نهایی روی unified/light/silk و کل سایت قرار گرفت.
 
 خلاصهٔ ماشینی، مرزهای evidence و وضعیت release در [SKILL_OVERHAUL_RESULTS.json](./SKILL_OVERHAUL_RESULTS.json) قرار دارد.
+
+
+## اصول واقعاً به‌کاررفته
+
+- OpenDesign و CDS: هویت ژورنال علمی، سلسله‌مراتب ۱۱ بخش و حفظ ترکیب مستقل ۱۵ طرح، در `craft.css`.
+- OpenCowork (`ocd-craft-polish`, `ocd-responsive-layout`, `ocd-surface-elevation`): اصلاح wrap و انتخاب، کنترل‌های موبایل و سایهٔ دو لایه.
+- Emil و Impeccable: یک ورود محدود و قابل قطع، فیلتر فوری، lifecycle و مسیر Still، در `motion-system.*`.
+- iart (`motion-art-direction`, `color-motion`, `shot-composition`): تفکیک نقش صحنه/متن/بک‌گراند، پالت محدود، وزن کمتر محیط، بازچینی موبایل و material ملایم در story؛ کد renderer/فیلم vendor استفاده نشد.
+- Trystan: نقد سلسله‌مراتب، وضعیت تعامل و کنتراست با شاهد و اصلاح یافته‌ها، در `OVERHAUL_CRITIQUE_FA.md`.
+
+این‌ها استفاده از اصول و متن اسکیل‌اند، نه ادعای اجرای برنامهٔ خودکار vendor. منابع حجیم و ۴۱۸۶ فایل نصب‌شده محلی و Git-ignored هستند؛ provenance و کاربرد پیشنهادی همهٔ ۵۲۸ ورودی در manifest نگه داشته شده‌اند. در اسکن نهایی release candidate، هیچ مقدار فعلی env پیدا نشد.

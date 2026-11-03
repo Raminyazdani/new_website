@@ -2,7 +2,7 @@
   "recorded_at": "2026-11-03",
   "project": "E:/todo_list_compact/digest_website/apps/new_website",
   "objective": "Skill-guided visual and motion overhaul across the unified portfolio, 15-design collection, preserved 20-Hero archive and BioTeal edition.",
-  "status_at_report": "IMPLEMENTATION_AND_LOCAL_BROWSER_EVIDENCE_RECORDED_RELEASE_PENDING",
+  "status_at_report": "DEPLOYED_AND_VERIFIED",
   "private_evidence": {
     "responsive": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill-overhaul-20261103/responsive-evidence.json",
     "interactions": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill-overhaul-20261103/interaction-evidence.json",
@@ -237,11 +237,36 @@
     "privacy": "No current env values found in release candidate files after replacing the example owner with a synthetic placeholder; bulk skills remain Git-ignored."
   },
   "release": {
-    "state": "PENDING",
-    "github_commit": null,
-    "vercel_deployment_id": null,
-    "production_browser_verified": false,
-    "note": "Same-project GitHub/Vercel release is authorized by the active user goal, but no commit/deployment identifier was supplied at this report snapshot. Update this record when the coordinator provides actual release evidence."
+    "state": "READY",
+    "github_commit": "13746dbd72abac52c66d6aff6099d12d504d519e",
+    "vercel_deployment_id": "dpl_EAA981zHCcaQq29desMM73xxe5du",
+    "url": "https://new-website-hero-lab.vercel.app/?design=unified&theme=light&background=silk",
+    "production_browser_verified": true,
+    "public_assets_matched_after_line_ending_normalization": 57,
+    "anonymous_api_status": 401,
+    "cache_control": "private, no-store, max-age=0",
+    "csp_connect_src": "'self' https://api.github.com",
+    "browser": {
+      "initial_design": "unified",
+      "theme": "light",
+      "sections": 11,
+      "projects": 87,
+      "portrait_loaded_width": 720,
+      "source_index_links": 2,
+      "gallery_search_result": "1 design shown",
+      "chosen_design": "kinetic",
+      "kinetic_resting_transform": "matrix(0.99863, 0.052336, -0.052336, 0.99863, 0, 0)",
+      "mobile_client_width": 375,
+      "mobile_scroll_width": 375,
+      "story": {
+        "mode": "scroll",
+        "progress": 1,
+        "vertices": 72,
+        "stage_top": 92
+      },
+      "fresh_tab_console_errors": 0
+    },
+    "private_screenshot": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill-overhaul-20261103/production-hero-light.jpg"
   },
   "limitations": [
     "No numeric design-quality self-score is used.",
