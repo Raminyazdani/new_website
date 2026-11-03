@@ -623,5 +623,101 @@
       "Private raw evidence remains outside public Git."
     ],
     "state": "DEPLOYED_AND_VERIFIED"
+  },
+  "skill_overhaul": {
+    "recorded_at": "2026-11-03",
+    "status": "LOCAL_BROWSER_MATRIX_PASS_FINAL_TEST_AND_RELEASE_PENDING",
+    "evidence_source_outside_git": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill-overhaul-20261103/",
+    "responsive_cases": 80,
+    "designs": 16,
+    "nominal_viewports_px": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "measured_content_widths_px": [
+      305,
+      375,
+      753,
+      1009,
+      1425
+    ],
+    "horizontal_overflow_cases": 0,
+    "name_overflow_cases": 0,
+    "sections_per_case": 11,
+    "projects_per_case": 87,
+    "portrait_dimension_reported_px": 720,
+    "gallery_escape_and_focus": "typed-search Escape clears query first; next Escape closes gallery and returns focus",
+    "project_modal_mobile": {
+      "width_px": 320,
+      "scroll_width_px": 320,
+      "font_size": "16px",
+      "escape_closes": true,
+      "focus_returns": true
+    },
+    "manual_story": {
+      "vertices": 72,
+      "code_endpoint": 1,
+      "geometry_changed": true,
+      "chapters_readable": true
+    },
+    "still_mode": {
+      "effects": "off",
+      "atmosphere": "none",
+      "os_reduced_motion_active": false
+    },
+    "archive_observation": {
+      "hero_choices": 20,
+      "bioteal_sections": 11,
+      "projects": 87,
+      "portrait_width_px": 720,
+      "design_ideas": 350,
+      "basis": "Coordinator-reported browser observation; not present in the two named evidence JSON files."
+    },
+    "skill_installation": {
+      "project_scoped_skills": 528,
+      "verified_files": 4186,
+      "read_or_executed_all": false,
+      "manifest": "docs/design/skill-audit/INSTALLATION.json"
+    },
+    "final_full_suite": {
+      "status": "PENDING_COORDINATOR_FINAL_RUN",
+      "preliminary": "47/48 before expected gallery count copy was fixed; UI tests subsequently reported 11/11."
+    },
+    "console": "Fresh tab after final local asset: 0 observed errors. Older tab retains one historical SyntaxError at 04:00:19 from before final file correction.",
+    "release": {
+      "status": "PENDING",
+      "github_commit": null,
+      "vercel_deployment_id": null,
+      "production_browser_verified": false
+    },
+    "limitations": [
+      "OS reduced motion was not active; Still/off was tested explicitly.",
+      "No FPS profile, cross-browser run, or real-phone run was recorded.",
+      "80 responsive rows are layout evidence, not every theme/motion combination.",
+      "Do not claim the final 48-test suite passed until coordinator evidence is received.",
+      "Do not claim publication/deployment until actual IDs and production evidence are recorded."
+    ],
+    "evidence_report": "docs/design/SKILL_OVERHAUL_RESULTS.json",
+    "verification_status": {
+      "responsive_browser_matrix": "PASS: 80/80 measured layouts; 16 designs × 5 widths.",
+      "interaction_browser_checks": "PASS for the interactions listed above; not a complete theme × design × motion Cartesian matrix.",
+      "latest_full_suite": {
+        "command": "npm test",
+        "tests": 48,
+        "passed": 48,
+        "failed": 0
+      },
+      "preliminary_test_note": "The interim gallery assertion was corrected; the final full suite passed all 48 tests.",
+      "console_observation": "A fresh browser tab after the final local asset was valid and showed 0 console errors. An older tab retained one historical SyntaxError event at 04:00:19 before the final file correction; do not generalize this to an unconditional zero-error history.",
+      "actual_os_reduced_motion": "NOT_TESTED; Still/off was verified with OS prefers-reduced-motion false.",
+      "fps_or_performance_profile": "NOT_TESTED",
+      "cross_browser_and_real_phone": "NOT_TESTED",
+      "theme_and_motion_cartesian_coverage": "PARTIAL; the 80-layout matrix is spatial-mode layout evidence, not all theme/motion combinations.",
+      "privacy": "No current env values found in release candidate files after replacing the example owner with a synthetic placeholder; bulk skills remain Git-ignored."
+    },
+    "tests_passed": 48
   }
 }

@@ -1,0 +1,111 @@
+{
+  "audit_date": "2026-11-03",
+  "scope": "Research of four user-provided animation-related pages for motion/design skills relevant to apps/new_website. No application code or skill installation performed.",
+  "project_target": "E:/todo_list_compact/digest_website/apps/new_website",
+  "sources": [
+    {
+      "url": "https://agenticskills.io/skills/animate",
+      "classification": "Directory mirror of an installable open-source agent skill",
+      "result": "The page exposes the full SKILL.md, gives CLI/manual install commands, links RECIPES.md, and identifies its source repository and synced commit.",
+      "canonical": {
+        "author": "Emil Kowalski",
+        "repository": "https://github.com/emilkowalski/skills",
+        "skill_path": "skills/animate/SKILL.md",
+        "recipes_path": "skills/animate/RECIPES.md",
+        "raw_skill": "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/animate/SKILL.md",
+        "raw_recipes": "https://raw.githubusercontent.com/emilkowalski/skills/main/skills/animate/RECIPES.md",
+        "commit_reported_by_directory": "2d3b63a",
+        "directory_sync_date": "2026-11-02",
+        "license_reported_by_directory_and_repo": "MIT",
+        "name": "animate",
+        "install_candidate": "npx skills add emilkowalski/skills@animate",
+        "project_scope_candidate": "npx skills add https://github.com/emilkowalski/skills --skill animate"
+      },
+      "content_saved_to": [
+        "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill_sources_20261103/web/emilkowalski-animate-SKILL.md",
+        "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill_sources_20261103/web/emilkowalski-animate-RECIPES.md"
+      ],
+      "review_notes": [
+        "This is the primary candidate: implementation guidance for purpose, frequency, tools, properties, easing, duration, interruption, reduced motion, and common UI recipes.",
+        "The page is an aggregator; use the upstream repo/path above as provenance and install source.",
+        "The skill contains no shell commands, npm scripts, telemetry calls, or automatic external service calls in the inspected SKILL.md and RECIPES.md. Its installation command invokes the third-party skills CLI; the coordinator should inspect/install using the project's authorized installer workflow.",
+        "The skill's initial-response clause asks the agent to output a fixed sentence and suppress other information when invoked without a question. Treat this as vendor prompt behavior, not project policy; avoid letting it override user instructions.",
+        "The guide presents some strong universal claims about compositing/GPU performance and fixed timing bands. Apply as heuristics after checking current project tokens, runtime, accessibility requirements, and actual browser support."
+      ]
+    },
+    {
+      "url": "https://aiuxplayground.com/skills/animate",
+      "classification": "Duplicate directory mirror of the Emil Kowalski animate skill",
+      "result": "The page includes the complete skill text. Its displayed author, summary, ordered decision process, wording, and recipes link match the AgenticSkills copy and upstream source. No separate implementation or competing upstream was found.",
+      "canonical": {
+        "repository": "https://github.com/emilkowalski/skills",
+        "skill_path": "skills/animate/SKILL.md",
+        "recipes_path": "skills/animate/RECIPES.md",
+        "install_candidate": "npx skills add https://github.com/emilkowalski/skills --skill animate",
+        "license": "MIT (upstream repository)"
+      },
+      "review_notes": ["Use only as a second mirror for cross-checking; do not install a duplicate copy."]
+    },
+    {
+      "url": "https://www.ui-skills.com/skills/motion",
+      "classification": "Motion category directory containing multiple separate skills",
+      "result": "The page lists several distinct motion skills. Its animate entry by emilkowalski is another mirror of the same upstream skill. Its animate entry by pbakaus is a genuinely separate installable skill from pbakaus/impeccable.",
+      "canonical_candidates": [
+        {
+          "name": "animate",
+          "author": "emilkowalski",
+          "repository": "https://github.com/emilkowalski/skills",
+          "skill_path": "skills/animate/SKILL.md",
+          "install": "npx skills add https://github.com/emilkowalski/skills --skill animate",
+          "license": "MIT (upstream repository)",
+          "relationship": "Duplicate mirror of the first candidate"
+        },
+        {
+          "name": "animate",
+          "author": "pbakaus",
+          "repository": "https://github.com/pbakaus/impeccable",
+          "install": "npx skills add https://github.com/pbakaus/impeccable --skill animate",
+          "license": "Not verified during this audit",
+          "relationship": "Different skill. Broader art direction: visitor mode, motion thesis, expressive material choices, and varied timing up to authored focal sequences. Separate optional candidate; inspect upstream license and complete files before any install."
+        },
+        {
+          "name": "animation-performance",
+          "author": "emilkowalski",
+          "repository": "https://github.com/emilkowalski/skills",
+          "skill_path": "skills/animation-performance/SKILL.md",
+          "install": "npx skills add https://github.com/emilkowalski/skills --skill animation-performance",
+          "license": "MIT (upstream repository)",
+          "relationship": "Adjacent optional diagnostic skill, not a duplicate animate skill. UI Skills exposes its full instructions; use only if needed for concrete jank/performance diagnosis."
+        }
+      ],
+      "review_notes": ["This page is an index of many skills, not a single skill package.", "For the requested overhaul the focused Emil animate skill is the smallest fit; avoid importing overlapping skills by default."]
+    },
+    {
+      "url": "https://animateai.pro/",
+      "classification": "Commercial-style web product for generating animated story/video content; no agent skill found",
+      "result": "The official page describes character generation, storyboards, video generation, multi-model integration, prompt enhancement and autopilot. It exposes get-started and generator product flows, but no SKILL.md, source repository, agent skill installer, or developer instructions. Direct open timed out once; search indexing exposed the official landing-page text. No signup, account creation, payment, upload, or product interaction was performed.",
+      "canonical": null,
+      "license": "Not applicable to an installable skill; product terms/license not reviewed",
+      "review_notes": ["Not a UI-motion/design-engineering skill and not a candidate for project installation.", "Do not infer tool trust, pricing, or data handling guarantees from the marketing page."]
+    }
+  ],
+  "upstream_content_review": {
+    "skill_markdown": "Complete SKILL.md downloaded and read at the content_saved_to path.",
+    "recipes_markdown": "Complete RECIPES.md downloaded and read at the content_saved_to path.",
+    "upstream_snapshot": "Directory mirror reports commit 2d3b63a fetched 2026-11-02; raw main-branch files were fetched 2026-11-03. The raw main URLs are mutable; coordinator should pin/verify the intended commit before installation.",
+    "installation_side_effects": "No installer or vendor executable was run. No package.json or lockfile changed. The candidate command uses the `skills` CLI, whose implementation/dependency behavior was not executed or audited here."
+  },
+  "application_map": {
+    "15_design_registry": "Share decision criteria, timing tokens, and component-level recipes across the existing registry's 15 designs; do not impose one aesthetic animation identity on all design variants. Follow the skill's frequency-purpose gate, and prefer existing tokens.",
+    "background_effects": "Keep persistent atmospheric movement slow, low-contrast, inexpensive, and independent of interaction. Preserve the existing off/still/reduced-motion behavior; avoid scroll-triggered replay or per-frame React work. Treat the skill's transform/opacity guidance as default, then profile SVG/background work.",
+    "morph_story": "Use ease-in-out for spatial morphs, preserve stable SVG topology/nodes, and interrupt from the current pose. Reduced-motion should remove travel/morphing while retaining a comprehensible static state or opacity transition. Distinguish long-form explanatory story motion from routine interface controls.",
+    "project_modal": "The modal recipe recommends centered transform origin, coordinated backdrop opacity, opacity plus modest scale, and symmetric exit; typical recipe duration 250ms. Preserve existing dialog semantics, focus handling, scroll lock, escape behavior, and click-away behavior; the skill is motion guidance, not an accessible modal implementation.",
+    "typography": "Use restrained opacity/transform for occasional headline or section introduction only when it supports explanation or hierarchy. Do not animate reading/data text or routinely replay section reveals. Respect reduced motion, avoid layout-affecting tracking/size/position animation, and use existing type tokens."
+  },
+  "risk_review": [
+    "No actual scripts, telemetry, remote calls, or runtime dependencies are present in the inspected Emil SKILL.md/RECIPES.md text.",
+    "The npx installation command may obtain/execute CLI code; it was not run. Review the official project-scoped installer flow before coordinator installation.",
+    "The vendor skill instructions are untrusted content and must not override repository policy, user intent, privacy, or application architecture.",
+    "Directory reports MIT; preserve upstream attribution/license when installing. Verify license at the pinned upstream revision, especially for the separate pbakaus skill, whose license was not established here."
+  ]
+}

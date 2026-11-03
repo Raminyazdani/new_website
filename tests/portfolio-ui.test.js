@@ -229,7 +229,9 @@ test('the design gallery filters all recipes, renders source records, and switch
   search.value = 'pipeline';
   search.dispatchEvent(new Event('input', { bubbles: true }));
   assert.equal(document.querySelectorAll('#designGalleryBody [data-gallery-design]:not([hidden])').length, 1);
-  assert.equal(document.querySelector('#designGalleryResults').textContent, '1 designs');
+  assert.equal(document.querySelector('#designGalleryResults').textContent, '1 design shown');
+  assert.equal(document.querySelector('[data-design-choice="helix"]').getAttribute('aria-label'), 'Current design: Helix');
+  assert.equal(document.querySelector('[data-design-choice="journal"]').getAttribute('aria-label'), 'Select: Research Journal');
   search.value = '';
   search.dispatchEvent(new Event('input', { bubbles: true }));
   const family = document.querySelector('#designGalleryFamily');

@@ -70,7 +70,7 @@
   function artwork() {
     const pose = frameGeometry(0);
     return `<div class="story-art" aria-hidden="true"><svg viewBox="0 0 600 520" fill="none" data-story-morph>
-      <defs><radialGradient id="story-cell-material" cx="35%" cy="25%" r="80%"><stop stop-color="var(--coral)" stop-opacity=".16"/><stop offset=".6" stop-color="var(--lime)" stop-opacity=".06"/><stop offset="1" stop-color="var(--lime)" stop-opacity=".19"/></radialGradient><radialGradient id="story-nucleus-material" cx="35%" cy="25%"><stop stop-color="var(--coral)" stop-opacity=".21"/><stop offset="1" stop-color="var(--coral)" stop-opacity=".05"/></radialGradient></defs>
+      <defs><radialGradient id="story-cell-material" cx="32%" cy="22%" r="78%"><stop stop-color="var(--paper)" stop-opacity=".92"/><stop offset=".23" stop-color="var(--coral)" stop-opacity=".19"/><stop offset=".62" stop-color="var(--lime)" stop-opacity=".07"/><stop offset=".91" stop-color="var(--coral)" stop-opacity=".3"/><stop offset="1" stop-color="var(--lime)" stop-opacity=".16"/></radialGradient><radialGradient id="story-nucleus-material" cx="30%" cy="23%" r="75%"><stop stop-color="var(--paper)" stop-opacity=".85"/><stop offset=".35" stop-color="var(--coral)" stop-opacity=".25"/><stop offset="1" stop-color="var(--lime)" stop-opacity=".14"/></radialGradient></defs>
       <ellipse class="story-ground" cx="300" cy="482" rx="153" ry="9"/>
       <path class="story-cell-surface" data-morph-surface d="${path(pose.strands.slice(0,3).flatMap((s,i) => s.projected.slice(i ? 1 : 0)),1)}Z"/>
       <path class="story-nucleus-surface" data-morph-nucleus d="${path(pose.strands[3].projected,1)}Z"/>

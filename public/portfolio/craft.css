@@ -1,0 +1,115 @@
+/* The connected edition: a field journal, with a scientific rather than cosmic identity.
+   Other recipes retain their own palettes, composition and display typography. */
+:root{--font-serif:Georgia,"Times New Roman",serif;--space-section:clamp(4rem,8vw,7.5rem)}
+body[data-design="unified"]{--paper:#fbfdff;--surface:#edf5fc;--surface-strong:#dfedf8;--ink:#16334b;--text:var(--ink);--muted:#4e667a;--lime:#175e9f;--coral:#146b72;--line:#cbdde9;--control-line:#6a8294;--on-accent:#fff;--shadow:0 20px 60px #183a5310}
+body[data-design="unified"][data-theme="dark"]{--paper:#0c1722;--surface:#122431;--surface-strong:#1b3445;--ink:#eaf3fa;--text:var(--ink);--muted:#aec2d2;--lime:#9acbf4;--coral:#85d0cd;--line:#355062;--control-line:#658aa4;--on-accent:#0c2030;--shadow:0 24px 64px #0003}
+body[data-design="unified"]{--shadow:0 1px 3px #183a5312,0 20px 60px #183a5310}
+body[data-design="unified"][data-theme="dark"]{--shadow:0 1px 3px #0004,0 24px 64px #0003}
+body[data-design="unified"] .pf-dialog{background:var(--surface)}
+body[data-design="unified"] .pf-background-field:not(.pf-background-preview-field){opacity:.23}
+body[data-design="unified"][data-theme="dark"] .pf-background-field:not(.pf-background-preview-field){opacity:.28}
+.pf-header{gap:18px}.pf-brand b{font-size:14px;letter-spacing:-.015em}.pf-nav a{font-size:13px}.pf-footer{padding-bottom:100px}
+.pf-section :is(input[type="search"],select),.design-gallery :is(input,select){font-size:16px}
+.pf-section :is(input[type="search"],select){scroll-margin:120px}
+.pf-button{font-size:14px}.pf-chip{line-height:1.5}
+.pf-description{font-size:15px}.record-reference small,.record-paper-meta{line-height:1.65}
+.pf-dialog{padding:clamp(22px,4vw,48px);border-radius:16px;box-shadow:var(--shadow)}
+.pf-dialog>button[data-close-dialog]{position:sticky;top:0;z-index:3;background:var(--paper);min-width:44px;min-height:44px}
+#projectDialogBody>h2{max-width:24ch;text-wrap:balance;font-size:clamp(27px,4vw,48px);line-height:1.1;letter-spacing:-.04em}
+#projectDialogBody>p:not(.pf-kicker){max-width:68ch;font-size:16px;line-height:1.85;white-space:pre-line}
+#projectDialogBody>.vp-project-preview{margin:28px 0;min-height:250px}
+.pf-dialog-tags{gap:8px;margin:24px 0}
+body[data-design="unified"] .st-section{padding-block:var(--space-section)}
+body[data-design="unified"] .st-hero{padding-top:clamp(36px,5vw,76px);padding-bottom:0}
+body[data-design="unified"] .st-connected-hero{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:24px 7%;align-items:center}
+body[data-design="unified"] .st-name{font-size:clamp(64px,8.2vw,118px);line-height:.92;letter-spacing:-.065em;font-weight:500;margin-bottom:24px}
+body[data-design="unified"] .st-name>span{font-family:var(--font-serif);font-weight:400;font-style:italic;letter-spacing:-.06em;color:var(--ink);padding-bottom:.08em}
+body[data-design="unified"] .st-eyebrow{letter-spacing:.11em;font-size:12px}
+body[data-design="unified"] .st-disciplines{gap:10px 18px;margin-bottom:4px}
+body[data-design="unified"] .st-disciplines>span{font-weight:400;font-size:13px;color:var(--muted)}
+body[data-design="unified"] .st-lead{font-size:clamp(16px,1.5vw,19px);line-height:1.75;max-width:42ch}
+body[data-design="unified"] .st-text-link{font-size:14px}
+body[data-design="unified"] .st-roles{gap:5px 14px;margin:18px 0}
+body[data-design="unified"] .st-roles .pf-chip{border:0;padding:3px 0;font-size:12px;background:none}
+body[data-design="unified"] .st-roles .pf-chip:not(:last-child):after{content:"/";margin-left:14px;color:var(--line)}
+body[data-design="unified"] .st-actions{gap:12px;margin-top:24px}
+body[data-design="unified"] .st-action{font-size:14px;min-height:48px;padding:13px 18px;border-radius:5px}
+body[data-design="unified"] .st-primary{background:var(--lime);color:var(--on-accent)}
+.craft-source-index{display:flex;gap:24px;flex-wrap:wrap;align-items:baseline;margin-top:28px;padding-top:17px;border-top:1px solid var(--line)}
+.craft-source-index>a{display:flex;align-items:baseline;gap:8px;min-height:44px;text-decoration:none;color:var(--muted);font-size:12px}
+.craft-source-index b{font:400 25px/1 var(--font-serif);color:var(--ink);font-variant-numeric:tabular-nums}
+body[data-design="unified"] .st-integrated-hero{border-radius:12px;box-shadow:var(--shadow);background:var(--paper)}
+body[data-design="unified"] .hs-composition{border-radius:12px 12px 0 0;background:linear-gradient(150deg,var(--surface),var(--paper) 70%)}
+body[data-design="unified"] .hs-person .hs-portrait{border-radius:60px 5px 5px 5px;box-shadow:8px 10px 0 var(--surface-strong)}
+body[data-design="unified"] .hs-caption{padding:12px 18px;font-size:12px}
+body[data-design="unified"] .hs-source{box-shadow:none;background:var(--paper)}
+body[data-design="unified"] .hs-source pre{font-size:13px;line-height:1.9}
+body[data-design="unified"] .st-hero-baseline{margin-top:20px;gap:24px;padding:20px 0;color:var(--muted)}
+body[data-design="unified"] .st-hero-baseline>span{font-family:var(--font-serif);font-size:17px;font-style:italic}
+body[data-design="unified"] :is(.st-section-heading h2,.st-journey-heading h2,.pf-title){font-family:var(--font-serif);font-weight:400;letter-spacing:-.045em;line-height:1.08;text-wrap:balance}
+body[data-design="unified"] .st-profile-statement h2{font:400 clamp(28px,3.1vw,45px)/1.2 var(--font-serif);letter-spacing:-.035em}
+body[data-design="unified"] .st-dossier-profile{grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr);gap:7%;align-items:start}
+body[data-design="unified"] .st-profile-illustration{padding:25px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+body[data-design="unified"] .st-profile-illustration .science-art{background:none}
+body[data-design="unified"] .st-profile-illustration>.st-eyebrow{font-family:var(--font-serif);font-style:italic;letter-spacing:0;text-transform:none;font-size:19px;line-height:1.5;max-width:22ch}
+body[data-design="unified"] :is(.st-full-profile p,.st-interest p,.st-experience-details>div>p){font-size:15px;line-height:1.85}
+body[data-design="unified"] .st-dossier-content .st-metric strong{font-family:var(--font-serif);font-size:40px;letter-spacing:-.04em}
+body[data-design="unified"] .st-projects{background:var(--surface)}
+body[data-design="unified"] .st-project-tools{padding-block:12px;border:0;gap:14px}
+body[data-design="unified"] .st-search{padding-inline:15px;background:var(--paper);border:1px solid var(--line);border-radius:5px}
+body[data-design="unified"] .st-filter select{min-height:46px}
+body[data-design="unified"] .pf-section :is(input[type="search"],select),body[data-design="unified"] .st-search{border-color:var(--control-line)}
+body[data-design="unified"] .st-tools-note{display:none}
+body[data-design="unified"] .st-project-list-terminal{gap:28px}
+body[data-design="unified"] .st-project-terminal{border-radius:8px;box-shadow:0 4px 14px #16334b04}
+body[data-design="unified"] .st-project-terminal .st-readme-copy{padding:clamp(22px,3vw,38px)}
+body[data-design="unified"] .st-project-terminal h3{font:400 clamp(25px,2.8vw,38px)/1.16 var(--font-serif);letter-spacing:-.025em;text-wrap:balance}
+body[data-design="unified"] .st-project-terminal .st-project-description{font-size:15px;line-height:1.8;max-width:56ch}
+body[data-design="unified"] .st-project-terminal .vp-project-preview{min-height:245px;padding:28px;background:var(--paper)}
+body[data-design="unified"] .st-project-featured .vp-project-preview{height:100%;min-height:330px;background:color-mix(in srgb,var(--coral) 4%,var(--paper))}
+body[data-design="unified"] .st-readme-preview{position:relative}
+body[data-design="unified"] .vp-preview-origin{font-size:11px;letter-spacing:.04em}
+body[data-design="unified"] .vp-software-stack{max-width:350px;width:100%;margin-inline:auto}
+body[data-design="unified"] .st-project-actions{padding-top:14px;border-top:1px solid var(--line);margin-top:14px}
+body[data-design="unified"] .st-journey-layout{grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);gap:8%}
+body[data-design="unified"] .st-experience-main h3{font-size:clamp(22px,2.3vw,30px);letter-spacing:-.035em}
+body[data-design="unified"] .st-organization{font-size:14px}
+body[data-design="unified"] .st-experience-details summary{font-size:14px}
+body[data-design="unified"] .st-timeline-molecular .st-experience-row{grid-template-columns:30px minmax(90px,.32fr) minmax(0,1fr);gap:18px;padding-block:28px}
+body[data-design="unified"] .pf-heading{grid-template-columns:40px minmax(0,1fr) minmax(180px,.55fr);gap:24px;margin-bottom:42px}
+body[data-design="unified"] .record-paper{background:var(--paper);padding-block:30px}
+body[data-design="unified"] .record-paper-main h3{font-size:clamp(23px,2.5vw,34px);line-height:1.2}
+body[data-design="unified"] .record-edu-row{padding:28px;background:var(--paper);border:1px solid var(--line);border-radius:8px}
+body[data-design="unified"] .record-edu-copy h3{font-size:clamp(27px,3vw,40px);line-height:1.15;max-width:20ch}
+body[data-design="unified"] .record-edu-date{font:13px/1.8 ui-monospace,Consolas,monospace;color:var(--muted)}
+body[data-design="unified"] .record-edu-degree{font:16px/1.65 var(--font-sans);margin-block:14px}
+body[data-design="unified"] .record-education:not(.pf-section){gap:20px}
+body[data-design="unified"] .record-education:not(.pf-section):before{display:none}
+body[data-design="unified"] .record-edu-copy>.pf-chip{margin:3px 4px 0 0}
+body[data-design="unified"] .record-skill-group{background:var(--paper);border-radius:8px}
+body[data-design="unified"] .record-skill-group>summary{padding:18px 20px;font-size:16px}
+body[data-design="unified"] .record-skill-sub h3{font:400 20px/1.4 var(--font-serif)}
+body[data-design="unified"] .record-cert-grid{gap:24px}
+body[data-design="unified"] .record-cert-card{border-radius:8px;background:var(--paper)}
+body[data-design="unified"] .record-cert-card h3{font-size:clamp(23px,2.3vw,30px);line-height:1.22}
+body[data-design="unified"] .vp-certificate-media{aspect-ratio:1.55;min-height:180px;background:var(--surface)}
+body[data-design="unified"] .vp-certificate-media>img{padding:12px 12px 30px;background:var(--surface)}
+body[data-design="unified"] .record-language{background:var(--paper);border-radius:8px}
+body[data-design="unified"] .record-reference{background:var(--paper)}
+body[data-design="unified"] .record-reference>summary{padding-block:20px}
+body[data-design="unified"] .record-contact-finale{border-radius:12px;background:var(--surface);overflow:hidden;padding:clamp(24px,5vw,64px)}
+body[data-design="unified"] .record-contact-finale:before{opacity:.45}
+/* A stage, not another card. Geometry is the same continuously projected SVG. */
+.story-stage{border:1px solid var(--line);border-radius:12px;padding-inline:clamp(16px,3vw,36px);box-shadow:var(--shadow);background:linear-gradient(140deg,var(--surface),var(--paper) 62%)}
+.story-art{perspective:1000px}.story-art svg{filter:drop-shadow(0 14px 9px color-mix(in srgb,var(--lime) 10%,transparent))}
+.story-cell-surface{stroke-width:3;stroke-opacity:.18}.story-ground{opacity:.05}
+.story-stage-top{font-size:11px;letter-spacing:.08em}.story-intro h3{font-family:var(--font-serif);font-weight:400;letter-spacing:-.045em}
+.story-chapter h4{font-family:var(--font-serif);font-weight:400;letter-spacing:-.045em}.story-evidence{border-left-width:1px}
+.story-scrubber input{height:44px}.story-stage-bottom{gap:16px}
+@media(max-width:1050px){.pf-nav{gap:14px}.pf-nav a{font-size:12px}.pf-header-tools{gap:10px}body[data-design="unified"] .st-connected-hero{column-gap:4%}body[data-design="unified"] .st-name{font-size:clamp(58px,8vw,95px)}}
+@media(max-width:800px){body[data-design="unified"] .st-connected-hero{grid-template-columns:minmax(0,1fr);gap:22px}body[data-design="unified"] .st-name{font-size:clamp(58px,11vw,88px)}body[data-design="unified"] .st-hero{padding-top:32px}body[data-design="unified"] .st-dossier-profile,body[data-design="unified"] .st-journey-layout{grid-template-columns:1fr;gap:32px}body[data-design="unified"] .st-profile-illustration{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:20px}body[data-design="unified"] .st-profile-illustration>.st-eyebrow{margin:0;font-size:20px}.craft-source-index{margin-top:22px}.story-stage{padding-inline:18px}}
+@media(max-width:620px){body[data-design="unified"] .st-integrated-hero{width:min(100%,410px)}body[data-design="unified"] .st-section{padding-block:56px}body[data-design="unified"] .st-hero{padding-top:26px;padding-bottom:0}body[data-design="unified"] .st-name{font-size:clamp(58px,15vw,80px)}body[data-design="unified"] .st-disciplines{gap:8px 15px}body[data-design="unified"] .st-disciplines>span{font-size:12px}body[data-design="unified"] .st-actions .st-action{flex:1 1 145px;font-size:13px;gap:12px}body[data-design="unified"] .st-lead{font-size:17px}body[data-design="unified"] .hs-source pre{font-size:12px}body[data-design="unified"] .pf-heading{grid-template-columns:26px minmax(0,1fr);gap:14px}body[data-design="unified"] .pf-heading>.pf-description{grid-column:2}body[data-design="unified"] .st-profile-illustration{padding:20px;gap:12px}body[data-design="unified"] .st-profile-illustration>.st-eyebrow{font-size:17px}body[data-design="unified"] .st-project-terminal .vp-project-preview,body[data-design="unified"] .st-project-featured .vp-project-preview{min-height:230px;padding:24px}body[data-design="unified"] .st-timeline-molecular .st-experience-row{grid-template-columns:24px minmax(0,1fr);gap:9px 14px}body[data-design="unified"] .record-edu-row{padding:24px}body[data-design="unified"] .record-edu-copy h3{font-size:30px}.pf-footer{padding-bottom:100px}.story-stage-top{font-size:10px;gap:10px}.story-stage-bottom{padding-block:18px}.story-intro h3{font-size:38px}.story-chapter h4{font-size:54px}}
+@media(max-width:620px){.pf-nav{gap:12px;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}.pf-nav a{flex-shrink:0;font-size:12px;min-height:44px}}
+@media(max-width:620px){body[data-design="unified"] .st-actions .st-action{padding-inline:12px;gap:8px}}
+@media(max-width:360px){body[data-design="unified"] .st-name{font-size:56px}.pf-header{gap:10px}.pf-brand b{font-size:12px}.pf-header-tools{gap:8px}.pf-tool{font-size:11px}.craft-source-index{gap:18px}body[data-design="unified"] .st-profile-illustration{grid-template-columns:1fr}body[data-design="unified"] .st-profile-illustration>.st-eyebrow{max-width:none;text-align:center}body[data-design="unified"] .st-profile-illustration>.science-art{max-width:210px}}
+@media print{.craft-source-index{display:none}.pf-footer{padding-bottom:24px}.story-stage{box-shadow:none;border-radius:0}}

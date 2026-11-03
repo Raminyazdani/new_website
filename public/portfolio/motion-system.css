@@ -1,0 +1,111 @@
+/* Shared UI timing; explanatory SVG geometry keeps its own bounded clock.
+   Source: Emil Kowalski skills at f1090bec277140d02ed202440185ad9d02ac1490.
+   Content is visible by default; JS/WAAPI is an optional enhancement. */
+:root {
+  --pf-motion-fast: 160ms;
+  --pf-motion-surface: 220ms;
+  --pf-motion-exit: 160ms;
+  --pf-motion-ease-out: cubic-bezier(.23, 1, .32, 1);
+  --pf-motion-ease-in-out: cubic-bezier(.77, 0, .175, 1);
+}
+
+/* A pointer sample moves only with the pointer. No independent idle loop. */
+.pf-background-field .pf-background-atmosphere { animation: none !important; }
+.pf-background-field { transition: none; }
+body[data-pf-motion="spatial"] .pf-background-field {
+  transition: opacity var(--pf-motion-fast) var(--pf-motion-ease-out);
+}
+
+/* Reset old unconditional lifts before adding capability-scoped feedback. */
+body .pf-button:hover,
+body .dg-card:hover .dg-mini-portrait { transform: none; }
+body .st-action:hover { translate: none; }
+.dg-mini-portrait { transition: none; }
+
+body[data-pf-motion="spatial"] :is(.pf-button, .st-action, .dg-card > button, .dg-close, .design-dock button, .studio-bg-choice) {
+  transition: transform var(--pf-motion-fast) var(--pf-motion-ease-out), border-color var(--pf-motion-fast) ease;
+}
+body[data-pf-motion="spatial"][data-pf-input="pointer"] :is(.pf-button, .st-action, .dg-close, .design-dock button, .studio-bg-choice):active {
+  transform: scale(.98);
+}
+body[data-pf-motion="spatial"][data-pf-input="pointer"] .dg-card > button:active { transform: scale(.99); }
+
+@media (hover: hover) and (pointer: fine) {
+  body[data-pf-motion="spatial"] .pf-button:hover { transform: translateY(-1px); }
+  body[data-pf-motion="spatial"] .st-action:hover { transform: translateY(-1px); }
+  body[data-pf-motion="spatial"] .dg-mini-portrait {
+    transition: transform var(--pf-motion-fast) var(--pf-motion-ease-out);
+  }
+  body[data-pf-motion="spatial"] .dg-card:hover .dg-mini-portrait { transform: translateY(-2px); }
+}
+
+/* Native showModal/close, focus and Escape remain synchronous. Supporting
+   browsers retain the top layer for the visual exit; older browsers snap. */
+@supports (transition-behavior: allow-discrete) and (overlay: auto) {
+  body[data-pf-motion="spatial"] dialog:is(.pf-dialog, .design-gallery, .vp-document-dialog):not(#jumpDialog) {
+    opacity: 0;
+    transform: scale(.98);
+    transform-origin: center;
+    transition:
+      opacity var(--pf-motion-exit) var(--pf-motion-ease-out),
+      transform var(--pf-motion-exit) var(--pf-motion-ease-out),
+      display var(--pf-motion-exit) allow-discrete,
+      overlay var(--pf-motion-exit) allow-discrete;
+  }
+  body[data-pf-motion="spatial"] dialog:is(.pf-dialog, .design-gallery, .vp-document-dialog):not(#jumpDialog)[open] {
+    opacity: 1;
+    transform: none;
+    transition-duration: var(--pf-motion-surface);
+  }
+  @starting-style {
+    body[data-pf-motion="spatial"] dialog:is(.pf-dialog, .design-gallery, .vp-document-dialog):not(#jumpDialog)[open] {
+      opacity: 0;
+      transform: scale(.98);
+    }
+  }
+  body[data-pf-motion="spatial"] dialog:is(.pf-dialog, .design-gallery, .vp-document-dialog):not(#jumpDialog)::backdrop {
+    opacity: 0;
+    transition: opacity var(--pf-motion-exit) var(--pf-motion-ease-out),
+      display var(--pf-motion-exit) allow-discrete,
+      overlay var(--pf-motion-exit) allow-discrete;
+  }
+  body[data-pf-motion="spatial"] dialog:is(.pf-dialog, .design-gallery, .vp-document-dialog):not(#jumpDialog)[open]::backdrop {
+    opacity: 1;
+    transition-duration: var(--pf-motion-surface);
+  }
+  @starting-style {
+    body[data-pf-motion="spatial"] dialog:is(.pf-dialog, .design-gallery, .vp-document-dialog):not(#jumpDialog)[open]::backdrop { opacity: 0; }
+  }
+}
+
+/* Keyboard controls and focus never wait for a visual transition. */
+body[data-pf-input="keyboard"] :is(dialog, .pf-button, .st-action, .dg-mini-portrait, .dg-card > button, .design-dock button),
+body[data-pf-input="keyboard"] dialog::backdrop,
+body[data-pf-motion="still"] :is(dialog, .pf-button, .st-action, .dg-mini-portrait, .dg-card > button, .design-dock button),
+body[data-pf-motion="still"] dialog::backdrop {
+  transition: none !important;
+}
+body[data-pf-input="keyboard"] :is(.pf-button, .st-action, .dg-card > button, .design-dock button):active,
+body[data-pf-motion="still"] :is(.pf-button, .st-action, .dg-card > button, .design-dock button):active {
+  transform: none !important;
+}
+
+/* Explicit Full is the existing user opt-in. These narrow UI selectors can
+   override family-level reduced-motion transition resets without restoring
+   large moving backgrounds or replacing any geometry/rendering policy. */
+body[data-motion="full"][data-effects="on"][data-pf-motion="spatial"][data-pf-input="pointer"] .design-page :is(.pf-button, .st-action) {
+  transition: transform var(--pf-motion-fast) var(--pf-motion-ease-out), border-color var(--pf-motion-fast) ease !important;
+}
+body[data-motion="still"] :is(.pf-button, .st-action, .dg-mini-portrait),
+body[data-motion="off"] :is(.pf-button, .st-action, .dg-mini-portrait) { transform: none !important; translate: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  body:not([data-motion="full"]) :is(.pf-button, .st-action, .dg-mini-portrait, .dg-card > button, dialog) {
+    transition: none !important;
+    transform: none !important;
+    translate: none !important;
+  }
+}
+@media print {
+  [data-motion-part] { opacity: 1 !important; transform: none !important; animation: none !important; }
+}

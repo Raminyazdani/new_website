@@ -1,0 +1,251 @@
+{
+  "recorded_at": "2026-11-03",
+  "project": "E:/todo_list_compact/digest_website/apps/new_website",
+  "objective": "Skill-guided visual and motion overhaul across the unified portfolio, 15-design collection, preserved 20-Hero archive and BioTeal edition.",
+  "status_at_report": "IMPLEMENTATION_AND_LOCAL_BROWSER_EVIDENCE_RECORDED_RELEASE_PENDING",
+  "private_evidence": {
+    "responsive": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill-overhaul-20261103/responsive-evidence.json",
+    "interactions": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill-overhaul-20261103/interaction-evidence.json",
+    "screenshots_and_private_payloads": "Remain outside public Git."
+  },
+  "responsive_matrix": {
+    "cases": 80,
+    "designs": 16,
+    "design_ids": [
+      "unified",
+      "journal",
+      "helix",
+      "organic",
+      "monograph",
+      "specimen",
+      "pipeline",
+      "bento",
+      "atlas-map",
+      "console",
+      "blueprint",
+      "chromatography",
+      "gallery",
+      "dossier",
+      "kinetic",
+      "horizon"
+    ],
+    "nominal_viewports_px": [
+      320,
+      390,
+      768,
+      1024,
+      1440
+    ],
+    "measured_content_widths_px": [
+      305,
+      375,
+      753,
+      1009,
+      1425
+    ],
+    "cases_per_viewport": 16,
+    "overflow_cases": 0,
+    "name_overflow_cases": 0,
+    "one_h1_per_case": true,
+    "sections_per_case": 11,
+    "projects_per_case": 87,
+    "portrait_dimension_reported_px": 720,
+    "initial_findings": "Initial 320px run found 2px horizontal overflow in all 15 non-unified design rows from gallery navigation; the navigation width was corrected and all 80 final rows have scrollWidth equal to measured content width.",
+    "motion_mode_in_matrix": "spatial"
+  },
+  "interaction_evidence": {
+    "recorded_at": "2026-11-03T04:13:38.835Z",
+    "gallery": {
+      "cards": 15,
+      "viewports_px": [
+        320,
+        390,
+        768,
+        1024,
+        1440
+      ],
+      "measured_client_and_scroll_width_px": [
+        [
+          268,
+          268
+        ],
+        [
+          338,
+          338
+        ],
+        [
+          698,
+          698
+        ],
+        [
+          952,
+          952
+        ],
+        [
+          1103,
+          1103
+        ]
+      ],
+      "search_and_select_font_size": "16px",
+      "native_modal_html_overflow": "hidden"
+    },
+    "gallery_escape": {
+      "typed_search_first_escape_clears_query": true,
+      "button_escape_closes_dialog": true,
+      "focus_returns_to_opener": true
+    },
+    "project_modal": {
+      "mobile_width_px": 320,
+      "scroll_width_px": 320,
+      "body_font_size": "16px",
+      "escape_closes": true,
+      "focus_returns": true
+    },
+    "document_modal": {
+      "width_px": 335,
+      "scroll_width_px": 335,
+      "image_natural_width_px": 1240
+    },
+    "manual_story": {
+      "stable_vertices": 72,
+      "code_endpoint": 1,
+      "geometry_changed": true,
+      "all_three_chapters_readable": true
+    },
+    "still": {
+      "motion_mode": "still",
+      "effects": "off",
+      "atmosphere": "none",
+      "os_reduced_motion_was_active": false
+    },
+    "archive_and_library": {
+      "hero_archive_choices": 20,
+      "bio_teal_edition_sections": 11,
+      "project_records": 87,
+      "portrait_dimension_reported_px": 720,
+      "design_ideas_library_entries": 350,
+      "evidence_basis": "Coordinator-reported browser observation; the supplied interaction-evidence.json does not contain these archive/library fields."
+    },
+    "desktop_story": {
+      "mode": "scroll",
+      "progress": "1.0000",
+      "scrollY": 2764,
+      "stageTop": 92,
+      "vertices": 72,
+      "geometryChanged": true
+    },
+    "archive_checks": {
+      "heroChoices": 20,
+      "portraitLoaded": true,
+      "biotealSections": 11,
+      "biotealProjects": 87,
+      "biotealPortraitWidth": 720,
+      "designNotesIdeas": 350
+    }
+  },
+  "skill_provenance_and_application": {
+    "installation_manifest": "docs/design/skill-audit/INSTALLATION.json and INSTALLATION_FA.md",
+    "project_scoped_skills_installed_and_validated": 528,
+    "files_verified_by_manifest": 4186,
+    "scope_note": "The 528 count is installation/validator evidence, not evidence that all 528 SKILL.md texts were read or executed.",
+    "skills_applied_from_verified_manifests": [
+      {
+        "name": "od-frontend-design",
+        "path": ".agents/skills/od-frontend-design/SKILL.md",
+        "principles": "Real interface states, distinctive product-specific direction, typography/layout/accessibility and responsive refinement."
+      },
+      {
+        "name": "od-ui-animation",
+        "path": ".agents/skills/od-ui-animation/SKILL.md",
+        "principles": "Purposeful interaction feedback, coordinated transition roles and reduced-motion behavior."
+      },
+      {
+        "name": "emil-animate",
+        "path": ".agents/skills/emil-animate/SKILL.md",
+        "principles": "Frequency/purpose gate, existing tokens, properties, interruption/exit and reduced-motion."
+      },
+      {
+        "name": "emil-review-animations",
+        "path": ".agents/skills/emil-review-animations/SKILL.md",
+        "principles": "Review motion against explicit avoid/require criteria."
+      },
+      {
+        "name": "emil-improve-animations",
+        "path": ".agents/skills/emil-improve-animations/SKILL.md",
+        "principles": "Improve existing motion in place and distinguish audit findings from speculative polish."
+      },
+      {
+        "name": "emil-animation-performance",
+        "path": ".agents/skills/emil-animation-performance/SKILL.md",
+        "principles": "Avoid asserting FPS/GPU results without profiling and bound needless animation work."
+      },
+      {
+        "name": "emil-mobile-native",
+        "path": ".agents/skills/emil-mobile-native/SKILL.md",
+        "principles": "Capability-based hover, readable mobile controls, touch targets and real-device limitations."
+      },
+      {
+        "name": "trystan-design-system-extract",
+        "path": ".agents/skills/trystan-design-system-extract/SKILL.md",
+        "principles": "Map existing product tokens before adding shared visual rules."
+      },
+      {
+        "name": "trystan-accessibility-audit",
+        "path": ".agents/skills/trystan-accessibility-audit/SKILL.md",
+        "principles": "Keyboard, focus and interaction semantics remain first-class during polish."
+      },
+      {
+        "name": "trystan-hierarchy-rhythm-review",
+        "path": ".agents/skills/trystan-hierarchy-rhythm-review/SKILL.md",
+        "principles": "Review hierarchy, spacing and repeated visual rhythm."
+      },
+      {
+        "name": "trystan-interaction-states-pass",
+        "path": ".agents/skills/trystan-interaction-states-pass/SKILL.md",
+        "principles": "Review open/close, selection, result, focus and empty states."
+      }
+    ],
+    "broader_skill_review": "docs/design/MOTION_OVERHAUL_REVIEW_FA.md records the broader Emil skill set and pinned source provenance; docs/design/OVERHAUL_CRITIQUE_FA.md records selected design/accessibility/hierarchy/interaction principles.",
+    "vendor_execution": {
+      "vendor_code_executed": false,
+      "packages_installed": false,
+      "global_config_changed": false,
+      "browser_bundle_changed": false
+    }
+  },
+  "saved_execution_artifacts": [
+    "docs/design/SKILL_OVERHAUL_SUPERPROMPT_FA.md",
+    "docs/design/SKILL_OVERHAUL_PLAN_FA.md",
+    "docs/design/OVERHAUL_CRITIQUE_FA.md",
+    "docs/design/MOTION_OVERHAUL_REVIEW_FA.md"
+  ],
+  "verification_status": {
+    "responsive_browser_matrix": "PASS: 80/80 measured layouts; 16 designs × 5 widths.",
+    "interaction_browser_checks": "PASS for the interactions listed above; not a complete theme × design × motion Cartesian matrix.",
+    "latest_full_suite": {
+      "command": "npm test",
+      "tests": 48,
+      "passed": 48,
+      "failed": 0
+    },
+    "preliminary_test_note": "The interim gallery assertion was corrected; the final full suite passed all 48 tests.",
+    "console_observation": "A fresh browser tab after the final local asset was valid and showed 0 console errors. An older tab retained one historical SyntaxError event at 04:00:19 before the final file correction; do not generalize this to an unconditional zero-error history.",
+    "actual_os_reduced_motion": "NOT_TESTED; Still/off was verified with OS prefers-reduced-motion false.",
+    "fps_or_performance_profile": "NOT_TESTED",
+    "cross_browser_and_real_phone": "NOT_TESTED",
+    "theme_and_motion_cartesian_coverage": "PARTIAL; the 80-layout matrix is spatial-mode layout evidence, not all theme/motion combinations.",
+    "privacy": "No current env values found in release candidate files after replacing the example owner with a synthetic placeholder; bulk skills remain Git-ignored."
+  },
+  "release": {
+    "state": "PENDING",
+    "github_commit": null,
+    "vercel_deployment_id": null,
+    "production_browser_verified": false,
+    "note": "Same-project GitHub/Vercel release is authorized by the active user goal, but no commit/deployment identifier was supplied at this report snapshot. Update this record when the coordinator provides actual release evidence."
+  },
+  "limitations": [
+    "No numeric design-quality self-score is used.",
+    "The supplied evidence does not establish actual OS-level reduced motion, cross-browser behavior, real-phone behavior, or an FPS/performance profile.",
+    "The final 48-test suite and release verification remain pending at the time of this snapshot."
+  ]
+}

@@ -1,0 +1,759 @@
+{
+  "schema_version": 1,
+  "audited_on": "2026-11-03",
+  "scope": "Research of four requested design/motion URLs. This agent did not install skills, edit app sources, execute vendor scripts, or change global configuration.",
+  "source_storage": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill_sources_20261103/web",
+  "sources": [
+    {
+      "url": "https://www.reddit.com/r/codex/comments/1sxufax/extracted_claude_design_system_prompt_so_you_can/",
+      "access": "Accessible post and available comments read; canonical linked repository independently inspected.",
+      "canonical_repo": "Trystan-SA/claude-design-system-prompt",
+      "authority": "Community extraction claim; not authenticated Anthropic instructions."
+    },
+    {
+      "url": "https://medium.com/coding-nexus/stop-adding-random-animations-this-new-ai-skill-finds-exactly-what-your-ui-should-animate-f5c3c21ab6b7",
+      "access": "Member-only story dated July 23, 2026. Entire public teaser read; it ends during the first CSS example. Remainder unavailable; no bypass, subscription, login or mirror.",
+      "full_article_read": false,
+      "skill_match": "The named find-animation-opportunities is independently verified in emilkowalski/skills. The visible teaser has no canonical repository link; hidden article contents are not inferred.",
+      "separate_installable_skill": false
+    },
+    {
+      "url": "https://animations.dev/skills",
+      "access": "HTTP 200. Public page and HTML href inventory inspected. Newsletter email form; no publicly linked SKILL.md/download payload.",
+      "newsletter_submitted": false,
+      "gated_content_read_or_installed": false,
+      "separate_installable_skill": false
+    },
+    {
+      "url": "https://emilkowal.ski/skill",
+      "access": "HTTP 200. Entire author-owned public index read. Its emilkowalski/skill links redirect to emilkowalski/skills.",
+      "canonical_repo": "emilkowalski/skills",
+      "index_count": 15,
+      "current_repository_count": 16,
+      "additional_repository_skill": "remove-animations"
+    }
+  ],
+  "canonical_repositories": [
+    {
+      "repo": "emilkowalski/skills",
+      "ref": "main",
+      "commit": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "license": "MIT; Copyright (c) 2026 Emil Kowalski",
+      "manifest": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill_sources_20261103/web/emilkowalski__skills/AUDIT_MANIFEST.json",
+      "read_completeness": "All 16 SKILL.md, all companion Markdown, README, LICENSE and both root cheatsheets read end-to-end.",
+      "source_files": [
+        {
+          "path": "LICENSE",
+          "size": 1070,
+          "sha256": "4ff5bdb7887ec1435c9cab0e8d1a7caee704d894d65c2a008ccc68b1cc2f260b"
+        },
+        {
+          "path": "README.md",
+          "size": 4846,
+          "sha256": "66ad84c9c7b0788c0de803eb1ba44ba39de327c475e73781ddd620a040dca9a8"
+        },
+        {
+          "path": "performance-cheatsheet.md",
+          "size": 932,
+          "sha256": "814de0807d55bb2f21944eb5be33fafbc776817e4c1bed5503ab5243f0bc6cc0"
+        },
+        {
+          "path": "skills/animate-expo/RECIPES.md",
+          "size": 16808,
+          "sha256": "1193cb71334da2e2341778dd92bec9ac79d989cb07fd55d661f324ed5871e718"
+        },
+        {
+          "path": "skills/animate-expo/SKILL.md",
+          "size": 17891,
+          "sha256": "9a01a91701e6563c67677dde6b66ab30f066a5341d42c21a90ba51d99679274a"
+        },
+        {
+          "path": "skills/animate/RECIPES.md",
+          "size": 7957,
+          "sha256": "21ff63d84391db8d96ecdf9170095f55a42c836ccc36fd3269c4772bab031ba2"
+        },
+        {
+          "path": "skills/animate/SKILL.md",
+          "size": 11910,
+          "sha256": "39138996033e0dbe53e73217514116eaeca774bae84a0687c80d445a4e0cc3a6"
+        },
+        {
+          "path": "skills/animation-performance/SKILL.md",
+          "size": 14269,
+          "sha256": "6c60f45ab416ff3f7d7765a5427beead77fab0d82487fe610d2a298397558d0a"
+        },
+        {
+          "path": "skills/animation-vocabulary/SKILL.md",
+          "size": 13425,
+          "sha256": "40d2b27adfdfeb0570a9f20e7d0255109d9233c50603878bcd0dcd04c923fd94"
+        },
+        {
+          "path": "skills/apple-design/SKILL.md",
+          "size": 23036,
+          "sha256": "77bb63b7043bb93aca2ff4ab040c249484eef35682bb6ff7163433c31d30adc7"
+        },
+        {
+          "path": "skills/ask-sonner/API.md",
+          "size": 4545,
+          "sha256": "4bb06f482c5757529e3d7a672a30fbeed42d24919a63e2571384a9ce1549aa7f"
+        },
+        {
+          "path": "skills/ask-sonner/SKILL.md",
+          "size": 7233,
+          "sha256": "39f3ee185b3aa2cf70a689052ff078953ce7ba5915ed7a9391d232e9d4dcf57f"
+        },
+        {
+          "path": "skills/break-ui/CATALOG.md",
+          "size": 8268,
+          "sha256": "7358efcc6bb48e35187be1c064cf60022dcb18c72c18fab58b606dfc5f421f15"
+        },
+        {
+          "path": "skills/break-ui/SKILL.md",
+          "size": 14380,
+          "sha256": "e7eec1d70ac56a04255e9c0dbe98084ea3d544cc04aaad34f32c95d6fa9dff5e"
+        },
+        {
+          "path": "skills/emil-design-eng/SKILL.md",
+          "size": 27509,
+          "sha256": "965cc3108047a1f68e504977ae7816c66115b202a32e7509c0b8305314839c54"
+        },
+        {
+          "path": "skills/find-animation-opportunities/SKILL.md",
+          "size": 9808,
+          "sha256": "d52a377819b84a71930f0c822cfe2849f40301605a2d5c7eccbfa3b257700df2"
+        },
+        {
+          "path": "skills/improve-animations/AUDIT.md",
+          "size": 7632,
+          "sha256": "63fa8fcf7e7b3a3e252938e55c60e1f399f607e73553163e8dacf9df40f3ebed"
+        },
+        {
+          "path": "skills/improve-animations/PLAN-TEMPLATE.md",
+          "size": 3100,
+          "sha256": "0a08ac8e23fd2082d7ffb86aeed7b789de77328c3cf874b16f1a755f2ef0a6ad"
+        },
+        {
+          "path": "skills/improve-animations/SKILL.md",
+          "size": 8208,
+          "sha256": "73962447464433476343e2c12cd08ab39cc99a9e5f3c118c5fb54ed897574ef6"
+        },
+        {
+          "path": "skills/mobile-native/SKILL.md",
+          "size": 16838,
+          "sha256": "888b7651d66d66dbac4e72b7c554638eb19bd971d686d6cbdf030a5ef3788f55"
+        },
+        {
+          "path": "skills/pick-ui-library/SKILL.md",
+          "size": 4790,
+          "sha256": "675fdce308683256ed617351a9b74d23457a5fbd0a562d9831b9c764b8c5e682"
+        },
+        {
+          "path": "skills/prototype/PICKER.md",
+          "size": 7548,
+          "sha256": "31a55eec94715cc79942e91e172e539e3031dcd5e2e5ee7c1446cf2caee960a6"
+        },
+        {
+          "path": "skills/prototype/SKILL.md",
+          "size": 7830,
+          "sha256": "bba39c955eb1871c5a02733976ceec5d0324198e0812e667604756489c89f7b9"
+        },
+        {
+          "path": "skills/remove-animations/SKILL.md",
+          "size": 11345,
+          "sha256": "dea95b7a7ef81cba312c7f70a3c5c67d7e06a287cb16b16d2f90f2b1fb0afff9"
+        },
+        {
+          "path": "skills/review-animations/SKILL.md",
+          "size": 8491,
+          "sha256": "5f9fb98b69cace7107af8b393a4196fd42fa42d98bce0e5afc1f866ff3b8a41c"
+        },
+        {
+          "path": "skills/review-animations/STANDARDS.md",
+          "size": 9964,
+          "sha256": "8f5fe3f5a04537556dd4e6a37f7a8d6f616d840eb80f2f68b5b594febb170657"
+        },
+        {
+          "path": "skills/write-swift/SKILL.md",
+          "size": 42445,
+          "sha256": "16a4b6adb74e338e55e704ce5753ad54d825438b8a63930eeaede9f3c04c9447"
+        },
+        {
+          "path": "ui-cheatsheet.md",
+          "size": 1344,
+          "sha256": "d5a23c3fa6e5f8b0ab5a44df406780112b8bd494b45c47e82ad72855a4d6b004"
+        }
+      ]
+    },
+    {
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "main",
+      "commit": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "license": "MIT; Copyright (c) 2026 Trystan Sarrade",
+      "manifest": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/skill_sources_20261103/web/Trystan-SA__claude-design-system-prompt/AUDIT_MANIFEST.json",
+      "read_completeness": "Full 20-chapter Codex prompt, Codex AGENTS, all 14 Codex procedures, README and LICENSE read end-to-end. Claude variant intentionally deduplicated and not downloaded/read.",
+      "source_files": [
+        {
+          "path": "LICENSE",
+          "size": 1072,
+          "sha256": "2a309cf919e921f08baa031214d4074a5ace0cbe0d49e80b55280bb572b739ca"
+        },
+        {
+          "path": "README.md",
+          "size": 8579,
+          "sha256": "4eefa94bc59e98203ce28654499495dd74f39922429c578ec259fcbbca73b44b"
+        },
+        {
+          "path": "codex/AGENTS.md",
+          "size": 659,
+          "sha256": "467f9586dddbe5f0b9a7c649bcf0380fabe58c3bc21a667fee3093936b26611a"
+        },
+        {
+          "path": "codex/skills/accessibility-audit.md",
+          "size": 4302,
+          "sha256": "292d00170d6a2edbc2c8108c095394ab047e57e54094a685e15fa6912fa537cc"
+        },
+        {
+          "path": "codex/skills/ai-slop-check.md",
+          "size": 4600,
+          "sha256": "7ac98b0f247a5b9821410e5e0687ed3cf71736649b127b31b6d7aadf40c56d44"
+        },
+        {
+          "path": "codex/skills/component-extract.md",
+          "size": 3484,
+          "sha256": "57484d81130fb21118bc5caad4ed6ac6b5bab35f3c74c2dfd1bec6a0a361d574"
+        },
+        {
+          "path": "codex/skills/design-system-extract.md",
+          "size": 3657,
+          "sha256": "06ee22b8e2447c69c76c70beb980b2a2d192921b3e913b49cbc753c631e7ce4b"
+        },
+        {
+          "path": "codex/skills/discovery-questions.md",
+          "size": 4111,
+          "sha256": "c71f33989e8eb013801ac5778b76225baefc9101bf590e80172cf79d05d54ec8"
+        },
+        {
+          "path": "codex/skills/frontend-aesthetic-direction.md",
+          "size": 5133,
+          "sha256": "3b7e11b4897279b69e356f125f6c730d86846b01d0d4a4b74e4f2efbc64c0d35"
+        },
+        {
+          "path": "codex/skills/generate-variations.md",
+          "size": 3477,
+          "sha256": "ea768b1905ae1b6eb421e04fb7905384bfdcc32cbabc38ceb4feff986d561b0e"
+        },
+        {
+          "path": "codex/skills/hierarchy-rhythm-review.md",
+          "size": 3911,
+          "sha256": "abff1ef650a84e0465ec8ba35f73e8c5a80b7508428e25f5407812aee16ac9e4"
+        },
+        {
+          "path": "codex/skills/interaction-states-pass.md",
+          "size": 3771,
+          "sha256": "80b687d2571f69af0b30cde6b9a3dcad2cffc75b5bb6ebbba168a5e2a8e87170"
+        },
+        {
+          "path": "codex/skills/make-a-deck.md",
+          "size": 3842,
+          "sha256": "82a1296b8f9694f26c9d98213190cd3faf5070841d928d0309255adc3559e96a"
+        },
+        {
+          "path": "codex/skills/make-a-prototype.md",
+          "size": 3812,
+          "sha256": "a9edd45428ae73db2b62964db66121a5770dc566507b181970863a66b7d8b6c3"
+        },
+        {
+          "path": "codex/skills/make-tweakable.md",
+          "size": 3736,
+          "sha256": "85a5d0b094783f9dddfbb149ef38f8b45ab0b1955a76baac90947845df6a0315"
+        },
+        {
+          "path": "codex/skills/polish-pass.md",
+          "size": 3981,
+          "sha256": "0e3dc866db5ad156e116adc0697f518c0ab5572cc8019e371f8528b05fa20449"
+        },
+        {
+          "path": "codex/skills/wireframe.md",
+          "size": 3340,
+          "sha256": "30319dd592b75f53d9ceb44cf67c234e499d4e363f398af85ffd16b3b72c4e1a"
+        },
+        {
+          "path": "codex/system-prompt.md",
+          "size": 33828,
+          "sha256": "ff975507e4f80234be252d8cb16a237415d193ededbda7a04acd64236cdec6c1"
+        }
+      ]
+    }
+  ],
+  "emil_skills": [
+    {
+      "name": "emil-design-eng",
+      "path": "skills/emil-design-eng",
+      "full_read": true,
+      "instructions": "Decide motion by frequency and purpose, then driver/properties/curve/duration; include interruption, accessibility and feel verification. Required Before/After/Why review table.",
+      "dependencies": "Native CSS/JS; Motion only when complex springs/gestures justify it.",
+      "application": "Shared craft standard across all 15 layouts; no React conversion.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/emil-design-eng/SKILL.md"
+    },
+    {
+      "name": "animate",
+      "path": "skills/animate",
+      "full_read": true,
+      "companions": [
+        "RECIPES.md"
+      ],
+      "instructions": "Construction skill. Gate frequency and purpose before choosing cheapest driver. Extend existing tokens; exact values. Transform/opacity default, explicit clip-path and short accordion-height exceptions; centered modals; interruption and matched exit; reduced-motion and hover capability gates.",
+      "dependencies": "CSS transition, @starting-style, WAAPI first; Motion conditional.",
+      "application": "Implement shared modal/press states and documented explanatory-geometry exception.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/animate/SKILL.md"
+    },
+    {
+      "name": "animate-expo",
+      "path": "skills/animate-expo",
+      "full_read": true,
+      "companions": [
+        "RECIPES.md"
+      ],
+      "instructions": "Native implementation using UI-runtime worklets/shared values, Gesture Handler, native navigation, momentum/velocity/rubberbanding, haptics, reduced motion and release-build real-device checks.",
+      "dependencies": "Only for actual native work: Reanimated, Worklets, Gesture Handler, Expo Router/Haptics; keyboard/Lottie/Skia conditional.",
+      "application": "Not applicable to this vanilla web app. Install documentation if requested; add no native runtime packages.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/animate-expo/SKILL.md"
+    },
+    {
+      "name": "review-animations",
+      "path": "skills/review-animations",
+      "full_read": true,
+      "companions": [
+        "STANDARDS.md"
+      ],
+      "instructions": "Read-only ten-standard review with aggressive escalation, remediation order and exact file:line findings; Before/After/Why table plus Block/Approve verdict.",
+      "dependencies": "Browser slow-motion/device evidence to judge feel; no runtime library.",
+      "application": "Final motion review must distinguish real defects from justified SVG paint and centered native dialogs.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/review-animations/SKILL.md"
+    },
+    {
+      "name": "improve-animations",
+      "path": "skills/improve-animations",
+      "full_read": true,
+      "companions": [
+        "AUDIT.md",
+        "PLAN-TEMPLATE.md"
+      ],
+      "instructions": "Read-only recon, eight-category audit, vet/prioritize, then fully self-contained commit-stamped plans with exact values, boundaries and mechanical/feel verification. Advisor mode does not implement.",
+      "dependencies": "Companion audit/template; optional read-only delegation for large audits.",
+      "application": "Separate planning and authorized construction phases; current human request already authorizes continued implementation.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/improve-animations/SKILL.md"
+    },
+    {
+      "name": "find-animation-opportunities",
+      "path": "skills/find-animation-opportunities",
+      "full_read": true,
+      "instructions": "Read-only finder capped at 5–7 suggestions, each through frequency/purpose/speed/function gates, exact recipes, 2–5 rejected candidates and verdict.",
+      "dependencies": "None; inspected source and existing tokens.",
+      "application": "Prioritize occasional dialog/gallery continuity and meaningful feedback; reject decorative moving facts, counters and filter-result entrances.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/find-animation-opportunities/SKILL.md"
+    },
+    {
+      "name": "remove-animations",
+      "path": "skills/remove-animations",
+      "full_read": true,
+      "instructions": "Subtractive implementation only. Gate motion, check hidden start-state, callback/unmount/focus/test dependencies before deletion; clean orphaned utilities; document kept justified motion and retained faults separately.",
+      "dependencies": "None. Dependency removal is separately controlled.",
+      "application": "Reduce repeated reveal/idle spectacle if unjustified; preserve documented instructional morph and bounded pointer decoration.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/remove-animations/SKILL.md"
+    },
+    {
+      "name": "animation-performance",
+      "path": "skills/animation-performance",
+      "full_read": true,
+      "instructions": "Name cause before changing code: property/driver, busy main thread, inherited variable recalc, per-frame React renders, blur or layer cost. Prefer transform/opacity and CSS/WAAPI for preset motion. Will-change only after evidence; code risk is not measured dropped frames.",
+      "dependencies": "DevTools Performance/Animations and real-device trace for performance claims.",
+      "application": "Bound SVG d/cx/cy mutations and aggregate background/story/pointer work; no invented FPS guarantee.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/animation-performance/SKILL.md"
+    },
+    {
+      "name": "animation-vocabulary",
+      "path": "skills/animation-vocabulary",
+      "full_read": true,
+      "instructions": "Naming glossary only. Match observed effect, disambiguate nearby terms, do not invent terminology or turn naming into implementation.",
+      "dependencies": "None.",
+      "application": "Use morph, scroll-driven animation, continuity transition and crossfade precisely; a fade is not a geometry morph.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/animation-vocabulary/SKILL.md"
+    },
+    {
+      "name": "apple-design",
+      "path": "skills/apple-design",
+      "full_read": true,
+      "instructions": "Current presentation value, velocity-aware interruption, immediate press feedback with action on release, direct manipulation, projected momentum/soft boundaries; restrained materials/type hierarchy; reduced motion/transparency/contrast.",
+      "dependencies": "Pointer Events/CSS; optional Motion spring if justified.",
+      "application": "Keep records still and readable; no automatic glass redesign, haptics or audio.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/apple-design/SKILL.md"
+    },
+    {
+      "name": "write-swift",
+      "path": "skills/write-swift",
+      "full_read": true,
+      "instructions": "Values/enums, visible failure paths, actor isolation and structured concurrency, Sendable, concrete/generic before existential abstractions, profiling/ARC, Swift Testing, macros, safe interop, version-gated syntax and migration.",
+      "dependencies": "Swift/Xcode and SDK-version verification only for Swift work.",
+      "application": "No Swift code here; documentation installation only.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/write-swift/SKILL.md"
+    },
+    {
+      "name": "pick-ui-library",
+      "path": "skills/pick-ui-library",
+      "full_read": true,
+      "instructions": "Explicit-invocation curated lookup; check installed stack first, pick one appropriate library, avoid dependency churn. A simple fade uses CSS.",
+      "dependencies": "No dependency to install skill; Base UI/Sonner/Motion/NumberFlow and other package choices are conditional recommendations.",
+      "application": "Native dialog is already a semantic primitive; do not import React solely to satisfy curated preferences.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/pick-ui-library/SKILL.md"
+    },
+    {
+      "name": "prototype",
+      "path": "skills/prototype",
+      "full_read": true,
+      "companions": [
+        "PICKER.md"
+      ],
+      "instructions": "Explicit-invocation exploration with three genuinely different working variants on named axes in isolated surface; full-size active variant, instant content swap, verify, select/promote and clean up.",
+      "dependencies": "Companion picker; independent dev harness, no required library.",
+      "application": "Existing 15-layout gallery is persistent requested product capability; do not reduce to three or inject fixed dev pill into production.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/prototype/SKILL.md"
+    },
+    {
+      "name": "mobile-native",
+      "path": "skills/mobile-native",
+      "full_read": true,
+      "instructions": "Capability queries, active feedback, svh hero/dvh shell, 16px inputs, safe-area/viewport/theme metadata and scoped selection/touch handling. Never disable zoom; real hardware is required for complete validation.",
+      "dependencies": "Native CSS and metadata.",
+      "application": "Gallery safe areas, search keyboard and overflow; keep document scrolling and contain only modal scroll where needed.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/mobile-native/SKILL.md"
+    },
+    {
+      "name": "break-ui",
+      "path": "skills/break-ui",
+      "full_read": true,
+      "companions": [
+        "CATALOG.md"
+      ],
+      "instructions": "Stress plausible data through real data boundary in dev-only fixtures. Worst/empty/one/huge states, actual width/320px/200%-zoom/dark/RTL/touch. Distinguish visual verification and code inference.",
+      "dependencies": "Browser and synthetic fixtures.",
+      "application": "Long project/certificate titles, tags and Persian text across 15 designs; private CV never becomes public test fixture.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/break-ui/SKILL.md"
+    },
+    {
+      "name": "ask-sonner",
+      "path": "skills/ask-sonner",
+      "full_read": true,
+      "companions": [
+        "API.md"
+      ],
+      "instructions": "React Sonner setup/API/styling/async recipes and troubleshooting: one Toaster, stable update IDs, theme wiring, positioning and accessible notifications.",
+      "dependencies": "React and sonner only if app actually uses Sonner.",
+      "application": "Current vanilla toast does not justify conversion; root z-index alone cannot solve native-dialog top-layer occlusion.",
+      "repo": "emilkowalski/skills",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "canonical_skill_url": "https://github.com/emilkowalski/skills/blob/f1090bec277140d02ed202440185ad9d02ac1490/skills/ask-sonner/SKILL.md"
+    }
+  ],
+  "trystan_codex_procedures": [
+    {
+      "name": "discovery-questions",
+      "path": "codex/skills/discovery-questions.md",
+      "full_read": true,
+      "application": "Read context and skip kickoff when scope is explicit. Quotas and nonexistent questions_v2 do not override no-question human request.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/discovery-questions.md"
+    },
+    {
+      "name": "frontend-aesthetic-direction",
+      "path": "codex/skills/frontend-aesthetic-direction.md",
+      "full_read": true,
+      "application": "Truly brandless greenfield only. Existing typography/palette/density and per-design identities are context; no blank-canvas reset.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/frontend-aesthetic-direction.md"
+    },
+    {
+      "name": "wireframe",
+      "path": "codex/skills/wireframe.md",
+      "full_read": true,
+      "application": "Low-fidelity substantive alternatives with annotations. No forced restart of finished 15-design registry.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/wireframe.md"
+    },
+    {
+      "name": "make-a-deck",
+      "path": "codex/skills/make-a-deck.md",
+      "full_read": true,
+      "application": "HTML fixed-ratio presentation; referenced starter/tool not included. Not applicable to portfolio overhaul.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/make-a-deck.md"
+    },
+    {
+      "name": "make-a-prototype",
+      "path": "codex/skills/make-a-prototype.md",
+      "full_read": true,
+      "application": "Real interactions/state/validation and honest fake-backend disclosure in isolated prototypes; no fake latency or private localStorage persistence in production.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/make-a-prototype.md"
+    },
+    {
+      "name": "make-tweakable",
+      "path": "codex/skills/make-tweakable.md",
+      "full_read": true,
+      "application": "Small live-control surface. Described wildcard postMessage/edit-marker host is not present; do not add an unvalidated production bridge.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/make-tweakable.md"
+    },
+    {
+      "name": "generate-variations",
+      "path": "codex/skills/generate-variations.md",
+      "full_read": true,
+      "application": "Distinct hierarchy/layout/interaction with captions and honest tradeoffs; use existing registry/gallery rather than scattered pages.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/generate-variations.md"
+    },
+    {
+      "name": "design-system-extract",
+      "path": "codex/skills/design-system-extract.md",
+      "full_read": true,
+      "application": "Extract exact source values/provenance including motion; document gaps/conflicts rather than inventing sources.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/design-system-extract.md"
+    },
+    {
+      "name": "component-extract",
+      "path": "codex/skills/component-extract.md",
+      "full_read": true,
+      "application": "Inventory reused components, states, tokens and accessibility; shared controls coexist with distinct compositions.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/component-extract.md"
+    },
+    {
+      "name": "accessibility-audit",
+      "path": "codex/skills/accessibility-audit.md",
+      "full_read": true,
+      "application": "Sequential contrast, semantic, keyboard/focus and motion/form review with computed evidence. Off-white preference is aesthetic, not WCAG.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/accessibility-audit.md"
+    },
+    {
+      "name": "ai-slop-check",
+      "path": "codex/skills/ai-slop-check.md",
+      "full_read": true,
+      "application": "Critique unearned decoration/repetitive defaults. Intentional requested science SVG and diverse designs require judgment, not blanket deletion.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/ai-slop-check.md"
+    },
+    {
+      "name": "hierarchy-rhythm-review",
+      "path": "codex/skills/hierarchy-rhythm-review.md",
+      "full_read": true,
+      "application": "Inspect hierarchy/alignment/type/spacing/repetition and intentional breaks per design; avoid homogenizing all 15.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/hierarchy-rhythm-review.md"
+    },
+    {
+      "name": "interaction-states-pass",
+      "path": "codex/skills/interaction-states-pass.md",
+      "full_read": true,
+      "application": "Real default/hover/active/disabled/focus/loading and feedback. Capability-gate hover, immediate focus, shorter motion-specific budgets where appropriate.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/interaction-states-pass.md"
+    },
+    {
+      "name": "polish-pass",
+      "path": "codex/skills/polish-pass.md",
+      "full_read": true,
+      "application": "Deduplicate four reviews, fix blockers/quality, reverify risk areas. A source-level verdict cannot replace test/deployment evidence.",
+      "repo": "Trystan-SA/claude-design-system-prompt",
+      "ref": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "canonical_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/polish-pass.md"
+    }
+  ],
+  "deduplication": [
+    "Medium's named find-animation-opportunities is covered by canonical Emil skill, not a separate article-derived installation.",
+    "emilkowalski/skill redirects to emilkowalski/skills: one repository.",
+    "animations.dev newsletter exposes no additional public payload; gated content is not claimed installed.",
+    "Trystan Claude/Codex variants share 14 names: use Codex variant, not 28 duplicate installations.",
+    "Overlapping Emil motion skills are staged task modes, not simultaneous contradictory hard rules."
+  ],
+  "safety_and_tradeoffs": [
+    {
+      "id": "authority",
+      "finding": "Third-party prompts are not higher-priority policy. Trystan asks to hide skill names, impose question quotas and deliver fewer requested features.",
+      "resolution": "Use subordinate references; never copy vendor AGENTS to project root or replace current human/project instructions."
+    },
+    {
+      "id": "license",
+      "finding": "Both root MIT licenses require copyright/permission retention; Trystan README's no-attribution phrasing does not remove that condition.",
+      "resolution": "Keep LICENSE beside project-scoped sources/wrappers and immutable hash manifests."
+    },
+    {
+      "id": "host",
+      "finding": "Unavailable questions_v2/copy_starter_component/design_canvas/deck shell; wildcard postMessage protocol assumes a different host.",
+      "resolution": "Record absent dependencies; do not fabricate tools or deploy wildcard control bridge."
+    },
+    {
+      "id": "persistence",
+      "finding": "Prototype localStorage drafts/fake loading do not fit private-data/domain/persistence contract.",
+      "resolution": "Synthetic dev harness only; no runtime data-contract changes."
+    },
+    {
+      "id": "rules",
+      "finding": "Transform/opacity-only versus permitted clip-path/accordion-height/picker-width; under-300ms versus 400–500ms recipes; transition-everything versus keyboard-motion ban.",
+      "resolution": "160ms press, 180–250ms occasional surface, immediate focus/filter/keyboard selection; document bounded narrative/layout exceptions and verify behavior."
+    },
+    {
+      "id": "reduced-motion",
+      "finding": "Emil gentler feedback conflicts with Trystan global near-zero durations; explicit Off is independent of OS preference.",
+      "resolution": "Auto/reduced uses static geometry or useful opacity feedback; Off disables decorative work and cannot be overridden by generic guidance."
+    },
+    {
+      "id": "performance",
+      "finding": "Filter/clip-path compositing is browser-dependent; SVG geometry writes remain main-thread paint; sometimes source promises GPU too broadly.",
+      "resolution": "Default transform/opacity, profile geometry/filter work; no FPS claim without trace and real-device evidence."
+    },
+    {
+      "id": "top-layer",
+      "finding": "ask-sonner root-toaster/z-index advice alone cannot overtake a native dialog top layer.",
+      "resolution": "Preserve modal semantics; keep relevant status inside dialog or noncompeting notification path and verify focus/announcements."
+    },
+    {
+      "id": "aesthetic",
+      "finding": "Font/SVG/gradient heuristics and quality-over-quantity can erase authorized scientific/15-layout scope if applied literally.",
+      "resolution": "Judge purpose and execution, retain distinct layouts/true records; no asset purchase or stock-illustration replacement by default."
+    }
+  ],
+  "application_plan": [
+    {
+      "area": "15-design registry",
+      "evidence": [
+        "public/portfolio/design-registry.js:58",
+        "public/portfolio/designs/editorial.js:18",
+        "public/portfolio/designs/systems.js:47",
+        "public/portfolio/designs/experimental.js:25"
+      ],
+      "plan": "One shared motion token/policy surface; preserve all required section renderers and each design's composition/personality.",
+      "ids": [
+        "journal",
+        "helix",
+        "organic",
+        "monograph",
+        "specimen",
+        "pipeline",
+        "bento",
+        "atlas-map",
+        "console",
+        "blueprint",
+        "chromatography",
+        "gallery",
+        "dossier",
+        "kinetic",
+        "horizon"
+      ],
+      "verification": "All 15 render required sections in light/dark with exact source record counts; keyboard and data contracts retained; no console errors."
+    },
+    {
+      "area": "NativeGallery concept",
+      "evidence": [
+        "public/index.html:85",
+        "public/portfolio/design-gallery.js:13",
+        "public/portfolio/design-gallery.js:22",
+        "public/portfolio/design-gallery.js:34"
+      ],
+      "observed": "No NativeGallery symbol/import found. Mapped to existing native dialog and PortfolioDesignGallery, not an invented third-party package.",
+      "plan": "Optional centered opacity/scale(.96) entry 200–250ms for occasional pointer-open; immediate frequent/keyboard selection, filtering and focus; no React primitive dependency.",
+      "verification": "Native modal trap/Escape, focus restoration to surviving trigger, live results, all 15 choices, safe areas and long-copy mobile overflow."
+    },
+    {
+      "area": "SVG morph / scroll story",
+      "evidence": [
+        "public/portfolio/scroll-story.js:72",
+        "public/portfolio/scroll-story.js:97",
+        "public/portfolio/scroll-story.js:163",
+        "public/portfolio/scroll-story.js:171"
+      ],
+      "observed": "Geometry morph uses main-thread SVG d/vertex mutation and static/manual fallback. RAF is demand scheduled with document/visibility/active checks.",
+      "plan": "Keep explanatory connected geometry, bound sample count/changed writes, batch reads before writes, stop offscreen; static/manual access in reduced/Off/small viewports.",
+      "verification": "Actual path/vertex change across endpoints, labels truthful, manual keyboard scrub accessible, no continuing RAF offscreen/hidden/unmounted, no focus or scroll hijack."
+    },
+    {
+      "area": "Background RAF",
+      "evidence": [
+        "public/portfolio/background-effects.js:181",
+        "public/portfolio/background-effects.js:204",
+        "public/portfolio/background-effects.js:208",
+        "public/portfolio/background-effects.js:243",
+        "public/portfolio/background-effects.js:284"
+      ],
+      "observed": "Already fine-pointer/effects/OS/visibility gated, pauses main scene for dialog, allows active preview, reschedules only while unsettled. Not an idle infinite loop.",
+      "plan": "Keep cancellation/settling; profile per-pointer geometry regeneration, changed SVG attributes and broad structural mutation observer; cache/scope only if evidence calls for it.",
+      "verification": "Settles after pointer stops; no work for coarse input, Auto/reduced, Off, hidden document or detached root; only intended preview active during modal."
+    },
+    {
+      "area": "Modal and scroll transitions",
+      "evidence": [
+        "public/portfolio/runtime.js:14",
+        "public/portfolio/runtime.js:20",
+        "public/portfolio/runtime.js:26",
+        "public/portfolio/runtime.js:30",
+        "public/portfolio/visual-previews.js:100"
+      ],
+      "plan": "Shared explicit-property transitions with cancellation/unmount safety; immediate focus, direct progress tracking, no blanket repeat reveals that hide reading content.",
+      "verification": "Rapid open-close-reopen without stale hidden state/timer; Escape/focus, Reduced/Off, cleanup of private iframe/readme contents; synthetic fixtures only."
+    }
+  ],
+  "installation_handoff": {
+    "performed_by_this_agent": false,
+    "emil": "Official preinstalled skill-installer helper with --repo emilkowalski/skills --ref f1090bec277140d02ed202440185ad9d02ac1490 --path skills/<each-of-16> --dest <project>/.agents/skills; retain root LICENSE. Do not use unpinned npx installer without need.",
+    "trystan": "No SKILL.md/frontmatter in upstream Codex procedures, so official directory installer cannot install them directly. Use documented project-only wrapper per procedure, untouched source as reference, explicit subordinate boundary and MIT license. Keep full prompt as reference and never replace root/global AGENTS."
+  },
+  "verification_limits": [
+    "Research and code inspection only; this document makes no live-app feel/device/performance certification.",
+    "Actual repository identity, paths, immutable commits, license and SHA256 file manifests verified. Conditional package/version claims need primary-doc verification if a runtime package is adopted.",
+    "Medium full article and newsletter gated payload are unavailable and were not read or claimed installed."
+  ]
+}
