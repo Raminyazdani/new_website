@@ -909,7 +909,7 @@
     "remainingRequired": []
   },
   "new_web_import_20261104": {
-    "state": "LOCAL_VERIFIED_AWAITING_PUBLISH",
+    "state": "DEPLOYED_AND_VERIFIED",
     "source": "D:/new_web active ready design registry",
     "imported_templates": [
       "helix",
@@ -958,11 +958,29 @@
       "return_to_unified_gallery_with_locale": "PASS",
       "direct_template_lock_and_sign_in": "PASS",
       "anonymous_cv_status": 401,
-      "invalid_paths_rejected": 5
+      "invalid_paths_rejected": 5,
+      "final_export_privacy": {
+        "files_scanned": 539,
+        "private_markers_compared": 356,
+        "matches": 0,
+        "forbidden_paths": 0,
+        "sha256": "2f3b18b64e69baca5782aadd199f0b1060ac86d0a29a72294b3aa111253e4cad"
+      }
     },
     "notes": [
       "Template UI is trilingual. Biography and records use the language supplied by the current authenticated CV.",
       "The existing Connected Science entry and the two existing gallery collections remain available."
-    ]
+    ],
+    "deployment": {
+      "state": "READY",
+      "application_commit": "ec7bd66d327525c170e1a3bf4566c2f5e313131d",
+      "url": "https://new-website-hero-lab.vercel.app/?gallery=1",
+      "http_template_routes_ok": 60,
+      "static_asset_mime": "PASS",
+      "catalog_matches_source": true,
+      "anonymous_api": "401 private no-store",
+      "raw_cv_path_status": 404,
+      "browser": "50 cards, Desktop authentication and Persian locale, return to shared gallery with locale retained"
+    }
   }
 }
