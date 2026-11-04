@@ -1,7 +1,8 @@
 (function (w) {
   'use strict';
   const registry = w.PortfolioDesigns;
-  if (!registry) return;
+  const navigation = w.PortfolioDesignNavigation;
+  if (!registry || !navigation) return;
   const e = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
   const palette = {
     journal:['#f6f0e5','#9f352c','#27221d'],helix:['#071019','#65e3cd','#e4f7f5'],organic:['#f5f4e9','#366e52','#263c31'],monograph:['#f3f2ed','#b2462d','#232220'],specimen:['#eef1ed','#287148','#24372b'],
@@ -15,6 +16,7 @@
   const familyLabel = value => familyLabels[String(value || '').toLowerCase()] || String(value || 'Other').replace(/(^|[-\s])\w/g, part => part.toUpperCase());
 
   function open() {
+    syncImportedLinks();
     const dialog = $('#designGallery');
     if (dialog?.showModal && !dialog.open) dialog.showModal();
     else if (dialog && !dialog.open) dialog.setAttribute('open', '');
@@ -37,6 +39,7 @@
     if ($('#designDockName')) $('#designDockName').textContent = title;
     if ($('#designGalleryCurrent')) $('#designGalleryCurrent').textContent = `Current selection: ${title}`;
     if ($('#designCollectionCount')) $('#designCollectionCount').textContent = String(imported.length ? registry.list().length + imported.length : entries().length);
+    syncImportedLinks();
   }
   function filter() {
     const query = ($('#designGallerySearch')?.value || '').toLowerCase().trim();
@@ -49,14 +52,11 @@
     if ($('#designGalleryEmpty')) $('#designGalleryEmpty').hidden = count > 0;
     if ($('#designGalleryResults')) $('#designGalleryResults').textContent = `${count} ${count === 1 ? 'design' : 'designs'} shown`;
   }
-  function sketch(meta) {
-    const colors = meta.palette || palette[meta.id] || palette.journal;
-    return `<div class="dg-sketch dg-sketch-${e(meta.id)}" style="--sk-paper:${colors[0]};--sk-accent:${colors[1]};--sk-ink:${colors[2]}" aria-hidden="true"><span class="dg-mini-nav"></span><span class="dg-mini-title"></span><span class="dg-mini-copy"></span><span class="dg-mini-portrait"></span><span class="dg-mini-figure"></span><div class="dg-mini-records"><i></i><i></i><i></i><i></i></div><small>Schematic layout preview</small></div>`;
-  }
   const params = new URLSearchParams(w.location?.search || '');
   const requestedLocale = params.get('lang');
   const locale = ['en', 'de', 'fa'].includes(requestedLocale) ? requestedLocale : 'en';
   const internalEntries = group => registry.collection ? registry.collection(group) : registry.list();
+  const nativeEntries = () => [...internalEntries('independent'), ...internalEntries('previous')];
   const collectionOf = id => registry.get(id)?.collection === 'independent' ? 'independent' : 'previous';
   const scopes = imported.length ? ['all', 'imported', 'independent', 'previous'] : ['independent', 'previous'];
   let activeId = params.get('design') || 'unified';
@@ -65,8 +65,35 @@
 
   function entries() {
     if (scope === 'imported') return imported;
-    if (scope === 'all') return [...imported, ...internalEntries('independent'), ...internalEntries('previous')];
+    if (scope === 'all') return [...imported, ...nativeEntries()];
     return internalEntries(scope);
+  }
+
+  function importedHref(id) {
+    const preferences = navigation.readPreferences(w.location.search);
+    const studio = w.PortfolioStudio;
+    if (studio) {
+      preferences.theme = studio.theme;
+      preferences.background = studio.background;
+    }
+    preferences.motion = w.portfolioView?.motionMode || preferences.motion;
+    return navigation.templateHref({ collection: 'imported', id }, locale, preferences);
+  }
+
+  function syncImportedLinks() {
+    const prefix = 'imported-';
+    document.querySelectorAll(`[data-gallery-design^="${prefix}"]`).forEach(card => {
+      card.querySelector('a')?.setAttribute('href', importedHref(card.dataset.galleryDesign.slice(prefix.length)));
+    });
+  }
+
+  function stepDesign(direction) {
+    const studio = w.PortfolioStudio;
+    if (!studio) return;
+    const cycle = navigation.templateCycle(imported.map(design => design.id), nativeEntries().map(design => design.id));
+    const next = navigation.adjacentTemplate(cycle, { collection: 'native', id: studio.concept }, direction);
+    if (next?.collection === 'imported') w.location.assign(importedHref(next.id));
+    else if (next) studio.setConcept(next.id, { keepTheme: true });
   }
 
   function renderCard(design, index) {
@@ -86,11 +113,11 @@
       ${isImported ? '' : '<span class="dg-selected" hidden>Current selection</span>'}
     </span>`;
     const style = `--accent:${colors[1]};--accent-ink:${colors[2]}`;
-    const preview = isImported ? `<span class="dg-import-preview" style="--sk-paper:${colors[0]};--sk-accent:${colors[1]};--sk-ink:${colors[2]}" aria-hidden="true">
-      <span>New Web</span><span class="dg-import-swatches"><i></i><i></i><i></i></span><small>Original palette</small>
-    </span>` : sketch(design);
+    const preview = `<span class="dg-preview" style="--preview-paper:${colors[0]}">
+      <img src="/portfolio/previews/${e(id)}.webp" width="640" height="400" loading="lazy" decoding="async" alt="${e(design.name)} layout preview">
+    </span>`;
     const action = isImported
-      ? `<a href="/imported/${locale}/${e(design.id)}/" style="${style}">${preview}${content}</a>`
+      ? `<a href="${e(importedHref(design.id))}" style="${style}">${preview}${content}</a>`
       : `<button type="button" data-design-choice="${e(design.id)}" style="${style}" aria-pressed="false">${preview}${content}</button>`;
     return `<article class="dg-card" data-gallery-design="${e(id)}" data-gallery-family="${e(family)}" data-gallery-search="${e(search)}">${action}</article>`;
   }
@@ -111,7 +138,7 @@
       independent: `${designs.length} independent visual worlds. Open a direction to explore its complete portfolio.`,
       previous: 'The earlier collection, preserved with its original layouts.',
     };
-    if (intro) intro.textContent = introductions[scope];
+    if (intro) intro.textContent = `${introductions[scope]} Previews show the layouts with a sample CV.`;
     host.innerHTML = designs.map(renderCard).join('');
     filter();
   }
@@ -139,6 +166,9 @@
     populate();
     $('#designGallerySearch')?.addEventListener('input', filter);
     $('#designGalleryFamily')?.addEventListener('change', filter);
+    document.addEventListener('change', event => {
+      if (event.target.matches('#motionMode, #studioMotion')) syncImportedLinks();
+    });
     $('#designGalleryCollection')?.addEventListener('change', event => {
       if (!scopes.includes(event.target.value)) return;
       scope = event.target.value;
@@ -151,14 +181,9 @@
       if (event.target.closest('[data-close-design-gallery]')) close();
       const choice=event.target.closest('[data-design-choice]');
       if(choice){ w.PortfolioStudio?.setConcept(choice.dataset.designChoice);close(); }
-      const step=event.target.closest('[data-design-step]');
-      if(step){
-        const group = registry.has(w.PortfolioStudio?.concept) ? collectionOf(w.PortfolioStudio.concept) : scope === 'independent' ? 'independent' : 'previous';
-        const collection = internalEntries(group);
-        const ids=[...(group==='previous'?['unified']:[]),...collection.map(d=>d.id)];
-        const index=ids.indexOf(w.PortfolioStudio?.concept);
-        w.PortfolioStudio?.setConcept(ids[(Math.max(-1,index)+Number(step.dataset.designStep)+ids.length)%ids.length]);
-      }
+      const step = event.target.closest('[data-design-step]');
+      if (step) stepDesign(step.dataset.designStep === '-1' ? -1 : 1);
+      if (event.target.closest('#enableEffects')) syncImportedLinks();
     });
     reflect(w.PortfolioStudio?.concept||activeId);
     if(new URLSearchParams(w.location?.search||'').get('gallery')==='1')open();

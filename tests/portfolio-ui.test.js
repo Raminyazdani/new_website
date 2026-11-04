@@ -8,7 +8,7 @@ const { parseHTML } = require('linkedom');
 const { adaptCV } = require('../public/data/cv-adapter');
 
 const publicRoot = path.join(__dirname, '../public');
-const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'visual-previews.js', 'portfolio-insights.js', 'design-registry.js', 'designs/editorial.js', 'designs/systems.js', 'designs/experimental.js', 'design-gallery.js', 'studio.js', 'studio-intro.js', 'records.js'];
+const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'visual-previews.js', 'portfolio-insights.js', 'design-registry.js', 'designs/editorial.js', 'designs/systems.js', 'designs/experimental.js', 'design-navigation.js', 'design-gallery.js', 'studio.js', 'studio-intro.js', 'records.js'];
 const raw = {
   basics: [{
     fname: 'Synthetic', lname: 'Profile',
@@ -55,7 +55,15 @@ async function boot({ search = '', auth = false, reduce = true, stored = null, i
   });
   setSelectValues(document);
   const storedValues = new Map(stored ? [['portfolio.design.preferences.v1', JSON.stringify(stored)]] : []);
-  const location = { href: `https://example.test/${search}`, search };
+  const location = {
+    href: `https://example.test/${search}`,
+    search,
+    assign(target) {
+      const url = new URL(target, this.href);
+      this.href = url.href;
+      this.search = url.search;
+    },
+  };
   let cvLoads = 0;
   const win = {
     Event,
@@ -553,7 +561,7 @@ test('one gallery lists every imported design beside both existing collections',
   assert.equal(select.value, 'all');
   assert.equal(cards().length, 30 + readyIds.length);
   assert.equal(new Set(cards().map(card => card.dataset.galleryDesign)).size, cards().length);
-  assert.deepEqual(cards().filter(card => card.querySelector('a')).map(card => card.querySelector('a').getAttribute('href')), readyIds.map(id => `/imported/fa/${id}/`));
+  assert.deepEqual(cards().filter(card => card.querySelector('a')).map(card => new URL(card.querySelector('a').getAttribute('href'), env.win.location.href).pathname), readyIds.map(id => `/imported/fa/${id}/`));
   assert(document.querySelector('[data-design-choice="helix"]'));
   assert(document.querySelector('[data-gallery-design="imported-helix"] a'));
 
@@ -566,6 +574,49 @@ test('one gallery lists every imported design beside both existing collections',
   assert.equal(cards().length, readyIds.length);
   assert(cards().every(card => card.querySelector('a') && !card.hidden));
   assert.equal(env.cvLoads, 1);
+});
+
+test('Next and Previous follow all 50 gallery entries across the native and imported routes', async () => {
+  const env = await boot({
+    independent: true,
+    imported: true,
+    search: '?gallery=1&design=strata&theme=dark&background=silk&motion=still&lang=fa',
+  });
+  const { document, Event, win, click } = env;
+  const { adjacentTemplate, templateCycle, templateHref, readPreferences } = win.PortfolioDesignNavigation;
+  const importedIds = require('../collections/new-web/src/lib/designs.json')
+    .filter(design => design.ready).map(design => design.id);
+  const cycle = templateCycle(importedIds);
+  const key = entry => `${entry.collection === 'imported' ? 'imported-' : ''}${entry.id}`;
+  const galleryOrder = [...document.querySelectorAll('[data-gallery-design]')].map(card => card.dataset.galleryDesign);
+  assert.equal(cycle.length, 50);
+  assert.deepEqual(cycle.map(key), galleryOrder);
+  assert.equal(new Set(galleryOrder).size, 50);
+  for (let index = 0; index < cycle.length; index++) {
+    assert.equal(adjacentTemplate(cycle, cycle[index], 1), cycle[(index + 1) % cycle.length]);
+    assert.equal(adjacentTemplate(cycle, cycle[index], -1), cycle[(index + cycle.length - 1) % cycle.length]);
+  }
+
+  const collection = document.querySelector('#designGalleryCollection');
+  collection.value = 'independent';
+  collection.dispatchEvent(new Event('change', { bubbles: true }));
+  click('[data-close-design-gallery]');
+  click('[data-design-step="1"]');
+  assert.equal(win.PortfolioStudio.concept, 'journal', 'a gallery filter does not change the navigation order');
+  assert.equal(win.PortfolioStudio.theme, 'dark', 'a step keeps the selected theme');
+  click('[data-design-step="-1"]');
+  assert.equal(win.PortfolioStudio.concept, 'strata');
+
+  for (let index = 0; index < 16; index++) click('[data-design-step="1"]');
+  const importedURL = new URL(win.location.href);
+  assert.equal(importedURL.pathname, '/imported/fa/helix/');
+  assert.deepEqual(readPreferences(importedURL.search), { theme: 'dark', background: 'silk', motion: 'still' });
+  const previousNative = adjacentTemplate(cycle, cycle[0], -1);
+  const nativeURL = new URL(templateHref(previousNative, 'fa', readPreferences(importedURL.search)), win.location.href);
+  assert.equal(nativeURL.searchParams.get('design'), 'horizon');
+  assert.equal(nativeURL.searchParams.get('lang'), 'fa');
+  assert.deepEqual(readPreferences(nativeURL.search), readPreferences(importedURL.search));
+  assert.equal(templateHref(adjacentTemplate(cycle, cycle[19], 1), 'de'), '/?design=folio&lang=de');
 });
 
 test('all fifteen independent worlds retain complete safe source records and functioning project actions', async () => {

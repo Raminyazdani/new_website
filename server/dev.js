@@ -17,7 +17,7 @@ const server = http.createServer(async (req, res) => {
   for (const file of ['cv-adapter', 'portfolio-source']) {
     files[`/data/${file}.js`] = [`data/${file}.js`, 'text/javascript; charset=utf-8'];
   }
-  for (const file of ['runtime', 'intro', 'records', 'science', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights', 'design-registry', 'design-gallery', 'imported-templates', 'motion-system']) {
+  for (const file of ['runtime', 'intro', 'records', 'science', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights', 'design-registry', 'design-navigation', 'design-gallery', 'imported-templates', 'motion-system']) {
     files[`/portfolio/${file}.js`] = [`portfolio/${file}.js`, 'text/javascript; charset=utf-8'];
   }
   for (const file of ['base', 'intro', 'records', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights', 'design-system', 'design-gallery', 'craft', 'motion-system']) {
@@ -46,11 +46,18 @@ const server = http.createServer(async (req, res) => {
   }
   files['/design-notes.html'] = ['design-notes.html','text/html; charset=utf-8'];
   files['/portfolio/design-catalog.json'] = ['portfolio/design-catalog.json','application/json; charset=utf-8'];
+  if (/^\/portfolio\/previews\/[a-z][a-z0-9-]*\.webp$/.test(path)) {
+    files[path] = [path.slice(1), 'image/webp'];
+  }
   if (!files[path] || req.method !== 'GET') { res.writeHead(404); return res.end('Not found'); }
   try {
     const [file, type] = files[path];
+    const bytes = await readFile(join(__dirname, '../public', file));
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
-    res.end(await readFile(join(__dirname, '../public', file)));
-  } catch { res.writeHead(500); res.end('Unavailable'); }
+    res.end(bytes);
+  } catch (error) {
+    res.writeHead(error.code === 'ENOENT' ? 404 : 500);
+    res.end(error.code === 'ENOENT' ? 'Not found' : 'Unavailable');
+  }
 });
 server.listen(port, '127.0.0.1', () => console.log(`Hero Lab: http://127.0.0.1:${port}`));

@@ -8,6 +8,7 @@ import { Link } from '@/i18n/navigation';
 // Design links never prefetch: a prefetched design would preload its own fonts and CSS into this page.
 import { designFamilies, designFamily, designIds, designMeta, type DesignId } from '@/lib/designs';
 import { cn } from '@/lib/utils';
+import { adjacentTemplate, readPreferences, templateCycle, templateHref, withPreferences } from '../../../../../public/portfolio/design-navigation.js';
 import { useLocaleSwitch } from './useLocaleSwitch';
 
 /**
@@ -21,11 +22,23 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
-  // a design that is still being built (not "ready" in designs.json) joins the cycle at the end
-  const cycle = designIds.includes(current) ? designIds : [...designIds, current];
-  const idx = cycle.indexOf(current);
-  const prev = cycle[(idx - 1 + cycle.length) % cycle.length];
-  const next = cycle[(idx + 1) % cycle.length];
+  const cycle = templateCycle(designIds);
+  const currentTemplate = { collection: 'imported' as const, id: current };
+  const idx = cycle.findIndex(entry => entry.collection === 'imported' && entry.id === current);
+  const preferences = readPreferences(typeof window === 'undefined' ? '' : window.location.search);
+
+  function step(direction: -1 | 1, Icon: typeof ChevronLeft, label: string) {
+    const destination = adjacentTemplate(cycle, currentTemplate, direction);
+    if (!destination) return null;
+    const props = {
+      'aria-label': label,
+      className: 'grid size-9 place-items-center rounded-full transition hover:bg-white/10',
+      children: <Icon className="flip-rtl size-4" />,
+    };
+    return destination.collection === 'imported'
+      ? <Link href={withPreferences(`/${destination.id}`, preferences)} prefetch={false} {...props} />
+      : <a href={templateHref(destination, locale, preferences)} {...props} />;
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -73,7 +86,7 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
               )}
             >
               <div className="mb-1 flex flex-wrap items-center justify-between gap-1 border-b border-white/10 px-1 pb-1">
-                <a href={`/?gallery=1&lang=${locale}`} className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10">
+                <a href={withPreferences(`/?gallery=1&lang=${locale}`, preferences)} className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10">
                   <LayoutGrid className="size-4" /> {t('access.gallery')}
                 </a>
                 <button type="button" onClick={onLock} className="flex items-center gap-2 rounded-2xl px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10">
@@ -95,7 +108,7 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
                         return (
                           <li key={id}>
                             <Link
-                              href={`/${id}`}
+                              href={withPreferences(`/${id}`, preferences)}
                               prefetch={false}
                               onClick={() => setOpen(false)}
                               aria-current={id === current ? 'page' : undefined}
@@ -133,9 +146,7 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
           transition={{ delay: 0.8, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className={cn('flex items-center gap-1 rounded-full p-1.5', glass)}
         >
-          <Link href={`/${prev}`} prefetch={false} aria-label={t('dock.previous')} className="grid size-9 place-items-center rounded-full transition hover:bg-white/10">
-            <ChevronLeft className="flip-rtl size-4" />
-          </Link>
+          {step(-1, ChevronLeft, t('dock.previous'))}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -150,9 +161,7 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
             </span>
             <ChevronsUpDown className="size-3.5 text-white/60" />
           </button>
-          <Link href={`/${next}`} prefetch={false} aria-label={t('dock.next')} className="grid size-9 place-items-center rounded-full transition hover:bg-white/10">
-            <ChevronRight className="flip-rtl size-4" />
-          </Link>
+          {step(1, ChevronRight, t('dock.next'))}
           <span className="mx-1 h-5 w-px bg-white/15" aria-hidden />
           <div role="group" aria-label={t('dock.language')} className="flex items-center">
             {locales.map((l) => (

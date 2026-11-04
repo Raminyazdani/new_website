@@ -4,6 +4,7 @@ import { useLocale } from 'next-intl';
 import { useTransition } from 'react';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { localeNames, routing, type Locale } from '@/i18n/routing';
+import { readPreferences, withPreferences } from '../../../../../public/portfolio/design-navigation.js';
 
 /** Switch language while staying on the same design/page. Remembers the choice for the root redirect. */
 export function useLocaleSwitch() {
@@ -18,7 +19,8 @@ export function useLocaleSwitch() {
     } catch {
       /* ignore */
     }
-    start(() => router.replace(pathname, { locale: next, scroll: false }));
+    const destination = withPreferences(pathname, readPreferences(window.location.search));
+    start(() => router.replace(destination, { locale: next, scroll: false }));
   };
   return { locale, locales: routing.locales.map((l) => ({ code: l, ...localeNames[l] })), switchTo, pending };
 }

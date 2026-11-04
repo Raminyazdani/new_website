@@ -982,5 +982,46 @@
       "raw_cv_path_status": 404,
       "browser": "50 cards, Desktop authentication and Persian locale, return to shared gallery with locale retained"
     }
+  },
+  "gallery_preview_cycle_20261104": {
+    "state": "LOCAL_VERIFIED_AWAITING_PUBLISH",
+    "preview_assets": {
+      "count": 50,
+      "dimensions": [
+        640,
+        400
+      ],
+      "format": "WebP",
+      "total_bytes": 880508,
+      "source": "Actual browser-rendered template viewports using a loopback-only fictional CV fixture. Raw capture sheets remain outside Git.",
+      "visual_review": "All 50 inspected in a contact sheet with no blank, loading or sign-in frames. All 50 file hashes are distinct."
+    },
+    "navigation": {
+      "scope": "All 50 gallery cards, independent of filters, on both native and imported docks.",
+      "order": [
+        "New Web",
+        "Independent",
+        "Earlier studies"
+      ],
+      "preserves_roundtrip": [
+        "theme",
+        "background",
+        "motion",
+        "locale"
+      ]
+    },
+    "verification": {
+      "tests_passed": 55,
+      "child_typecheck_and_build": "PASS",
+      "local_browser_preview_cards": 50,
+      "first_visible_images_loaded": 3,
+      "local_browser_boundaries": [
+        "Strata Next to Journal",
+        "Horizon Next to New Web Helix",
+        "New Web Helix Previous to Horizon with native preferences restored",
+        "New Web Sketch Next to Folio"
+      ],
+      "same_cycle_both_directions": "PASS via regression test"
+    }
   }
 }
