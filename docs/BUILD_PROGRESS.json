@@ -984,7 +984,7 @@
     }
   },
   "gallery_preview_cycle_20261104": {
-    "state": "LOCAL_VERIFIED_AWAITING_PUBLISH",
+    "state": "DEPLOYED_AND_VERIFIED",
     "preview_assets": {
       "count": 50,
       "dimensions": [
@@ -1021,7 +1021,22 @@
         "New Web Helix Previous to Horizon with native preferences restored",
         "New Web Sketch Next to Folio"
       ],
-      "same_cycle_both_directions": "PASS via regression test"
+      "same_cycle_both_directions": "PASS via regression test",
+      "mobile_gallery_390px": "Visible preview loaded; gallery scroll width equals client width."
+    },
+    "deployment": {
+      "state": "READY",
+      "application_commit": "0f5333c49d16072591bfb09884a23c4bee5897e3",
+      "verified_preview_assets": 50,
+      "matching_asset_bytes": 50,
+      "media_type": "image/webp",
+      "anonymous_cv_api": "401 private, no-store",
+      "live_browser": [
+        "50 preview images in the gallery",
+        "First visible previews loaded at 640px natural width",
+        "Strata Next to Journal",
+        "Horizon Next to Persian New Web Helix and Previous to Horizon preserving dark/silk/auto and locale"
+      ]
     }
   }
 }
