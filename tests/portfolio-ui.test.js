@@ -41,7 +41,7 @@ function setSelectValues(document) {
   }
 }
 
-async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, model = null } = {}) {
+async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, imported = false, model = null } = {}) {
   const { document, Event } = parseHTML(fs.readFileSync(path.join(publicRoot, 'index.html'), 'utf8'));
   const selectPrototype = Object.getPrototypeOf(document.querySelector('#motionMode'));
   const nativeSelectValue = Object.getOwnPropertyDescriptor(selectPrototype, 'value');
@@ -83,7 +83,13 @@ async function boot({ search = '', auth = false, reduce = true, stored = null, i
     removeEventListener() {},
     navigator: { clipboard: { writeText: async () => {} } },
   };
-  const loadedFiles = independent ? [...files.slice(0, files.indexOf('design-gallery.js')), 'directions/kit.js', 'directions/observational.js', 'directions/systems.js', 'directions/expressive.js', ...files.slice(files.indexOf('design-gallery.js'))] : files;
+  const galleryIndex = files.indexOf('design-gallery.js');
+  const loadedFiles = [
+    ...files.slice(0, galleryIndex),
+    ...(independent ? ['directions/kit.js', 'directions/observational.js', 'directions/systems.js', 'directions/expressive.js'] : []),
+    ...(imported ? ['imported-templates.js'] : []),
+    ...files.slice(galleryIndex),
+  ];
   for (const file of loadedFiles) {
     new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8'))(win, document);
   }
@@ -535,6 +541,31 @@ test('the independent collection is the new default while all previous designs r
   assert.equal(env.document.querySelectorAll('#designGalleryBody [data-design-choice]').length,15);
   env.click('[data-design-choice="journal"]');assert.equal(env.win.PortfolioStudio.concept,'journal');
   assert.equal(env.document.body.dataset.collection,'previous');
+});
+
+test('one gallery lists every imported design beside both existing collections', async () => {
+  const env = await boot({ independent: true, imported: true, search: '?gallery=1&lang=fa' });
+  const { document, Event } = env;
+  const cards = () => [...document.querySelectorAll('#designGalleryBody [data-gallery-design]')];
+  const select = document.querySelector('#designGalleryCollection');
+  const sourceRegistry = require('../collections/new-web/src/lib/designs.json');
+  const readyIds = sourceRegistry.filter(design => design.ready).map(design => design.id);
+  assert.equal(select.value, 'all');
+  assert.equal(cards().length, 30 + readyIds.length);
+  assert.equal(new Set(cards().map(card => card.dataset.galleryDesign)).size, cards().length);
+  assert.deepEqual(cards().filter(card => card.querySelector('a')).map(card => card.querySelector('a').getAttribute('href')), readyIds.map(id => `/imported/fa/${id}/`));
+  assert(document.querySelector('[data-design-choice="helix"]'));
+  assert(document.querySelector('[data-gallery-design="imported-helix"] a'));
+
+  const search = document.querySelector('#designGallerySearch');
+  search.value = 'sequencer';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  assert(cards().some(card => !card.hidden && card.dataset.galleryDesign === 'imported-sequencer'));
+  select.value = 'imported';
+  select.dispatchEvent(new Event('change', { bubbles: true }));
+  assert.equal(cards().length, readyIds.length);
+  assert(cards().every(card => card.querySelector('a') && !card.hidden));
+  assert.equal(env.cvLoads, 1);
 });
 
 test('all fifteen independent worlds retain complete safe source records and functioning project actions', async () => {

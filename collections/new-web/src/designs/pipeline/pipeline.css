@@ -1,0 +1,35 @@
+.pipeline {
+  --ds-bg: #0b0f14;
+  --ds-fg: #d6e2ee;
+  --ds-border: #30363d;
+  --ds-muted: #8b98a8;
+  background: var(--ds-bg);
+  color: var(--ds-fg);
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 14px;
+}
+.pipeline .pl-prose,
+.pipeline .font-sans {
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.7;
+}
+.pipeline .font-mono {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+}
+.pipeline .pl-pane {
+  border: 1px solid #222a35;
+  border-radius: 0.75rem;
+  background: #0d1117;
+  overflow: hidden;
+}
+.pipeline ::selection {
+  background: #1f6feb;
+  color: #fff;
+}
+.pipeline :lang(fa) .pl-prose,
+.pipeline .pl-prose:lang(fa) {
+  line-height: 2;
+}
+body:has(.pipeline) {
+  background: #0b0f14;
+}

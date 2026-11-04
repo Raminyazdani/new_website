@@ -25,25 +25,35 @@
     if (typeof value !== 'object' || !value) return str(value);
     return first(value.formatted, [str(value.countryCode), str(value.number)].filter(Boolean).join(' '));
   }
+  function locationLabel(value) {
+    if (typeof value === 'string') return value;
+    var location = object(Array.isArray(value) ? value[0] : value);
+    return [str(location.city), str(location.region), str(location.country)]
+      .filter(function (part, index, parts) { return part && parts.indexOf(part) === index; })
+      .join(', ');
+  }
   function adaptCV(input) {
     var raw = object(input), basics = object(Array.isArray(raw.basics) ? raw.basics[0] : raw.basics);
-    var pictures = list(basics.Pictures), location = Array.isArray(basics.location) ? object(basics.location[0]) : object(basics.location);
+    var pictures = list(basics.Pictures);
     function picture(type) { return safeUrl(object(pictures.find(function (p) { return object(p).type_of === type; })).URL); }
     var given = first(basics.fname, basics.givenName), family = first(basics.lname, basics.familyName);
     var name = first(basics.name, [given, family].filter(Boolean).join(' '));
     var model = {
       version: 1,
-      identity: { name: name, givenName: given, familyName: family, initials: name.split(/\s+/).filter(Boolean).map(function (s) { return Array.from(s)[0]; }).slice(0, 2).join(''), roles: strings(basics.label), summary: str(basics.summary), location: typeof basics.location === 'string' ? basics.location : [str(location.city), str(location.region), str(location.country)].filter(function (s, i, a) { return s && a.indexOf(s) === i; }).join(', '), avatarUrl: picture('profile'), coverUrl: picture('cover') },
+      identity: { name: name, givenName: given, familyName: family, initials: name.split(/\s+/).filter(Boolean).map(function (s) { return Array.from(s)[0]; }).slice(0, 2).join(''), roles: strings(basics.label), summary: str(basics.summary), location: locationLabel(basics.location), avatarUrl: picture('profile'), coverUrl: picture('cover') },
       profiles: list(raw.profiles).map(function (v, i) { v = object(v); return { id: 'profile-' + i, network: str(v.network), label: first(v.username, v.network), url: safeUrl(v.url) }; }),
       contact: { email: strings(basics.email).join(', '), phone: phone(basics.phone) },
       education: list(raw.education).map(function (v, i) { v = object(v); return { id: 'education-' + i, institution: str(v.institution), location: str(v.location), field: str(v.area), degree: str(v.studyType), start: str(v.startDate), end: str(v.endDate), gpa: str(v.gpa), logoUrl: safeUrl(v.logo_url), tags: tags(v) }; }),
-      experience: list(raw.experiences).map(function (v, i) { v = object(v); return { id: 'experience-' + i, title: str(v.role), organization: str(v.institution), period: str(v.duration), description: str(v.description), tags: tags(v) }; }),
+      experience: list(raw.experiences).map(function (v, i) {
+        v = object(v);
+        return { id: 'experience-' + i, title: str(v.role), organization: str(v.institution), location: locationLabel(v.location), period: str(v.duration), description: str(v.description), tags: tags(v) };
+      }),
       projects: list(raw.projects).map(function (v, i) { v = object(v); return { id: 'project-' + i, title: str(v.title), description: str(v.description), url: safeUrl(v.url), tags: tags(v) }; }),
       publications: list(raw.publications).map(function (v, i) {
         v = object(v); var ids = object(v.identifiers);
         var authors = list(v.authors).map(function (a) { return typeof a === 'object' ? first(object(a).literal, object(a).name, [str(object(a).given), str(object(a).family)].filter(Boolean).join(' ')) : str(a); }).filter(Boolean);
         if (!authors.length) authors = list(v.authors_structured).map(function (a) { a = object(a); return first(a.literal, [str(a.given), str(a.family)].filter(Boolean).join(' ')); }).filter(Boolean);
-        return { id: 'publication-' + i, title: str(v.title), authors: authors, kind: str(v.type), status: str(v.status), year: str(v.year), venue: first(v.journal, v.conference, v.book_title, v.institution), publisher: str(v.publisher), doi: first(v.doi, ids.doi), isbn: first(v.isbn, ids.isbn), url: safeUrl(first(v.url, v.URL, v.repository_url)), citation: str(v.citation), notes: str(v.notes) };
+        return { id: 'publication-' + i, title: str(v.title), authors: authors, supervisors: strings(v.supervisors), kind: str(v.type), status: str(v.status), year: str(v.year), venue: first(v.journal, v.conference, v.book_title, v.institution), publisher: str(v.publisher), doi: first(v.doi, ids.doi), isbn: first(v.isbn, ids.isbn), url: safeUrl(first(v.url, v.URL, v.repository_url)), citation: str(v.citation), notes: str(v.notes) };
       }),
       skillGroups: Object.entries(object(raw.skills)).map(function (entry, i) {
         return { id: 'skill-domain-' + i, name: entry[0], groups: Object.entries(object(entry[1])).map(function (group, j) {

@@ -1,0 +1,522 @@
+/* Blueprint — the portfolio as cyanotype drawing sheets. Scoped to .bp-root.
+   Grid is part of the sheet background (no overlays); line drawing is a one-shot CSS animation. */
+.bp-root {
+  --ds-bg: #0a2f54;
+  --ds-fg: #eef5ff;
+  --ds-border: rgba(238, 245, 255, 0.35);
+  --ds-muted: #b8cde6;
+  background: #0a2f54;
+  color: #eef5ff;
+  font-family: var(--font-barlow), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.bp-root) {
+  background: #0a2f54;
+}
+.bp-root:lang(fa) {
+  font-family: var(--font-vazirmatn), var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+}
+.bp-root ::selection {
+  background: #ffd479;
+  color: #0d3a66;
+}
+.bp-root :focus-visible {
+  outline: 2px solid #ffd479;
+  outline-offset: 2px;
+}
+
+/* type */
+.bp-root .bp-mono {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+}
+.bp-root:lang(fa) .bp-mono:not([dir='ltr']):not([lang='en']) {
+  font-family: var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.bp-root .bp-title {
+  font-family: var(--font-barlow-condensed), var(--font-estedad), var(--font-vazirmatn), sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.bp-root .bp-name {
+  font-family: var(--font-barlow-condensed), var(--font-estedad), var(--font-vazirmatn), sans-serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 8.4vw, 6.6rem);
+  line-height: 0.92;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.bp-root .bp-sub {
+  font-family: var(--font-barlow-condensed), var(--font-estedad), var(--font-vazirmatn), sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffd479;
+}
+.bp-root:lang(fa) :is(.bp-title, .bp-name, .bp-sub) {
+  font-family: var(--font-estedad), var(--font-vazirmatn), sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.bp-root:lang(fa) .bp-name {
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* sheet: double frame, zone markers, cyanotype grid */
+.bp-root .bp-frame {
+  border: 1.25px solid rgba(238, 245, 255, 0.85);
+  padding: 14px;
+  background-color: #0d3a66;
+  background-image:
+    linear-gradient(rgba(238, 245, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238, 245, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(238, 245, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238, 245, 255, 0.06) 1px, transparent 1px);
+  background-size:
+    40px 40px,
+    40px 40px,
+    8px 8px,
+    8px 8px;
+  background-position: 13px 13px;
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.6);
+}
+.bp-root .bp-zones-x,
+.bp-root .bp-zones-y {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 9px;
+  line-height: 1;
+  color: #b8cde6;
+}
+.bp-root .bp-zones-x {
+  inset-inline: 14px;
+  height: 14px;
+}
+.bp-root .bp-zones-y {
+  top: 14px;
+  bottom: 14px;
+  width: 14px;
+  flex-direction: column;
+}
+.bp-root .bp-ln {
+  position: absolute;
+  background: rgba(238, 245, 255, 0.7);
+}
+.bp-root .bp-ln-t {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.25px;
+  transform-origin: left;
+}
+.bp-root .bp-ln-r {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1.25px;
+  transform-origin: top;
+}
+.bp-root .bp-ln-b {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.25px;
+  transform-origin: right;
+}
+.bp-root .bp-ln-l {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1.25px;
+  transform-origin: bottom;
+}
+.bp-root[data-armed] .bp-sheet:not([data-in]) :is(.bp-ln-t, .bp-ln-b) {
+  transform: scaleX(0);
+}
+.bp-root[data-armed] .bp-sheet:not([data-in]) :is(.bp-ln-l, .bp-ln-r) {
+  transform: scaleY(0);
+}
+.bp-root[data-armed] .bp-sheet[data-in] :is(.bp-ln-t, .bp-ln-b) {
+  animation: bp-ln-x 0.7s cubic-bezier(0.55, 0.1, 0.2, 1) backwards;
+}
+.bp-root[data-armed] .bp-sheet[data-in] :is(.bp-ln-l, .bp-ln-r) {
+  animation: bp-ln-y 0.7s cubic-bezier(0.55, 0.1, 0.2, 1) backwards;
+}
+.bp-root[data-armed] .bp-sheet[data-in] .bp-ln-r {
+  animation-delay: 0.35s;
+}
+.bp-root[data-armed] .bp-sheet[data-in] .bp-ln-b {
+  animation-delay: 0.7s;
+}
+.bp-root[data-armed] .bp-sheet[data-in] .bp-ln-l {
+  animation-delay: 1.05s;
+}
+@keyframes bp-ln-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes bp-ln-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* header register */
+.bp-root .bp-reg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 30px;
+  padding: 0 0.55rem;
+  border: 1px solid transparent;
+  font-size: 13px;
+  color: #dce8f6;
+  white-space: nowrap;
+}
+.bp-root .bp-reg:hover {
+  border-color: rgba(238, 245, 255, 0.5);
+  color: #fff;
+}
+
+/* controls */
+.bp-root .bp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 34px;
+  border: 1.25px solid #eef5ff;
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-barlow-condensed), var(--font-vazirmatn), sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #eef5ff;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+.bp-root:lang(fa) .bp-btn {
+  font-family: var(--font-vazirmatn), sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.bp-root .bp-btn:hover {
+  background: rgba(238, 245, 255, 0.12);
+}
+.bp-root .bp-btn-on,
+.bp-root .bp-btn-on:hover {
+  background: #ffd479;
+  border-color: #ffd479;
+  color: #0d3a66;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.bp-root .bp-link {
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 212, 121, 0.65);
+  text-underline-offset: 3px;
+}
+.bp-root .bp-link:hover {
+  color: #ffd479;
+  text-decoration-color: #ffd479;
+}
+.bp-root .bp-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1.25px solid rgba(238, 245, 255, 0.55);
+}
+.bp-root .bp-icon:hover {
+  border-color: #ffd479;
+  color: #ffd479;
+}
+
+/* tables + cards */
+.bp-root .bp-table {
+  border-collapse: collapse;
+}
+.bp-root .bp-table th,
+.bp-root .bp-table td {
+  border: 1px solid rgba(238, 245, 255, 0.35);
+  padding: 0.45rem 0.65rem;
+  text-align: start;
+  vertical-align: top;
+}
+.bp-root .bp-table thead th,
+.bp-root .bp-spec th,
+.bp-root .bp-kv th {
+  font-family: var(--font-barlow-condensed), var(--font-vazirmatn), sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #b8cde6;
+}
+.bp-root:lang(fa) :is(.bp-table thead th, .bp-spec th, .bp-kv th) {
+  font-family: var(--font-vazirmatn), sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.bp-root .bp-spec th {
+  width: 9.5rem;
+}
+.bp-root .bp-kv th {
+  width: 6.8rem;
+}
+.bp-root .bp-card {
+  border: 1.25px solid rgba(238, 245, 255, 0.45);
+  padding: 1rem 1.1rem;
+  background: rgba(8, 40, 74, 0.45);
+}
+
+/* exploded axonometric */
+.bp-root .bp-axo :is(line, polyline, polygon, ellipse, rect, path) {
+  stroke: #eef5ff;
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+.bp-root .bp-axo .bp-face-top {
+  fill: #11497f;
+}
+.bp-root .bp-axo .bp-face-r {
+  fill: #0d3d6e;
+}
+.bp-root .bp-axo .bp-face-l {
+  fill: #0a3360;
+}
+.bp-root .bp-axo .bp-fill {
+  fill: #11497f;
+  stroke: none;
+}
+.bp-root .bp-axo .bp-line {
+  fill: none;
+}
+.bp-root .bp-axo .bp-dash {
+  stroke-dasharray: 4 3;
+  fill: none;
+}
+.bp-root .bp-axo .bp-thin {
+  stroke: #b8cde6;
+  stroke-width: 1;
+  fill: none;
+}
+.bp-root .bp-axo-label {
+  font-family: var(--font-barlow-condensed), var(--font-estedad), var(--font-vazirmatn), sans-serif;
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: #eef5ff;
+}
+.bp-root .bp-axo-sub {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 12.5px;
+  fill: #b8cde6;
+}
+.bp-root:lang(fa) .bp-axo-label {
+  font-family: var(--font-estedad), var(--font-vazirmatn), sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.bp-root:lang(fa) .bp-axo-sub {
+  font-family: var(--font-vazirmatn), sans-serif;
+  font-size: 13.5px;
+}
+.bp-root .bp-balloon circle {
+  fill: #0d3a66;
+  stroke: #ffd479;
+  stroke-width: 1.6;
+}
+.bp-root .bp-balloon-n {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 15px;
+  fill: #ffd479;
+}
+.bp-root .bp-balloon:is(:hover, :focus-visible) circle {
+  fill: #ffd479;
+  stroke-width: 3;
+}
+.bp-root .bp-balloon:is(:hover, :focus-visible) .bp-balloon-n {
+  fill: #0d3a66;
+}
+
+/* crosshair (fine pointers, drawing area only) */
+.bp-root .bp-xhair-on {
+  cursor: crosshair;
+}
+.bp-root :is(.bp-xh-v, .bp-xh-h, .bp-xh-out) {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.bp-root .bp-xhair-on :is(.bp-xh-v, .bp-xh-h, .bp-xh-out) {
+  opacity: 1;
+}
+.bp-root .bp-xh-v {
+  top: 0;
+  bottom: 0;
+  left: var(--hx, -10px);
+  border-left: 1px dashed rgba(255, 212, 121, 0.75);
+}
+.bp-root .bp-xh-h {
+  left: 0;
+  right: 0;
+  top: var(--hy, -10px);
+  border-top: 1px dashed rgba(255, 212, 121, 0.75);
+}
+.bp-root .bp-xh-out {
+  top: 6px;
+  left: 6px;
+  border: 1px solid #ffd479;
+  background: #0d3a66;
+  padding: 2px 6px;
+  font-size: 11px;
+  color: #ffd479;
+  white-space: pre;
+}
+
+/* assembly block diagrams */
+.bp-root .bp-blk {
+  fill: #0f4477;
+  stroke: #eef5ff;
+  stroke-width: 1.25;
+}
+.bp-root .bp-blk-l {
+  stroke: #eef5ff;
+  stroke-width: 1;
+}
+.bp-root .bp-blk-t {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 12px;
+  fill: #eef5ff;
+}
+.bp-root .bp-blk-code {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 11px;
+  fill: #ffd479;
+}
+.bp-root .bp-blk-cap {
+  font-family: var(--font-barlow-condensed), var(--font-vazirmatn), sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: #b8cde6;
+}
+.bp-root:lang(fa) .bp-blk-cap {
+  font-family: var(--font-vazirmatn), sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.bp-root .bp-bound {
+  fill: none;
+  stroke: #b8cde6;
+  stroke-width: 1.25;
+}
+.bp-root .bp-iface {
+  stroke: #ffd479;
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+.bp-root .bp-dot {
+  fill: #ffd479;
+}
+
+/* specification photo as a cyanotype */
+.bp-root .bp-photo {
+  border: 1.25px solid #eef5ff;
+  background: #0d3a66;
+}
+.bp-root .bp-photo img {
+  filter: grayscale(1) contrast(1.15) brightness(1.05);
+  mix-blend-mode: screen;
+  opacity: 0.92;
+}
+
+/* sign-off stamp */
+.bp-root .bp-stamp {
+  display: inline-block;
+  transform: rotate(-6deg);
+  border: 2.5px solid #ffb3b3;
+  outline: 1px solid #ffb3b3;
+  outline-offset: 3px;
+  padding: 0.55rem 1rem 0.5rem;
+  color: #ffb3b3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-root .bp-ln {
+    animation: none !important;
+    transform: none !important;
+  }
+  .bp-root .bp-btn,
+  .bp-root :is(.bp-xh-v, .bp-xh-h, .bp-xh-out) {
+    transition: none;
+  }
+}
+
+/* title block */
+.bp-root .bp-tb {
+  border-collapse: collapse;
+  min-width: 26rem;
+  font-size: 13px;
+  background: rgba(8, 40, 74, 0.55);
+}
+.bp-root .bp-tb td {
+  border: 1.25px solid rgba(238, 245, 255, 0.7);
+  padding: 0.3rem 0.6rem 0.4rem;
+  vertical-align: top;
+}
+.bp-root .bp-tb-k {
+  display: block;
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b8cde6;
+}
+.bp-root:lang(fa) .bp-tb-k {
+  font-family: var(--font-vazirmatn), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0;
+}
+.bp-root .bp-axo .bp-dim {
+  fill: #ffd479;
+}
+.bp-root .bp-balloon-lg {
+  font-size: 24px;
+}
+/* phones: specification rows stack (label above value) so long German words never widen the table */
+@media (max-width: 639px) {
+  .bp-root .bp-spec,
+  .bp-root .bp-spec tbody,
+  .bp-root .bp-spec tr {
+    display: block;
+  }
+  .bp-root .bp-spec th,
+  .bp-root .bp-spec td {
+    display: block;
+    width: auto;
+  }
+  .bp-root .bp-spec th {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .bp-root .bp-spec td {
+    border-top: 0;
+  }
+}
+.bp-root .bp-spec dd {
+  overflow-wrap: anywhere;
+}

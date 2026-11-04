@@ -8,7 +8,8 @@
     pipeline:['#10151c','#90dfa8','#e8f0f9'],bento:['#12150f','#c5ef75','#f0f4e8'],'atlas-map':['#fafbfe','#354fbb','#152343'],console:['#151811','#d0e59c','#edf1e4'],blueprint:['#edf4fc','#1d579b','#173e69'],
     chromatography:['#f7f4eb','#27674d','#23392f'],gallery:['#f7f5f0','#85502d','#262521'],dossier:['#f0f2ed','#23563f','#1a2c24'],kinetic:['#151a19','#d7f080','#f0f2de'],horizon:['#0f2028','#90d5d7','#e3f4ec']
   };
-  const familyLabels = { editorial:'Editorial', systems:'Systems', experimental:'Experimental' };
+  const familyLabels = { editorial:'Editorial', systems:'Systems', experimental:'Experimental', life:'Life sciences', data:'Data', lab:'Laboratory', product:'Product', story:'Story' };
+  const imported = w.PortfolioImportedTemplates || [];
   const names = { unified:'Connected Science', atlas:'Archived Biology Atlas', molecular:'Archived Molecular Form', terminal:'Archived Code Notebook' };
   const $ = selector => document.querySelector(selector);
   const familyLabel = value => familyLabels[String(value || '').toLowerCase()] || String(value || 'Other').replace(/(^|[-\s])\w/g, part => part.toUpperCase());
@@ -35,7 +36,7 @@
     });
     if ($('#designDockName')) $('#designDockName').textContent = title;
     if ($('#designGalleryCurrent')) $('#designGalleryCurrent').textContent = `Current selection: ${title}`;
-    if ($('#designCollectionCount')) $('#designCollectionCount').textContent = String(registry.list().length);
+    if ($('#designCollectionCount')) $('#designCollectionCount').textContent = String(imported.length ? registry.list().length + imported.length : entries().length);
   }
   function filter() {
     const query = ($('#designGallerySearch')?.value || '').toLowerCase().trim();
@@ -52,9 +53,48 @@
     const colors = meta.palette || palette[meta.id] || palette.journal;
     return `<div class="dg-sketch dg-sketch-${e(meta.id)}" style="--sk-paper:${colors[0]};--sk-accent:${colors[1]};--sk-ink:${colors[2]}" aria-hidden="true"><span class="dg-mini-nav"></span><span class="dg-mini-title"></span><span class="dg-mini-copy"></span><span class="dg-mini-portrait"></span><span class="dg-mini-figure"></span><div class="dg-mini-records"><i></i><i></i><i></i><i></i></div><small>Schematic layout preview</small></div>`;
   }
-  let activeId = new URLSearchParams(w.location?.search || '').get('design') || 'unified';
-  let scope = registry.get(activeId) ? (registry.get(activeId).collection === 'independent' ? 'independent' : 'previous') : registry.collection?.('independent').length ? 'independent' : 'previous';
-  const entries = () => registry.collection ? registry.collection(scope) : registry.list();
+  const params = new URLSearchParams(w.location?.search || '');
+  const requestedLocale = params.get('lang');
+  const locale = ['en', 'de', 'fa'].includes(requestedLocale) ? requestedLocale : 'en';
+  const internalEntries = group => registry.collection ? registry.collection(group) : registry.list();
+  const collectionOf = id => registry.get(id)?.collection === 'independent' ? 'independent' : 'previous';
+  const scopes = imported.length ? ['all', 'imported', 'independent', 'previous'] : ['independent', 'previous'];
+  let activeId = params.get('design') || 'unified';
+  let scope = imported.length ? 'all' : registry.get(activeId) ? collectionOf(activeId) : internalEntries('independent').length ? 'independent' : 'previous';
+  if (scopes.includes(params.get('collection'))) scope = params.get('collection');
+
+  function entries() {
+    if (scope === 'imported') return imported;
+    if (scope === 'all') return [...imported, ...internalEntries('independent'), ...internalEntries('previous')];
+    return internalEntries(scope);
+  }
+
+  function renderCard(design, index) {
+    const isImported = imported.includes(design);
+    const colors = design.palette || palette[design.id] || palette.journal;
+    const number = String(index + 1).padStart(2, '0');
+    const id = isImported ? `imported-${design.id}` : design.id;
+    const family = String(design.family).toLowerCase();
+    const source = isImported ? 'New Web' : collectionOf(design.id) === 'independent' ? 'Independent' : 'Earlier study';
+    const search = [design.id, design.name, design.description, design.family, source, design.signature, ...Object.values(design.fingerprint || {})].join(' ').toLowerCase();
+    const content = `<span class="dg-card-content">
+      <span class="dg-card-meta"><span>${number} · ${e(source)}</span><span>${e(familyLabel(design.family))}</span></span>
+      <strong>${e(design.name)}</strong>
+      <span class="dg-card-description">${e(design.description)}</span>
+      <span class="dg-card-signature">${e(isImported ? 'English · Deutsch · فارسی' : design.signature)}</span>
+      <span class="dg-card-action">Open template <span aria-hidden="true">↗</span></span>
+      ${isImported ? '' : '<span class="dg-selected" hidden>Current selection</span>'}
+    </span>`;
+    const style = `--accent:${colors[1]};--accent-ink:${colors[2]}`;
+    const preview = isImported ? `<span class="dg-import-preview" style="--sk-paper:${colors[0]};--sk-accent:${colors[1]};--sk-ink:${colors[2]}" aria-hidden="true">
+      <span>New Web</span><span class="dg-import-swatches"><i></i><i></i><i></i></span><small>Original palette</small>
+    </span>` : sketch(design);
+    const action = isImported
+      ? `<a href="/imported/${locale}/${e(design.id)}/" style="${style}">${preview}${content}</a>`
+      : `<button type="button" data-design-choice="${e(design.id)}" style="${style}" aria-pressed="false">${preview}${content}</button>`;
+    return `<article class="dg-card" data-gallery-design="${e(id)}" data-gallery-family="${e(family)}" data-gallery-search="${e(search)}">${action}</article>`;
+  }
+
   function populate() {
     const host = $('#designGalleryBody'); if (!host) return;
     const designs = entries(), familySelect = $('#designGalleryFamily');
@@ -65,28 +105,43 @@
     }
     if ($('#designGalleryCollection')) $('#designGalleryCollection').value = scope;
     const intro = $('#designGallery')?.querySelector('.dg-header p');
-    if (intro) intro.textContent = scope === 'independent' ? '15 independent visual worlds. Open a direction to explore its complete portfolio.' : 'The earlier collection, preserved with its original layouts.';
-    host.innerHTML = designs.map((design, index) => {
-      const colors = design.palette || palette[design.id] || palette.journal;
-      return `<article class="dg-card" data-gallery-design="${e(design.id)}" data-gallery-family="${e(String(design.family).toLowerCase())}" data-gallery-search="${e([design.name,design.description,design.family,design.signature,...Object.values(design.fingerprint||{})].join(' ').toLowerCase())}"><button type="button" data-design-choice="${e(design.id)}" style="--accent:${colors[1]};--accent-ink:${colors[2]}" aria-pressed="false">${sketch(design)}<span class="dg-card-content"><span class="dg-card-meta"><span>${String(index+1).padStart(2,'0')}</span><span>${e(familyLabel(design.family))}</span></span><strong>${e(design.name)}</strong><span class="dg-card-description">${e(design.description)}</span><span class="dg-card-signature">${e(design.signature)}</span><span class="dg-card-action">Explore this world <span aria-hidden="true">↗</span></span><span class="dg-selected" hidden>Current selection</span></span></button></article>`;
-    }).join('');
+    const introductions = {
+      all: `${designs.length} templates from all three collections. Search by name or filter by collection.`,
+      imported: `${designs.length} New Web templates with their original layouts and interactions.`,
+      independent: `${designs.length} independent visual worlds. Open a direction to explore its complete portfolio.`,
+      previous: 'The earlier collection, preserved with its original layouts.',
+    };
+    if (intro) intro.textContent = introductions[scope];
+    host.innerHTML = designs.map(renderCard).join('');
     filter();
   }
   const reflectSelection = reflect;
   reflect = function (id) {
     activeId = id;
-    const meta = registry.get(id), desired = meta ? meta.collection === 'independent' ? 'independent' : 'previous' : scope;
-    if (desired !== scope) { scope = desired; populate(); }
+    if (!imported.length && registry.has(id) && collectionOf(id) !== scope) {
+      scope = collectionOf(id);
+      populate();
+    }
     reflectSelection(id);
-    if ($('#designCollectionCount')) $('#designCollectionCount').textContent = String(entries().length);
   };
   function init() {
     if (!$('#designGalleryBody')) return;
+    const collectionSelect = $('#designGalleryCollection');
+    if (collectionSelect) {
+      const labels = {
+        all: `All ${registry.list().length + imported.length} templates`,
+        imported: `New Web · ${imported.length}`,
+        independent: `Independent · ${internalEntries('independent').length}`,
+        previous: `Earlier studies · ${internalEntries('previous').length}`,
+      };
+      collectionSelect.innerHTML = scopes.map(group => `<option value="${group}">${e(labels[group])}</option>`).join('');
+    }
     populate();
     $('#designGallerySearch')?.addEventListener('input', filter);
     $('#designGalleryFamily')?.addEventListener('change', filter);
     $('#designGalleryCollection')?.addEventListener('change', event => {
-      scope = event.target.value === 'previous' ? 'previous' : 'independent';
+      if (!scopes.includes(event.target.value)) return;
+      scope = event.target.value;
       if ($('#designGallerySearch')) $('#designGallerySearch').value = '';
       populate(); reflectSelection(activeId);
     });
@@ -98,8 +153,8 @@
       if(choice){ w.PortfolioStudio?.setConcept(choice.dataset.designChoice);close(); }
       const step=event.target.closest('[data-design-step]');
       if(step){
-        const current=registry.get(w.PortfolioStudio?.concept), group=current?.collection==='independent'?'independent':current?'previous':scope;
-        const collection=registry.collection?registry.collection(group):registry.list();
+        const group = registry.has(w.PortfolioStudio?.concept) ? collectionOf(w.PortfolioStudio.concept) : scope === 'independent' ? 'independent' : 'previous';
+        const collection = internalEntries(group);
         const ids=[...(group==='previous'?['unified']:[]),...collection.map(d=>d.id)];
         const index=ids.indexOf(w.PortfolioStudio?.concept);
         w.PortfolioStudio?.setConcept(ids[(Math.max(-1,index)+Number(step.dataset.designStep)+ids.length)%ids.length]);

@@ -43,6 +43,7 @@
   <script src="/portfolio/directions/observational.js" defer></script>
   <script src="/portfolio/directions/systems.js" defer></script>
   <script src="/portfolio/directions/expressive.js" defer></script>
+  <script src="/portfolio/imported-templates.js" defer></script>
   <script src="/portfolio/design-gallery.js" defer></script>
   <script src="/portfolio/motion-system.js" defer></script>
   <script src="/portfolio/studio.js" defer></script>
@@ -76,10 +77,10 @@
 
   <dialog id="designDialog" class="pf-dialog studio-dialog" aria-labelledby="designDialogTitle">
     <button class="pf-dialog-close" data-close-studio aria-label="Close design controls">×</button>
-    <span class="pf-kicker">Biology × chemistry × programming</span><h2 id="designDialogTitle">Your portfolio, fifteen worlds.</h2>
+    <span class="pf-kicker">Biology × chemistry × programming</span><h2 id="designDialogTitle">Your portfolio design library.</h2>
     <p>Explore independent visual worlds, focus a section, or adjust its atmosphere. Earlier studies and the original Connected Science portfolio remain available.</p>
     <button class="pf-button primary" data-concept-choice="unified">Connected Science · original</button>
-    <button class="pf-button" data-open-design-gallery>Explore 15 portfolio designs ↗</button>
+    <button class="pf-button" data-open-design-gallery>Browse all portfolio templates ↗</button>
     <button class="pf-button" data-open-story>Explore the visual story ↓</button>
     <section class="studio-backgrounds" aria-labelledby="backgroundTitle"><div class="studio-bg-heading"><h3 id="backgroundTitle">Interactive backgrounds</h3><span id="backgroundCurrent" role="status"></span></div><div class="studio-bg-choices"><button type="button" class="studio-bg-choice" data-background-choice="glow" aria-label="Choose Soft light background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-glow" aria-hidden="true"><i></i><b></b></span><strong>Soft light</strong><small>A soft pool of blue light</small></button><button type="button" class="studio-bg-choice" data-background-choice="silk" aria-label="Choose Silk contours background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-silk" aria-hidden="true"><i></i><b></b></span><strong>Silk contours</strong><small>Fine, flowing organic lines</small></button><button type="button" class="studio-bg-choice" data-background-choice="membrane" aria-label="Choose Liquid membrane background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-membrane" aria-hidden="true"><i></i><b></b></span><strong>Liquid membrane</strong><small>Soft cellular forms</small></button><button type="button" class="studio-bg-choice" data-background-choice="molecular" aria-label="Choose Molecular drift background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-molecular" aria-hidden="true"><i></i><b></b></span><strong>Molecular drift</strong><small>Quiet connected structures</small></button><button type="button" class="studio-bg-choice" data-background-choice="aurora" aria-label="Choose Aurora ribbons background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-aurora" aria-hidden="true"><i></i><b></b></span><strong>Aurora ribbons</strong><small>Broad layers of light</small></button><button type="button" class="studio-bg-choice" data-background-choice="off" aria-label="Choose Off background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-off" aria-hidden="true"><i></i><b></b></span><strong>Off</strong><small>A plain background</small></button></div><div class="studio-bg-preview" data-background-preview><span class="studio-bg-preview-label">Move your pointer here</span></div><p class="studio-bg-hint">Choose a style, then move across the sample. Motion follows your setting below.</p><div class="studio-bg-footer"><small>Saved automatically on this browser.</small><button type="button" class="pf-button primary" data-close-studio>Use this background</button></div></section>
     <details class="studio-explorations"><summary>Archived design explorations</summary><div class="studio-choice-grid">
@@ -95,7 +96,7 @@
   </dialog>
 
   <dialog id="designGallery" class="design-gallery" aria-labelledby="designGalleryTitle">
-    <header class="dg-header"><div class="dg-heading-row"><div><span class="pf-kicker">PORTFOLIO DESIGN COLLECTION</span><h2 id="designGalleryTitle">Choose a portfolio design.</h2><p>15 complete layouts using the same portfolio data. Theme and background remain adjustable.</p></div><button type="button" class="dg-close" data-close-design-gallery aria-label="Close design gallery">Close ×</button></div>
+    <header class="dg-header"><div class="dg-heading-row"><div><span class="pf-kicker">PORTFOLIO DESIGN COLLECTION</span><h2 id="designGalleryTitle">Choose a portfolio design.</h2><p>Find a template from any collection.</p></div><button type="button" class="dg-close" data-close-design-gallery aria-label="Close design gallery">Close ×</button></div>
     <div class="dg-tools"><label>Find a design<input id="designGallerySearch" type="search" placeholder="Journal, laboratory, code, exhibition…"></label><label>Collection<select id="designGalleryCollection"><option value="independent">15 independent directions</option><option value="previous">15 earlier studies</option></select></label><label>Direction<select id="designGalleryFamily"><option value="">All directions</option></select></label><span class="dg-results" id="designGalleryResults" role="status"></span></div></header>
     <div id="designGalleryBody" class="dg-grid"></div><p id="designGalleryEmpty" hidden>No designs match this search.</p>
     <footer class="dg-footer"><span id="designGalleryCurrent"></span><button class="pf-button" type="button" data-design-choice="unified">Return to Connected Science</button></footer>

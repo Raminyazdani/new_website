@@ -1,0 +1,232 @@
+/* Cell — a flat watercolour cell (Goodsell-inspired). Scoped to .cell-root.
+   Paper grain is a static background; the only motion is the ribosome layer's drift (composited). */
+.cell-root {
+  --ds-bg: #fff6ec;
+  --ds-fg: #2a2230;
+  --ds-border: #f0d9c6;
+  --ds-muted: #67596b;
+  background-color: #fff6ec;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(246, 179, 142, 0.16), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(201, 184, 236, 0.18), transparent 38%),
+    radial-gradient(circle at 40% 80%, rgba(159, 216, 207, 0.14), transparent 40%);
+  color: #2a2230;
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.cell-root) {
+  background: #fff6ec;
+}
+.cell-root:lang(fa) {
+  font-family: var(--font-vazirmatn), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+.cell-root ::selection {
+  background: #f7d06b;
+}
+.cell-root :focus-visible {
+  outline: 3px solid #6d55b0;
+  outline-offset: 2px;
+}
+.cell-root .cl-display {
+  font-family: var(--font-fraunces-soft), var(--font-estedad), var(--font-vazirmatn), serif;
+  font-weight: 600;
+  font-variation-settings:
+    'SOFT' 100,
+    'WONK' 1,
+    'opsz' 96;
+  letter-spacing: -0.01em;
+}
+.cell-root:lang(fa) .cl-display {
+  font-family: var(--font-estedad), var(--font-vazirmatn), serif;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.cell-root .cl-h4 {
+  font-family: var(--font-fraunces-soft), var(--font-estedad), var(--font-vazirmatn), serif;
+  font-variation-settings:
+    'SOFT' 100,
+    'opsz' 24;
+  font-weight: 650;
+  font-size: 17px;
+}
+.cell-root:lang(fa) .cl-h4 {
+  font-family: var(--font-estedad), var(--font-vazirmatn), serif;
+  font-weight: 700;
+}
+
+/* controls */
+.cell-root .cl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1.5px solid #2a2230;
+  padding: 0.45rem 1.1rem;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #2a2230;
+  background: #fffaf4;
+  transition: background-color 0.15s;
+}
+.cell-root .cl-btn:hover {
+  background: #fde6d2;
+}
+.cell-root .cl-btn-solid,
+.cell-root .cl-btn-solid:hover {
+  background: #2a2230;
+  color: #fff6ec;
+}
+.cell-root .cl-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 32px;
+  border-radius: 999px;
+  border: 1px solid #ecd2bd;
+  background: #fffaf4;
+  padding: 0.2rem 0.75rem;
+  font-size: 13px;
+  font-weight: 600;
+}
+.cell-root .cl-chip-on {
+  background: #2a2230;
+  border-color: #2a2230;
+  color: #fff6ec;
+}
+.cell-root .cl-seg {
+  border: 1px solid #ecd2bd;
+  border-radius: 999px;
+  background: #fffaf4;
+  padding: 2px;
+}
+.cell-root .cl-seg-b {
+  min-height: 30px;
+  border-radius: 999px;
+  padding: 0 0.8rem;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #4c3f50;
+}
+.cell-root .cl-seg-on {
+  background: #2a2230;
+  color: #fff6ec;
+}
+.cell-root .cl-link {
+  text-decoration: underline;
+  text-decoration-color: #e6a98a;
+  text-underline-offset: 3px;
+}
+.cell-root .cl-link:hover {
+  text-decoration-color: #2a2230;
+}
+.cell-root .cl-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1.5px solid #ecd2bd;
+  background: #fffaf4;
+}
+.cell-root .cl-icon:hover {
+  border-color: #2a2230;
+}
+.cell-root .cl-tag {
+  border-radius: 999px;
+  background: #e7defa;
+  padding: 0.1rem 0.6rem;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #4d3a86;
+}
+.cell-root .cl-card {
+  border-radius: 18px;
+  border: 1px solid #f0d9c6;
+  background: rgba(255, 252, 248, 0.92);
+  padding: 1rem 1.15rem;
+}
+
+/* microscope field */
+.cell-root .cl-scope {
+  overflow: hidden;
+  border-radius: 999px;
+  border: 10px solid #fffaf4;
+  box-shadow:
+    0 0 0 1.5px #ecd2bd,
+    0 30px 60px -30px rgba(120, 60, 40, 0.45);
+  background: #fbe3cf;
+}
+
+/* cell map */
+.cell-root .cm-field {
+  border-radius: 24px;
+  border: 1px solid #f0d9c6;
+  background: #fffaf4;
+  padding: 10px;
+}
+.cell-root .cm-org {
+  cursor: pointer;
+  transition: opacity 0.25s;
+}
+.cell-root .cm-dim {
+  opacity: 0.28;
+}
+/* stepped drift (lesson 15): two compositor frames a second instead of sixty; never combined with layer
+   opacity (an animated layer with opacity < 1 needs its own render pass every frame) */
+.cell-root .cm-drift {
+  animation: cm-drift 16s steps(32) infinite alternate;
+  will-change: transform;
+}
+.cell-root .cm-drift.cm-dim {
+  opacity: 1;
+  animation-play-state: paused;
+}
+.cell-root .cm-drift.cm-dim circle {
+  fill-opacity: 0.28;
+}
+.cell-root .cm-field[data-paused='1'] .cm-drift {
+  animation-play-state: paused;
+}
+@keyframes cm-drift {
+  from {
+    transform: translate(-0.35%, 0.25%);
+  }
+  to {
+    transform: translate(0.35%, -0.3%);
+  }
+}
+.cell-root .cm-idx {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 0.4rem 0.55rem;
+  transition: background-color 0.15s;
+}
+.cell-root .cm-idx:hover {
+  background: #fde6d2;
+}
+.cell-root .cm-idx-on,
+.cell-root .cm-idx-on:hover {
+  border-color: #2a2230;
+  background: #fffaf4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell-root .cm-drift {
+    animation: none;
+  }
+  .cell-root :is(.cm-org, .cm-idx, .cl-btn) {
+    transition: none;
+  }
+}
+.cell-root .cm-zoom {
+  transform-origin: 0 0;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.cell-root .cm-zoom-still {
+  transition: none;
+}

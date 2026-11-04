@@ -1,0 +1,116 @@
+/* Bento — modern dashboard. Light/dark are scoped to the design wrapper, not the whole site. */
+.bento {
+  --b-bg: #f4f4f5;
+  --b-card: #ffffff;
+  --b-border: #e4e4e7;
+  --b-fg: #09090b;
+  --b-muted: #52525b;
+  --b-accent: #4d7c0f;
+  --b-on-accent: #ffffff;
+  /* tokens consumed by vendored Magic UI components */
+  --ds-bg: var(--b-card);
+  --ds-fg: var(--b-fg);
+  --ds-border: var(--b-border);
+  --ds-muted: var(--b-muted);
+  background: var(--b-bg);
+  color: var(--b-fg);
+  color-scheme: light;
+  font-family: var(--font-geist-sans), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: 'ss01', 'cv11';
+}
+.bento.dark {
+  --b-bg: #09090b;
+  --b-card: #111113;
+  --b-border: #27272a;
+  --b-fg: #fafafa;
+  --b-muted: #a1a1aa;
+  --b-accent: #c6f432;
+  --b-on-accent: #09090b;
+  color-scheme: dark;
+}
+.bento .font-mono {
+  font-family: var(--font-geist-mono), var(--font-vazirmatn), ui-monospace, monospace;
+}
+.bento ::selection {
+  background: var(--b-accent);
+  color: #09090b;
+}
+body:has(.bento) {
+  background: #f4f4f5;
+}
+body:has(.bento.dark) {
+  background: #09090b;
+}
+
+/* faint dotted canvas behind the grid */
+.bento main {
+  position: relative;
+}
+.bento main::before {
+  content: '';
+  position: absolute;
+  inset: -1.5rem 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(color-mix(in oklab, var(--b-fg) 9%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, #000, transparent 70%);
+}
+
+/* Persian: Geist has no Arabic glyphs, so Vazirmatn renders; keep display sizes calm */
+.bento:lang(fa) h1 {
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+/* Persian has no monospace tradition, and Geist Mono's wide spaces split Persian words: use the sans stack */
+.bento .font-mono:lang(fa) {
+  font-family: var(--font-geist-sans), var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+
+/* cmdk palette */
+.b-cmdk [cmdk-group-heading] {
+  padding: 0.75rem 0.75rem 0.35rem;
+  font-family: var(--font-geist-mono), var(--font-vazirmatn), monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--b-muted);
+}
+.b-cmdk [cmdk-item] {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 120ms ease;
+}
+.b-cmdk [cmdk-item][data-selected='true'] {
+  background: color-mix(in oklab, var(--b-accent) 16%, transparent);
+  color: var(--b-fg);
+}
+.b-cmdk [cmdk-item][data-disabled='true'] {
+  opacity: 0.4;
+  cursor: default;
+}
+.b-cmdk [cmdk-list] {
+  scroll-padding-block: 0.5rem;
+  overscroll-behavior: contain;
+}
+
+/* circular theme reveal (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento .animate-ping {
+    animation: none;
+  }
+}

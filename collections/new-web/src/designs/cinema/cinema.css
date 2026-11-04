@@ -1,0 +1,296 @@
+/* Cinema — the career as a film. Scoped to .cinema-root. */
+.cinema-root {
+  --c-ink: #f2ece3;
+  --c-muted: #b9ad9c; /* 9.6:1 on the theatre */
+  --c-amber: #ffb22c; /* 10.9:1 */
+  --c-velvet: #7c1d1d;
+  --c-glow: #fff6e0;
+  --c-line: rgb(242 236 227 / 0.14);
+  --ds-bg: #0b0a09;
+  --ds-fg: #f2ece3;
+  --ds-border: rgb(242 236 227 / 0.14);
+  --ds-muted: #b9ad9c;
+  color-scheme: dark;
+  background: #0b0a09;
+  color: var(--c-ink);
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  position: relative;
+}
+body:has(.cinema-root) {
+  background: #0b0a09;
+}
+/* static film grain: a background layer (no fixed overlay — that made every frame recomposite the page) */
+.cinema-root {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"),
+    #0b0a09;
+}
+.cinema-root .cin-display {
+  font-family: var(--font-bebas), var(--font-lalezar), var(--font-vazirmatn), Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.cinema-root:lang(fa) .cin-display {
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+.cinema-root .cin-mono {
+  font-family: var(--font-courier), ui-monospace, monospace;
+}
+.cinema-root:lang(fa) .cin-mono:not([lang='en']):not([dir='ltr']) {
+  font-family: var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.cinema-root .cin-script {
+  font-family: var(--font-courier), var(--font-vazirmatn), ui-monospace, monospace;
+}
+.cinema-root .cin-kicker {
+  font-family: var(--font-courier), ui-monospace, monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-amber);
+}
+.cinema-root:lang(fa) .cin-kicker {
+  font-family: var(--font-vazirmatn), sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 13.5px;
+}
+.cinema-root .cin-glow {
+  text-shadow:
+    0 0 18px rgb(255 178 44 / 0.35),
+    0 0 2px rgb(255 246 224 / 0.6);
+}
+.cinema-root :focus-visible {
+  outline: 2px solid var(--c-amber);
+  outline-offset: 3px;
+}
+
+/* ── marquee hero ── */
+/* soft-edged cone from a conic gradient (no filter: blur on a large layer) */
+.cinema-root .cin-beam {
+  background: conic-gradient(
+    from 0deg at 50% -3%,
+    transparent 0deg 138deg,
+    rgb(255 246 224 / 0.05) 144deg,
+    rgb(255 246 224 / 0.17) 158deg,
+    rgb(255 246 224 / 0.25) 180deg,
+    rgb(255 246 224 / 0.17) 202deg,
+    rgb(255 246 224 / 0.05) 216deg,
+    transparent 222deg 360deg
+  );
+  mask-image: linear-gradient(180deg, #000 35%, rgb(0 0 0 / 0.45) 100%);
+  animation: cin-flicker 5s steps(1) infinite;
+  will-change: opacity;
+}
+.cinema-root .cin-motes {
+  will-change: transform;
+}
+@keyframes cin-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 0.86;
+  }
+  43% {
+    opacity: 1;
+  }
+  77% {
+    opacity: 0.92;
+  }
+}
+.cinema-root .cin-sign {
+  background: radial-gradient(120% 140% at 50% 0%, #2a1c08, #120c05 70%);
+  box-shadow:
+    0 0 0 1px rgb(255 178 44 / 0.25),
+    0 30px 80px -30px rgb(255 178 44 / 0.35);
+}
+.cinema-root .cin-chase {
+  filter: drop-shadow(0 0 4px #ffb22c);
+  animation: cin-chase 0.9s steps(3) infinite;
+}
+@keyframes cin-chase {
+  to {
+    stroke-dashoffset: -60;
+  }
+}
+.cinema-root .cin-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 51%;
+  z-index: 20;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(0 0 0 / 0.35), transparent 18%, transparent 80%, rgb(0 0 0 / 0.55)),
+    repeating-linear-gradient(90deg, #5e1414 0 18px, #8a2222 30px, #6d1818 46px, #4c0f0f 60px);
+  box-shadow: inset 0 0 60px rgb(0 0 0 / 0.6);
+  animation-duration: 1.9s;
+  animation-delay: 0.35s;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+.cinema-root .cin-curtain-l {
+  left: 0;
+  animation-name: cin-open-l;
+}
+.cinema-root .cin-curtain-r {
+  right: 0;
+  animation-name: cin-open-r;
+}
+@keyframes cin-open-l {
+  to {
+    transform: translateX(-92%);
+  }
+}
+@keyframes cin-open-r {
+  to {
+    transform: translateX(92%);
+  }
+}
+@media (min-width: 1024px) {
+  @keyframes cin-open-l {
+    to {
+      transform: translateX(-86%);
+    }
+  }
+  @keyframes cin-open-r {
+    to {
+      transform: translateX(86%);
+    }
+  }
+}
+
+/* ── posters ── */
+.cinema-root .cin-poster {
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.08),
+    0 24px 50px -24px rgb(0 0 0 / 0.9);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+.cinema-root .cin-poster:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 1px var(--acc),
+    0 30px 60px -24px rgb(0 0 0 / 0.95);
+}
+
+/* ── the reel: film strips with sprocket holes ── */
+.cinema-root .cin-strip {
+  position: relative;
+  background: #17130f;
+  padding: 26px 12px;
+  border-radius: 4px;
+}
+.cinema-root .cin-strip::before,
+.cinema-root .cin-strip::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  height: 10px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='10'%3E%3Crect x='6' width='14' height='10' rx='2.5' fill='%23d9cfbf'/%3E%3C/svg%3E") repeat-x;
+  opacity: 0.55;
+}
+.cinema-root .cin-strip::before {
+  top: 8px;
+}
+.cinema-root .cin-strip::after {
+  bottom: 8px;
+}
+.cinema-root .cin-frame {
+  background: #0f0d0b;
+  border: 1px solid rgb(242 236 227 / 0.1);
+  border-radius: 3px;
+}
+.cinema-root .cin-frame:focus-within {
+  border-color: var(--c-amber);
+}
+
+/* ── screenplay page ── */
+.cinema-root .cin-page {
+  background: #f3ecdf;
+  color: #1d1a16;
+  box-shadow:
+    0 1px 0 #d8cfbd,
+    0 40px 80px -30px rgb(0 0 0 / 0.8);
+}
+.cinema-root .cin-page a {
+  color: #7c1d1d;
+}
+
+/* ── clapperboard ── */
+.cinema-root .cin-clapper-top {
+  background: repeating-linear-gradient(-45deg, #f2ece3 0 14px, #141210 14px 28px);
+  border-bottom: 2px solid #3a332b;
+}
+
+/* ── feature curve ── */
+.cinema-root .cin-curve {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+  animation: cin-draw 2.4s 0.3s ease forwards;
+}
+@keyframes cin-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── credits ── */
+.cinema-root .cin-credits {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(242 236 227 / 0.25) transparent;
+  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ── ticket ── */
+.cinema-root .cin-ticket::before,
+.cinema-root .cin-ticket::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #0b0a09;
+  inset-inline-end: calc(13rem - 14px);
+}
+.cinema-root .cin-ticket::before {
+  top: -14px;
+}
+.cinema-root .cin-ticket::after {
+  bottom: -14px;
+}
+@media (max-width: 767px) {
+  .cinema-root .cin-ticket::before,
+  .cinema-root .cin-ticket::after {
+    display: none;
+  }
+}
+.cinema-root .cin-dialog > h2 {
+  font-family: var(--font-bebas), var(--font-lalezar), var(--font-vazirmatn), Impact, sans-serif;
+  font-size: 38px;
+  line-height: 0.95;
+  padding-inline-end: 2.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-root .cin-beam,
+  .cinema-root .cin-chase {
+    animation: none !important;
+  }
+  .cinema-root .cin-curve {
+    stroke-dashoffset: 0;
+  }
+}
+.cinema-root:lang(fa) .cin-poster .cin-display {
+  font-size: 30px;
+  line-height: 1.5;
+}
+.cinema-root:lang(fa) .cin-poster .cin-display[dir='ltr'] {
+  font-size: 18px;
+  line-height: 1.3;
+}

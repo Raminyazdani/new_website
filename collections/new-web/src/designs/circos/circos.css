@@ -1,0 +1,256 @@
+/* Circos — figure-first page (Nature-style figures on warm paper). Scoped to .circos-root.
+   No continuous animation: every transition is a short opacity change on interaction. */
+.circos-root {
+  --ds-bg: #faf9f6;
+  --ds-fg: #15161b;
+  --ds-border: #e6e3dc;
+  --ds-muted: #5a5d66;
+  background: #faf9f6;
+  color: #15161b;
+  font-family: var(--font-manrope), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: 'tnum' 1;
+}
+body:has(.circos-root) {
+  background: #faf9f6;
+}
+.circos-root:lang(fa) {
+  font-family: var(--font-vazirmatn), var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+.circos-root .cx-mono {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+}
+/* JetBrains Mono has no Arabic glyphs: Persian strings in "mono" places use Vazirmatn */
+.circos-root:lang(fa) .cx-mono:not([lang='en']):not([dir='ltr']) {
+  font-family: var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.circos-root :focus-visible {
+  outline: 3px solid #1f5fbf;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.circos-root ::selection {
+  background: #f3d98a;
+}
+
+/* chips (domain legend, years, sort) */
+.circos-root .cx-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 32px;
+  border-radius: 999px;
+  border: 1px solid #e6e3dc;
+  background: #fff;
+  padding: 0.25rem 0.75rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: #3b3e46;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+.circos-root .cx-chip:hover:not(:disabled) {
+  border-color: #15161b;
+  color: #15161b;
+}
+.circos-root .cx-chip:disabled {
+  cursor: default;
+  color: #5a5d66;
+}
+.circos-root .cx-chip-on,
+.circos-root .cx-chip-on:hover:not(:disabled) {
+  background: #15161b;
+  border-color: #15161b;
+  color: #fff;
+}
+
+/* figure 1 */
+.circos-root .cx-chord {
+  fill-opacity: 0.38;
+  stroke: #fff;
+  stroke-width: 0.6;
+  cursor: pointer;
+  mix-blend-mode: multiply;
+  transition: fill-opacity 0.18s;
+}
+.circos-root .cx-chord:hover {
+  fill-opacity: 0.8;
+}
+.circos-root .cx-chord-dim {
+  fill-opacity: 0.06;
+}
+.circos-root .cx-chord-on {
+  fill-opacity: 0.82;
+}
+.circos-root .cx-label {
+  font-size: 13px;
+  font-weight: 700;
+  fill: #15161b;
+}
+.circos-root .cx-label-sub {
+  font-size: 11px;
+  font-weight: 500;
+  fill: #5a5d66;
+}
+.circos-root .cx-tick {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 10px;
+  fill: #5a5d66;
+}
+.circos-root:lang(fa) .cx-tick {
+  font-family: var(--font-vazirmatn), ui-sans-serif, sans-serif;
+  font-size: 11px;
+}
+.circos-root .cx-title {
+  font-size: 24px;
+  font-weight: 800;
+  fill: #15161b;
+}
+
+/* figure 2 */
+.circos-root .cx-feature {
+  cursor: pointer;
+}
+.circos-root .cx-flabel {
+  font-size: 12px;
+  font-weight: 500;
+  fill: #3b3e46;
+}
+.circos-root .cx-feature:hover .cx-flabel,
+.circos-root .cx-flabel-on {
+  font-weight: 800;
+  fill: #15161b;
+}
+
+/* matrix alternative */
+.circos-root .cx-matrix {
+  border-collapse: collapse;
+}
+.circos-root .cx-matrix th,
+.circos-root .cx-matrix td {
+  border: 1px solid #efece5;
+  padding: 3px 6px;
+  min-width: 2.2rem;
+  white-space: nowrap;
+}
+.circos-root .cx-matrix thead th {
+  border-top: 0;
+  vertical-align: bottom;
+}
+.circos-root .cx-vert {
+  height: 9.5rem;
+  padding: 0 0 6px;
+  font-weight: 600;
+}
+.circos-root .cx-vert > span {
+  display: inline-block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  max-height: 9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.circos-root:lang(fa) .cx-vert > span {
+  transform: none;
+}
+.circos-root .cx-cell {
+  min-width: 1.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #1f5fbf;
+  text-decoration: underline;
+  text-decoration-color: #b8c8e8;
+  text-underline-offset: 2px;
+}
+.circos-root .cx-cell:hover {
+  background: #eef3fb;
+  text-decoration-color: #1f5fbf;
+}
+
+/* details */
+.circos-root .cx-details > summary {
+  list-style: none;
+}
+.circos-root .cx-details > summary::-webkit-details-marker {
+  display: none;
+}
+.circos-root .cx-details > summary::before {
+  content: '+';
+  display: inline-block;
+  width: 1.1em;
+  font-weight: 800;
+}
+.circos-root .cx-details[open] > summary::before {
+  content: '−';
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circos-root .cx-chord,
+  .circos-root .cx-chip {
+    transition: none;
+  }
+}
+@media print {
+  .circos-root header {
+    position: static;
+  }
+  .circos-root .cx-details > div {
+    display: block;
+  }
+}
+
+/* plasmid badges + key */
+.circos-root .cx-badge {
+  font-size: 9.5px;
+  font-weight: 800;
+  fill: #15161b;
+}
+.circos-root .cx-key {
+  color: #15161b;
+  transition: background-color 0.15s;
+}
+.circos-root .cx-key:hover {
+  background: #f1ede4;
+}
+.circos-root .cx-key-on,
+.circos-root .cx-key-on:hover {
+  background: #fbefc9;
+}
+.circos-root .cx-keynum {
+  border: 2px solid;
+  background: #fff;
+}
+
+/* figure 1 is drawn on a 900-unit canvas: larger type so labels stay ≥ 12 px on screen */
+.circos-root .cx-fig1 .cx-label {
+  font-size: 15px;
+}
+.circos-root .cx-fig1 .cx-label-sub {
+  font-size: 12.5px;
+}
+.circos-root .cx-segnum {
+  font-size: 21px;
+  font-weight: 800;
+  fill: #15161b;
+}
+/* phones: the figures scale to ~0.55 — enlarge the type inside them */
+@media (max-width: 639px) {
+  .circos-root .cx-fig2 .cx-badge {
+    font-size: 12.5px;
+  }
+  .circos-root .cx-fig2 .cx-tick,
+  .circos-root .cx-fig3 .cx-tick {
+    font-size: 15px;
+  }
+  .circos-root .cx-fig2 .cx-label-sub,
+  .circos-root .cx-fig3 .cx-label-sub {
+    font-size: 17px;
+  }
+  .circos-root .cx-fig2 .cx-title {
+    font-size: 34px;
+  }
+  .circos-root .cx-fig2 .cx-label {
+    font-size: 18px;
+  }
+}

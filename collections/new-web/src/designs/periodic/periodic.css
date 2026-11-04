@@ -1,0 +1,101 @@
+/* Periodic — a chemistry wall chart. Scoped to .periodic-root. */
+.periodic-root {
+  --pt-paper: #f7f5ef;
+  --pt-card: #fffdf8;
+  --pt-ink: #16171b;
+  --pt-muted: #565a63; /* 6.5:1 on paper */
+  --pt-line: #dcd6c8;
+  --pt-accent: #b9380a; /* 5.1:1 on paper */
+  --ds-bg: var(--pt-paper);
+  --ds-fg: var(--pt-ink);
+  --ds-border: var(--pt-line);
+  --ds-muted: var(--pt-muted);
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  font-family: var(--font-bricolage), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: 'opsz' 16;
+}
+body:has(.periodic-root) {
+  background: #f7f5ef;
+}
+.periodic-root .pt-display {
+  font-variation-settings: 'opsz' 96, 'wdth' 88;
+  letter-spacing: -0.02em;
+}
+.periodic-root .pt-mono {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+}
+.periodic-root:lang(fa) .pt-mono:not([lang='en']):not([dir='ltr']) {
+  font-family: var(--font-bricolage), var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+
+/* tiles: the family hue comes in as --h (and chroma --c) */
+.periodic-root .pt-tile {
+  background: oklch(0.945 var(--c, 0.05) var(--h, 40));
+  border-color: oklch(0.8 calc(var(--c, 0.05) * 1.8) var(--h, 40));
+  color: var(--pt-ink);
+}
+.periodic-root .pt-sym {
+  color: oklch(0.36 calc(var(--c, 0.05) * 2.2) var(--h, 40));
+  font-variation-settings: 'opsz' 48, 'wdth' 92;
+}
+.periodic-root button.pt-tile:hover,
+.periodic-root button.pt-tile:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -14px rgb(22 23 27 / 0.55);
+  z-index: 1;
+}
+.periodic-root .pt-dim {
+  opacity: 0.18;
+  filter: saturate(0.2);
+}
+@media (min-width: 1024px) {
+  .periodic-root .pt-grid > .pt-tile {
+    grid-row: var(--r);
+    grid-column: var(--col);
+  }
+}
+.periodic-root .pt-chip {
+  background: oklch(0.96 var(--c, 0.05) var(--h, 40));
+  border-color: oklch(0.82 calc(var(--c, 0.05) * 1.6) var(--h, 40));
+}
+.periodic-root .pt-chip-on {
+  background: var(--pt-ink);
+  border-color: var(--pt-ink);
+  color: var(--pt-paper);
+}
+.periodic-root .pt-details > summary::after {
+  content: '+';
+  float: inline-end;
+  font-weight: 700;
+}
+.periodic-root .pt-details[open] > summary::after {
+  content: '−';
+}
+.periodic-root .pt-pair {
+  animation: pt-pair 3.2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes pt-pair {
+  0%,
+  100% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+}
+
+/* Persian */
+.periodic-root:lang(fa) .pt-display {
+  letter-spacing: 0;
+  line-height: 1.45;
+  font-family: var(--font-estedad), var(--font-bricolage), sans-serif;
+}
+.periodic-root:lang(fa) :is(p, li, dd) {
+  line-height: 1.9;
+}
+.periodic-root:lang(fa) [class*='tracking-'] {
+  letter-spacing: 0;
+}

@@ -1,0 +1,260 @@
+/* Reactor — a high-performance process HMI (grey; colour only for state). Scoped to .reactor-root. */
+.reactor-root {
+  --ds-bg: #d6dadd;
+  --ds-fg: #1c252c;
+  --ds-border: #9aa3ab;
+  --ds-muted: #4a5560;
+  background: #d6dadd;
+  color: #1c252c;
+  font-family: var(--font-b612), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.reactor-root) {
+  background: #d6dadd;
+}
+.reactor-root:lang(fa) {
+  font-family: var(--font-vazirmatn), var(--font-b612), ui-sans-serif, system-ui, sans-serif;
+}
+.reactor-root .rx-mono {
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+}
+.reactor-root:lang(fa) .rx-mono:not([lang='en']):not([dir='ltr']) {
+  font-family: var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.reactor-root :focus-visible {
+  outline: 3px solid #1f5fbf;
+  outline-offset: 2px;
+}
+.reactor-root .rx-panel {
+  background: #e9ecee;
+  box-shadow: inset 0 0 0 1px #9aa3ab;
+}
+.reactor-root .rx-faceplate {
+  background: #eef0f2;
+  box-shadow:
+    inset 0 0 0 1px #9aa3ab,
+    0 1px 0 #fff;
+}
+.reactor-root .rx-readout-html {
+  background: #f4f6f7;
+  box-shadow: inset 0 0 0 1px #9aa3ab;
+}
+.reactor-root .rx-navkey {
+  color: #1c252c;
+  box-shadow: inset 0 0 0 1px #9aa3ab;
+  background: #e1e5e8;
+}
+.reactor-root .rx-navkey:hover {
+  background: #f4f6f7;
+}
+.reactor-root .rx-btn {
+  background: #e1e5e8;
+  color: #1c252c;
+  box-shadow:
+    inset 0 0 0 1px #7b8790,
+    0 2px 0 #9aa3ab;
+}
+.reactor-root .rx-btn:hover {
+  background: #f4f6f7;
+}
+.reactor-root .rx-btn-primary {
+  background: #1c252c;
+  color: #fff;
+  box-shadow: 0 2px 0 #000;
+}
+/* state chips: colour + a word */
+.reactor-root .rx-state,
+.reactor-root .rx-state-run,
+.reactor-root .rx-state-na {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.reactor-root:lang(fa) .rx-state,
+.reactor-root:lang(fa) .rx-state-run,
+.reactor-root:lang(fa) .rx-state-na {
+  font-family: var(--font-vazirmatn), sans-serif;
+  text-transform: none;
+}
+.reactor-root .rx-state {
+  background: #c9cfd4;
+  color: #1c252c;
+}
+.reactor-root .rx-state-run {
+  background: #1d7a45;
+  color: #fff;
+}
+.reactor-root .rx-state-run::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #b8f5cf;
+}
+.reactor-root .rx-state-na {
+  background: transparent;
+  color: #4a5560;
+  box-shadow: inset 0 0 0 1px #9aa3ab;
+}
+.reactor-root .rx-ev-start {
+  background: #1d7a45;
+  color: #fff;
+}
+.reactor-root .rx-ev-end {
+  background: #c9cfd4;
+  color: #1c252c;
+}
+.reactor-root .rx-ev-info {
+  background: #1f5fbf;
+  color: #fff;
+}
+
+/* P&ID */
+.reactor-root .rx-pipe {
+  fill: none;
+  stroke: #7b8790;
+  stroke-width: 7;
+  stroke-linejoin: round;
+}
+.reactor-root .rx-flow {
+  fill: none;
+  stroke: #e9ecee;
+  stroke-width: 2;
+  stroke-dasharray: 6 12;
+  stroke-linejoin: round;
+  opacity: 0.6;
+}
+.reactor-root .rx-flow-on {
+  stroke: #ffffff;
+  opacity: 0.95;
+  animation: rx-flow 1.2s steps(6) infinite; /* stepped: HMI-like and only 5 repaints/s */
+}
+@keyframes rx-flow {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+.reactor-root .rx-vessel {
+  fill: #f4f6f7;
+  stroke: #4a5560;
+  stroke-width: 2.5;
+}
+.reactor-root .rx-level {
+  fill: #b9c4cc;
+}
+.reactor-root .rx-level-run {
+  fill: #a9c8b6;
+}
+.reactor-root .rx-band {
+  fill: #7b8790;
+}
+.reactor-root .rx-motor {
+  fill: #4a5560;
+}
+.reactor-root .rx-shaft {
+  stroke: #4a5560;
+  stroke-width: 4;
+}
+.reactor-root .rx-blade {
+  fill: #4a5560;
+}
+.reactor-root .rx-agitator {
+  transform-box: view-box;
+  transform-origin: 590px 349px;
+  animation: rx-spin 2.4s steps(16) infinite;
+}
+@keyframes rx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.reactor-root .rx-pid[data-paused] .rx-flow-on,
+.reactor-root .rx-pid[data-paused] .rx-agitator {
+  animation-play-state: paused;
+}
+.reactor-root .rx-pump {
+  fill: #e9ecee;
+  stroke: #4a5560;
+  stroke-width: 2.5;
+}
+.reactor-root .rx-pump-tri {
+  fill: #4a5560;
+}
+.reactor-root .rx-readout {
+  fill: #f4f6f7;
+  stroke: #4a5560;
+  stroke-width: 1.5;
+}
+.reactor-root .rx-tag {
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  fill: #1c252c;
+}
+.reactor-root .rx-tag-sm {
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 11px;
+  fill: #4a5560;
+}
+.reactor-root .rx-name {
+  font-size: 12.5px;
+  fill: #1c252c;
+}
+.reactor-root .rx-ro-label {
+  font-size: 11px;
+  fill: #4a5560;
+}
+.reactor-root .rx-value {
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  fill: #1c252c;
+}
+.reactor-root .rx-value-sm {
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  fill: #1c252c;
+}
+.reactor-root .rx-badge {
+  fill: #c9cfd4;
+}
+.reactor-root .rx-badge-run {
+  fill: #1d7a45;
+}
+.reactor-root .rx-badge-text {
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: #1c252c;
+}
+.reactor-root .rx-badge-text-run {
+  font-family: var(--font-b612-mono), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: #ffffff;
+}
+.reactor-root .rx-eq {
+  cursor: pointer;
+  outline: none;
+}
+.reactor-root .rx-eq:hover .rx-vessel,
+.reactor-root .rx-eq:focus-visible .rx-vessel {
+  stroke: #1f5fbf;
+  stroke-width: 3.5;
+}
+.reactor-root .rx-range {
+  accent-color: #1c252c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reactor-root .rx-flow-on,
+  .reactor-root .rx-agitator {
+    animation: none !important;
+  }
+}

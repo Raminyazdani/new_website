@@ -1,8 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
+  "buildCommand": "npm run build",
   "outputDirectory": "public",
   "regions": ["fra1"],
+  "rewrites": [
+    { "source": "/imported/:locale(en|de|fa)/:design([a-z-]+)", "destination": "/imported/:locale/:design/index.html" },
+    { "source": "/imported/:locale(en|de|fa)", "destination": "/imported/:locale/index.html" },
+    { "source": "/imported", "destination": "/imported/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

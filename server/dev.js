@@ -2,6 +2,7 @@
 const http = require('node:http');
 const { readFile } = require('node:fs/promises');
 const { join } = require('node:path');
+const { serveImported } = require('./imported-static');
 const cv = require('../api/cv');
 const session = require('../api/session');
 const port = Number(process.env.PORT || 4173);
@@ -9,13 +10,14 @@ const server = http.createServer(async (req, res) => {
   const path = new URL(req.url, `http://${req.headers.host}`).pathname;
   if (path === '/api/cv') return cv(req, res);
   if (path === '/api/session') return session(req, res);
+  if (path === '/imported' || path.startsWith('/imported/')) return serveImported(req, res, path);
   const files = { '/': ['index.html', 'text/html; charset=utf-8'], '/index.html': ['index.html', 'text/html; charset=utf-8'], '/app.js': ['app.js', 'text/javascript; charset=utf-8'] };
   files['/hero-base.css'] = ['hero-base.css', 'text/css; charset=utf-8'];
   files['/lab.html'] = ['lab.html', 'text/html; charset=utf-8'];
   for (const file of ['cv-adapter', 'portfolio-source']) {
     files[`/data/${file}.js`] = [`data/${file}.js`, 'text/javascript; charset=utf-8'];
   }
-  for (const file of ['runtime', 'intro', 'records', 'science', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights', 'design-registry', 'design-gallery', 'motion-system']) {
+  for (const file of ['runtime', 'intro', 'records', 'science', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights', 'design-registry', 'design-gallery', 'imported-templates', 'motion-system']) {
     files[`/portfolio/${file}.js`] = [`portfolio/${file}.js`, 'text/javascript; charset=utf-8'];
   }
   for (const file of ['base', 'intro', 'records', 'studio', 'studio-intro', 'hero-scene', 'scroll-story', 'pointer-effects', 'background-effects', 'visual-previews', 'portfolio-insights', 'design-system', 'design-gallery', 'craft', 'motion-system']) {

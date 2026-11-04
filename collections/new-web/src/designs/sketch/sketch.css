@@ -1,0 +1,250 @@
+/* Sketch — a hand-drawn lab notebook on a desk. Scoped to .sk-root.
+   Paper, grid and cork are static backgrounds; the only motion is rough-notation drawing on view and a hover wiggle. */
+.sk-root {
+  --ds-bg: #e9e2d4;
+  --ds-fg: #2b2b2b;
+  --ds-border: #cbbfa8;
+  --ds-muted: #555;
+  background-color: #e9e2d4;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.35), transparent 35%),
+    radial-gradient(circle at 88% 70%, rgba(120, 90, 50, 0.08), transparent 40%);
+  color: #2b2b2b;
+  font-family: var(--font-nunito), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.sk-root) {
+  background: #e9e2d4;
+}
+.sk-root:lang(fa) {
+  font-family: var(--font-vazirmatn), var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+}
+.sk-root ::selection {
+  background: #ffec85;
+}
+.sk-root :focus-visible {
+  outline: 3px solid #1d4ed8;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+.sk-root .sk-hand {
+  font-family: var(--font-caveat), var(--font-aref), cursive;
+  font-weight: 600;
+}
+/* Persian hand notes: Aref Ruqaa (Ruqʿa hand); sizes come from the utilities, only the leading opens up */
+.sk-root:lang(fa) .sk-hand {
+  font-family: var(--font-aref), var(--font-caveat), serif;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* header: a strip of washi tape */
+.sk-root .sk-tape {
+  background:
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.25) 0 6px, transparent 6px 12px),
+    #f1dcae;
+  box-shadow: 0 6px 16px -10px rgba(60, 40, 20, 0.6);
+}
+.sk-root .sk-tab {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 0.42rem;
+  border-radius: 6px;
+  font-family: var(--font-caveat), var(--font-aref), cursive;
+  font-weight: 600;
+  font-size: 19px;
+  white-space: nowrap;
+  color: #2b2b2b;
+}
+.sk-root:lang(fa) .sk-tab {
+  font-family: var(--font-vazirmatn), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+.sk-root .sk-tab:hover {
+  background: rgba(255, 253, 246, 0.75);
+}
+
+/* a notebook page: 24 px grid and a red margin line */
+.sk-root .sk-page {
+  /* rough strokes and tilted stamps may ink a few px past their boxes: keep that inside the page */
+  overflow-x: clip;
+  background-color: #fffdf6;
+  background-image:
+    linear-gradient(#dbe7f3 1px, transparent 1px),
+    linear-gradient(90deg, #dbe7f3 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.05),
+    0 22px 34px -22px rgba(60, 40, 20, 0.45);
+}
+.sk-root .sk-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 12px;
+  width: 2px;
+  background: #f0a3a3;
+}
+@media (min-width: 768px) {
+  .sk-root .sk-page::before {
+    inset-inline-start: 156px;
+  }
+}
+.sk-root .sk-hl {
+  background: linear-gradient(transparent 50%, #ffec85 50%, #ffec85 92%, transparent 92%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 0.15em;
+}
+
+/* cover + back cover: kraft board with a paper label */
+.sk-root .sk-cover {
+  border-radius: 6px;
+  background-color: #dcc79f;
+  background-image:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.25), transparent 45%),
+    repeating-linear-gradient(115deg, rgba(120, 90, 50, 0.05) 0 2px, transparent 2px 7px);
+  box-shadow: 0 26px 40px -26px rgba(60, 40, 20, 0.6);
+}
+.sk-root .sk-label {
+  background: #fffdf6;
+  border: 2px solid #2b2b2b;
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  box-shadow: 4px 6px 0 rgba(43, 43, 43, 0.12);
+}
+.sk-root .sk-polaroid {
+  background: #fffdf6;
+  padding: 12px 12px 18px;
+  box-shadow: 0 16px 26px -14px rgba(40, 30, 20, 0.55);
+}
+.sk-root .sk-tape-strip {
+  position: absolute;
+  z-index: 2;
+  width: 92px;
+  height: 26px;
+  background: rgba(244, 226, 184, 0.82);
+  clip-path: polygon(3% 8%, 97% 0, 100% 50%, 96% 100%, 2% 94%, 0 46%);
+}
+.sk-root .sk-note {
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.06),
+    0 14px 20px -14px rgba(40, 30, 20, 0.55);
+  background-image: linear-gradient(transparent 85%, rgba(0, 0, 0, 0.035));
+}
+.sk-root :is(.sk-card, .sk-note, .sk-label, .sk-polaroid) {
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.2s ease;
+}
+.sk-root :is(.sk-card, .sk-note):hover {
+  transform: rotate(calc(var(--tilt, 0deg) * -0.5)) translateY(-3px);
+}
+
+/* results board */
+.sk-root .sk-cork {
+  overflow-x: clip;
+  border-radius: 6px;
+  border: 10px solid #b08458;
+  background-color: #c9a274;
+  background-image:
+    radial-gradient(rgba(90, 60, 30, 0.22) 1px, transparent 1.5px),
+    radial-gradient(rgba(255, 240, 210, 0.25) 1px, transparent 1.5px);
+  background-size:
+    9px 9px,
+    13px 13px;
+  background-position:
+    0 0,
+    4px 6px;
+}
+.sk-root .sk-board-title {
+  background: #fffdf6;
+  box-shadow: 0 6px 12px -8px rgba(40, 30, 20, 0.6);
+}
+.sk-root .sk-card {
+  background-color: #fffdf6;
+  background-image: linear-gradient(#f0a3a3 2px, transparent 2px), repeating-linear-gradient(transparent 0 25px, #dbe7f3 25px 26px);
+  background-position:
+    0 34px,
+    0 34px;
+  background-size:
+    100% 2px,
+    100% 100%;
+  background-repeat: no-repeat, repeat;
+  padding: 1.1rem 1.15rem 1.2rem;
+  box-shadow: 0 16px 24px -16px rgba(40, 30, 20, 0.6);
+}
+
+/* stamps on notebook entries */
+.sk-root .sk-stamp {
+  display: inline-block;
+  height: 30px;
+  font-family: var(--font-caveat), var(--font-aref), cursive;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 30px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: rotate(var(--tilt, -4deg));
+}
+.sk-root:lang(fa) .sk-stamp {
+  font-family: var(--font-aref), serif;
+  font-size: 18px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* controls */
+.sk-root .sk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  padding: 0.4rem 1rem;
+  border: 2px solid #2b2b2b;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: #fffdf6;
+  font-weight: 800;
+  font-size: 14.5px;
+  color: #2b2b2b;
+}
+.sk-root .sk-btn:hover {
+  background: #ffec85;
+}
+.sk-root .sk-btn-solid {
+  background: #2b2b2b;
+  color: #fffdf6;
+}
+.sk-root .sk-btn-solid:hover {
+  background: #1d4ed8;
+}
+
+/* index A–Z */
+.sk-root .sk-dots {
+  border-bottom: 2px dotted #c7bca8;
+  transform: translateY(-4px);
+}
+.sk-root .sk-svg-hand {
+  font-family: var(--font-caveat), var(--font-aref), cursive;
+  font-weight: 600;
+  font-size: 22px;
+  fill: #2b2b2b;
+}
+.sk-root:lang(fa) .sk-svg-hand {
+  font-family: var(--font-vazirmatn), sans-serif;
+  font-size: 16px;
+}
+.sk-root .sk-svg-small {
+  font-size: 12px;
+  fill: #555;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-root :is(.sk-card, .sk-note, .sk-label, .sk-polaroid) {
+    transition: none;
+  }
+  .sk-root :is(.sk-card, .sk-note):hover {
+    transform: rotate(var(--tilt, 0deg));
+  }
+}

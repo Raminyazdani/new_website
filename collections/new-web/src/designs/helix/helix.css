@@ -1,0 +1,55 @@
+.helix {
+  --ds-bg: #04060c;
+  --ds-fg: #e8fffb;
+  --ds-border: rgb(255 255 255 / 0.08);
+  --ds-muted: #8aa0b4;
+  background: var(--ds-bg);
+  color: var(--ds-fg);
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+.helix .font-display {
+  font-family: var(--font-space-grotesk), var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.helix .font-mono {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+}
+.helix ::selection {
+  background: #2ee6c5;
+  color: #04110f;
+}
+.hx-gradient-text {
+  background: linear-gradient(120deg, #ffffff 0%, #d6fff7 30%, #2ee6c5 62%, #4cc9f0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hx-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+body:has(.helix) {
+  background: #04060c;
+}
+.hx-aurora {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 75%;
+  overflow: hidden;
+  /* blobs are radial gradients (see Contact.tsx); no blur filter over moving children, which would re-blur every frame */
+  opacity: 0.45;
+  mask-image: linear-gradient(to bottom, black 30%, transparent);
+}
+.hx-aurora span {
+  position: absolute;
+  border-radius: 9999px;
+  mix-blend-mode: screen;
+  will-change: transform;
+  animation: hx-drift 22s ease-in-out infinite alternate;
+}
+@keyframes hx-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(6%, 8%, 0) scale(1.15); }
+  100% { transform: translate3d(-8%, -4%, 0) scale(0.95); }
+}

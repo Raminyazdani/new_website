@@ -1,0 +1,369 @@
+/* Keynote — the CV as a talk. Scoped to .kn-root; dark stage by default, paper slides as an option.
+   Slide type scales with the slide (container query units), so scroll cards and the 1280 px stage match. */
+.kn-root {
+  --kn-stage: #07070b;
+  --kn-slide: #111118;
+  --kn-ink: #f4f4f6;
+  --kn-muted: #a9a9b8;
+  --kn-muted-strong: #d6d6de;
+  --kn-line: rgba(255, 255, 255, 0.14);
+  --kn-card: rgba(255, 255, 255, 0.045);
+  --kn-accent: #8b5cf6;
+  --kn-accent2: #67e8f9;
+  --ds-bg: var(--kn-stage);
+  --ds-fg: var(--kn-ink);
+  --ds-border: var(--kn-line);
+  --ds-muted: var(--kn-muted);
+  background: var(--kn-stage);
+  color: var(--kn-ink);
+  font-family: var(--font-sora), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+.kn-root[data-kn-theme='light'] {
+  --kn-stage: #e8e6e1;
+  --kn-slide: #fbfaf7;
+  --kn-ink: #16161d;
+  --kn-muted: #5b5b68;
+  --kn-muted-strong: #33333d;
+  --kn-line: rgba(0, 0, 0, 0.13);
+  --kn-card: rgba(0, 0, 0, 0.03);
+  --kn-accent: #6d28d9;
+  --kn-accent2: #0e7490;
+}
+body:has(.kn-root) {
+  background: #07070b;
+}
+body:has(.kn-root[data-kn-theme='light']) {
+  background: #e8e6e1;
+}
+.kn-root:lang(fa) {
+  font-family: var(--font-vazirmatn), var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+}
+.kn-root :focus-visible {
+  outline: 3px solid #22d3ee;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.kn-root .kn-mono {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+}
+.kn-root:lang(fa) .kn-mono:not([dir='ltr']):not([lang='en']) {
+  font-family: var(--font-vazirmatn), sans-serif;
+}
+.kn-root .kn-header {
+  /* near-opaque instead of backdrop blur: a blurred sticky bar re-blurs on every scroll frame */
+  background: color-mix(in oklab, var(--kn-stage) 94%, transparent);
+  border-bottom: 1px solid var(--kn-line);
+}
+
+/* while the deck is presented on top, skip rendering the scroll list; `auto` keeps its last size,
+   so the page keeps its scroll position for the way back */
+.kn-root main {
+  contain-intrinsic-size: auto none;
+}
+.kn-root main[data-presenting] {
+  content-visibility: hidden;
+}
+
+/* the slide */
+.kn-root .kn-slide {
+  container-type: inline-size;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--kn-line);
+  background: linear-gradient(160deg, color-mix(in oklab, var(--kn-slide) 90%, white 10%), var(--kn-slide) 55%);
+  padding: max(20px, 4.4cqw) max(20px, 5cqw);
+  color: var(--kn-ink);
+}
+.kn-root[data-kn-theme='light'] .kn-slide {
+  background: linear-gradient(160deg, #ffffff, var(--kn-slide) 60%);
+  box-shadow: 0 20px 40px -28px rgba(0, 0, 0, 0.35);
+}
+@media (min-width: 768px) {
+  .kn-root .kn-scroll-item .kn-slide {
+    aspect-ratio: 16 / 9;
+  }
+}
+.kn-root .kn-slide-present {
+  height: 100%;
+  border-radius: 0;
+  border: 0;
+  padding: 56px 64px;
+}
+.kn-root .kn-aurora {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 0%, rgba(139, 92, 246, 0.38), transparent 60%),
+    radial-gradient(ellipse at 80% 5%, rgba(34, 211, 238, 0.28), transparent 55%);
+}
+.kn-root[data-kn-theme='light'] .kn-aurora {
+  opacity: 0.55;
+}
+
+/* type, sized by the slide */
+.kn-root .kn-h1 {
+  font-size: clamp(36px, 7.6cqw, 98px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+.kn-root .kn-h2 {
+  font-size: clamp(24px, 4.1cqw, 54px);
+  font-weight: 650;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.kn-root .kn-lead {
+  font-size: clamp(17px, 2.15cqw, 28px);
+  line-height: 1.38;
+}
+.kn-root .kn-body {
+  font-size: clamp(15px, 1.72cqw, 22px);
+  line-height: 1.55;
+}
+.kn-root .kn-small {
+  font-size: clamp(13.5px, 1.4cqw, 18px);
+  line-height: 1.45;
+}
+.kn-root .kn-tiny {
+  font-size: clamp(12.5px, 1.13cqw, 14.5px);
+  line-height: 1.45;
+}
+.kn-root .kn-big {
+  font-size: clamp(30px, 5.2cqw, 68px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+.kn-root .kn-kicker {
+  font-family: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+  font-size: clamp(11px, 1.05cqw, 13.5px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kn-muted);
+}
+.kn-root:lang(fa) :is(.kn-h1, .kn-h2) {
+  font-family: var(--font-estedad), var(--font-vazirmatn), sans-serif;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+.kn-root:lang(fa) .kn-kicker {
+  font-family: var(--font-vazirmatn), sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.kn-root .kn-grad {
+  background: linear-gradient(90deg, #a78bfa, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.kn-root[data-kn-theme='light'] .kn-grad {
+  background-image: linear-gradient(90deg, #6d28d9, #0e7490);
+}
+
+/* parts */
+.kn-root .kn-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--kn-line);
+  background: var(--kn-card);
+  padding: 0.2em 0.75em;
+  font-size: clamp(13px, 1.3cqw, 17px);
+}
+.kn-root .kn-chip-sm {
+  font-size: clamp(12px, 1.02cqw, 14px);
+  padding: 0.12em 0.6em;
+}
+.kn-root .kn-card {
+  border-radius: 12px;
+  border: 1px solid var(--kn-line);
+  background: var(--kn-card);
+  padding: max(10px, 1.1cqw) max(12px, 1.3cqw);
+}
+.kn-root .kn-link {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--kn-accent2) 55%, transparent);
+  text-underline-offset: 3px;
+}
+.kn-root .kn-link:hover {
+  text-decoration-color: var(--kn-accent2);
+}
+.kn-root .kn-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--kn-line);
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+}
+.kn-root .kn-btn-solid {
+  border-color: var(--kn-ink);
+  background: var(--kn-ink);
+  color: var(--kn-stage);
+}
+.kn-root .kn-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 3.6cqw, 50px);
+  height: clamp(38px, 3.6cqw, 50px);
+  border-radius: 999px;
+  border: 1px solid var(--kn-line);
+}
+.kn-root .kn-icon:hover {
+  border-color: var(--kn-ink);
+}
+.kn-root .kn-dot {
+  fill: var(--kn-muted);
+  opacity: 0.5;
+}
+.kn-root .kn-route {
+  stroke: #22d3ee;
+  stroke-width: 0.6;
+  stroke-dasharray: 1.6 1.1;
+}
+.kn-root .kn-pin {
+  fill: #a78bfa;
+}
+.kn-root .kn-pin-now {
+  fill: #22d3ee;
+}
+
+/* present mode */
+.kn-root .kn-present {
+  background: var(--kn-stage);
+  color: var(--kn-ink);
+}
+.kn-root .kn-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 32px;
+  border-radius: 8px;
+  padding: 0.25rem 0.55rem;
+  font-size: 12.5px;
+  color: var(--kn-muted-strong);
+}
+.kn-root .kn-tool:hover,
+.kn-root .kn-tool[aria-pressed='true'] {
+  background: var(--kn-card);
+  color: var(--kn-ink);
+}
+.kn-root .kn-tool kbd {
+  border: 1px solid var(--kn-line);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--kn-muted);
+}
+.kn-root .kn-progress {
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+  transition: width 0.3s;
+}
+.kn-root .kn-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--kn-card);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--kn-ink);
+}
+.kn-root .kn-nav:disabled {
+  opacity: 0.25;
+}
+.kn-root .kn-notes {
+  border-top: 1px solid var(--kn-line);
+  background: color-mix(in oklab, var(--kn-stage) 80%, var(--kn-slide));
+}
+.kn-root .kn-overview {
+  background: var(--kn-stage);
+}
+.kn-root .kn-thumb {
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  border: 1px solid var(--kn-line);
+  background: var(--kn-slide);
+  padding: 10px 12px;
+  overflow: hidden;
+}
+.kn-root .kn-thumb:hover {
+  border-color: var(--kn-muted);
+}
+.kn-root .kn-thumb-on {
+  outline: 2px solid #22d3ee;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kn-root .kn-progress {
+    transition: none;
+  }
+}
+
+/* print: one slide per A4 landscape page */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  .kn-root main {
+    max-width: none;
+    padding: 0;
+  }
+  .kn-root .kn-scroll-item {
+    break-after: page;
+    break-inside: avoid;
+  }
+  .kn-root .kn-slide {
+    width: 297mm;
+    height: 210mm;
+    aspect-ratio: auto;
+    border-radius: 0;
+    border: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+/* big outlined chapter number in the slide corner (decoration) */
+.kn-root .kn-ghost {
+  position: absolute;
+  inset-inline-end: 3cqw;
+  bottom: -3cqw;
+  font-size: 22cqw;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--kn-ink) 12%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+.kn-root .kn-kicker {
+  position: relative;
+  padding-bottom: 0.9cqw;
+}
+.kn-root .kn-kicker::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 0;
+  width: 6cqw;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+}
+@media print {
+  .kn-root .kn-ghost {
+    -webkit-text-stroke: 1px rgba(127, 127, 127, 0.25);
+  }
+}

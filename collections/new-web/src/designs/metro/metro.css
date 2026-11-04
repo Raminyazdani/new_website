@@ -1,0 +1,212 @@
+/* Metro — the career as a transit map. Scoped to .metro-root. */
+.metro-root {
+  --m-page: #f4f4f1;
+  --m-ink: #1a1a1a;
+  --m-muted: #505050; /* 7.2:1 on the page, 8.1:1 on white */
+  --m-line: #d9d9d3;
+  --ds-bg: var(--m-page);
+  --ds-fg: var(--m-ink);
+  --ds-border: var(--m-line);
+  --ds-muted: var(--m-muted);
+  background: var(--m-page);
+  color: var(--m-ink);
+  font-family: 'mt-dot', var(--font-overpass), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.metro-root) {
+  background: #f4f4f1;
+}
+.metro-root:lang(fa) {
+  font-family: 'mt-dot', var(--font-vazirmatn), var(--font-overpass), ui-sans-serif, system-ui, sans-serif;
+}
+.metro-root .mt-mono {
+  font-family: var(--font-overpass-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.metro-root:lang(fa) .mt-mono:not([lang='en']):not([dir='ltr']) {
+  font-family: var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+
+/* ── departure board ── */
+.metro-root .mt-led {
+  color: #ffb000; /* 10.5:1 on the board */
+  text-shadow: 0 0 6px rgb(255 176 0 / 0.35);
+}
+.metro-root .mt-led-dim {
+  color: #c8902e; /* 6.6:1 on the board */
+}
+.metro-root .mt-flip {
+  animation: mt-flip 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  transform-origin: 50% 0;
+}
+@keyframes mt-flip {
+  from {
+    opacity: 0;
+    transform: perspective(300px) rotateX(-80deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.metro-root .mt-blink {
+  animation: mt-blink 1.6s steps(1) infinite;
+}
+@keyframes mt-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+.metro-root .mt-blink-dot {
+  animation: mt-blink 2.2s steps(1) infinite;
+}
+
+/* ── network map ── */
+.metro-root .mt-label {
+  fill: var(--m-ink);
+}
+.metro-root .mt-halo,
+.metro-root .mt-halo-sel {
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.metro-root .mt-halo-sel {
+  stroke: #ffd400;
+}
+.metro-root .mt-station {
+  cursor: pointer;
+  outline: none;
+}
+.metro-root .mt-station:hover .mt-label {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.metro-root .mt-ring {
+  fill: none;
+  stroke: var(--m-ink);
+  stroke-width: 2;
+  stroke-dasharray: 3 2;
+  opacity: 0;
+}
+.metro-root .mt-station:focus-visible .mt-ring {
+  opacity: 1;
+}
+.metro-root .mt-station:focus-visible .mt-label {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+.metro-root .mt-dim {
+  opacity: 0.16;
+}
+.metro-root .mt-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mt-pulse 2.4s ease-out infinite;
+}
+@keyframes mt-pulse {
+  0% {
+    transform: scale(0.75);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+.metro-root .mt-train {
+  animation: mt-train 14s linear infinite;
+}
+@keyframes mt-train {
+  0% {
+    transform: translateX(var(--mt-from));
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  86% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.metro-root .mt-row:hover {
+  background: #f2f2ee;
+}
+.metro-root .mt-row:focus-visible {
+  outline: 3px solid var(--m-ink);
+  outline-offset: -3px;
+}
+
+/* ── details summary marker ── */
+.metro-root .mt-details > summary::after {
+  content: '+';
+  float: inline-end;
+  font-weight: 800;
+}
+.metro-root .mt-details[open] > summary::after {
+  content: '−';
+}
+
+/* ── ticket notches ── */
+.metro-root .mt-ticket::before,
+.metro-root .mt-ticket::after {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: var(--m-page);
+  border: 2px solid var(--m-ink);
+  z-index: 1;
+}
+.metro-root .mt-ticket::before {
+  inset-inline-end: calc(15rem - 13px);
+  top: -14px;
+}
+.metro-root .mt-ticket::after {
+  inset-inline-end: calc(15rem - 13px);
+  bottom: -14px;
+}
+@media (max-width: 767px) {
+  .metro-root .mt-ticket::before,
+  .metro-root .mt-ticket::after {
+    display: none;
+  }
+}
+
+/* Persian: no letter-spacing, roomier lines */
+.metro-root:lang(fa) * {
+  letter-spacing: normal !important;
+}
+.metro-root:lang(fa) p,
+.metro-root:lang(fa) li,
+.metro-root:lang(fa) dd {
+  line-height: 1.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metro-root .mt-flip,
+  .metro-root .mt-blink,
+  .metro-root .mt-blink-dot,
+  .metro-root .mt-pulse,
+  .metro-root .mt-train {
+    animation: none !important;
+  }
+}
+
+@media print {
+  .metro-root header.sticky {
+    position: static;
+  }
+}
+
+/* Overpass draws the middle dot with almost no space after it ("a ·b"); take that one glyph from a system sans */
+@font-face {
+  font-family: 'mt-dot';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica'), local('Segoe UI'), local('DejaVu Sans'), local('Liberation Sans');
+  unicode-range: U+00B7;
+}

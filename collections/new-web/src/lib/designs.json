@@ -1,0 +1,102 @@
+[
+  {
+    "id": "helix",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "genome",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "circos",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "atlas",
+    "family": "data",
+    "ready": true
+  },
+  {
+    "id": "observatory",
+    "family": "data",
+    "ready": true
+  },
+  {
+    "id": "metro",
+    "family": "data",
+    "ready": true
+  },
+  {
+    "id": "periodic",
+    "family": "lab",
+    "ready": true
+  },
+  {
+    "id": "sequencer",
+    "family": "lab",
+    "ready": true
+  },
+  {
+    "id": "organic",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "cell",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "reactor",
+    "family": "lab",
+    "ready": true
+  },
+  {
+    "id": "blueprint",
+    "family": "product",
+    "ready": true
+  },
+  {
+    "id": "pipeline",
+    "family": "product",
+    "ready": true
+  },
+  {
+    "id": "desktop",
+    "family": "product",
+    "ready": true
+  },
+  {
+    "id": "bento",
+    "family": "product",
+    "ready": true
+  },
+  {
+    "id": "configurator",
+    "family": "product",
+    "ready": true
+  },
+  {
+    "id": "swiss",
+    "family": "story",
+    "ready": true
+  },
+  {
+    "id": "cinema",
+    "family": "story",
+    "ready": true
+  },
+  {
+    "id": "keynote",
+    "family": "story",
+    "ready": true
+  },
+  {
+    "id": "sketch",
+    "family": "story",
+    "ready": true
+  }
+]

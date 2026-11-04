@@ -1,0 +1,142 @@
+/* Swiss — International Typographic Style. Scoped to .swiss-root. */
+.swiss-root {
+  --sw-paper: #f2f1ec;
+  --sw-ink: #0d0d0d;
+  --sw-red: #c8001a; /* 5.35:1 on paper, 4.80:1 on panel */
+  --sw-muted: #4f4f4f; /* 7.24:1 on paper */
+  --sw-panel: #e7e5de;
+  --ds-bg: var(--sw-paper);
+  --ds-fg: var(--sw-ink);
+  --ds-border: var(--sw-ink);
+  --ds-muted: var(--sw-muted);
+  background: var(--sw-paper);
+  color: var(--sw-ink);
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.swiss-root) {
+  background: #f2f1ec;
+}
+.swiss-root ::selection {
+  background: var(--sw-red);
+  color: #fff;
+}
+
+.sw-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 1.5rem;
+}
+
+.sw-display,
+.sw-h2,
+.sw-num,
+.sw-name,
+.sw-stat,
+.sw-email {
+  font-family: var(--font-archivo), var(--font-estedad), ui-sans-serif, system-ui, sans-serif;
+  font-synthesis: none;
+}
+.sw-display {
+  font-variation-settings: 'wdth' 88;
+}
+.sw-name {
+  display: block;
+  font-size: clamp(3.4rem, 17.4vw, 17.5rem);
+  line-height: 0.84;
+  font-weight: 820;
+  font-variation-settings: 'wght' 820, 'wdth' 64;
+  letter-spacing: -0.015em;
+}
+.sw-h2 {
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  line-height: 0.98;
+  font-weight: 720;
+  font-variation-settings: 'wdth' 78;
+  letter-spacing: -0.02em;
+}
+.sw-num {
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.85;
+  font-weight: 800;
+  color: var(--sw-red);
+  font-variation-settings: 'wdth' 66;
+  font-variant-numeric: tabular-nums;
+}
+.sw-stat {
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  line-height: 0.9;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 70;
+}
+.sw-email {
+  font-size: clamp(1.7rem, 6vw, 5.4rem);
+  font-weight: 800;
+  line-height: 1;
+  font-variation-settings: 'wdth' 68;
+}
+.sw-mono {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+.sw-link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.sw-link:hover {
+  color: var(--sw-red);
+}
+
+/* Persian: no tracking, no width axis (Estedad has none), taller lines */
+.swiss-root:lang(fa) :is(.sw-name, .sw-h2, .sw-num, .sw-stat, .sw-display, .sw-email) {
+  letter-spacing: 0;
+  font-variation-settings: normal;
+}
+.swiss-root:lang(fa) .sw-name {
+  font-weight: 900;
+  line-height: 1.3;
+  font-size: clamp(3rem, 11vw, 10.5rem);
+}
+.swiss-root:lang(fa) .sw-h2 {
+  line-height: 1.45;
+  font-weight: 800;
+}
+.swiss-root:lang(fa) :is(p, li, dd) {
+  line-height: 1.95;
+}
+.swiss-root:lang(fa) .sw-mono {
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+
+/* Reader mode (CODE-069): one column, no decoration, every description open */
+.swiss-root.reader .sw-poster {
+  display: none !important;
+}
+.swiss-root.reader .sw-main {
+  max-width: 52rem;
+}
+.swiss-root.reader .sw-grid {
+  display: block;
+}
+.swiss-root.reader .sw-grid > * + * {
+  margin-top: 0.6rem;
+}
+.swiss-root.reader .sw-name {
+  font-size: clamp(2.6rem, 9vw, 5.5rem);
+}
+.swiss-root.reader .sw-num {
+  font-size: 2rem;
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  .swiss-root .sw-poster,
+  .swiss-root .sw-band {
+    display: none !important;
+  }
+  .swiss-root section {
+    break-inside: auto;
+    padding-block: 1.5rem;
+  }
+}

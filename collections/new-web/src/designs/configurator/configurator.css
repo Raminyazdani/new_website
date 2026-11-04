@@ -1,0 +1,102 @@
+/* Configurator — a product-store page that configures the portfolio. Scoped to .configurator-root. */
+.configurator-root {
+  --ds-bg: #ffffff;
+  --ds-fg: #1d1d1f;
+  --ds-border: #e5e5ea;
+  --ds-muted: #6e6e73; /* 5.0:1 on white */
+  background: linear-gradient(#ffffff, #ffffff 560px, #f5f5f7 560px);
+  color: #1d1d1f;
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+}
+body:has(.configurator-root) {
+  background: #f5f5f7;
+}
+.configurator-root .cfg-display {
+  letter-spacing: -0.025em;
+}
+.configurator-root:lang(fa) .cfg-display {
+  letter-spacing: 0;
+}
+.configurator-root .cfg-mono {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+}
+.configurator-root :focus-visible {
+  outline: 2px solid #0a66d8;
+  outline-offset: 2px;
+}
+
+/* radio chips (native radios → arrow keys move within a group) */
+.configurator-root .cfg-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 9999px;
+  border: 1px solid #d2d2d7;
+  background: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    color 0.2s;
+}
+.configurator-root .cfg-chip:hover {
+  border-color: #0a66d8;
+}
+.configurator-root .cfg-chip-on {
+  border-color: #0a66d8;
+  background: #0a66d8;
+  color: #fff;
+}
+.configurator-root .cfg-chip:has(input:focus-visible) {
+  outline: 2px solid #0a66d8;
+  outline-offset: 2px;
+}
+
+.configurator-root .cfg-card {
+  box-shadow:
+    0 0 0 1px #e5e5ea,
+    0 10px 30px -22px rgb(0 0 0 / 0.25);
+}
+.configurator-root .cfg-tile {
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06);
+}
+
+/* the print sheet: on screen only in the Print format; on paper always (and nothing else) */
+@media screen {
+  .configurator-root:not([data-format='print']) .cfg-print-wrap {
+    display: none;
+  }
+}
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  .configurator-root {
+    background: #fff !important;
+  }
+  .configurator-root .cfg-noprint {
+    display: none !important;
+  }
+  .configurator-root .cfg-print-wrap {
+    display: block !important;
+    padding: 0 !important;
+  }
+  .configurator-root .cfg-print {
+    max-width: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    font-size: 10pt;
+  }
+  .configurator-root .cfg-avoid {
+    break-inside: avoid;
+  }
+  .configurator-root main {
+    grid-column: 1 / -1;
+  }
+}

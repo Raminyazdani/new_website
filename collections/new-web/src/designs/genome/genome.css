@@ -1,0 +1,48 @@
+/* Genome — a genome-browser UI (own design). Scoped to .genome-root. */
+.genome-root {
+  --g-bg: #eef0f3;
+  --g-ink: #1b2230;
+  --g-muted: #566074; /* 6.3:1 on white, 5.9:1 on strip */
+  --g-line: #e3e6eb;
+  --g-line-strong: #c4c9d2;
+  --g-strip: #f6f7f9;
+  --g-accent: #1f5fd1; /* 5.7:1 on white */
+  --ds-bg: #ffffff;
+  --ds-fg: var(--g-ink);
+  --ds-border: var(--g-line);
+  --ds-muted: var(--g-muted);
+  background: var(--g-bg);
+  color: var(--g-ink);
+  font-family: var(--font-plex-sans), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.genome-root) {
+  background: #eef0f3;
+}
+.genome-root .gb-mono {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+}
+.genome-root:lang(fa) .gb-mono:not([dir='ltr']) {
+  font-family: var(--font-plex-sans), var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.genome-root svg text {
+  font-family: var(--font-plex-sans), var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.genome-root svg text.gb-mono {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+}
+.genome-root .g-link {
+  color: var(--g-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.genome-root .gb-focus:focus-visible {
+  outline: 2px solid var(--g-accent);
+  outline-offset: 2px;
+}
+.genome-root:lang(fa) :is(p, li, td, dd) {
+  line-height: 1.9;
+}
+.genome-root:lang(fa) h2 {
+  letter-spacing: 0;
+}

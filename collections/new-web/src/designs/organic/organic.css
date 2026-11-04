@@ -1,0 +1,185 @@
+/* Organic — biotech glass & fluid. Warm agar background, pastel cultures, frosted glass. */
+.organic {
+  --o-bg: #f3efe6;
+  --o-ink: #10201b;
+  --o-muted: #56665f;
+  --o-line: rgb(16 32 27 / 0.1);
+  --o-teal: #0b7568;
+  --o-mint: #9fe6cc;
+  --o-lilac: #b8a5ff;
+  --o-peach: #ffb48c;
+  --o-sky: #a3d4ff;
+  --o-lemon: #f3df7a;
+  --ds-bg: #fbfaf6;
+  --ds-fg: var(--o-ink);
+  --ds-border: rgb(16 32 27 / 0.1);
+  --ds-muted: var(--o-muted);
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  overflow-x: clip;
+  background: var(--o-bg);
+  color: var(--o-ink);
+  font-family: var(--font-jakarta), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.organic) {
+  background: #f3efe6;
+}
+.organic ::selection {
+  background: #9fe6cc;
+  color: #10201b;
+}
+
+/* type */
+.organic .font-display {
+  font-family: var(--font-instrument), var(--font-estedad), Georgia, serif;
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: -0.012em;
+}
+.organic .font-display:lang(fa) {
+  font-weight: 640;
+  letter-spacing: 0;
+}
+/* Persian display text: Estedad is heavier than Instrument Serif, so body-size display copy gets a lighter cut */
+.organic :is(h1, h2, h3).font-display:lang(fa) {
+  line-height: 1.45;
+}
+.organic h1.font-display:lang(fa) {
+  font-size: clamp(3rem, 7vw, 6.2rem);
+}
+.organic :is(p, blockquote).font-display:lang(fa) {
+  font-weight: 500;
+  line-height: 1.85;
+}
+.organic blockquote.font-display:lang(fa) {
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+}
+.organic .o-kicker {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--o-teal);
+}
+.organic .o-kicker:lang(fa) {
+  letter-spacing: 0;
+  font-size: 13px;
+}
+
+/* frosted glass */
+.organic .glass {
+  background: rgb(255 255 255 / 0.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  backdrop-filter: blur(22px) saturate(1.5);
+  border: 1px solid rgb(255 255 255 / 0.75);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 18px 50px -24px rgb(16 32 27 / 0.28);
+}
+.organic .glass-strong {
+  background: rgb(255 255 255 / 0.72);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  backdrop-filter: blur(26px) saturate(1.6);
+  border: 1px solid rgb(255 255 255 / 0.85);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 22px 60px -28px rgb(16 32 27 / 0.32);
+}
+
+/* drifting pastel blobs + grain behind everything */
+.o-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.o-blobs span {
+  position: absolute;
+  border-radius: 9999px;
+  /* soft edges come from the gradient itself — a blur filter on these huge layers is expensive */
+  opacity: 0.75;
+  will-change: transform;
+  animation: o-drift 26s ease-in-out infinite alternate;
+}
+.o-blobs span:nth-child(1) { width: 60vmax; height: 60vmax; left: -20vmax; top: -22vmax; background: radial-gradient(closest-side, #a8ecd3, rgb(168 236 211 / 0)); }
+.o-blobs span:nth-child(2) { width: 50vmax; height: 50vmax; right: -16vmax; top: 0; background: radial-gradient(closest-side, #cfc2ff, rgb(207 194 255 / 0)); animation-duration: 31s; animation-delay: -6s; }
+.o-blobs span:nth-child(3) { width: 46vmax; height: 46vmax; left: 16vw; bottom: -24vmax; background: radial-gradient(closest-side, #ffd0b3, rgb(255 208 179 / 0)); animation-duration: 34s; animation-delay: -12s; }
+.o-blobs span:nth-child(4) { width: 36vmax; height: 36vmax; right: 12vw; bottom: 4vh; background: radial-gradient(closest-side, #bfe2ff, rgb(191 226 255 / 0)); animation-duration: 29s; animation-delay: -3s; opacity: 0.6; }
+@keyframes o-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4vmax, 3vmax, 0) scale(1.08); }
+  100% { transform: translate3d(-3vmax, 5vmax, 0) scale(0.95); }
+}
+.o-grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .38 0 0 0 0 .3 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* petri dish */
+.o-dish {
+  background:
+    radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.9) 0, rgb(255 255 255 / 0) 34%),
+    radial-gradient(circle at 50% 50%, #fffbef 0%, #f8efd5 52%, #efe1bb 80%, #e3cf9f 100%);
+  box-shadow:
+    inset 0 0 0 10px rgb(255 255 255 / 0.55),
+    inset 0 0 0 11px rgb(16 32 27 / 0.06),
+    inset 0 -18px 40px rgb(140 110 40 / 0.18),
+    0 40px 80px -40px rgb(16 32 27 / 0.45);
+}
+.o-dish-gloss {
+  background:
+    conic-gradient(from 200deg at 30% 26%, transparent 0 20%, rgb(255 255 255 / 0.4) 25%, transparent 31% 70%, rgb(255 255 255 / 0.25) 75%, transparent 80%),
+    radial-gradient(circle at 50% 50%, transparent 66%, rgb(255 255 255 / 0.5) 69%, transparent 72%);
+  mix-blend-mode: soft-light;
+}
+.o-sticker {
+  background: #fffdf6;
+  border: 1px solid rgb(16 32 27 / 0.1);
+  box-shadow: 0 10px 24px -14px rgb(16 32 27 / 0.45);
+}
+
+/* 96-well plate */
+.o-plate {
+  background: linear-gradient(180deg, #ffffff 0%, #f2f4f3 100%);
+  border: 1px solid rgb(16 32 27 / 0.08);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 40px 70px -40px rgb(16 32 27 / 0.45);
+  clip-path: polygon(28px 0, 100% 0, 100% 100%, 0 100%, 0 28px);
+}
+.o-well {
+  background: radial-gradient(circle at 50% 38%, #ffffff 0, #eef2f0 58%, #dde4e1 100%);
+  box-shadow:
+    inset 0 2px 3px rgb(16 32 27 / 0.2),
+    0 1px 0 #fff;
+}
+.o-liquid {
+  box-shadow:
+    inset 0 -3px 5px rgb(0 0 0 / 0.14),
+    inset 0 2px 2px rgb(255 255 255 / 0.55);
+}
+
+/* lineage */
+@keyframes o-pulse {
+  0% { transform: scale(1); opacity: 0.85; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+.o-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: o-pulse 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o-blobs span,
+  .o-pulse {
+    animation: none;
+  }
+}

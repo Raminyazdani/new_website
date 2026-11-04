@@ -907,5 +907,62 @@
       "Not every theme x motion x design combination was rendered"
     ],
     "remainingRequired": []
+  },
+  "new_web_import_20261104": {
+    "state": "LOCAL_VERIFIED_AWAITING_PUBLISH",
+    "source": "D:/new_web active ready design registry",
+    "imported_templates": [
+      "helix",
+      "genome",
+      "circos",
+      "atlas",
+      "observatory",
+      "metro",
+      "periodic",
+      "sequencer",
+      "organic",
+      "cell",
+      "reactor",
+      "blueprint",
+      "pipeline",
+      "desktop",
+      "bento",
+      "configurator",
+      "swiss",
+      "cinema",
+      "keynote",
+      "sketch"
+    ],
+    "gallery": {
+      "total": 50,
+      "imported": 20,
+      "independent": 15,
+      "earlier_studies": 15,
+      "route": "/?gallery=1"
+    },
+    "languages": [
+      "en",
+      "de",
+      "fa"
+    ],
+    "data_boundary": "Existing authenticated /api/cv -> canonical normalized portfolio model -> imported SiteData; static shells compile without CV data.",
+    "verification": {
+      "main_tests_passed": 53,
+      "child_typecheck": "PASS",
+      "integrated_build": "PASS",
+      "exported_template_routes": 60,
+      "local_http_routes_ok": 60,
+      "local_browser_mounts_after_status_fix": 22,
+      "new_console_errors_observed": 0,
+      "language_switch_to_fa_rtl": "PASS",
+      "return_to_unified_gallery_with_locale": "PASS",
+      "direct_template_lock_and_sign_in": "PASS",
+      "anonymous_cv_status": 401,
+      "invalid_paths_rejected": 5
+    },
+    "notes": [
+      "Template UI is trilingual. Biography and records use the language supplied by the current authenticated CV.",
+      "The existing Connected Science entry and the two existing gallery collections remain available."
+    ]
   }
 }

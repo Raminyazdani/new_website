@@ -1,4 +1,9 @@
 node_modules/
+/collections/new-web/.next/
+/collections/new-web/out/
+/collections/new-web/*.tsbuildinfo
+/public/imported/
+/.imported-stage-*/
 .env*
 !.env.example
 .vercel/

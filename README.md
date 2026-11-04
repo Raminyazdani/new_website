@@ -12,6 +12,8 @@ The main portfolio includes introduction, projects, experience, publications, ed
 
 The preserved laboratory keeps its original `window.heroLabView.cv` interface and its 20 standalone Hero proposals, and also consumes the same source/adapter boundary rather than raw CV keys.
 
+Open `/?gallery=1` to browse the two existing collections and the 20 New Web templates together. New Web uses the original design components under `/imported/{en,de,fa}/`, with the same session and CV API. The template adapter converts the normalized portfolio model to the design components' `SiteData` format in the browser.
+
 The API returns the entire CV object without an envelope. `X-CV-Revision` and `X-CV-SHA256` carry import metadata. Responses are private/no-store. The original CV and credentials must never be committed or placed under `public/`.
 
 ## Run
@@ -20,6 +22,8 @@ The API returns the entire CV object without an envelope. `X-CV-Revision` and `X
 2. Configure `.env.local` from `.env.example` with private values; application traffic uses pooled `DATABASE_URL`, migration/import uses direct `DATABASE_DIRECT_URL`.
 3. `npm run seed -- /absolute/private/cv.json 0` for the first import. Later changed imports pass the current expected revision. Replays of the same file are idempotent.
 4. `npm run dev`, then open the printed URL and enter the configured access password.
+
+Run `npm run build` before previewing the imported templates locally. It installs their pinned dependencies, exports the three language routes and stages the static shell under `public/imported/`. Vercel runs the same build command. The export contains the template code and interface copy; the CV loads after authentication.
 
 The public UI initially contains no profile data. `POST /api/session` accepts `{ "password": "..." }` and sets a one-hour HttpOnly session cookie. `DELETE /api/session` removes it. No CV writes are exposed to the browser.
 

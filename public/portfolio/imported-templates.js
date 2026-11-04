@@ -1,0 +1,23 @@
+// Catalog metadata from the ready New Web designs. Template pages load CV data after sign-in.
+window.PortfolioImportedTemplates = Object.freeze([
+  {"id": "helix", "family": "life", "name": "Helix", "description": "A glowing DNA double helix in real-time 3D, decrypting type and bioluminescent cards.", "palette": ["#04060c", "#2ee6c5", "#e8fffb"]},
+  {"id": "genome", "family": "life", "name": "Genome", "description": "The career as an annotated genome: chromosome ideogram, zoomable tracks, feature panels and a GFF text view.", "palette": ["#f6f7f9", "#1f5fd1", "#1b2230"]},
+  {"id": "circos", "family": "life", "name": "Circos", "description": "Publication-style circular figures: skill domains linked by projects, a plasmid map of the career and growth rings.", "palette": ["#faf9f6", "#e8590c", "#15161b"]},
+  {"id": "atlas", "family": "data", "name": "Atlas", "description": "A single-cell atlas of skills: thousands of points that morph into timelines, charts and a map.", "palette": ["#fbfbfd", "#3b5bfd", "#0f1222"]},
+  {"id": "observatory", "family": "data", "name": "Observatory", "description": "Claims as constellations, evidence as stars — choose a claim and the sky shows what backs it up.", "palette": ["#050816", "#e6c27a", "#e8ecf6"]},
+  {"id": "metro", "family": "data", "name": "Metro", "description": "The career as a transit map: a line for each kind of work, transfer stations, a departure board and a course timetable.", "palette": ["#f4f4f1", "#0067b1", "#1a1a1a"]},
+  {"id": "periodic", "family": "lab", "name": "Periodic", "description": "A periodic table of 202 skills — projects as compounds, roles as reactions, degrees as isotopes.", "palette": ["#f7f5ef", "#b9380a", "#16171b"]},
+  {"id": "sequencer", "family": "lab", "name": "Sequencer", "description": "A step sequencer: a 4×4 grid of lit pads with one step per year, pattern banks of projects and live bioinformatics algorithms.", "palette": ["#cfcac1", "#ff6a13", "#1d1d1b"]},
+  {"id": "organic", "family": "life", "name": "Organic", "description": "Soft glass, living metaballs, a cell-lineage career tree and a molecule-graph of skills.", "palette": ["#f3efe6", "#0b7568", "#10201b"]},
+  {"id": "cell", "family": "life", "name": "Cell", "description": "Zoom from tissue into one cell — every organelle is a section and its parts are the CV entries.", "palette": ["#fff6ec", "#d96a5e", "#2a2230"]},
+  {"id": "reactor", "family": "lab", "name": "Reactor", "description": "A bioreactor control room: a P&ID of the career, process trends, a batch record and an event log.", "palette": ["#d6dadd", "#1f5fbf", "#1c252c"]},
+  {"id": "blueprint", "family": "product", "name": "Blueprint", "description": "Cyanotype drawing sheets: an exploded stack, assemblies with spec tables and a bill of materials of skills.", "palette": ["#0d3a66", "#ffd479", "#eef5ff"]},
+  {"id": "pipeline", "family": "product", "name": "Pipeline", "description": "A bioinformatics pipeline run: live terminal, animated process graph, git-log career and BibTeX.", "palette": ["#0b0f14", "#7ee787", "#d6e2ee"]},
+  {"id": "desktop", "family": "product", "name": "Desktop", "description": "RaminOS — a small desktop with windows, an app for every part of the CV and a spotlight search.", "palette": ["#0f172a", "#14b8a6", "#e2e8f0"]},
+  {"id": "bento", "family": "product", "name": "Bento", "description": "A bento-grid dashboard with a 3D globe of the journey, command palette and expanding cards.", "palette": ["#09090b", "#c6f432", "#fafafa"]},
+  {"id": "configurator", "family": "product", "name": "Configurator", "description": "Configure the portfolio: pick a role view, a depth and a format — the order changes, the facts stay the same.", "palette": ["#ffffff", "#0a66d8", "#1d1d1f"]},
+  {"id": "swiss", "family": "story", "name": "Swiss", "description": "International Typographic Style: a strict grid, generative posters and every claim next to its evidence.", "palette": ["#f2f1ec", "#c8001a", "#0d0d0d"]},
+  {"id": "cinema", "family": "story", "name": "Cinema", "description": "A night at the cinema: marquee lights, a film strip of projects, roles as a screenplay and end credits.", "palette": ["#0b0a09", "#ffb22c", "#f2ece3"]},
+  {"id": "keynote", "family": "story", "name": "Keynote", "description": "The CV as a conference talk — present it with keys and swipes, or scroll through every slide.", "palette": ["#07070b", "#8b5cf6", "#f4f4f6"]},
+  {"id": "sketch", "family": "story", "name": "Sketch", "description": "A hand-drawn lab notebook: taped portrait, dated entries, sticky-note projects and an A–Z index.", "palette": ["#fffdf6", "#1d4ed8", "#2b2b2b"]}
+]);

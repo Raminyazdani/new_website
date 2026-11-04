@@ -1,0 +1,292 @@
+/* Sequencer — a step-sequencer on a desk. Scoped to .sequencer-root. */
+.sequencer-root {
+  --ds-bg: #cfcac1;
+  --ds-fg: #1d1d1b;
+  --ds-border: #b9b3a8;
+  --ds-muted: #4a4a47;
+  color: #1d1d1b;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.25 0 0 0 0 0.22 0 0 0 0 0.18 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"),
+    #cfcac1;
+  font-family: var(--font-inter), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+}
+body:has(.sequencer-root) {
+  background: #cfcac1;
+}
+.sequencer-root .seq-label {
+  font-family: var(--font-martian), ui-monospace, monospace;
+}
+.sequencer-root:lang(fa) .seq-label:not([lang='en']):not([dir='ltr']) {
+  font-family: var(--font-vazirmatn), ui-sans-serif, sans-serif;
+}
+.sequencer-root :focus-visible {
+  outline: 3px solid #ff6a13;
+  outline-offset: 2px;
+}
+
+/* device body */
+.sequencer-root .seq-device {
+  background: linear-gradient(180deg, #efede8, #e3e0da);
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 -2px 0 rgb(0 0 0 / 0.06) inset,
+    0 40px 70px -40px rgb(40 32 20 / 0.55),
+    0 12px 24px -16px rgb(40 32 20 / 0.4);
+}
+.sequencer-root .seq-key {
+  background: linear-gradient(180deg, #353533, #262624);
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.12) inset,
+    0 3px 0 #151514,
+    0 6px 10px -6px rgb(0 0 0 / 0.5);
+  transition: transform 0.08s;
+}
+.sequencer-root .seq-key:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.12) inset,
+    0 1px 0 #151514;
+}
+.sequencer-root .seq-key-accent {
+  background: linear-gradient(180deg, #ff7a2b, #f05f0a);
+  color: #1d1d1b;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.35) inset,
+    0 3px 0 #b84500,
+    0 6px 10px -6px rgb(0 0 0 / 0.45);
+}
+.sequencer-root .seq-key-light {
+  background: #f6f5f2;
+  color: #1d1d1b;
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 2px 0 #c9c4ba;
+}
+.sequencer-root .seq-key-light[aria-pressed='true'] {
+  background: #ff6a13;
+}
+
+/* display */
+.sequencer-root .seq-screen {
+  background: radial-gradient(120% 120% at 30% 20%, #16201c, #0b100e 70%);
+  box-shadow:
+    0 0 0 6px #2b2b2b,
+    0 0 0 7px #4a4a47,
+    inset 0 0 40px rgb(0 0 0 / 0.6);
+  color: #9cff57;
+}
+.sequencer-root .seq-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgb(0 0 0 / 0.18) 0 1px, transparent 1px 3px);
+}
+.sequencer-root .seq-lcd {
+  font-family: var(--font-doto), var(--font-martian), ui-monospace, monospace;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgb(156 255 87 / 0.45);
+}
+.sequencer-root:lang(fa) .seq-lcd {
+  font-family: var(--font-vazirmatn), sans-serif;
+  font-weight: 600;
+}
+.sequencer-root .seq-lcd [lang='en'],
+.sequencer-root .seq-lcd [dir='ltr'] {
+  font-family: var(--font-doto), var(--font-martian), ui-monospace, monospace;
+}
+.sequencer-root .seq-title {
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.15;
+}
+.sequencer-root .seq-body {
+  font-size: 15px;
+  line-height: 1.45;
+}
+.sequencer-root .seq-big {
+  font-size: 1.35em;
+}
+.sequencer-root .seq-dim {
+  color: #7fcf4f;
+  opacity: 0.85;
+}
+.sequencer-root .seq-hi {
+  color: #ffb27a;
+  text-shadow: 0 0 8px rgb(255 106 19 / 0.5);
+}
+.sequencer-root .seq-ok {
+  color: #9cff57;
+}
+.sequencer-root .seq-bad {
+  color: #ff7a7a;
+}
+.sequencer-root .seq-open {
+  color: #0b100e;
+  background: #9cff57;
+  border-radius: 6px;
+  padding: 2px 8px;
+  text-shadow: none;
+}
+.sequencer-root .seq-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.sequencer-root .seq-marquee > span {
+  display: inline-block;
+  padding-inline-start: 100%;
+  animation: seq-marquee 18s linear infinite;
+}
+@keyframes seq-marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+[dir='rtl'] .sequencer-root .seq-marquee > span {
+  animation-name: seq-marquee-rtl;
+}
+@keyframes seq-marquee-rtl {
+  to {
+    transform: translateX(100%);
+  }
+}
+.sequencer-root .seq-seq {
+  font-family: var(--font-martian), ui-monospace, monospace;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.sequencer-root .seq-base {
+  display: inline-block;
+  width: 1.15em;
+  text-align: center;
+  border-radius: 3px;
+}
+.sequencer-root .seq-base-on {
+  background: #9cff57;
+  color: #0b100e;
+  text-shadow: none;
+}
+.sequencer-root .seq-table,
+.sequencer-root .seq-matrix {
+  font-family: var(--font-martian), ui-monospace, monospace;
+  font-size: 12.5px;
+  border-collapse: collapse;
+}
+.sequencer-root .seq-table th,
+.sequencer-root .seq-table td {
+  padding: 1px 10px 1px 0;
+  text-align: start;
+  font-weight: 600;
+}
+.sequencer-root .seq-matrix th,
+.sequencer-root .seq-matrix td {
+  width: 2.1em;
+  height: 1.7em;
+  text-align: center;
+  border: 1px solid rgb(156 255 87 / 0.18);
+  font-weight: 600;
+}
+.sequencer-root .seq-matrix th {
+  color: #7fcf4f;
+}
+.sequencer-root .seq-matrix .seq-path {
+  background: rgb(156 255 87 / 0.22);
+  color: #e9ffd9;
+}
+.sequencer-root .seq-matrix .seq-cur {
+  outline: 2px solid #ff6a13;
+  outline-offset: -2px;
+}
+.sequencer-root .seq-seedgrid {
+  display: grid;
+  gap: 2px 0;
+  font-family: var(--font-martian), ui-monospace, monospace;
+  font-size: 13px;
+  text-align: center;
+}
+.sequencer-root .seq-seedgrid > span:nth-child(9n + 1) {
+  text-align: start;
+}
+.sequencer-root .seq-align {
+  font-family: var(--font-martian), ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.3;
+  white-space: pre;
+}
+
+/* pads */
+.sequencer-root .seq-pad {
+  background: linear-gradient(180deg, #fbfaf8, #efede8);
+  color: #1d1d1b;
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 3px 0 #c9c4ba,
+    0 8px 12px -10px rgb(0 0 0 / 0.4);
+  transition:
+    transform 0.08s,
+    box-shadow 0.15s;
+}
+.sequencer-root .seq-pad:active {
+  transform: translateY(2px);
+}
+.sequencer-root .seq-pad-lit {
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--pad, #ff6a13) 55%, transparent) inset,
+    0 3px 0 #c9c4ba,
+    0 8px 12px -10px rgb(0 0 0 / 0.4);
+}
+.sequencer-root .seq-pad-sel {
+  background: linear-gradient(180deg, #fff3ea, #ffe2cf);
+  box-shadow:
+    0 0 0 3px #ff6a13 inset,
+    0 3px 0 #c9c4ba;
+}
+.sequencer-root .seq-pad-head {
+  box-shadow:
+    0 0 0 3px #1d1d1b inset,
+    0 0 18px rgb(255 106 19 / 0.6);
+}
+.sequencer-root .seq-pad-off {
+  background: #e6e3dd;
+  box-shadow: 0 1px 0 #f3f1ed inset;
+  cursor: default;
+}
+.sequencer-root .seq-led-on {
+  background: #ff6a13;
+  box-shadow: 0 0 8px #ff6a13;
+}
+.sequencer-root .seq-knob {
+  background: radial-gradient(circle at 35% 30%, #4a4a47, #1d1d1b 70%);
+  box-shadow:
+    0 4px 0 #111,
+    0 8px 14px -8px rgb(0 0 0 / 0.6);
+  cursor: ns-resize;
+}
+.sequencer-root .seq-knob-cap {
+  background: radial-gradient(circle at 40% 35%, #3a3a37, #222220);
+  box-shadow: 0 0 0 1px #000 inset;
+}
+.sequencer-root .seq-knob[aria-disabled='true'] {
+  cursor: default;
+}
+
+/* manual */
+.sequencer-root .seq-manual {
+  background: #fbfaf7;
+  box-shadow:
+    0 1px 0 #e6e1d7,
+    0 30px 60px -40px rgb(40 32 20 / 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sequencer-root .seq-marquee > span {
+    animation: none !important;
+    padding-inline-start: 0;
+    white-space: normal;
+  }
+  .sequencer-root .seq-marquee {
+    white-space: normal;
+    mask-image: none;
+  }
+}
