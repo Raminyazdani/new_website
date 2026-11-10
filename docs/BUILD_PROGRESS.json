@@ -1144,5 +1144,87 @@
       "mobileScreenshot": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/ui-ux-refinement-20261110/published-gallery-mobile.jpg",
       "report": "docs/UI_UX_REFINEMENT_20261110_FA.md"
     }
+  },
+  "synthesis_20261111": {
+    "status": "validated_locally_pending_release",
+    "implementation": {
+      "model": "gpt-6.1-sol",
+      "effort": "ultra",
+      "rootRole": "design_and_orchestration",
+      "newDependencies": 0
+    },
+    "modes": [
+      "all",
+      "biology",
+      "programming"
+    ],
+    "sectionsPerMode": 11,
+    "archivedTemplates": 50,
+    "checks": {
+      "testsPassed": 61,
+      "testsFailed": 0,
+      "build": "npm run build passed",
+      "staticPages": 66,
+      "typeScript": "passed",
+      "diffCheck": "passed"
+    },
+    "browser": {
+      "engine": "IAB",
+      "realCVVerified": true,
+      "portraitLoaded": true,
+      "privateDataNotCommitted": true,
+      "sizes": [
+        [
+          320,
+          568
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          768,
+          1024
+        ],
+        [
+          1024,
+          768
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "horizontalOverflow": false,
+      "keyboardFocusRetained": true,
+      "nativeClickChapterOffset": {
+        "before": 162.875,
+        "after": 162.875
+      },
+      "keyboardChapterOffset": 162.98959350585938,
+      "stillPoseStable": true,
+      "manualPerspectiveWorksInStill": true
+    },
+    "review": {
+      "references": [
+        "Helix",
+        "Organic",
+        "Pipeline",
+        "Strata"
+      ],
+      "fixes": [
+        "Suppressed competing global waves",
+        "Added restrained scene nucleus",
+        "Simplified preview framing",
+        "Restored meaningful optional source fields",
+        "44px perspective controls"
+      ],
+      "sourceDetector": "2 thick-border findings corrected; instrument grid retained intentionally"
+    },
+    "limits": [
+      "No physical touch-device or FPS measurement",
+      "Representative archived designs rendered; original50 preservation covered by tests"
+    ],
+    "deployment": null
   }
 }

@@ -25,12 +25,52 @@
     if (typeof value !== 'object' || !value) return str(value);
     return first(value.formatted, [str(value.countryCode), str(value.number)].filter(Boolean).join(' '));
   }
+  function phones(value) {
+    return (Array.isArray(value) ? value : [value]).map(phone).filter(Boolean);
+  }
   function locationLabel(value) {
     if (typeof value === 'string') return value;
     var location = object(Array.isArray(value) ? value[0] : value);
     return [str(location.city), str(location.region), str(location.country)]
       .filter(function (part, index, parts) { return part && parts.indexOf(part) === index; })
       .join(', ');
+  }
+  function projectResources(record) {
+    var url = safeUrl(record.url), repository = safeUrl(record.repository_url);
+    var resources = { url: url, urlLabel: '', repositoryUrl: repository === url ? '' : repository, repositoryLabel: '', links: [] };
+    var seen = new Set();
+    list(record.links).forEach(function (item) {
+      var entry = object(item), target = safeUrl(entry.url), label = str(entry.label);
+      if (!target) return;
+      if (target === resources.url) resources.urlLabel = first(resources.urlLabel, label);
+      else if (target === resources.repositoryUrl) resources.repositoryLabel = first(resources.repositoryLabel, label);
+      else if (!seen.has(target)) {
+        seen.add(target);
+        resources.links.push({ label: label, url: target });
+      }
+    });
+    return resources;
+  }
+  // Keep public bibliographic details without passing through verification or submission identifiers.
+  var bibliographyFields = [
+    ['book_subtitle', 'Book subtitle'], ['edition', 'Edition'], ['editors', 'Editors'],
+    ['chapter_number', 'Chapter'], ['chapter_pages', 'Chapter pages'],
+    ['volume', 'Volume'], ['issue', 'Issue'], ['article_number', 'Article number'],
+    ['pages', 'Pages'], ['page_count', 'Page count'],
+    ['date', 'Date'], ['publication_date_online', 'Online publication date'],
+    ['publication_date_issue', 'Issue publication date'], ['submissionDate', 'Submission date'],
+    ['degree_type', 'Degree type'], ['faculty', 'Faculty'], ['school', 'School'],
+    ['place', 'Place'], ['language', 'Language'], ['isbn_ebook', 'eBook ISBN'],
+    ['issn', 'ISSN'], ['issn_online', 'Online ISSN'], ['pmid', 'PMID'],
+    ['pmcid', 'PMCID'], ['arxiv', 'arXiv']
+  ];
+  function bibliography(record, identifiers) {
+    return bibliographyFields.reduce(function (details, field) {
+      var key = field[0], value = key === 'editors' ? strings(record[key]).join(', ')
+        : first(record[key], identifiers[key]);
+      if (value !== '') details.push({ label: field[1], value: value });
+      return details;
+    }, []);
   }
   function adaptCV(input) {
     var raw = object(input), basics = object(Array.isArray(raw.basics) ? raw.basics[0] : raw.basics);
@@ -43,17 +83,20 @@
       identity: { name: name, givenName: given, familyName: family, initials: name.split(/\s+/).filter(Boolean).map(function (s) { return Array.from(s)[0]; }).slice(0, 2).join(''), roles: strings(basics.label), summary: str(basics.summary), location: locationLabel(basics.location), avatarUrl: picture('profile'), coverUrl: picture('cover') },
       profiles: list(raw.profiles).map(function (v, i) { v = object(v); return { id: 'profile-' + i, network: str(v.network), label: first(v.username, v.network), url: safeUrl(v.url) }; }),
       contact: { email: strings(basics.email).join(', '), phone: phone(basics.phone) },
-      education: list(raw.education).map(function (v, i) { v = object(v); return { id: 'education-' + i, institution: str(v.institution), location: str(v.location), field: str(v.area), degree: str(v.studyType), start: str(v.startDate), end: str(v.endDate), gpa: str(v.gpa), logoUrl: safeUrl(v.logo_url), tags: tags(v) }; }),
+      education: list(raw.education).map(function (v, i) { v = object(v); return { id: 'education-' + i, institution: str(v.institution), location: str(v.location), field: str(v.area), degree: str(v.studyType), start: str(v.startDate), end: str(v.endDate), gpa: str(v.gpa), logoUrl: safeUrl(v.logo_url), tags: tags(v), description: str(v.description) }; }),
       experience: list(raw.experiences).map(function (v, i) {
         v = object(v);
-        return { id: 'experience-' + i, title: str(v.role), organization: str(v.institution), location: locationLabel(v.location), period: str(v.duration), description: str(v.description), tags: tags(v) };
+        return { id: 'experience-' + i, title: str(v.role), organization: str(v.institution), location: locationLabel(v.location), period: str(v.duration), description: str(v.description), tags: tags(v), url: safeUrl(v.url), profileUrl: safeUrl(v.profile_url) };
       }),
-      projects: list(raw.projects).map(function (v, i) { v = object(v); return { id: 'project-' + i, title: str(v.title), description: str(v.description), url: safeUrl(v.url), tags: tags(v) }; }),
+      projects: list(raw.projects).map(function (v, i) {
+        v = object(v);
+        return Object.assign({ id: 'project-' + i, title: str(v.title), description: str(v.description), tags: tags(v) }, projectResources(v));
+      }),
       publications: list(raw.publications).map(function (v, i) {
         v = object(v); var ids = object(v.identifiers);
         var authors = list(v.authors).map(function (a) { return typeof a === 'object' ? first(object(a).literal, object(a).name, [str(object(a).given), str(object(a).family)].filter(Boolean).join(' ')) : str(a); }).filter(Boolean);
         if (!authors.length) authors = list(v.authors_structured).map(function (a) { a = object(a); return first(a.literal, [str(a.given), str(a.family)].filter(Boolean).join(' ')); }).filter(Boolean);
-        return { id: 'publication-' + i, title: str(v.title), authors: authors, supervisors: strings(v.supervisors), kind: str(v.type), status: str(v.status), year: str(v.year), venue: first(v.journal, v.conference, v.book_title, v.institution), publisher: str(v.publisher), doi: first(v.doi, ids.doi), isbn: first(v.isbn, ids.isbn), url: safeUrl(first(v.url, v.URL, v.repository_url)), citation: str(v.citation), notes: str(v.notes) };
+        return { id: 'publication-' + i, title: str(v.title), authors: authors, supervisors: strings(v.supervisors), kind: str(v.type), status: str(v.status), year: str(v.year), venue: first(v.journal, v.conference, v.book_title, v.institution), publisher: str(v.publisher), doi: first(v.doi, ids.doi), isbn: first(v.isbn, ids.isbn), url: safeUrl(first(v.url, v.URL, v.repository_url)), citation: str(v.citation), notes: str(v.notes), bibliography: bibliography(v, ids) };
       }),
       skillGroups: Object.entries(object(raw.skills)).map(function (entry, i) {
         return { id: 'skill-domain-' + i, name: entry[0], groups: Object.entries(object(entry[1])).map(function (group, j) {
@@ -69,7 +112,11 @@
           return { id: 'language-test-' + i + '-' + j, name: str(t.test), issuer: str(t.organization), date: str(t.examDate), url: safeUrl(t.URL), scores: scores };
         }) };
       }),
-      references: list(raw.references).map(function (v, i) { v = object(v); return { id: 'reference-' + i, name: str(v.name), title: str(v.position), department: str(v.department), organization: str(v.institution), location: str(v.location), email: strings(v.email).join(', '), phone: phone(v.phone), url: safeUrl(v.URL) }; }),
+      references: list(raw.references).map(function (v, i) {
+        v = object(v);
+        var numbers = phones(v.phone);
+        return { id: 'reference-' + i, name: str(v.name), title: str(v.position), department: str(v.department), organization: str(v.institution), location: str(v.location), email: strings(v.email).join(', '), phone: numbers[0] || '', phones: numbers, url: safeUrl(v.URL) };
+      }),
       interests: list(raw.interests).map(function (v, i) { v = object(v); return { id: 'interest-' + i, title: str(v.name), description: str(v.description), icon: str(v.icon) }; }),
       stats: {}, warnings: []
     };

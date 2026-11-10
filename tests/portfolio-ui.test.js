@@ -41,7 +41,7 @@ function setSelectValues(document) {
   }
 }
 
-async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, imported = false, model = null } = {}) {
+async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, imported = false, synthesis = false, model = null } = {}) {
   const { document, Event } = parseHTML(fs.readFileSync(path.join(publicRoot, 'index.html'), 'utf8'));
   const selectPrototype = Object.getPrototypeOf(document.querySelector('#motionMode'));
   const nativeSelectValue = Object.getOwnPropertyDescriptor(selectPrototype, 'value');
@@ -98,6 +98,7 @@ async function boot({ search = '', auth = false, reduce = true, stored = null, i
     ...(imported ? ['imported-templates.js'] : []),
     ...files.slice(galleryIndex),
   ];
+  if (synthesis) loadedFiles.splice(loadedFiles.indexOf('studio.js'),0,'synthesis-scene.js','synthesis.js');
   for (const file of loadedFiles) {
     new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8'))(win, document);
   }
@@ -113,8 +114,8 @@ async function boot({ search = '', auth = false, reduce = true, stored = null, i
   return { win, document, Event, click, storedValues, get cvLoads() { return cvLoads; } };
 }
 
-test('unified default combines the three disciplines while preserving the synthetic CV model', async () => {
-  const env = await boot();
+test('archival Connected Science combines the three disciplines while preserving the synthetic CV model', async () => {
+  const env = await boot({search:'?design=unified'});
   const { document, win, click } = env;
   assert.equal(document.querySelector('#portfolio').hidden, false);
   const sections = ['hero', 'about', 'projects', 'experience', 'publications', 'education', 'skills', 'certificates', 'languages', 'references', 'contact'];
@@ -537,7 +538,7 @@ test('independent record atoms preserve zero values and distinct supplied langua
   assert(doi.textContent.includes('DOI 10.0000/synthetic'), 'DOI identifier is readable in the link label');
 });
 
-test('the independent collection is the new default while all previous designs remain addressable', async () => {
+test('the independent and previous design collections remain addressable', async () => {
   const env = await boot({ independent:true });
   assert.equal(env.win.PortfolioStudio.concept,'folio');
   assert.equal(env.document.body.dataset.collection,'independent');
@@ -642,4 +643,133 @@ test('all fifteen independent worlds retain complete safe source records and fun
     assert.equal(document.querySelectorAll('#about [data-story]').length,id==='strata'?1:0,id+' intentional story composition');
     assert(win.PortfolioDesigns.get(id).fingerprint.composition,id+' authored brief');
   }
+});
+
+test('Synthesis is the default, retains one scene and every source record in all three perspectives', async () => {
+  const model = adaptCV(raw);
+  model.projects[7].title = 'Synthetic genome sequencing';
+  model.projects[7].tags.push('Genomics');
+  model.projects[10].title = 'Synthetic software and machine learning';
+  model.projects[10].tags.push('Machine learning');
+  model.projects[10].url = 'https://example.test/app';
+  model.projects[10].urlLabel = 'Fictional live demo';
+  model.projects[10].repositoryUrl = 'https://example.test/repository';
+  model.projects[10].repositoryLabel = 'Fictional repository';
+  model.projects[10].links = [{ label: 'Fictional protocol', url: 'https://example.test/protocol' }];
+  Object.assign(model.experience[0], { location: 'Fictional laboratory city', url: 'https://example.test/experience', profileUrl: 'https://example.test/role-profile' });
+  Object.assign(model.publications[0], { citation: 'Fictional exact citation.', notes: 'Fictional publication note.',
+    supervisors: ['Fictional Supervisor'], doi: '10.0000/fictional', isbn: '0000', bibliography: [{ label: 'Volume', value: 'Fictional volume' }] });
+  model.education[0].description = 'Fictional programme description.';
+  model.skillGroups[0].groups[0].items[0].tags = ['Fictional skill context'];
+  model.certificates[0].hasCertificate = false;
+  model.certificates[1].hasCertificate = '';
+  model.languages[0].cefr = 'A1';
+  model.languages[0].tests = [{ id: 'test-1', name: 'Fictional test', scores: [{ label: 'writing', value: 0, max: 0 }] }];
+  model.references[0].phones = ['+1000001', '+1000002'];
+  model.interests = [{ id: 'interest-1', title: 'Fictional interest', description: 'Fictional interest description.' }];
+  model.identity.coverUrl = 'https://example.test/cover.jpg';
+  const env = await boot({ synthesis: true, independent: true, imported: true, model, search: '?perspective=unknown' });
+  const { document, win, click, Event } = env;
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => Array.from(document.querySelectorAll(selector));
+  assert.equal(win.PortfolioStudio.concept, 'synthesis');
+  assert.equal(win.PortfolioDesigns.has('synthesis'), false);
+  assert.equal($$('#designGalleryBody [data-gallery-design]').length, 50);
+  const loadedModel = win.portfolioView.model;
+  const scene = $('[data-synthesis-scene]'), strand = $('.syn-strand');
+  const paths = new Set();
+  const control = $('#synthesisToolbar button[data-perspective="biology"]');
+  assert.equal($('.syn-person img').getAttribute('src'), model.identity.avatarUrl);
+  assert.equal($('.syn-cover').getAttribute('src'), model.identity.coverUrl);
+  for (const [perspective, first] of [['all', model.projects[0].title], ['biology', model.projects[7].title], ['programming', model.projects[10].title]]) {
+    click(`#synthesisToolbar button[data-perspective="${perspective}"]`);
+    assert.equal(document.body.dataset.perspective, perspective);
+    assert.equal($('[aria-pressed="true"][data-perspective]').dataset.perspective, perspective);
+    assert($('#synthesisToolbar button[data-perspective="biology"]') === control, 'mode control persists');
+    assert($('[data-synthesis-scene]') === scene, 'scene element persists');
+    assert($('.syn-strand') === strand, 'strand persists');
+    paths.add(strand.getAttribute('d'));
+    assert.equal($('[data-project-card]:not([hidden]) h3').textContent, first);
+    assert.equal($$('#portfolio [data-section]').length, 11);
+    assert.equal($$('[data-project-card]').length, model.projects.length);
+    assert.equal($$('[data-journey-record]').length, model.experience.length);
+    assert.equal($$('[data-cert-card]').length, model.certificates.length);
+    assert.equal($$('[data-skill-item]').length, model.stats.skills);
+    assert.equal($$('[data-record-id]').length, model.publications.length);
+    assert.equal($$('#portfolio img[onerror]').length, 0);
+    assert.equal($$('#references details[open]').length, 0);
+    assert.equal($$('#references a[href^="tel:"]').length, 2);
+    assert.match($('#about').textContent, /Fictional interest description/);
+    assert.match($('#education').textContent, /Fictional programme description/);
+    assert.match($('#experience').textContent, /Fictional laboratory city/);
+    assert($('#experience a[href="https://example.test/role-profile"]'));
+    assert.match($('#publications').textContent, /Fictional Supervisor/);
+    assert.match($('#publications').textContent, /Fictional exact citation/);
+    assert.match($('#publications').textContent, /Fictional volume/);
+    assert.match($('#languages').textContent, /0 \/ 0/);
+    assert.match($('#skills').textContent, /Fictional skill context/);
+    assert.match($('#certificates').textContent, /No certificate recorded/);
+    assert.match($('#certificates').textContent, /Certificate status not supplied/);
+    assert.strictEqual(win.portfolioView.model, loadedModel);
+  }
+  assert.equal(paths.size, 3, 'each mode moves the same geometry to a different final shape');
+  assert.equal(env.cvLoads, 1);
+  assert.equal(new URL(win.location.href).searchParams.get('perspective'), 'programming');
+
+  // A chapter reached by fragment navigation starts a little below the sticky toolbar.
+  const chapter = $('#projects');
+  win.scrollY = 1000;
+  win.scrollTo = ({top}) => { win.scrollY = top; };
+  $('#synthesisToolbar').getBoundingClientRect = () => ({bottom:121});
+  $$('#portfolio [data-section]').forEach(el => { el.getBoundingClientRect = () => ({top:0, bottom:0, height:0}); });
+  const projectTop = () => (document.body.dataset.perspective === 'biology' ? 1437 : 1163) - win.scrollY;
+  chapter.getBoundingClientRect = () => ({top:projectTop(), bottom:projectTop()+700, height:700});
+  $('#about').getBoundingClientRect = () => ({top:projectTop()-900, bottom:projectTop(), height:900});
+  click('#synthesisToolbar button[data-perspective="biology"]');
+  assert($('#projects') === chapter);
+  assert.equal(chapter.getBoundingClientRect().top, 163, 'changing perspective retains the visible chapter and offset');
+  click('#synthesisToolbar button[data-perspective="programming"]');
+  assert.equal(chapter.getBoundingClientRect().top, 163);
+  win.scrollY = 0;
+  const search = $('[data-project-search]');
+  search.value = 'Synthetic software';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  assert.match($('[data-syn-project-count]').textContent, /1 project matching/);
+  click('[data-open-project="project-10"]');
+  for (const label of ['Fictional live demo','Fictional repository','Fictional protocol']) {
+    assert($$('#projectDialog a').some(anchor => anchor.textContent === label), `missing source link ${label}`);
+  }
+  click('#projectDialog [data-close-dialog]');
+  const reference = $('#references details');
+  reference.setAttribute('open','');
+  click('#synthesisToolbar button[data-perspective="biology"]');
+  assert.equal($('[data-project-search]').value, 'Synthetic software');
+  assert.equal($('#references details').hasAttribute('open'), true);
+  assert.equal($$('[data-project-card]:not([hidden])').length, 1);
+});
+
+test('Synthesis deep links, the section index, legacy designs and the private access gate coexist', async () => {
+  const env = await boot({ synthesis:true, independent:true, imported:true, search:'?perspective=programming&motion=still' });
+  const {document, win, click} = env;
+  assert.equal(document.body.dataset.perspective,'programming');
+  assert.equal(document.body.dataset.effects,'off');
+  click('[data-syn-open-index]');
+  assert(document.querySelector('#jumpDialog').hasAttribute('open'));
+  assert(document.querySelector('#jumpDialog [href="#references"]'));
+  click('#jumpDialog [data-close-dialog]');
+  click('.syn-archive-link');
+  assert(document.querySelector('#designGallery').hasAttribute('open'));
+  click('[data-design-choice="unified"]');
+  assert.equal(win.PortfolioStudio.concept,'unified');
+  assert.equal(document.querySelector('#synthesisToolbar').hidden,true);
+  assert(document.querySelector('#hero [data-hero-scene]'));
+  click('.syn-dock-return');
+  assert.equal(win.PortfolioStudio.concept,'synthesis');
+  assert.equal(document.body.dataset.perspective,'programming');
+  assert.equal(env.cvLoads,1);
+
+  const locked = await boot({ synthesis:true, auth:true, search:'?perspective=biology' });
+  assert(locked.document.querySelector('#synthesisToolbar').hidden);
+  assert(locked.document.querySelector('#portfolio').hidden);
+  assert.equal(locked.document.querySelector('#portfolio').textContent,'');
 });

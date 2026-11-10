@@ -25,7 +25,7 @@
     const cover = `<div class="vp-document-cover"><span class="vp-document-rule"></span><span class="vp-document-caption">${e(c.hasCertificate ? 'Certificate record' : 'Course record')}</span><strong>${e(c.title)}</strong><span>${e(c.issuer)}</span><small>${e(c.date)}</small><span class="vp-document-foot">${String(index + 1).padStart(2, '0')} / Document cover · from CV</span></div>`;
     return `<div class="vp-certificate-media${source.thumbnail ? ' has-source' : ''}">${cover}${source.thumbnail ? `<img data-vp-thumbnail src="${e(source.thumbnail)}" alt="Document preview: ${e(c.title)}" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="vp-source-caption">${source.kind === 'pdf' ? 'Source document · page 1' : 'Source document'}</span>` : ''}</div>`;
   }
-  function renderProject(p, index, h) {
+  function renderProject(p, index, h, { diagramOnly = false } = {}) {
     const e = h?.e || escape, title = string(p.title), description = string(p.description);
     // Preview vocabulary is source-derived; broad CV filing labels remain in the main card metadata.
     const tags = list(p.tags).filter(tag => !/^(?:full\s*cv|academic|student\s*projects?)$/i.test(tag.trim()));
@@ -44,7 +44,8 @@
       : /pipeline|workflow|sequenc|rna-seq/i.test(key) ? 'flow'
       : /protocol|experiment|laborator|assay/i.test(key) ? 'protocol'
         : ['brief', 'outline', 'topics'][Math.abs(hash + index) % 3];
-    const caption = `<span class="vp-preview-origin">${['omics', 'stack', 'flow'].includes(mode) ? 'Topics from CV · illustrative' : 'Project brief · from CV'}</span>`;
+    if (diagramOnly && !['omics', 'stack', 'flow', 'protocol'].includes(mode)) return '';
+    const caption = diagramOnly ? '<span class="vp-preview-origin">Illustrated project topics</span>' : `<span class="vp-preview-origin">${['omics', 'stack', 'flow'].includes(mode) ? 'Topics from CV · illustrative' : 'Project brief · from CV'}</span>`;
     const shortDescription = description.length > 100 ? description.slice(0, 97).trimEnd() + '…' : description;
     let content = '';
     if (mode === 'omics') {

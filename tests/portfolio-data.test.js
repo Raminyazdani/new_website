@@ -61,6 +61,65 @@ test('nested domains, certificate issuers and language scores retain order, empt
   assert.deepEqual(model.languages[0].tests[0].scores, [{ label: 'overall', value: 0, max: 0 }, { label: 'reading', value: 1.5, max: 0 }, { label: 'writing', value: 0, max: 0 }, { label: 'speaking', value: 2, max: 0 }]);
 });
 
+test('optional CV details are available to renderers without exposing source metadata or unsafe links', () => {
+  const model = adaptCV({
+    education: [{ description: 'Exact education description.' }, {}],
+    experiences: [
+      { url: 'example.test/work', profile_url: 'https://example.test/profile', contract_history: ['private-synthetic-history'] },
+      { url: 'https://user:secret@example.test/private', profile_url: 'javascript:alert(1)' },
+    ],
+    projects: [
+      { url: 'example.test/project', repository_url: 'example.test/repo', links: [
+        { label: 'Method notes', url: 'https://example.test/notes' },
+        { label: 'Project homepage', url: 'https://example.test/project' },
+        { label: 'Unsafe', url: 'data:text/html,invalid' },
+        { label: 'Source repository', url: 'https://example.test/repo' },
+        { label: 'Demo', url: 'example.test/demo' },
+        { label: 'Duplicate demo', url: 'https://example.test/demo' },
+      ] },
+      { url: 'example.test/one', repository_url: 'https://example.test/one' },
+      { repository_url: 'file:///private' },
+    ],
+    publications: [
+      { title: 'Example chapter', chapter_number: 0, chapter_pages: '12–15', volume: 'IV', editors: ['Editor B', 'Editor A'], doi: '10.synthetic/chapter', identifiers: { issn: '1234-5678', pmid: '12345', manuscript: 'private-synthetic-manuscript' }, _verification: 'private-synthetic-verification' },
+      { title: 'Unpublished example', status: 'Under review' },
+    ],
+    references: [
+      { phone: [null, { countryCode: '+00', number: 0 }, { formatted: '+00 456' }, '555-0100', {}] },
+      { phone: { formatted: '555-0101' } },
+      { phone: null },
+    ],
+  });
+  assert.deepEqual(model.education.map(e => e.description), ['Exact education description.', '']);
+  assert.deepEqual(model.experience.map(e => [e.url, e.profileUrl]), [
+    ['https://example.test/work', 'https://example.test/profile'], ['', ''],
+  ]);
+  assert.deepEqual(model.projects.map(p => p.repositoryUrl), ['https://example.test/repo', '', '']);
+  assert.deepEqual(model.projects.map(p => [p.urlLabel, p.repositoryLabel]), [
+    ['Project homepage', 'Source repository'], ['', ''], ['', ''],
+  ]);
+  assert.deepEqual(model.projects[0].links, [
+    { label: 'Method notes', url: 'https://example.test/notes' },
+    { label: 'Demo', url: 'https://example.test/demo' },
+  ]);
+  assert.deepEqual(model.projects[1].links, []);
+  assert.deepEqual(model.publications[0].bibliography, [
+    { label: 'Editors', value: 'Editor B, Editor A' },
+    { label: 'Chapter', value: '0' },
+    { label: 'Chapter pages', value: '12–15' },
+    { label: 'Volume', value: 'IV' },
+    { label: 'ISSN', value: '1234-5678' },
+    { label: 'PMID', value: '12345' },
+  ]);
+  assert.equal(model.publications[0].doi, '10.synthetic/chapter');
+  assert.deepEqual(model.publications[1].bibliography, []);
+  assert.equal(model.publications[1].status, 'Under review');
+  assert.deepEqual(model.references.map(r => [r.phone, r.phones]), [
+    ['+00 0', ['+00 0', '+00 456', '555-0100']], ['555-0101', ['555-0101']], ['', []],
+  ]);
+  assert(!JSON.stringify(model).includes('private-synthetic'));
+});
+
 test('URL normalization accepts real web destinations and rejects unsafe or ambiguous values', () => {
   for (const value of ['javascript:alert(1)', 'JaVaScRiPt:alert(1)', 'data:text/html,a', 'file:///secret', '//example.test/path', '/relative', 'not a domain', 'example', 'https://user:secret@example.test', 'https://example.test\\evil', 'java\nscript:alert(1)']) assert.equal(safeUrl(value), '', value);
   assert.equal(safeUrl('example.test/path?q=1#part'), 'https://example.test/path?q=1#part');

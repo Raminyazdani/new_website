@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="/portfolio/directions/systems.css">
   <link rel="stylesheet" href="/portfolio/directions/expressive.css">
   <link rel="stylesheet" href="/portfolio/motion-system.css">
+  <link rel="stylesheet" href="/portfolio/synthesis.css">
   <script src="/data/cv-adapter.js" defer></script>
   <script src="/data/portfolio-source.js" defer></script>
   <script src="/portfolio/science.js" defer></script>
@@ -47,6 +48,8 @@
   <script src="/portfolio/design-navigation.js" defer></script>
   <script src="/portfolio/design-gallery.js" defer></script>
   <script src="/portfolio/motion-system.js" defer></script>
+  <script src="/portfolio/synthesis-scene.js" defer></script>
+  <script src="/portfolio/synthesis.js" defer></script>
   <script src="/portfolio/studio.js" defer></script>
   <script src="/portfolio/studio-intro.js" defer></script>
   <script src="/portfolio/records.js" defer></script>
@@ -61,6 +64,7 @@
     <nav class="pf-nav" id="mainNav" aria-label="Main navigation" hidden></nav>
     <div class="pf-header-tools">
       <button class="pf-tool studio-theme-toggle" id="themeToggle" aria-label="Switch to dark theme">Dark ◑</button>
+      <button class="pf-tool syn-archive-link" type="button" data-open-design-gallery>Templates ↗</button>
       <button class="pf-tool studio-trigger" data-open-studio aria-haspopup="dialog">View options</button>
       <button id="jumpBtn" class="pf-tool" aria-label="Jump to section" hidden>⌘ K</button>
       <label class="pf-motion-control"><span>Motion</span><select id="motionMode" aria-label="Animation preference"><option value="auto">Auto</option><option value="full">Full</option><option value="still">Still</option></select></label>
@@ -70,6 +74,20 @@
   </header>
   <aside class="pf-motion-notice" id="motionNotice" hidden><span>Your system prefers less motion. You can preview the effects here.</span><button id="enableEffects">Play effects ↗</button></aside>
   <div id="accessPanel" class="pf-access"><div class="pf-access-art" aria-hidden="true"><i></i><i></i><span>⌁</span></div><div class="pf-access-copy"><span class="pf-kicker">PRIVATE PORTFOLIO</span><h1>A little<br><em>closer.</em></h1><p id="accessMessage" role="status">Opening the portfolio…</p><form id="accessForm" hidden><label for="accessPassword">Access phrase</label><div class="pf-access-field"><input id="accessPassword" type="password" autocomplete="current-password" required><button class="pf-button primary" type="submit">Enter ↗</button></div></form><button id="retryBtn" class="pf-button" hidden>Try again ↗</button></div><span class="pf-access-caption">BIOLOGY, MATHEMATICS &amp; CODE.</span></div>
+  <div id="synthesisToolbar" class="syn-toolbar" hidden>
+    <div class="syn-wrap syn-toolbar-inner">
+      <div class="syn-toolbar-meta"><span class="syn-kicker">Perspective</span><span data-syn-context></span></div>
+      <div class="syn-modes" role="group" aria-label="Portfolio perspective">
+        <button type="button" data-perspective="all" aria-pressed="true" aria-describedby="syn-mode-all"><small aria-hidden="true">01</small> All disciplines</button>
+        <button type="button" data-perspective="biology" aria-pressed="false" aria-describedby="syn-mode-biology"><small aria-hidden="true">02</small> Life sciences</button>
+        <button type="button" data-perspective="programming" aria-pressed="false" aria-describedby="syn-mode-programming"><small aria-hidden="true">03</small> Engineering + ML</button>
+      </div>
+      <span class="syn-visually-hidden" id="syn-mode-all">The full portfolio across all disciplines.</span>
+      <span class="syn-visually-hidden" id="syn-mode-biology">An emphasis on biology, chemistry and bioinformatics. All records remain available.</span>
+      <span class="syn-visually-hidden" id="syn-mode-programming">An emphasis on programming, data science and machine learning. All records remain available.</span>
+      <span class="syn-visually-hidden" data-syn-mode-status role="status"></span>
+    </div>
+  </div>
   <main id="portfolio" tabindex="-1" hidden></main>
   <footer class="pf-footer" id="siteFooter" hidden><span id="footerName"></span><span>BIOLOGY / CHEMISTRY / CODE</span><a href="#hero">Back to the beginning ↑</a></footer>
   <dialog id="projectDialog" class="pf-dialog" aria-labelledby="projectDialogTitle"><button class="pf-dialog-close" data-close-dialog aria-label="Close project">×</button><div id="projectDialogBody"></div></dialog>
@@ -80,7 +98,8 @@
     <button class="pf-dialog-close" data-close-studio aria-label="Close design controls">×</button>
     <span class="pf-kicker">Biology × chemistry × programming</span><h2 id="designDialogTitle">Your portfolio design library.</h2>
     <p>Explore independent visual worlds, focus a section, or adjust its atmosphere. Earlier studies and the original Connected Science portfolio remain available.</p>
-    <button class="pf-button primary" data-concept-choice="unified">Connected Science · original</button>
+    <button class="pf-button primary" type="button" data-concept-choice="synthesis">Synthesis · main portfolio</button>
+    <button class="pf-button" data-concept-choice="unified">Connected Science · original</button>
     <button class="pf-button" data-open-design-gallery>Browse all portfolio templates ↗</button>
     <button class="pf-button" data-open-story>Explore the visual story ↓</button>
     <section class="studio-backgrounds" aria-labelledby="backgroundTitle"><div class="studio-bg-heading"><h3 id="backgroundTitle">Interactive backgrounds</h3><span id="backgroundCurrent" role="status"></span></div><div class="studio-bg-choices"><button type="button" class="studio-bg-choice" data-background-choice="glow" aria-label="Choose Soft light background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-glow" aria-hidden="true"><i></i><b></b></span><strong>Soft light</strong><small>A soft pool of blue light</small></button><button type="button" class="studio-bg-choice" data-background-choice="silk" aria-label="Choose Silk contours background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-silk" aria-hidden="true"><i></i><b></b></span><strong>Silk contours</strong><small>Fine, flowing organic lines</small></button><button type="button" class="studio-bg-choice" data-background-choice="membrane" aria-label="Choose Liquid membrane background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-membrane" aria-hidden="true"><i></i><b></b></span><strong>Liquid membrane</strong><small>Soft cellular forms</small></button><button type="button" class="studio-bg-choice" data-background-choice="molecular" aria-label="Choose Molecular drift background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-molecular" aria-hidden="true"><i></i><b></b></span><strong>Molecular drift</strong><small>Quiet connected structures</small></button><button type="button" class="studio-bg-choice" data-background-choice="aurora" aria-label="Choose Aurora ribbons background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-aurora" aria-hidden="true"><i></i><b></b></span><strong>Aurora ribbons</strong><small>Broad layers of light</small></button><button type="button" class="studio-bg-choice" data-background-choice="off" aria-label="Choose Off background" aria-pressed="false"><span class="studio-bg-swatch bg-swatch-off" aria-hidden="true"><i></i><b></b></span><strong>Off</strong><small>A plain background</small></button></div><div class="studio-bg-preview" data-background-preview><span class="studio-bg-preview-label">Move your pointer here</span></div><p class="studio-bg-hint">Choose a style, then move across the sample. Motion follows your setting below.</p><div class="studio-bg-footer"><small>Saved automatically on this browser.</small><button type="button" class="pf-button primary" data-close-studio>Use this background</button></div></section>
@@ -89,7 +108,7 @@
       <button class="studio-choice" data-concept-choice="molecular"><span class="studio-swatch swatch-molecular" aria-hidden="true"></span><b>Molecular Form</b><small>Rotatable geometry, paired dossiers and polymer paths.</small></button>
       <button class="studio-choice" data-concept-choice="terminal"><span class="studio-swatch swatch-terminal" aria-hidden="true"></span><b>Code Notebook</b><small>A readable IDE, README projects and method libraries.</small></button>
     </div></details>
-    <div class="studio-settings"><label class="studio-pointer-option"><input type="checkbox" id="pointerEffects" checked> Custom cursor</label><fieldset><legend>Appearance</legend><div class="studio-button-group"><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div></fieldset>
+    <div class="studio-settings"><label class="studio-pointer-option"><input type="checkbox" id="pointerEffects" checked> <span id="pointerEffectsLabel">Custom cursor</span></label><fieldset><legend>Appearance</legend><div class="studio-button-group"><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div></fieldset>
     <div><label for="studioSection">Focus a section</label><select id="studioSection"><option value="all">Whole portfolio</option><option value="hero">Hero</option><option value="about">About</option><option value="projects">Projects</option><option value="experience">Experience</option><option value="publications">Publications</option><option value="education">Education</option><option value="skills">Skills</option><option value="certificates">Credentials</option><option value="languages">Languages</option><option value="references">References</option><option value="contact">Contact</option></select></div>
     <div><label for="studioMotion">Motion</label><select id="studioMotion"><option value="auto">Auto · follow system</option><option value="full">Full · play effects</option><option value="still">Still · pause effects</option></select></div></div>
     <p id="studioStatus" role="status"></p>
@@ -100,8 +119,8 @@
     <header class="dg-header"><div class="dg-heading-row"><div><h2 id="designGalleryTitle">Find your design.</h2><p>Find a template from any collection.</p></div><button type="button" class="dg-close" data-close-design-gallery aria-label="Close design gallery">Close ×</button></div>
     <div class="dg-tools"><label class="dg-search">Find a design<input id="designGallerySearch" name="design-search" type="search" autocomplete="off" placeholder="Journal, laboratory, code…"></label><button id="designGalleryFilterToggle" class="dg-filter-toggle" type="button" aria-expanded="false" aria-controls="designGalleryFilters" hidden>Filters</button><div id="designGalleryFilters" class="dg-filter-fields"><label>Collection<select id="designGalleryCollection"><option value="independent">15 independent directions</option><option value="previous">15 earlier studies</option></select></label><label>Direction<select id="designGalleryFamily"><option value="">All directions</option></select></label></div><span class="dg-results" id="designGalleryResults" role="status"></span></div></header>
     <div id="designGalleryBody" class="dg-grid"></div><div id="designGalleryEmpty" class="dg-empty" hidden><p>No designs match these filters.</p><button type="button" class="pf-button" data-reset-design-filters>Show all 50 templates</button></div>
-    <footer class="dg-footer"><span id="designGalleryCurrent"></span><button class="pf-button" type="button" data-design-choice="unified">Return to Connected Science</button></footer>
+    <footer class="dg-footer"><span id="designGalleryCurrent"></span><div><button class="pf-button primary" type="button" data-design-choice="synthesis">Return to Synthesis</button> <button class="pf-button" type="button" data-design-choice="unified">Connected Science original</button></div></footer>
   </dialog>
-  <nav class="design-dock" aria-label="Switch portfolio design"><button type="button" data-design-step="-1" aria-label="Previous design">←</button><button type="button" class="design-dock-label" data-open-design-gallery><small>DESIGN COLLECTION · <span id="designCollectionCount">15</span></small><strong id="designDockName">Connected Science</strong></button><button type="button" data-open-design-gallery aria-label="Open design gallery">▦</button><button type="button" data-design-step="1" aria-label="Next design">→</button></nav>
+  <nav class="design-dock" aria-label="Switch portfolio design"><button type="button" class="syn-dock-return" data-design-choice="synthesis" aria-label="Return to Synthesis" title="Return to Synthesis">⌂</button><button type="button" data-design-step="-1" aria-label="Previous design">←</button><button type="button" class="design-dock-label" data-open-design-gallery><small>DESIGN COLLECTION · <span id="designCollectionCount">15</span></small><strong id="designDockName">Connected Science</strong></button><button type="button" data-open-design-gallery aria-label="Open design gallery">▦</button><button type="button" data-design-step="1" aria-label="Next design">→</button></nav>
 </body>
 </html>
