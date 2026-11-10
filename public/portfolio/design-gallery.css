@@ -89,3 +89,35 @@ html:has(#designGallery:modal){overflow:hidden}
   object-fit: cover;
   object-position: top;
 }
+
+/* The collection is an operating surface; leave room for the actual designs. */
+.dg-tools{grid-template-columns:minmax(0,1.5fr) minmax(0,1.7fr) auto}
+.dg-filter-fields{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:12px;align-items:end}
+.dg-filter-fields[hidden],.dg-filter-toggle[hidden],.dg-empty[hidden]{display:none}
+.dg-filter-toggle{min-height:46px;padding:10px 14px;align-self:end;border:1px solid var(--line);border-radius:5px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;touch-action:manipulation}
+.dg-filter-toggle[aria-expanded=true]{border-color:var(--lime);color:var(--lime)}
+.dg-tools :is(button,input,select):focus-visible,.dg-empty button:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.dg-header h2{letter-spacing:-.035em;text-wrap:balance;margin-top:2px}
+.dg-selected{position:static;align-self:flex-start;order:-1}
+.dg-empty{padding:32px 26px 44px;color:var(--muted);text-align:center}
+.dg-empty p{margin:0 0 18px}
+.design-gallery{scroll-padding-block:270px 95px}
+@media(max-width:850px) and (min-width:551px){
+  .dg-tools{grid-template-columns:1fr}
+  .dg-results{grid-column:auto;text-align:left}
+}
+@media(max-width:550px),(max-height:600px){
+  .dg-tools{grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:12px}
+  .dg-search{grid-column:1}
+  .dg-filter-fields{grid-column:1/-1;gap:10px}
+  .dg-results{grid-column:1/-1;text-align:left;min-height:0;font-size:11px}
+  .dg-header{padding:14px 14px 12px}
+  .dg-header h2{font-size:23px;margin:4px 0 8px}
+  .dg-header p{font-size:11px;line-height:1.5;max-width:65ch}
+  .dg-tools label{font-size:11px}
+  .dg-footer{flex-wrap:nowrap;padding:10px 14px;gap:10px}
+  .dg-footer>span{min-width:0;min-height:44px;font-size:11px;display:block;align-content:center;overflow-wrap:anywhere}
+  .dg-footer button{width:auto;flex:none;max-width:52%;padding:8px 10px;font-size:11px;min-height:44px}
+  .design-gallery{scroll-padding-block:240px 90px}
+}
+@media(max-width:350px){.dg-filter-fields{grid-template-columns:1fr}.dg-header h2{font-size:21px}}

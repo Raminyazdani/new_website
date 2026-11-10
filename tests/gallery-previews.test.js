@@ -10,12 +10,14 @@ const { parseHTML } = require('linkedom');
 const publicDir = join(__dirname, '../public');
 const previewDir = join(publicDir, 'portfolio/previews');
 
-function loadGallery() {
-  const { document } = parseHTML(readFileSync(join(publicDir, 'index.html'), 'utf8'));
-  const window = { location: new URL('https://example.test/') };
-  const collectionSelect = document.querySelector('#designGalleryCollection');
+function loadGallery({ compact = false, query = '' } = {}) {
+  const { document, Event } = parseHTML(readFileSync(join(publicDir, 'index.html'), 'utf8'));
+  const media = { matches: compact, addEventListener() {} };
+  const window = { location: new URL(`https://example.test/${query}`), matchMedia: () => media,
+    history: { state: null, replaceState(state, title, url) { window.location = new URL(url); } } };
   // linkedom does not implement the browser's writable select value.
-  Object.defineProperty(collectionSelect, 'value', { value: 'all', writable: true });
+  for (const select of document.querySelectorAll('select')) Object.defineProperty(select, 'value', { value: select.id === 'designGalleryCollection' ? 'all' : '', writable: true });
+  Object.defineProperty(document.querySelector('#designGallery'), 'open', { get() { return this.hasAttribute('open'); } });
   const galleryScripts = /^\/portfolio\/(?:design-(?:registry|navigation|gallery)\.js|(?:designs|directions)\/[^/]+\.js|imported-templates\.js)$/;
   for (const script of document.querySelectorAll('script[src]')) {
     const source = script.getAttribute('src');
@@ -23,7 +25,7 @@ function loadGallery() {
     const code = readFileSync(join(publicDir, source.slice(1)), 'utf8');
     new Function('window', 'document', code)(window, document);
   }
-  return { window, document };
+  return { window, document, Event };
 }
 
 function webpSize(bytes) {
@@ -64,4 +66,37 @@ test('every gallery template points to its own 640 × 400 preview', () => {
     assert(!seen.has(hash), `${id} has a reused preview file`);
     seen.add(hash);
   }
+});
+
+test('compact gallery keeps filters available and recovers all 50 designs from empty search', () => {
+  const { window, document, Event } = loadGallery({ compact: true, query: '?gallery=1&theme=dark&design-search=doesnotexist' });
+  const toggle = document.querySelector('#designGalleryFilterToggle');
+  const filters = document.querySelector('#designGalleryFilters');
+  const search = document.querySelector('#designGallerySearch');
+  search.focus = () => {};
+  assert.equal(toggle.hidden, false);
+  assert.equal(filters.hidden, true);
+  assert.equal(document.querySelector('#designGalleryEmpty').hidden, false);
+  toggle.dispatchEvent(new Event('click', { bubbles: true }));
+  assert.equal(toggle.getAttribute('aria-expanded'), 'true');
+  assert.equal(filters.hidden, false);
+  document.querySelector('[data-reset-design-filters]').dispatchEvent(new Event('click', { bubbles: true }));
+  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 50);
+  assert.equal(document.querySelector('#designGalleryEmpty').hidden, true);
+  assert.equal(window.location.searchParams.get('design-search'), null);
+  assert.equal(window.location.searchParams.get('theme'), 'dark');
+  document.querySelector('[data-close-design-gallery]').dispatchEvent(new Event('click', { bubbles: true }));
+  assert.equal(window.location.searchParams.has('gallery'), false);
+});
+
+test('gallery search is restored and updated in the URL without losing design preferences', () => {
+  const { window, document, Event } = loadGallery({ query: '?gallery=1&design=strata&theme=dark&motion=still&design-search=herbarium' });
+  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 1);
+  const search = document.querySelector('#designGallerySearch');
+  search.value = 'helix';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  assert.equal(window.location.searchParams.get('design-search'), 'helix');
+  assert.equal(window.location.searchParams.get('design'), 'strata');
+  assert.equal(window.location.searchParams.get('motion'), 'still');
+  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 2);
 });

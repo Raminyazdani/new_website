@@ -1038,5 +1038,82 @@
         "Horizon Next to Persian New Web Helix and Previous to Horizon preserving dark/silk/auto and locale"
       ]
     }
+  },
+  "ui_ux_refinement_20261110": {
+    "status": "local_checks_passed_pending_deployment",
+    "skills": [
+      "impeccable4.8.2",
+      "emil-review-animations",
+      "vercel-web-design-guidelines"
+    ],
+    "scope": "Shared gallery, imported dock and locale controls, narrative motion gate; all50 template identities retained",
+    "tests": {
+      "pass": 58,
+      "fail": 0,
+      "command": "npm test"
+    },
+    "build": {
+      "command": "npm run build -- --use-installed",
+      "result": "passed",
+      "staticPages": 66,
+      "importedTemplates": 20,
+      "locales": 3
+    },
+    "sourceDetector": {
+      "result": "no_findings",
+      "files": 5,
+      "kind": "static_source_scan"
+    },
+    "browser": {
+      "engine": "IAB",
+      "syntheticCV": true,
+      "gallerySizes": [
+        [
+          320,
+          568
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          768,
+          1024
+        ],
+        [
+          1024,
+          768
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "horizontalOverflow": false,
+      "mobile390": {
+        "beforeHeader": 457,
+        "afterHeader": 214,
+        "beforeFooter": 123,
+        "afterFooter": 69
+      },
+      "importedRtl320": {
+        "horizontalOverflow": false,
+        "controlsMinPx": 44,
+        "enterSelectedFocus": true,
+        "escapeRestore": true,
+        "hideShow": true,
+        "languageSwitch": "fa_to_en"
+      },
+      "story1440x1000": {
+        "full": "scroll",
+        "still": "static",
+        "chaptersRetained": 3
+      }
+    },
+    "limitations": [
+      "No physical touch device or FPS measurement",
+      "Representative shared UX paths, not every template-theme-locale combination"
+    ],
+    "deployment": null
   }
 }

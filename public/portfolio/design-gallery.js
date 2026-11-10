@@ -20,11 +20,21 @@
     const dialog = $('#designGallery');
     if (dialog?.showModal && !dialog.open) dialog.showModal();
     else if (dialog && !dialog.open) dialog.setAttribute('open', '');
+    syncUrl(true);
   }
   function close() {
     const dialog = $('#designGallery');
     if (dialog?.close && dialog.open) dialog.close();
     else dialog?.removeAttribute('open');
+    syncUrl(false);
+  }
+  function syncUrl(isOpen = Boolean($('#designGallery')?.open)) {
+    if (!w.history?.replaceState) return;
+    const url = new URL(w.location.href);
+    const values = { gallery: isOpen ? '1' : '', collection: scope === 'all' ? '' : scope,
+      'design-search': $('#designGallerySearch')?.value.trim() || '', direction: $('#designGalleryFamily')?.value || '' };
+    Object.entries(values).forEach(([key, value]) => value ? url.searchParams.set(key, value) : url.searchParams.delete(key));
+    w.history.replaceState(w.history.state, '', url);
   }
   function reflect(id) {
     const meta = registry.get(id);
@@ -51,6 +61,8 @@
     });
     if ($('#designGalleryEmpty')) $('#designGalleryEmpty').hidden = count > 0;
     if ($('#designGalleryResults')) $('#designGalleryResults').textContent = `${count} ${count === 1 ? 'design' : 'designs'} shown`;
+    const toggle = $('#designGalleryFilterToggle');
+    if (toggle) toggle.textContent = `Filters${(scope !== 'all' ? 1 : 0) + (family ? 1 : 0) ? ` · ${(scope !== 'all' ? 1 : 0) + (family ? 1 : 0)}` : ''}`;
   }
   const params = new URLSearchParams(w.location?.search || '');
   const requestedLocale = params.get('lang');
@@ -125,9 +137,11 @@
   function populate() {
     const host = $('#designGalleryBody'); if (!host) return;
     const designs = entries(), familySelect = $('#designGalleryFamily');
+    const previousFamily = familySelect?.value || '';
     const families = [...new Set(designs.map(design => String(design.family).toLowerCase()))].sort();
     if (familySelect) {
       familySelect.innerHTML = '<option value="">All directions</option>' + families.map(family => `<option value="${e(family)}">${e(familyLabel(family))}</option>`).join('');
+      if (families.includes(previousFamily)) familySelect.value = previousFamily;
       familySelect.closest('label').hidden = families.length < 2;
     }
     if ($('#designGalleryCollection')) $('#designGalleryCollection').value = scope;
@@ -138,7 +152,7 @@
       independent: `${designs.length} independent visual worlds. Open a direction to explore its complete portfolio.`,
       previous: 'The earlier collection, preserved with its original layouts.',
     };
-    if (intro) intro.textContent = `${introductions[scope]} Previews show the layouts with a sample CV.`;
+    if (intro) intro.textContent = `Previews use a sample CV. ${introductions[scope]}`;
     host.innerHTML = designs.map(renderCard).join('');
     filter();
   }
@@ -164,8 +178,24 @@
       collectionSelect.innerHTML = scopes.map(group => `<option value="${group}">${e(labels[group])}</option>`).join('');
     }
     populate();
-    $('#designGallerySearch')?.addEventListener('input', filter);
-    $('#designGalleryFamily')?.addEventListener('change', filter);
+    if ($('#designGallerySearch')) $('#designGallerySearch').value = params.get('design-search') || '';
+    if ([...($('#designGalleryFamily')?.options || [])].some(option => option.value === params.get('direction'))) $('#designGalleryFamily').value = params.get('direction');
+    filter();
+    const compact = w.matchMedia?.('(max-width: 550px), (max-height: 600px)');
+    const toggle = $('#designGalleryFilterToggle'), fields = $('#designGalleryFilters');
+    function syncFilters() {
+      if (toggle) toggle.hidden = !compact?.matches;
+      if (fields) fields.hidden = Boolean(compact?.matches && toggle?.getAttribute('aria-expanded') !== 'true');
+    }
+    toggle?.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', String(toggle.getAttribute('aria-expanded') !== 'true'));
+      syncFilters();
+    });
+    compact?.addEventListener?.('change', syncFilters);
+    syncFilters();
+    $('#designGallery')?.addEventListener('close', () => syncUrl(false));
+    $('#designGallerySearch')?.addEventListener('input', () => { filter(); syncUrl(); });
+    $('#designGalleryFamily')?.addEventListener('change', () => { filter(); syncUrl(); });
     document.addEventListener('change', event => {
       if (event.target.matches('#motionMode, #studioMotion')) syncImportedLinks();
     });
@@ -174,11 +204,19 @@
       scope = event.target.value;
       if ($('#designGallerySearch')) $('#designGallerySearch').value = '';
       populate(); reflectSelection(activeId);
+      syncUrl();
     });
     $('#designGallery')?.addEventListener('click', event => { if (event.target === event.currentTarget) close(); });
     document.addEventListener('click', event => {
       if (event.target.closest('[data-open-design-gallery]')) { const dialog=$('#designDialog');if(dialog?.open)dialog.close();open(); }
       if (event.target.closest('[data-close-design-gallery]')) close();
+      if (event.target.closest('[data-reset-design-filters]')) {
+        scope = imported.length ? 'all' : 'independent';
+        $('#designGallerySearch').value = '';
+        $('#designGalleryFamily').value = '';
+        populate(); reflectSelection(activeId); syncUrl();
+        $('#designGallerySearch').focus();
+      }
       const choice=event.target.closest('[data-design-choice]');
       if(choice){ w.PortfolioStudio?.setConcept(choice.dataset.designChoice);close(); }
       const step = event.target.closest('[data-design-step]');

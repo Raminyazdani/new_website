@@ -102,8 +102,9 @@
     const on = (el, event, fn, options) => { if (!el?.addEventListener) return; el.addEventListener(event, fn, options); removers.push(() => el.removeEventListener(event, fn, options)); };
     const media = w.matchMedia?.('(prefers-reduced-motion: reduce)');
     function mode() {
-      const choice = doc.body?.dataset.effects;
-      return choice === 'on' || (choice !== 'off' && !media?.matches);
+      const motion = doc.body?.dataset.motion || 'auto';
+      return doc.body?.dataset.effects === 'on' &&
+        (motion === 'full' || (motion === 'auto' && !media?.matches));
     }
     function clearScrub(s, progress = 0) {
       s.el.style.removeProperty('--story-progress');
@@ -194,7 +195,7 @@
     on(doc, 'visibilitychange', () => { if (doc.hidden && frame) { w.cancelAnimationFrame?.(frame); frame = 0; } else schedule(); });
     on(media, 'change', resize);
     if (w.IntersectionObserver) { io = new w.IntersectionObserver(entries => { entries.forEach(entry => { const s = scenes.find(s => s.el === entry.target); if (s) s.visible = entry.isIntersecting; }); schedule(); }, { rootMargin: '100px' }); scenes.forEach(s => io.observe(s.el)); }
-    if (w.MutationObserver && doc.body) { observer = new w.MutationObserver(resize); observer.observe(doc.body, { attributes: true, attributeFilter: ['data-effects'] }); }
+    if (w.MutationObserver && doc.body) { observer = new w.MutationObserver(resize); observer.observe(doc.body, { attributes: true, attributeFilter: ['data-effects', 'data-motion'] }); }
     resize();
     cleanup = () => { if (frame) w.cancelAnimationFrame?.(frame); io?.disconnect(); observer?.disconnect(); removers.forEach(fn => fn()); scenes.forEach(s => { delete s.el.dataset.storyMode; clearScrub(s); }); };
   }

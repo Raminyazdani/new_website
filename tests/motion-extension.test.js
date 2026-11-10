@@ -8,7 +8,7 @@ const { parseHTML } = require('linkedom');
 
 const sourceRoot = path.join(__dirname, '../public/portfolio');
 
-function loadStory() {
+function loadStory({ reduced = false } = {}) {
   const { document, Event } = parseHTML('<!doctype html><html><body data-effects="on"><main id="portfolio"></main></body></html>');
   let frameCallback = null;
   let frameId = 0;
@@ -19,7 +19,7 @@ function loadStory() {
   class Observer { constructor(callback) { observerCallback = callback; } observe() {} disconnect() { disconnects++; } }
   const win = {
     document, innerWidth: 1280, innerHeight: 900, scrollY: 0,
-    matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    matchMedia: () => ({ matches: reduced, addEventListener() {}, removeEventListener() {} }),
     requestAnimationFrame(fn) { frameCallback = fn; return ++frameId; },
     cancelAnimationFrame() { frameCallback = null; },
     addEventListener(type, fn) { events.set(type, fn); },
@@ -38,6 +38,27 @@ function loadStory() {
 }
 
 const escapeHTML = value => String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+
+test('story respects Still, Auto reduction, and explicit Full opt-in, including live changes', () => {
+  for (const reduced of [false, true]) {
+    const env = loadStory({ reduced });
+    const root = env.document.querySelector('#portfolio'), api = env.win.PortfolioStory;
+    root.innerHTML = api.render({ projects: [] }, { e: escapeHTML });
+    root.querySelector('.story-runway').getBoundingClientRect = () => ({ top: 0, height: 1800 });
+    root.querySelector('.story-stage').getBoundingClientRect = () => ({ height: 600 });
+    api.mount(root);
+    for (const [motion, expected] of [['auto', reduced ? 'static' : 'scroll'], ['still', 'static'], ['full', 'scroll'], ['off', 'static']]) {
+      env.document.body.dataset.motion = motion;
+      env.notifyMutation();
+      assert.equal(root.querySelector('[data-story]').dataset.storyMode, expected, `${motion} with reduced=${reduced}`);
+    }
+    env.document.body.dataset.effects = 'off';
+    env.document.body.dataset.motion = 'full';
+    env.notifyMutation();
+    assert.equal(root.querySelector('[data-story]').dataset.storyMode, 'static');
+    api.unmount();
+  }
+});
 
 function loadPointer({ fine = true, reduced = false, effects = 'on', motion = 'auto' } = {}) {
   const { document, Event } = parseHTML(`<!doctype html><html><body data-effects="${effects}" data-motion="${motion}"><main id="portfolio"><a href="#x">Synthetic link</a><input></main></body></html>`);
