@@ -2,6 +2,10 @@
 
 A complete animated CV portfolio, with the original collection of 20 Hero concepts retained at `/lab.html`. Profile facts and photographs are read from the complete private CV document in Neon Postgres.
 
+The primary experience is **Synthesis**: one portfolio with All disciplines, Life sciences, and Engineering + ML perspectives. Open `/?design=synthesis&perspective=all`; the three modes retain all eleven professional sections while transforming the shared scientific scene and presentation. The **Templates** control opens the preserved collection of 50 complete designs, with a return to Synthesis.
+
+See the [Synthesis design plan and review](docs/SYNTHESIS_DESIGN_PLAN_FA.md), [built visual system](DESIGN.md), and observed release checks in `docs/BUILD_PROGRESS.json`.
+
 ## Data flow
 
 Private import → Neon `hero_lab.cv_documents.document` (opaque JSONB object) → authenticated `GET /api/cv` → source boundary → adapter → stable `PortfolioModel v1` → section renderers. The complete document is retained in memory; renderers receive only the normalized model. No sample-profile fallback exists.

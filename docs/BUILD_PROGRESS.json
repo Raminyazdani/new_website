@@ -1146,7 +1146,7 @@
     }
   },
   "synthesis_20261111": {
-    "status": "validated_locally_pending_release",
+    "status": "published_and_verified",
     "implementation": {
       "model": "gpt-6.1-sol",
       "effort": "ultra",
@@ -1203,7 +1203,10 @@
       },
       "keyboardChapterOffset": 162.98959350585938,
       "stillPoseStable": true,
-      "manualPerspectiveWorksInStill": true
+      "manualPerspectiveWorksInStill": true,
+      "finalMinControlHeightPx": 44,
+      "viewportCoverage": "Programming dark at all five sizes; all/light desktop and mobile; biology/light desktop; all three modes on production",
+      "consoleErrorsObserved": 0
     },
     "review": {
       "references": [
@@ -1225,6 +1228,32 @@
       "No physical touch-device or FPS measurement",
       "Representative archived designs rendered; original50 preservation covered by tests"
     ],
-    "deployment": null
+    "deployment": {
+      "id": "dpl_HwgEjf1cS3sTPy4FZoGXAv1wU4ZF",
+      "readyState": "READY",
+      "alias": "https://new-website-hero-lab.vercel.app",
+      "appCommit": "3c46ebbea498d94d5b3891c491b8d9967e98449f"
+    },
+    "productionChecks": {
+      "changedAssetsMatchGitCommit": 5,
+      "anonymousCVStatus": 401,
+      "anonymousCVCache": "private, no-store, max-age=0",
+      "allThreePerspectives": true,
+      "allProfessionalRecordsRetained": true,
+      "portraitLoaded": true,
+      "sections": 11,
+      "galleryTemplates": 50,
+      "mobile390HorizontalOverflow": false,
+      "mobileModeButtonsPx": 44
+    },
+    "evidence": {
+      "directory": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/synthesis-20261111",
+      "images": [
+        "all-published.jpg",
+        "biology-published.jpg",
+        "programming-published.jpg",
+        "mobile-published.jpg"
+      ]
+    }
   }
 }
