@@ -1040,7 +1040,7 @@
     }
   },
   "ui_ux_refinement_20261110": {
-    "status": "local_checks_passed_pending_deployment",
+    "status": "published_and_verified",
     "skills": [
       "impeccable4.8.2",
       "emil-review-animations",
@@ -1114,6 +1114,35 @@
       "No physical touch device or FPS measurement",
       "Representative shared UX paths, not every template-theme-locale combination"
     ],
-    "deployment": null
+    "deployment": {
+      "id": "dpl_DaBAn8BZq6cdRL4Yo1xNzHKoDVzn",
+      "state": "READY",
+      "alias": "https://new-website-hero-lab.vercel.app",
+      "appCommit": "fb31d69727bdac16cda9eef0df2bfe34b764e88a"
+    },
+    "productionChecks": {
+      "galleryTemplates": 50,
+      "gallerySearch": true,
+      "mobile390": {
+        "headerPx": 214,
+        "footerPx": 69,
+        "horizontalOverflow": false
+      },
+      "importedFaCircos": {
+        "authenticated": true,
+        "keyboardSelectedFocus": true,
+        "escapeFocusRestore": true,
+        "horizontalOverflow": false
+      },
+      "changedAssetsByteIdentical": true,
+      "anonymousCV": {
+        "status": 401,
+        "cache": "private, no-store, max-age=0"
+      }
+    },
+    "evidence": {
+      "mobileScreenshot": "C:/Users/yazda/Documents/PORTFOLIO_DESIGN_DIGEST/ui-ux-refinement-20261110/published-gallery-mobile.jpg",
+      "report": "docs/UI_UX_REFINEMENT_20261110_FA.md"
+    }
   }
 }
