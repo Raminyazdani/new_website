@@ -1386,7 +1386,7 @@
     }
   },
   "synthesis_final_20261111": {
-    "status": "local_verified_release_pending",
+    "status": "published_verified",
     "scope": "Final Synthesis integration; archive collection preserved",
     "features": [
       "Scroll-scrubbed cell/molecule/network topology and manual chapters",
@@ -1454,6 +1454,38 @@
       "No physical-device or FPS benchmark",
       "Archive designs not all manually re-audited",
       "Private CV captures kept outside public Git"
-    ]
+    ],
+    "deployment": {
+      "id": "dpl_HVQ1rqowFudLjNw4Tq3rwT8FDsRg",
+      "state": "READY",
+      "alias": "https://new-website-hero-lab.vercel.app",
+      "appCommit": "97b02de2a7b87c0e1cc3e9196ec05a8b01087091"
+    },
+    "productionChecks": {
+      "assetsMatchCommit": 6,
+      "anonymousCVStatus": 401,
+      "anonymousCVCache": "private, no-store, max-age=0",
+      "scrollChapterChange": "Living systems to Molecular structure",
+      "stickyFigureTopPx": 141,
+      "projectSelectionPreservedAcrossModes": true,
+      "methodTab": "passed",
+      "mobilePropertiesPanel": "passed",
+      "mobileOverflow": false,
+      "projects": 87,
+      "skills": 223,
+      "sections": 11,
+      "galleryTemplates": 62,
+      "observedConsoleErrors": 0
+    },
+    "evidence": {
+      "storage": "outside public Git",
+      "images": [
+        "synthesis-final-hero-published.png",
+        "synthesis-final-story-published.png",
+        "synthesis-final-biology-published.png",
+        "synthesis-final-programming-published.png",
+        "synthesis-final-mobile-published.png"
+      ]
+    }
   }
 }
