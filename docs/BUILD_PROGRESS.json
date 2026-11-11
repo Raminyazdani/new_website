@@ -1700,7 +1700,7 @@
     }
   },
   "immersive_worlds_20261111": {
-    "status": "validated_awaiting_publication",
+    "status": "published_verified",
     "designs": [
       "chromatin",
       "membrane",
@@ -1775,13 +1775,39 @@
         "fieldbook-methods-final.png",
         "automata-full-scroll.png",
         "kernel-full-scroll.png",
-        "loom-full-scroll.png"
+        "loom-full-scroll.png",
+        "production-integrity.json",
+        "published-browser.json",
+        "published-gallery.json",
+        "gallery-published.png",
+        "eight-immersive-worlds-published.png",
+        "browser-errors.json"
       ]
     },
     "limits": [
       "No physical-device or FPS benchmark",
       "Existing imported SiteData scope retained",
       "No forced WebGL failure test"
-    ]
+    ],
+    "deployment": {
+      "id": "dpl_9p2Ym7wPD36rj1NS3UKsGMDs676Q",
+      "state": "READY",
+      "alias": "https://new-website-hero-lab.vercel.app",
+      "appCommit": "a1e87b0515fc8eeb8e15443f05c9a71218bd1a03"
+    },
+    "productionChecks": {
+      "assetsMatchCommit": 10,
+      "newRoutes200": 8,
+      "anonymousCVStatus": 401,
+      "anonymousCVCache": "private, no-store, max-age=0",
+      "allEightPrivateDesignsLoaded": true,
+      "allPortraitsLoaded": true,
+      "galleryCards": 8,
+      "galleryPreviewsLoaded": 8,
+      "allTemplates": 82,
+      "publishedKernelRegisterAfterStep": 3,
+      "publishedKernelScrollProgress": 0.6614525139664804,
+      "observedConsoleErrors": 0
+    }
   }
 }
