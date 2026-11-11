@@ -1489,7 +1489,7 @@
     }
   },
   "bio_standalone_20261111": {
-    "status": "local_verified_release_pending",
+    "status": "published_verified",
     "designs": [
       "microcosm",
       "flowcell",
@@ -1568,6 +1568,39 @@
       "Existing imported SiteData does not expose every raw CV field",
       "No forced GPU-unavailable browser test",
       "Private CV screenshots stored outside Git"
-    ]
+    ],
+    "deployment": {
+      "id": "dpl_76wLsLf5oTtRfBWEy3BkJSz5BLfh",
+      "state": "READY",
+      "alias": "https://new-website-hero-lab.vercel.app",
+      "appCommit": "0053eaf2e182466fd22f85c536b37d0694f0cb99"
+    },
+    "productionChecks": {
+      "assetsMatchCommit": 6,
+      "newRoutes200": 4,
+      "anonymousCVStatus": 401,
+      "anonymousCVCache": "private, no-store, max-age=0",
+      "microcosmMagnification": "passed",
+      "flowcellBankPaging": "passed",
+      "cellscapeChronology": "passed",
+      "foldspaceWebGLAndSurface": "passed",
+      "mobile390Overflow": false,
+      "compactDockHeightPx": 53.33,
+      "bioGalleryCards": 4,
+      "bioGalleryPreviewsLoaded": 4,
+      "allTemplates": 66,
+      "observedConsoleErrors": 0
+    },
+    "evidence": {
+      "storage": "outside public Git",
+      "files": [
+        "microcosm-published.png",
+        "flowcell-published.png",
+        "cellscape-published.png",
+        "foldspace-published.png",
+        "bio-gallery-published.png",
+        "four-worlds-published.png"
+      ]
+    }
   }
 }

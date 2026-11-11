@@ -1,6 +1,6 @@
 # Synthesis — built visual system
 
-Primary scope: `design=synthesis`, plus the twelve Experiences described below. The earlier 50 designs retain their own systems. Visitor mode: Experience, with readable source-backed professional records for academic and technology audiences.
+Primary scope: `design=synthesis`, the twelve Experiences, and the four standalone bioinformatics worlds described below. The earlier 50 designs retain their own systems. Visitor mode: Experience, with readable source-backed professional records for academic and technology audiences.
 
 The default view integrates life sciences and computation. The persistent perspective controls select `all`, `biology`, or `programming`. One identity, portrait, canonical model and set of eleven sections remain present. Perspective changes the SVG geometry, record emphasis, chapter navigation and component composition; it never fabricates expertise, proficiency or results.
 
