@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { ChevronLeft, ChevronRight, ChevronsUpDown, LayoutGrid, LockKeyhole, Minimize2, Palette } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsUpDown, LayoutGrid, LockKeyhole, Minimize2, Palette, Pause, Play } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 // Design links never prefetch: a prefetched design would preload its own fonts and CSS into this page.
@@ -22,6 +22,7 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
   const reducedMotion = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [motionEnabled, setMotionEnabled] = useState(false);
   const dockRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -30,10 +31,41 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
   const panelId = useId();
   const cycle = templateCycle(designIds);
   const compactMobile = ['microcosm', 'flowcell', 'cellscape', 'foldspace',
-    'worktree', 'duplex', 'attention', 'phylo', 'organoid', 'gelroom', 'rack', 'gradient'].includes(current);
+    'worktree', 'duplex', 'attention', 'phylo', 'organoid', 'gelroom', 'rack', 'gradient',
+    'chromatin', 'membrane', 'mycelium', 'assembly', 'loom', 'fieldbook', 'automata', 'kernel'].includes(current);
+  const motionControl = ['chromatin', 'membrane', 'mycelium', 'assembly', 'loom', 'fieldbook', 'automata', 'kernel'].includes(current);
+  const motionLabels = {
+    en: { play: 'Play motion', reduce: 'Reduce motion' },
+    de: { play: 'Bewegung aktivieren', reduce: 'Bewegung reduzieren' },
+    fa: { play: 'پخش حرکت', reduce: 'کاهش حرکت' },
+  }[locale];
   const currentTemplate = { collection: 'imported' as const, id: current };
   const idx = cycle.findIndex(entry => entry.collection === 'imported' && entry.id === current);
   const preferences = readPreferences(typeof window === 'undefined' ? '' : window.location.search);
+
+  useEffect(() => {
+    if (!motionControl) return;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function update() {
+      const mode = new URLSearchParams(window.location.search).get('motion');
+      setMotionEnabled(mode === 'full' || (mode !== 'still' && mode !== 'off' && !media.matches));
+    }
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, [motionControl]);
+
+  function toggleMotion() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('motion', motionEnabled ? 'still' : 'full');
+    window.location.assign(url.href);
+  }
+
+  function hideDock() {
+    visibilityChanged.current = true;
+    setOpen(false);
+    setHidden(true);
+  }
 
   function step(direction: -1 | 1, Icon: typeof ChevronLeft, label: string) {
     const destination = adjacentTemplate(cycle, currentTemplate, direction);
@@ -125,6 +157,9 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
                 <button type="button" onClick={onLock} className="flex items-center gap-2 rounded-2xl px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10">
                   <LockKeyhole aria-hidden="true" className="size-4" /> {t('access.lock')}
                 </button>
+                {motionControl && <button type="button" onClick={hideDock} className="flex min-h-11 items-center gap-2 rounded-2xl px-3 py-2.5 text-sm text-white/80 transition hover:bg-white/10">
+                  <Minimize2 aria-hidden="true" className="size-4" /> {t('dock.hide')}
+                </button>}
               </div>
               {designFamilies.map((family) => {
                 const ids = designIds.filter((id) => designFamily(id) === family);
@@ -228,14 +263,23 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
             ))}
           </div>
           <span className="mx-1 hidden h-5 w-px bg-white/15 sm:block" aria-hidden />
-          <button
+          {motionControl ? <button
             type="button"
-            onClick={() => { visibilityChanged.current = true; setOpen(false); setHidden(true); }}
+            onClick={toggleMotion}
+            aria-label={motionEnabled ? motionLabels.reduce : motionLabels.play}
+            title={motionEnabled ? motionLabels.reduce : motionLabels.play}
+            aria-pressed={motionEnabled}
+            className="grid size-11 shrink-0 place-items-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white motion-reduce:transition-none"
+          >
+            {motionEnabled ? <Pause aria-hidden="true" className="size-4" /> : <Play aria-hidden="true" className="size-4" />}
+          </button> : <button
+            type="button"
+            onClick={hideDock}
             aria-label={t('dock.hide')}
             className="grid size-11 shrink-0 place-items-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white motion-reduce:transition-none sm:size-9"
           >
             <Minimize2 aria-hidden="true" className="size-4" />
-          </button>
+          </button>}
         </motion.div>
         <span role="status" className="sr-only">{pending ? t('dock.switchingLanguage') : ''}</span>
       </div>

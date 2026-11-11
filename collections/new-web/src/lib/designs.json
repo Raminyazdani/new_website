@@ -158,5 +158,45 @@
     "id": "gradient",
     "family": "data",
     "ready": true
+  },
+  {
+    "id": "chromatin",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "membrane",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "mycelium",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "assembly",
+    "family": "lab",
+    "ready": true
+  },
+  {
+    "id": "loom",
+    "family": "product",
+    "ready": true
+  },
+  {
+    "id": "fieldbook",
+    "family": "story",
+    "ready": true
+  },
+  {
+    "id": "automata",
+    "family": "data",
+    "ready": true
+  },
+  {
+    "id": "kernel",
+    "family": "product",
+    "ready": true
   }
 ]

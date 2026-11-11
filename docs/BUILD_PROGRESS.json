@@ -1698,5 +1698,90 @@
       "allTemplates": 74,
       "observedConsoleErrors": 0
     }
+  },
+  "immersive_worlds_20261111": {
+    "status": "validated_awaiting_publication",
+    "designs": [
+      "chromatin",
+      "membrane",
+      "mycelium",
+      "assembly",
+      "loom",
+      "fieldbook",
+      "automata",
+      "kernel"
+    ],
+    "totalTemplates": 82,
+    "previousTemplatesPreserved": 74,
+    "build": {
+      "typeScript": "passed",
+      "staticPages": 126,
+      "importedDesigns": 40,
+      "locales": 3
+    },
+    "tests": {
+      "passed": 71,
+      "failed": 0
+    },
+    "browser": {
+      "widths": [
+        320,
+        390,
+        768,
+        1024,
+        1440
+      ],
+      "responsiveCases": 40,
+      "horizontalOverflowCases": 0,
+      "mobileLocaleAndMotionTargetsAtLeast44": true,
+      "allEightGeometryInteractionsObserved": true,
+      "fieldbookBackFaceFixed": true,
+      "chromatinAnnotationCollisionFixed": true,
+      "sourceDialogsAndEscape": true,
+      "systemReducedMotionObserved": true,
+      "explicitFullAndStillToggle": true,
+      "scrollProgressObserved": {
+        "automata": 0.3569901315789474,
+        "kernel": 0.5705773039237081,
+        "loom": 66
+      },
+      "automataGliderAfterStep": {
+        "generation": 1,
+        "liveCells": 5
+      },
+      "kernelOutputAfterSixInstructions": 20,
+      "consoleErrors": 0
+    },
+    "previews": {
+      "added": 8,
+      "total": 82,
+      "width": 640,
+      "height": 400,
+      "source": "Actual rendered pages using fictional gallery fixture"
+    },
+    "preserved": {
+      "originalDesigns": true,
+      "oldPreviews": true,
+      "privateAPI": true,
+      "sourceAdapter": true,
+      "newDependencies": 0
+    },
+    "evidence": {
+      "storage": "outside public Git",
+      "directory": "immersive-worlds-20261111",
+      "files": [
+        "responsive-final.json",
+        "chromatin-read-final.png",
+        "fieldbook-methods-final.png",
+        "automata-full-scroll.png",
+        "kernel-full-scroll.png",
+        "loom-full-scroll.png"
+      ]
+    },
+    "limits": [
+      "No physical-device or FPS benchmark",
+      "Existing imported SiteData scope retained",
+      "No forced WebGL failure test"
+    ]
   }
 }

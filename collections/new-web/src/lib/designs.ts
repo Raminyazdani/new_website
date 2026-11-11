@@ -11,6 +11,7 @@ export const allDesignIds = [
   'reactor', 'blueprint', 'pipeline', 'desktop', 'bento', 'configurator', 'swiss', 'cinema', 'keynote', 'sketch',
   'microcosm', 'flowcell', 'cellscape', 'foldspace',
   'worktree', 'duplex', 'attention', 'phylo', 'organoid', 'gelroom', 'rack', 'gradient',
+  'chromatin', 'membrane', 'mycelium', 'assembly', 'loom', 'fieldbook', 'automata', 'kernel',
 ] as const;
 export type DesignId = (typeof allDesignIds)[number];
 
@@ -70,6 +71,14 @@ export const designMeta: Record<DesignId, { bg: string; fg: string; accent: stri
   gelroom: { bg: '#090c14', fg: '#e7e3f1', accent: '#b598fa', swatches: ['#090c14', '#b598fa', '#a4e4e0', '#e7e3f1'], dark: true },
   rack: { bg: '#11131b', fg: '#e9e7e1', accent: '#efb45f', swatches: ['#11131b', '#6666bb', '#efb45f', '#e9e7e1'], dark: true },
   gradient: { bg: '#e5eaed', fg: '#173454', accent: '#3657b4', swatches: ['#e5eaed', '#3657b4', '#d7ef57', '#e1784f'], dark: false },
+  chromatin: { bg: '#142b68', fg: '#f7f0db', accent: '#ff927e', swatches: ['#142b68', '#ff927e', '#f7f0db'], dark: true },
+  membrane: { bg: '#edf4ef', fg: '#193e40', accent: '#207c7b', swatches: ['#edf4ef', '#207c7b', '#193e40'], dark: false },
+  mycelium: { bg: '#161b16', fg: '#eee5ce', accent: '#c8a568', swatches: ['#161b16', '#c8a568', '#eee5ce'], dark: true },
+  assembly: { bg: '#f2f0e8', fg: '#334753', accent: '#df4b32', swatches: ['#f2f0e8', '#df4b32', '#334753'], dark: false },
+  loom: { bg: '#0c2b42', fg: '#e9dfbd', accent: '#b68b4d', swatches: ['#0c2b42', '#b68b4d', '#e9dfbd'], dark: true },
+  fieldbook: { bg: '#f2ead7', fg: '#533746', accent: '#9aa991', swatches: ['#f2ead7', '#533746', '#9aa991'], dark: false },
+  automata: { bg: '#e4edf0', fg: '#183b65', accent: '#df5738', swatches: ['#e4edf0', '#275bcc', '#df5738', '#183b65'], dark: false },
+  kernel: { bg: '#171b1e', fg: '#eee8da', accent: '#c4865c', swatches: ['#171b1e', '#c4865c', '#eee8da'], dark: true },
 };
 
 export const isDesignId = (v: string): v is DesignId => (allDesignIds as readonly string[]).includes(v);

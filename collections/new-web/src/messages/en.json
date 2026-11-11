@@ -360,6 +360,46 @@
       "name": "Gradient",
       "style": "Optimization landscape",
       "description": "Step through an analytic gradient descent illustration on a lit three-dimensional landscape, then explore the portfolio evidence."
+    },
+    "chromatin": {
+      "name": "Chromatin",
+      "style": "Folded chromatin",
+      "description": "Unfold a sculptural chromatin model through physical chapters and inspect the portfolio records."
+    },
+    "membrane": {
+      "name": "Membrane",
+      "style": "Cellular boundary",
+      "description": "Move through a three-dimensional membrane, its channels, and the portfolio evidence within."
+    },
+    "mycelium": {
+      "name": "Mycelium",
+      "style": "Branching living network",
+      "description": "Explore a growing sculptural network and the source records at its branching paths."
+    },
+    "assembly": {
+      "name": "Assembly",
+      "style": "Sequence workshop",
+      "description": "Walk through physical sequence fragments and an interactive overlap illustration, then browse complete records."
+    },
+    "loom": {
+      "name": "Loom",
+      "style": "Computational weave",
+      "description": "Change the tension of a three-dimensional woven structure and follow its threads into the portfolio."
+    },
+    "fieldbook": {
+      "name": "Fieldbook",
+      "style": "Dimensional field notes",
+      "description": "Open a dimensional fieldbook of pop-up studies and source records."
+    },
+    "automata": {
+      "name": "Automata",
+      "style": "Cellular automaton",
+      "description": "Edit a seed, run an actual small cellular automaton, and replay its history on a field of physical cubes."
+    },
+    "kernel": {
+      "name": "Kernel",
+      "style": "Inside the processor",
+      "description": "Step through a small educational program inside an exploded three-dimensional chip, then inspect the portfolio evidence."
     }
   },
   "gallery": {

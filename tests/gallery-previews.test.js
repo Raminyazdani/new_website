@@ -68,7 +68,7 @@ test('every gallery template points to its own 640 × 400 preview', () => {
   }
 });
 
-test('compact gallery keeps filters available and recovers all 74 designs from empty search', () => {
+test('compact gallery keeps filters available and recovers all 82 designs from empty search', () => {
   const { window, document, Event } = loadGallery({ compact: true, query: '?gallery=1&theme=dark&design-search=doesnotexist' });
   const toggle = document.querySelector('#designGalleryFilterToggle');
   const filters = document.querySelector('#designGalleryFilters');
@@ -81,7 +81,7 @@ test('compact gallery keeps filters available and recovers all 74 designs from e
   assert.equal(toggle.getAttribute('aria-expanded'), 'true');
   assert.equal(filters.hidden, false);
   document.querySelector('[data-reset-design-filters]').dispatchEvent(new Event('click', { bubbles: true }));
-  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 74);
+  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 82);
   assert.equal(document.querySelector('#designGalleryEmpty').hidden, true);
   assert.equal(window.location.searchParams.get('design-search'), null);
   assert.equal(window.location.searchParams.get('theme'), 'dark');
@@ -133,6 +133,16 @@ test('the Science & Code gallery shows eight new worlds in their appended order'
   search.dispatchEvent(new Event('input', { bubbles: true }));
   assert.deepEqual(cards().filter(card => !card.hidden).map(card => card.dataset.galleryDesign), ['imported-gradient']);
   assert.equal(window.location.searchParams.get('collection'), 'frontiers');
+  assert.equal(window.location.searchParams.get('design'), 'synthesis');
+});
+
+test('the Immersive Worlds gallery keeps its eight spatial stories and route preferences', () => {
+  const { window, document } = loadGallery({ query: '?design=synthesis&gallery=1&collection=immersive&lang=fa&motion=still' });
+  const ids = ['chromatin', 'membrane', 'mycelium', 'assembly', 'loom', 'fieldbook', 'automata', 'kernel'];
+  const cards = [...document.querySelectorAll('#designGalleryBody [data-gallery-design]')];
+  assert.equal(document.querySelector('#designGalleryCollection option[value="immersive"]').textContent, 'Immersive Worlds · 8');
+  assert.deepEqual(cards.map(card => card.dataset.galleryDesign), ids.map(id => `imported-${id}`));
+  assert.deepEqual(cards.map(card => card.querySelector('a').getAttribute('href')), ids.map(id => `/imported/fa/${id}/?motion=still`));
   assert.equal(window.location.searchParams.get('design'), 'synthesis');
 });
 

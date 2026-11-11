@@ -360,6 +360,46 @@
       "name": "Gradient",
       "style": "Optimierungslandschaft",
       "description": "Erkunde einen analytischen Gradientenabstieg auf einer beleuchteten 3D-Landschaft und danach die Belege im Portfolio."
+    },
+    "chromatin": {
+      "name": "Chromatin",
+      "style": "Gefaltetes Chromatin",
+      "description": "Entfalte ein skulpturales Chromatinmodell in räumlichen Kapiteln und erkunde die Portfolioeinträge."
+    },
+    "membrane": {
+      "name": "Membrane",
+      "style": "Zelluläre Grenze",
+      "description": "Erkunde eine dreidimensionale Membran, ihre Kanäle und die Belege des Portfolios."
+    },
+    "mycelium": {
+      "name": "Mycelium",
+      "style": "Verzweigtes Netzwerk",
+      "description": "Erkunde ein wachsendes räumliches Netzwerk und die Quelleinträge an seinen Verzweigungen."
+    },
+    "assembly": {
+      "name": "Assembly",
+      "style": "Sequenzwerkstatt",
+      "description": "Erkunde räumliche Sequenzfragmente, eine Überlappungsillustration und die vollständigen Einträge."
+    },
+    "loom": {
+      "name": "Loom",
+      "style": "Rechnerisches Gewebe",
+      "description": "Verändere die Spannung eines dreidimensionalen Gewebes und folge seinen Fäden ins Portfolio."
+    },
+    "fieldbook": {
+      "name": "Fieldbook",
+      "style": "Räumliche Feldnotizen",
+      "description": "Öffne ein räumliches Feldbuch mit Pop-up-Studien und Quelleinträgen."
+    },
+    "automata": {
+      "name": "Automata",
+      "style": "Zellulärer Automat",
+      "description": "Bearbeite ein Startmuster, führe einen kleinen zellulären Automaten aus und spiele seinen Verlauf auf räumlichen Würfeln ab."
+    },
+    "kernel": {
+      "name": "Kernel",
+      "style": "Im Prozessor",
+      "description": "Führe ein kleines Lernprogramm in einem räumlich aufgefächerten Chip schrittweise aus und erkunde anschließend die Portfoliobelege."
     }
   },
   "gallery": {
