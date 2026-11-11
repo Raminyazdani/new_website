@@ -27,6 +27,9 @@
   <link rel="stylesheet" href="/portfolio/directions/expressive.css">
   <link rel="stylesheet" href="/portfolio/motion-system.css">
   <link rel="stylesheet" href="/portfolio/synthesis.css">
+  <link rel="stylesheet" href="/portfolio/experiments/foundation.css">
+  <link rel="stylesheet" href="/portfolio/experiments/life.css">
+  <link rel="stylesheet" href="/portfolio/experiments/systems.css">
   <script src="/data/cv-adapter.js" defer></script>
   <script src="/data/portfolio-source.js" defer></script>
   <script src="/portfolio/science.js" defer></script>
@@ -46,10 +49,13 @@
   <script src="/portfolio/directions/expressive.js" defer></script>
   <script src="/portfolio/imported-templates.js" defer></script>
   <script src="/portfolio/design-navigation.js" defer></script>
-  <script src="/portfolio/design-gallery.js" defer></script>
   <script src="/portfolio/motion-system.js" defer></script>
   <script src="/portfolio/synthesis-scene.js" defer></script>
   <script src="/portfolio/synthesis.js" defer></script>
+  <script src="/portfolio/experiments/kit.js" defer></script>
+  <script src="/portfolio/experiments/life.js" defer></script>
+  <script src="/portfolio/experiments/systems.js" defer></script>
+  <script src="/portfolio/design-gallery.js" defer></script>
   <script src="/portfolio/studio.js" defer></script>
   <script src="/portfolio/studio-intro.js" defer></script>
   <script src="/portfolio/records.js" defer></script>
@@ -118,7 +124,7 @@
   <dialog id="designGallery" class="design-gallery" aria-labelledby="designGalleryTitle">
     <header class="dg-header"><div class="dg-heading-row"><div><h2 id="designGalleryTitle">Find your design.</h2><p>Find a template from any collection.</p></div><button type="button" class="dg-close" data-close-design-gallery aria-label="Close design gallery">Close ×</button></div>
     <div class="dg-tools"><label class="dg-search">Find a design<input id="designGallerySearch" name="design-search" type="search" autocomplete="off" placeholder="Journal, laboratory, code…"></label><button id="designGalleryFilterToggle" class="dg-filter-toggle" type="button" aria-expanded="false" aria-controls="designGalleryFilters" hidden>Filters</button><div id="designGalleryFilters" class="dg-filter-fields"><label>Collection<select id="designGalleryCollection"><option value="independent">15 independent directions</option><option value="previous">15 earlier studies</option></select></label><label>Direction<select id="designGalleryFamily"><option value="">All directions</option></select></label></div><span class="dg-results" id="designGalleryResults" role="status"></span></div></header>
-    <div id="designGalleryBody" class="dg-grid"></div><div id="designGalleryEmpty" class="dg-empty" hidden><p>No designs match these filters.</p><button type="button" class="pf-button" data-reset-design-filters>Show all 50 templates</button></div>
+    <div id="designGalleryBody" class="dg-grid"></div><div id="designGalleryEmpty" class="dg-empty" hidden><p>No designs match these filters.</p><button type="button" class="pf-button" data-reset-design-filters>Show all templates</button></div>
     <footer class="dg-footer"><span id="designGalleryCurrent"></span><div><button class="pf-button primary" type="button" data-design-choice="synthesis">Return to Synthesis</button> <button class="pf-button" type="button" data-design-choice="unified">Connected Science original</button></div></footer>
   </dialog>
   <nav class="design-dock" aria-label="Switch portfolio design"><button type="button" class="syn-dock-return" data-design-choice="synthesis" aria-label="Return to Synthesis" title="Return to Synthesis">⌂</button><button type="button" data-design-step="-1" aria-label="Previous design">←</button><button type="button" class="design-dock-label" data-open-design-gallery><small>DESIGN COLLECTION · <span id="designCollectionCount">15</span></small><strong id="designDockName">Connected Science</strong></button><button type="button" data-open-design-gallery aria-label="Open design gallery">▦</button><button type="button" data-design-step="1" aria-label="Next design">→</button></nav>

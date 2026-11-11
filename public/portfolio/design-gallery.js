@@ -15,7 +15,13 @@
   const $ = selector => document.querySelector(selector);
   const familyLabel = value => familyLabels[String(value || '').toLowerCase()] || String(value || 'Other').replace(/(^|[-\s])\w/g, part => part.toUpperCase());
 
-  function open() {
+  function open(collection) {
+    if (collection && scopes.includes(collection) && collection !== scope) {
+      scope = collection;
+      $('#designGallerySearch').value = '';
+      $('#designGalleryFamily').value = '';
+      populate(); reflectSelection(activeId);
+    }
     syncImportedLinks();
     const dialog = $('#designGallery');
     if (dialog?.showModal && !dialog.open) dialog.showModal();
@@ -68,9 +74,10 @@
   const requestedLocale = params.get('lang');
   const locale = ['en', 'de', 'fa'].includes(requestedLocale) ? requestedLocale : 'en';
   const internalEntries = group => registry.collection ? registry.collection(group) : registry.list();
-  const nativeEntries = () => [...internalEntries('independent'), ...internalEntries('previous')];
-  const collectionOf = id => registry.get(id)?.collection === 'independent' ? 'independent' : 'previous';
-  const scopes = imported.length ? ['all', 'imported', 'independent', 'previous'] : ['independent', 'previous'];
+  const nativeScopes = ['independent', 'previous', 'experiential'].filter(group => internalEntries(group).length);
+  const nativeEntries = () => nativeScopes.flatMap(internalEntries);
+  const collectionOf = id => registry.get(id)?.collection || 'previous';
+  const scopes = imported.length ? ['all', 'imported', ...nativeScopes] : nativeScopes;
   let activeId = params.get('design') || 'unified';
   let scope = imported.length ? 'all' : registry.get(activeId) ? collectionOf(activeId) : internalEntries('independent').length ? 'independent' : 'previous';
   if (scopes.includes(params.get('collection'))) scope = params.get('collection');
@@ -114,10 +121,11 @@
     const number = String(index + 1).padStart(2, '0');
     const id = isImported ? `imported-${design.id}` : design.id;
     const family = String(design.family).toLowerCase();
-    const source = isImported ? 'New Web' : collectionOf(design.id) === 'independent' ? 'Independent' : 'Earlier study';
-    const search = [design.id, design.name, design.description, design.family, source, design.signature, ...Object.values(design.fingerprint || {})].join(' ').toLowerCase();
+    const source = isImported ? 'New Web' : ({independent:'Independent', experiential:'Experience', previous:'Earlier study'})[collectionOf(design.id)];
+    const focus = ({biology:'Biology',chemistry:'Chemistry',programming:'Programming',all:'Integrated'})[design.focus];
+    const search = [design.id, design.name, design.description, design.family, source, design.signature, focus, ...Object.values(design.fingerprint || {})].join(' ').toLowerCase();
     const content = `<span class="dg-card-content">
-      <span class="dg-card-meta"><span>${number} · ${e(source)}</span><span>${e(familyLabel(design.family))}</span></span>
+      <span class="dg-card-meta"><span>${number} · ${e(source)}</span><span>${e(focus || familyLabel(design.family))}</span></span>
       <strong>${e(design.name)}</strong>
       <span class="dg-card-description">${e(design.description)}</span>
       <span class="dg-card-signature">${e(isImported ? 'English · Deutsch · فارسی' : design.signature)}</span>
@@ -147,10 +155,11 @@
     if ($('#designGalleryCollection')) $('#designGalleryCollection').value = scope;
     const intro = $('#designGallery')?.querySelector('.dg-header p');
     const introductions = {
-      all: `${designs.length} templates from all three collections. Search by name or filter by collection.`,
+      all: `${designs.length} templates. Search by name or filter by collection.`,
       imported: `${designs.length} New Web templates with their original layouts and interactions.`,
       independent: `${designs.length} independent visual worlds. Open a direction to explore its complete portfolio.`,
       previous: 'The earlier collection, preserved with its original layouts.',
+      experiential: `${designs.length} portfolios with their own ways to explore work, experience and skills.`,
     };
     if (intro) intro.textContent = `Previews use a sample CV. ${introductions[scope]}`;
     host.innerHTML = designs.map(renderCard).join('');
@@ -174,6 +183,7 @@
         imported: `New Web · ${imported.length}`,
         independent: `Independent · ${internalEntries('independent').length}`,
         previous: `Earlier studies · ${internalEntries('previous').length}`,
+        experiential: `Experiences (${internalEntries('experiential').length})`,
       };
       collectionSelect.innerHTML = scopes.map(group => `<option value="${group}">${e(labels[group])}</option>`).join('');
     }
@@ -208,17 +218,25 @@
     });
     $('#designGallery')?.addEventListener('click', event => { if (event.target === event.currentTarget) close(); });
     document.addEventListener('click', event => {
-      if (event.target.closest('[data-open-design-gallery]')) { const dialog=$('#designDialog');if(dialog?.open)dialog.close();open(); }
+      const trigger = event.target.closest('[data-open-design-gallery]');
+      if (trigger) { const dialog=$('#designDialog');if(dialog?.open)dialog.close();open(trigger.dataset.openDesignGallery); }
       if (event.target.closest('[data-close-design-gallery]')) close();
       if (event.target.closest('[data-reset-design-filters]')) {
-        scope = imported.length ? 'all' : 'independent';
+        scope = imported.length ? 'all' : nativeScopes[0];
         $('#designGallerySearch').value = '';
         $('#designGalleryFamily').value = '';
         populate(); reflectSelection(activeId); syncUrl();
         $('#designGallerySearch').focus();
       }
       const choice=event.target.closest('[data-design-choice]');
-      if(choice){ w.PortfolioStudio?.setConcept(choice.dataset.designChoice);close(); }
+      if(choice){
+        w.PortfolioStudio?.setConcept(choice.dataset.designChoice);close();
+        if (choice.closest('#designGallery')) {
+          const heading = $('#portfolio #hero h1');
+          if (heading && !heading.hasAttribute('tabindex')) heading.tabIndex = -1;
+          heading?.focus({preventScroll:true});
+        }
+      }
       const step = event.target.closest('[data-design-step]');
       if (step) stepDesign(step.dataset.designStep === '-1' ? -1 : 1);
       if (event.target.closest('#enableEffects')) syncImportedLinks();

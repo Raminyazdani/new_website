@@ -1255,5 +1255,104 @@
         "mobile-published.jpg"
       ]
     }
+  },
+  "experiences_20261111": {
+    "status": "locally_verified_pending_release",
+    "scope": "12 new interactive Experiences and three distinct Synthesis core layouts; existing 50 designs preserved",
+    "implementation": {
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "ultra",
+      "agents": 3,
+      "rootRole": "design, orchestration, browser review, release"
+    },
+    "newDesigns": [
+      "tissue",
+      "culture",
+      "chromatogram",
+      "residue",
+      "continuum",
+      "cabinet",
+      "foundry",
+      "runtime",
+      "tensor",
+      "patchbay",
+      "prism",
+      "expedition"
+    ],
+    "gallery": {
+      "templates": 62,
+      "newPreviews": 12,
+      "allPreviewsUnique": true,
+      "previewSize": [
+        640,
+        400
+      ],
+      "previewBytesTotal": 1073396,
+      "captureSource": "actual browser renders with synthetic CV"
+    },
+    "checks": {
+      "tests": 64,
+      "passed": 64,
+      "failed": 0,
+      "productionBuild": "passed",
+      "typescript": "passed",
+      "importedStaticPages": 66,
+      "importedDesigns": 20,
+      "localCrossCollectionNextPrevious": "passed",
+      "allTwelvePrimaryInteractions": "observed in CUA"
+    },
+    "responsive": {
+      "synthesisViewports": [
+        [
+          320,
+          568
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          768,
+          1024
+        ],
+        [
+          1024,
+          768
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "synthesisModes": [
+        "all",
+        "biology",
+        "programming"
+      ],
+      "horizontalOverflow": false,
+      "modeControlsMinPx": 44,
+      "allTwelveRealCVMobileWidth": 390,
+      "allTwelveRealCVSections": 11,
+      "allTwelveRealCVSkills": 223
+    },
+    "sourcePreservation": {
+      "canonicalAdapterUnchanged": true,
+      "apiUnchanged": true,
+      "realSynthesisProjectsAcrossModes": 87,
+      "realSynthesisSkillsAcrossModes": 223
+    },
+    "reviewFixes": [
+      "Biology specimen tray instead of a duplicate file pane",
+      "Foundry connected project topology",
+      "Prism orthogonal assembly instead of a Tensor-like stack",
+      "Full-viewport theme background",
+      "Intrinsic-size skill tokens",
+      "28px/32px long project inspector headings"
+    ],
+    "limits": [
+      "No physical-device or FPS benchmark",
+      "Not every archived design manually re-audited",
+      "Real CV screenshots kept outside public Git"
+    ]
   }
 }

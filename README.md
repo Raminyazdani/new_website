@@ -2,9 +2,11 @@
 
 A complete animated CV portfolio, with the original collection of 20 Hero concepts retained at `/lab.html`. Profile facts and photographs are read from the complete private CV document in Neon Postgres.
 
-The primary experience is **Synthesis**: one portfolio with All disciplines, Life sciences, and Engineering + ML perspectives. Open `/?design=synthesis&perspective=all`; the three modes retain all eleven professional sections while transforming the shared scientific scene and presentation. The **Templates** control opens the preserved collection of 50 complete designs, with a return to Synthesis.
+The primary experience is **Synthesis**: one portfolio with All disciplines, Life sciences, and Engineering + ML perspectives. Open `/?design=synthesis&perspective=all`. Beyond the shared scientific scene, these perspectives change the project browser, experience chronology and skill composition: editorial archive, specimen tray/taxonomy, or file workbench/module inventory. All eleven professional sections and complete records remain available.
 
-See the [Synthesis design plan and review](docs/SYNTHESIS_DESIGN_PLAN_FA.md), [built visual system](DESIGN.md), and observed release checks in `docs/BUILD_PROGRESS.json`.
+The **Templates** control opens **62 designs**: the preserved 50 plus 12 interactive Experiences. Open `/?design=synthesis&gallery=1&collection=experiential` to browse Tissue, Culture, Chromatogram, Residue, Continuum, Cabinet, Foundry, Runtime, Tensor, Patchbay, Prism and Expedition. Each has its own interaction and custom hero/project/experience/skills composition; secondary records share the complete canonical presentation. The twelve new gallery images are actual browser captures using fictional data, never private CV screenshots.
+
+See the [Experiences plan and review](docs/EXPERIENCES_PLAN_FA.md), [Synthesis design plan](docs/SYNTHESIS_DESIGN_PLAN_FA.md), [built visual system](DESIGN.md), and observed release checks in `docs/BUILD_PROGRESS.json`.
 
 ## Data flow
 

@@ -1,6 +1,6 @@
 # Synthesis — built visual system
 
-Scope: the primary `design=synthesis` portfolio only. The 50 archived designs retain their own systems. Visitor mode: Experience, with readable source-backed professional records for academic and technology audiences.
+Primary scope: `design=synthesis`, plus the twelve Experiences described below. The earlier 50 designs retain their own systems. Visitor mode: Experience, with readable source-backed professional records for academic and technology audiences.
 
 The default view integrates life sciences and computation. The persistent perspective controls select `all`, `biology`, or `programming`. One identity, portrait, canonical model and set of eleven sections remain present. Perspective changes the SVG geometry, record emphasis, chapter navigation and component composition; it never fabricates expertise, proficiency or results.
 
@@ -19,11 +19,24 @@ Animation communicates this transformation. Shared ease-out timing, bounded artw
 ## Content components
 
 - Editorial profile with the full source summary, interests and connected study.
-- Asymmetric searchable project archive, topical previews, complete project dialogs and supplied resource links.
-- Experience timeline, publication bibliography, education journey and grouped skill atlas with counts derived from records.
+- Integrated mode uses an asymmetric searchable project archive. Biology uses a two-column specimen tray with a field-label inspector. Programming uses a compact file tree with a source-first inspector. Long inspector titles retain their full text with 28px/32px caps.
+- Experience becomes dated field-note branches in Biology and a grouped changelog in Programming. Skills become a branching taxonomy or a module inventory with intrinsic-width tokens. Integrated mode keeps its editorial chronology and atlas. Switching preserves selection, search and reading position.
+- Complete project dialogs and supplied resource links, publication bibliography, education journey and counts derived from records.
 - Credential previews and detail drawers, complete language scores, initially closed reference contacts and direct contact/profile links.
 - Templates entry and gallery return preserve access to the previous collection.
 
 The raw schema is owned by `public/data/cv-adapter.js`. New data shapes are adapted there, never inspected by scene or section code. Birth date, configuration, contracts and verification metadata are outside the professional presentation. Private captures and CV payloads stay outside public Git.
 
 Implementation: `public/portfolio/synthesis.js`, `synthesis-scene.js`, `synthesis.css`; shared integration in runtime/studio/index. Detailed rationale and review scope: `docs/SYNTHESIS_DESIGN_PLAN_FA.md`; measured checks and deployment: `docs/BUILD_PROGRESS.json`.
+
+## Twelve interactive Experiences
+
+`public/portfolio/experiments/kit.js` registers the `experiential` collection and injects the seven complete secondary sections from Synthesis. `life.js/css` and `systems.js/css` own twelve bespoke hero, project, experience and skill compositions. Each mount receives an AbortController signal and canonical model; no renderer reads the raw CV or changes the API. The gallery contains 62 entries and all native/imported navigation shares that cycle.
+
+Life family: Tissue uses projected focal planes and a slide tray; Culture uses an olive cellular habitat and cluster selection; Chromatogram uses an indigo topic trace and a controlled reading head; Residue uses rose molecular junctions and record inspection. Continuum interpolates a fixed 432-vertex mesh through cell, molecule and computation with scroll/manual control. Cabinet is a metal-and-paper archive with articulated drawers and actual document actions.
+
+Systems family: Foundry is a routed project topology with stage inspectors; Runtime is a graphite workspace with file, preview and properties panes; Tensor uses a violet exploded layer stack; Patchbay is an amber port-and-cable interface associating skill terms with project text. Prism uses three orthogonal hinged faces of one assembly, deliberately distinct from Tensor. Expedition is a geographic narrative with synchronized route chapters, waypoints and a field guide.
+
+Interaction precedes ornament. Selection reveals source-backed content; illustrative geometry makes no scientific or performance claim. Still mode retains all manual controls. Mobile reorganizes workspaces into panels rather than shrinking desktop text. Secondary sections inherit each world's colors and typography while preserving readable canonical details. No new animation framework was added.
+
+Source review accepted three detector findings intentionally: Cabinet's 3px bottom edge belongs to a physical drawer handle, not a card accent; Foundry and Synthesis grids belong to working diagram/instrument surfaces. The review and fixes are recorded in `docs/EXPERIENCES_PLAN_FA.md`.

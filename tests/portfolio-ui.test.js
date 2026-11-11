@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { parseHTML } = require('linkedom');
 const { adaptCV } = require('../public/data/cv-adapter');
+const previewPortfolio = require('../scripts/fixtures/gallery-preview-portfolio');
 
 const publicRoot = path.join(__dirname, '../public');
 const files = ['science.js', 'hero-scene.js', 'scroll-story.js', 'pointer-effects.js', 'visual-previews.js', 'portfolio-insights.js', 'design-registry.js', 'designs/editorial.js', 'designs/systems.js', 'designs/experimental.js', 'design-navigation.js', 'design-gallery.js', 'studio.js', 'studio-intro.js', 'records.js'];
@@ -41,7 +42,7 @@ function setSelectValues(document) {
   }
 }
 
-async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, imported = false, synthesis = false, model = null } = {}) {
+async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, imported = false, synthesis = false, experiences = false, model = null } = {}) {
   const { document, Event } = parseHTML(fs.readFileSync(path.join(publicRoot, 'index.html'), 'utf8'));
   const selectPrototype = Object.getPrototypeOf(document.querySelector('#motionMode'));
   const nativeSelectValue = Object.getOwnPropertyDescriptor(selectPrototype, 'value');
@@ -98,7 +99,8 @@ async function boot({ search = '', auth = false, reduce = true, stored = null, i
     ...(imported ? ['imported-templates.js'] : []),
     ...files.slice(galleryIndex),
   ];
-  if (synthesis) loadedFiles.splice(loadedFiles.indexOf('studio.js'),0,'synthesis-scene.js','synthesis.js');
+  if (synthesis || experiences) loadedFiles.splice(loadedFiles.indexOf('design-gallery.js'),0,'synthesis-scene.js','synthesis.js');
+  if (experiences) loadedFiles.splice(loadedFiles.indexOf('design-gallery.js'),0,'experiments/kit.js','experiments/life.js','experiments/systems.js');
   for (const file of loadedFiles) {
     new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8'))(win, document);
   }
@@ -577,10 +579,11 @@ test('one gallery lists every imported design beside both existing collections',
   assert.equal(env.cvLoads, 1);
 });
 
-test('Next and Previous follow all 50 gallery entries across the native and imported routes', async () => {
+test('Next and Previous follow all 62 gallery entries across the native and imported routes', async () => {
   const env = await boot({
     independent: true,
     imported: true,
+    experiences: true,
     search: '?gallery=1&design=strata&theme=dark&background=silk&motion=still&lang=fa',
   });
   const { document, Event, win, click } = env;
@@ -590,9 +593,9 @@ test('Next and Previous follow all 50 gallery entries across the native and impo
   const cycle = templateCycle(importedIds);
   const key = entry => `${entry.collection === 'imported' ? 'imported-' : ''}${entry.id}`;
   const galleryOrder = [...document.querySelectorAll('[data-gallery-design]')].map(card => card.dataset.galleryDesign);
-  assert.equal(cycle.length, 50);
+  assert.equal(cycle.length, 62);
   assert.deepEqual(cycle.map(key), galleryOrder);
-  assert.equal(new Set(galleryOrder).size, 50);
+  assert.equal(new Set(galleryOrder).size, 62);
   for (let index = 0; index < cycle.length; index++) {
     assert.equal(adjacentTemplate(cycle, cycle[index], 1), cycle[(index + 1) % cycle.length]);
     assert.equal(adjacentTemplate(cycle, cycle[index], -1), cycle[(index + cycle.length - 1) % cycle.length]);
@@ -609,12 +612,14 @@ test('Next and Previous follow all 50 gallery entries across the native and impo
   assert.equal(win.PortfolioStudio.concept, 'strata');
 
   for (let index = 0; index < 16; index++) click('[data-design-step="1"]');
+  assert.equal(win.PortfolioStudio.concept, 'tissue');
+  for (let index = 0; index < 12; index++) click('[data-design-step="1"]');
   const importedURL = new URL(win.location.href);
   assert.equal(importedURL.pathname, '/imported/fa/helix/');
   assert.deepEqual(readPreferences(importedURL.search), { theme: 'dark', background: 'silk', motion: 'still' });
   const previousNative = adjacentTemplate(cycle, cycle[0], -1);
   const nativeURL = new URL(templateHref(previousNative, 'fa', readPreferences(importedURL.search)), win.location.href);
-  assert.equal(nativeURL.searchParams.get('design'), 'horizon');
+  assert.equal(nativeURL.searchParams.get('design'), 'expedition');
   assert.equal(nativeURL.searchParams.get('lang'), 'fa');
   assert.deepEqual(readPreferences(nativeURL.search), readPreferences(importedURL.search));
   assert.equal(templateHref(adjacentTemplate(cycle, cycle[19], 1), 'de'), '/?design=folio&lang=de');
@@ -643,6 +648,87 @@ test('all fifteen independent worlds retain complete safe source records and fun
     assert.equal(document.querySelectorAll('#about [data-story]').length,id==='strata'?1:0,id+' intentional story composition');
     assert(win.PortfolioDesigns.get(id).fingerprint.composition,id+' authored brief');
   }
+});
+
+test('all twelve Experiences keep the eleven sections and complete source records', async () => {
+  const ids = ['tissue','culture','chromatogram','residue','continuum','cabinet','foundry','runtime','tensor','patchbay','prism','expedition'];
+  const model = adaptCV(previewPortfolio('https://example.test'));
+  model.identity.summary += ' <img src=x onerror=alert(1)> Complete profile.';
+  const role = model.experience[0];
+  role.profileUrl = 'https://example.test/role-profile';
+  model.publications[0].supervisors = ['Sample supervisor'];
+  model.languages[0].tests = [{ id:'test', name:'Example language test', scores:[{ label:'Writing', value:0, max:0 }] }];
+  const { document, win, click } = await boot({ independent:true,imported:true,experiences:true,model });
+  assert.deepEqual(win.PortfolioDesigns.collection('experiential').map(design => design.id), ids);
+  assert.equal(win.PortfolioDesigns.collection('previous').length, 15);
+  click('[data-open-design-gallery="experiential"]');
+  assert.equal(document.querySelectorAll('#designGalleryBody [data-gallery-design]').length, 12);
+  const layouts = new Set();
+  for (const id of ids) {
+    win.PortfolioStudio.setConcept(id);
+    const portfolio = document.querySelector('#portfolio');
+    assert.equal(portfolio.hidden, false, id);
+    assert.equal(document.body.dataset.collection, 'experiential');
+    assert.equal(portfolio.querySelectorAll('[data-section]').length, 11, id);
+    assert.equal(portfolio.querySelectorAll('h1').length, 1, id);
+    assert.equal(portfolio.querySelector('img[onerror]'), null, id);
+    assert.match(portfolio.querySelector('#about').textContent, /Complete profile\./, id);
+    assert.match(portfolio.querySelector('#about').textContent, /Jena, Germany/, id);
+    assert(portfolio.querySelector('#about .syn-profile-portrait img'), id);
+    assert.match(portfolio.querySelector('#publications').textContent, /Sample supervisor/, id);
+    assert.match(portfolio.querySelector('#languages').textContent, /0 \/ 0/, id);
+    assert(portfolio.querySelector('#experience a[href="https://example.test/role-profile"]'), id);
+    assert.equal(portfolio.querySelectorAll('[data-journey-record]').length, model.experience.length, id);
+    assert.equal(portfolio.querySelectorAll('[data-skill-item]').length, model.stats.skills, id);
+    for (const p of model.projects) assert(portfolio.querySelector('#projects').textContent.includes(p.title), `${id}: missing ${p.title}`);
+    layouts.add([...portfolio.querySelectorAll('.xp-page')].map(section => section.className).join(' '));
+    const open = portfolio.querySelector('#projects [data-open-project]');
+    assert(open, id);
+    open.dispatchEvent(new win.Event('click', { bubbles: true }));
+    assert(document.querySelector('#projectDialog').hasAttribute('open'), id);
+    assert(document.querySelector('#projectDialogTitle').textContent, id);
+    click('#projectDialog [data-close-dialog]');
+  }
+  assert.equal(layouts.size, 12);
+});
+
+test('Synthesis replaces all three core layouts and keeps selection and searches across modes', async () => {
+  const model = adaptCV(previewPortfolio('https://example.test'));
+  const { document, Event, click } = await boot({ experiences:true,model });
+  const $ = selector => document.querySelector(selector);
+  const type = (selector, value) => {
+    $(selector).value = value;
+    $(selector).dispatchEvent(new Event('input',{bubbles:true}));
+  };
+  for (const cls of ['syn-editorial-work','syn-timeline','syn-skills-grid']) assert($('.'+cls));
+  click('[data-perspective="biology"]');
+  for (const cls of ['syn-specimen-desk','syn-field-notes','syn-taxonomy-tree']) assert($('.'+cls));
+  const firstYear = $('.syn-field-year > h3');
+  assert.equal(firstYear.textContent, '2023');
+  assert($('[data-field-branch="overlap"]'));
+  type('[data-project-search]', 'Culture Conditions');
+  click('[data-syn-project-select="project-8"]');
+  assert.equal($('.syn-work-inspector h3').textContent, 'Culture Conditions');
+  type('[data-skill-search]', 'Python');
+  assert.match($('[data-skill-count]').textContent, /matching/);
+  click('[data-perspective="programming"]');
+  for (const cls of ['syn-code-desk','syn-release-log','syn-module-catalog']) assert($('.'+cls));
+  assert.equal($('[data-project-search]').value, 'Culture Conditions');
+  assert.equal($('[data-skill-search]').value, 'Python');
+  assert.equal($('.syn-work-inspector h3').textContent, 'Culture Conditions');
+  type('[data-project-search]', '');
+  assert.equal($('[data-syn-project-select="project-8"]').closest('[data-project-card]').hidden, false);
+  assert.equal($('[data-syn-project-select="project-8"]').getAttribute('aria-pressed'), 'true');
+  click('.syn-work-inspector [data-open-project]');
+  assert.equal($('#projectDialogTitle').textContent, 'Culture Conditions');
+  click('#projectDialog [data-close-dialog]');
+  type('[data-project-search]', 'no such project');
+  assert.equal($('.syn-code-desk').hidden, true);
+  assert.equal($('[data-project-empty]').hidden, false);
+  type('[data-project-search]', '');
+  assert.equal($('.syn-code-desk').hidden, false);
+  type('[data-skill-search]', 'no such skill');
+  assert.equal($('[data-skill-empty]').hidden, false);
 });
 
 test('Synthesis is the default, retains one scene and every source record in all three perspectives', async () => {
@@ -689,7 +775,8 @@ test('Synthesis is the default, retains one scene and every source record in all
     assert($('[data-synthesis-scene]') === scene, 'scene element persists');
     assert($('.syn-strand') === strand, 'strand persists');
     paths.add(strand.getAttribute('d'));
-    assert.equal($('[data-project-card]:not([hidden]) h3').textContent, first);
+    const firstProject = $('[data-project-card]:not([hidden])');
+    assert.equal((firstProject.querySelector('[data-syn-entry-title]') || firstProject.querySelector('h3')).textContent, first);
     assert.equal($$('#portfolio [data-section]').length, 11);
     assert.equal($$('[data-project-card]').length, model.projects.length);
     assert.equal($$('[data-journey-record]').length, model.experience.length);

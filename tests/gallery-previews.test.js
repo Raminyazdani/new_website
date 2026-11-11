@@ -18,7 +18,7 @@ function loadGallery({ compact = false, query = '' } = {}) {
   // linkedom does not implement the browser's writable select value.
   for (const select of document.querySelectorAll('select')) Object.defineProperty(select, 'value', { value: select.id === 'designGalleryCollection' ? 'all' : '', writable: true });
   Object.defineProperty(document.querySelector('#designGallery'), 'open', { get() { return this.hasAttribute('open'); } });
-  const galleryScripts = /^\/portfolio\/(?:design-(?:registry|navigation|gallery)\.js|(?:designs|directions)\/[^/]+\.js|imported-templates\.js)$/;
+  const galleryScripts = /^\/portfolio\/(?:design-(?:registry|navigation|gallery)\.js|(?:designs|directions|experiments)\/[^/]+\.js|(?:imported-templates|synthesis)\.js)$/;
   for (const script of document.querySelectorAll('script[src]')) {
     const source = script.getAttribute('src');
     if (!galleryScripts.test(source)) continue;
@@ -68,7 +68,7 @@ test('every gallery template points to its own 640 × 400 preview', () => {
   }
 });
 
-test('compact gallery keeps filters available and recovers all 50 designs from empty search', () => {
+test('compact gallery keeps filters available and recovers all 62 designs from empty search', () => {
   const { window, document, Event } = loadGallery({ compact: true, query: '?gallery=1&theme=dark&design-search=doesnotexist' });
   const toggle = document.querySelector('#designGalleryFilterToggle');
   const filters = document.querySelector('#designGalleryFilters');
@@ -81,12 +81,21 @@ test('compact gallery keeps filters available and recovers all 50 designs from e
   assert.equal(toggle.getAttribute('aria-expanded'), 'true');
   assert.equal(filters.hidden, false);
   document.querySelector('[data-reset-design-filters]').dispatchEvent(new Event('click', { bubbles: true }));
-  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 50);
+  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 62);
   assert.equal(document.querySelector('#designGalleryEmpty').hidden, true);
   assert.equal(window.location.searchParams.get('design-search'), null);
   assert.equal(window.location.searchParams.get('theme'), 'dark');
   document.querySelector('[data-close-design-gallery]').dispatchEvent(new Event('click', { bubbles: true }));
   assert.equal(window.location.searchParams.has('gallery'), false);
+});
+
+test('the Experiences filter shows twelve new layouts and their discipline labels', () => {
+  const { document } = loadGallery({ query: '?gallery=1&collection=experiential' });
+  const cards = [...document.querySelectorAll('#designGalleryBody [data-gallery-design]')];
+  assert.equal(cards.length, 12);
+  assert.match(document.querySelector('#designGalleryCollection option[value="experiential"]').textContent, /Experiences \(12\)/);
+  const labels = new Set(cards.map(card => card.querySelector('.dg-card-meta > :last-child').textContent));
+  assert.deepEqual([...labels].sort(), ['Biology', 'Chemistry', 'Integrated', 'Programming']);
 });
 
 test('gallery search is restored and updated in the URL without losing design preferences', () => {

@@ -36,11 +36,12 @@ const headers = {
 };
 
 function readCatalog() {
-  const context = { window: {} };
+  const context = { window: {}, document: { addEventListener() {} }, URLSearchParams };
   const scripts = [
     'design-registry', 'designs/editorial', 'designs/systems', 'designs/experimental',
     'directions/kit', 'directions/observational', 'directions/systems',
-    'directions/expressive', 'imported-templates',
+    'directions/expressive', 'imported-templates', 'synthesis',
+    'experiments/kit', 'experiments/life', 'experiments/systems',
   ];
   for (const name of scripts) {
     const file = join(publicRoot, 'portfolio', `${name}.js`);
@@ -62,6 +63,7 @@ function readCatalog() {
     ...imported.map(design => item('imported', design, `/imported/en/${design.id}/?__preview=1`)),
     ...nativeItems('independent'),
     ...nativeItems('previous'),
+    ...nativeItems('experiential'),
   ];
 }
 
@@ -108,11 +110,13 @@ http.createServer(async (req, res) => {
     const url = new URL(req.url, origin);
     if (url.origin !== origin) return reply(404, plain, 'Not found');
     if (url.pathname === '/api/cv') return reply(200, types['.json'], JSON.stringify(previewPortfolio(origin)));
-    if (url.pathname === '/__preview-catalog') return reply(200, types['.json'], JSON.stringify({ total: templates.length, batchSize, templates }));
+    const collection = url.searchParams.get('collection');
+    const selected = collection ? templates.filter(template => template.collection === collection) : templates;
+    if (url.pathname === '/__preview-catalog') return reply(200, types['.json'], JSON.stringify({ total: selected.length, batchSize, templates: selected }));
     if (url.pathname === '/__preview-sheet') {
       const batch = Number(url.searchParams.get('batch') ?? 0);
-      if (!Number.isInteger(batch) || batch < 0 || batch * batchSize >= templates.length) return reply(404, plain, 'No such capture batch');
-      return reply(200, types['.html'], captureSheet(templates.slice(batch * batchSize, (batch + 1) * batchSize)));
+      if (!Number.isInteger(batch) || batch < 0 || batch * batchSize >= selected.length) return reply(404, plain, 'No such capture batch');
+      return reply(200, types['.html'], captureSheet(selected.slice(batch * batchSize, (batch + 1) * batchSize)));
     }
     if (['/__preview-portrait.svg', '/__preview-cover.svg'].includes(url.pathname)) {
       return reply(200, types['.svg'], await readFile(join(__dirname, 'fixtures', url.pathname.replace('/__', 'gallery-'))));

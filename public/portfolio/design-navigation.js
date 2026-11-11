@@ -14,6 +14,8 @@
     'journal', 'helix', 'organic', 'monograph', 'specimen',
     'pipeline', 'bento', 'atlas-map', 'console', 'blueprint',
     'chromatography', 'gallery', 'dossier', 'kinetic', 'horizon',
+    'tissue', 'culture', 'chromatogram', 'residue', 'continuum', 'cabinet',
+    'foundry', 'runtime', 'tensor', 'patchbay', 'prism', 'expedition',
   ]);
   const preferenceValues = {
     theme: ['light', 'dark'],

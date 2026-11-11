@@ -29,6 +29,9 @@ const server = http.createServer(async (req, res) => {
   for (const file of ['kit.js','foundation.css','observational.js','observational.css','systems.js','systems.css','expressive.js','expressive.css']) {
     files[`/portfolio/directions/${file}`]=[`portfolio/directions/${file}`,file.endsWith('.js')?'text/javascript; charset=utf-8':'text/css; charset=utf-8'];
   }
+  for (const file of ['kit.js','foundation.css','life.js','life.css','systems.js','systems.css']) {
+    files[`/portfolio/experiments/${file}`]=[`portfolio/experiments/${file}`,file.endsWith('.js')?'text/javascript; charset=utf-8':'text/css; charset=utf-8'];
+  }
   files['/fonts/directions-fonts.css']=['fonts/directions-fonts.css','text/css; charset=utf-8'];
   files['/fonts/SOURCES.json']=['fonts/SOURCES.json','application/json; charset=utf-8'];
   for (const font of ['fraunces','spacegrotesk','barlowcondensed','ibmplexmono']) {

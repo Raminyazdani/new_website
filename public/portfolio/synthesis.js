@@ -38,13 +38,13 @@
   };
   const terms = {
     biology: /bio(?:log|inform|tech|chem|system)|genom|(?:rna|dna|single)[ -]?(?:seq|cell)?\b|transcriptom|prote(?:in|om)|microbi|molecul|metabol|chromato|ferment|enzyme|cellular|\bchemistr|structural biology|sequenc/i,
-    programming: /program(?:ming|mer)|software|computer science|machine learning|deep learning|\bml\b|neural|data (?:scien|engineer|pipeline|visual|analyt)|development|developer|python|javascript|typescript|sql|pytorch|tensorflow|web (?:app|dev)|react|algorithm|devops|linux|github|nextflow|automation/i,
+    programming: /program(?:ming|mer)|software|computer science|machine learning|deep learning|\bml\b|neural|data (?:scien|engineer|pipeline|visual|analyt)|development|developer|python|javascript|typescript|sql|pytorch|tensorflow|web (?:app|dev)|react|algorithm|devops|linux|github|nextflow|automation|bioinform/i,
   };
   const readMode = () => {
     const value = new URLSearchParams(w.location?.search || '').get('perspective');
     return Object.hasOwn(modes, value) ? value : 'all';
   };
-  let mode = readMode(), scene, sceneElement, studyObserver, latestModel, modeInput, modeStatus, pointerAnchor;
+  let mode = readMode(), scene, sceneElement, studyObserver, latestModel, modeInput, modeStatus, pointerAnchor, workController, selectedProject;
   const active = () => w.PortfolioStudio?.concept === id;
 
   function priority(record, key) {
@@ -59,7 +59,7 @@
     const sort = items => list(items).map((row, index) => [row, priority(row, mode), index])
       .sort((a, b) => b[1] - a[1] || a[2] - b[2]).map(([row]) => row);
     return {
-      ...vm, projects: sort(vm.projects), experience: sort(vm.experience),
+      ...vm, projects: sort(vm.projects),
       publications: sort(vm.publications), education: sort(vm.education),
       certificates: sort(vm.certificates),
       skillGroups: sort(vm.skillGroups).map(group => ({ ...group, groups: sort(group.groups) })),
@@ -78,7 +78,7 @@
     return (lead || content.slice(0, limit)) + '…';
   };
   function heading(key, label, title, summary = '') {
-    return `<header class="syn-section-heading"><span class="syn-index" aria-hidden="true">${number(order.indexOf(key) - 1)}</span><div><p class="syn-kicker">${label}</p><h2 id="syn-title-${key}">${title}</h2></div>${summary ? `<p class="syn-section-description">${summary}</p>` : ''}</header>`;
+    return `<header class="syn-section-heading${label ? '' : ' syn-heading-simple'}">${label ? `<span class="syn-index" aria-hidden="true">${number(order.indexOf(key) - 1)}</span>` : ''}<div>${label ? `<p class="syn-kicker">${label}</p>` : ''}<h2 id="syn-title-${key}">${title}</h2></div>${summary ? `<p class="syn-section-description">${summary}</p>` : ''}</header>`;
   }
   const textLink = (href, text, cls = '') => `<a class="syn-text-link ${cls}" href="${href}">${text}<span aria-hidden="true">↗</span></a>`;
 
@@ -93,7 +93,7 @@
           <h1 id="syn-title-hero" data-motion-part>${name}</h1>
           ${list(person.roles).length ? `<ul class="syn-role-list" aria-label="Profile roles">${person.roles.map(role => `<li>${h.e(role)}</li>`).join('')}</ul>` : ''}
           ${lead ? `<p class="syn-lead">${h.e(lead)}</p>` : ''}
-          <div class="syn-hero-actions"><a class="syn-primary" data-syn-primary href="#projects">Explore the work <span aria-hidden="true">↘</span></a>${textLink('#about', 'Read the profile')}</div>
+          <div class="syn-hero-actions"><a class="syn-primary" data-syn-primary href="#projects">Explore the work <span aria-hidden="true">↘</span></a>${textLink('#about', 'Read the profile')}${w.PortfolioDesigns?.collection('experiential').length ? `<button type="button" class="syn-index-open syn-new-experiences" data-open-design-gallery="experiential" aria-haspopup="dialog">${w.PortfolioDesigns.collection('experiential').length} new experiences <span aria-hidden="true">↗</span></button>` : ''}</div>
         </div>
         <figure class="syn-plate">
           <div class="syn-plate-top"><span><i aria-hidden="true"></i> SYNTHESIS / STUDY</span><span>FIG. 01</span></div>
@@ -119,52 +119,149 @@
   function miniature(type) {
     return `<svg viewBox="0 0 200 110" fill="none" aria-hidden="true"><path class="syn-mini-grid" d="M20 14h160v82H20zM20 56h160M100 14v82"/><g class="syn-mini-form">${plateArts[type]}</g></svg>`;
   }
-  function projectVisual(record, index, h) {
-    const diagram = w.PortfolioPreviews?.renderProject(record, index, h, { diagramOnly: true });
-    if (diagram) return diagram;
+  function projectForm(record, index) {
     const key = [record.title, ...list(record.tags)].filter(Boolean).join(' ');
-    const type = /machine learning|neural|(?:^|\W)ml(?:$|\W)|classif|predict/i.test(key) ? 'nodes'
+    return /machine learning|neural|(?:^|\W)ml(?:$|\W)|classif|predict/i.test(key) ? 'nodes'
       : /protein|molecul|chemistr|enzyme|metabol/i.test(key) ? 'molecule'
       : /genom|transcript|sequenc|rna[- ]seq|dna/i.test(key) ? 'sequence'
       : terms.biology.test(key) ? 'cell' : terms.programming.test(key) ? 'inputs' : index % 2 ? 'nodes' : 'signal';
+  }
+  function projectVisual(record, index, h) {
+    const diagram = w.PortfolioPreviews?.renderProject(record, index, h, { diagramOnly: true });
+    if (diagram) return diagram;
+    const type = projectForm(record,index);
     return `<figure class="syn-project-art syn-project-art-${type}">
       <div class="syn-project-art-surface"><span aria-hidden="true">+<br>└</span>${miniature(type)}<span aria-hidden="true">┐<br>+</span></div>
       <figcaption><span>Conceptual illustration</span><span>Fig. ${number(index)}</span></figcaption></figure>`;
   }
-  function about(vm, h) {
+  function about(vm, h, includeStudy = true) {
     const person = vm.identity, m = modes[mode];
     const shapes = { all: ['cell', 'molecule', 'nodes'], biology: ['cell', 'molecule', 'sequence'], programming: ['inputs', 'signal', 'nodes'] }[mode];
+    const identity = !includeStudy && (person.avatarUrl || person.location || list(person.roles).length) ? `<div class="syn-profile-source">${person.avatarUrl ? h.portrait(person,'syn-profile-portrait') : ''}<div>${list(person.roles).length ? `<ul class="syn-role-list" aria-label="Profile roles">${person.roles.map(role => `<li>${h.e(role)}</li>`).join('')}</ul>` : ''}${person.location ? `<p>${h.e(person.location)}</p>` : ''}</div></div>` : '';
     return markup('about', `<div class="syn-profile-grid">
-      ${person.summary ? `<p class="syn-profile-text">${h.e(person.summary)}</p>` : ''}
+      ${identity || person.summary ? `<div>${identity}${person.summary ? `<p class="syn-profile-text">${h.e(person.summary)}</p>` : ''}</div>` : ''}
       ${list(vm.interests).length || person.coverUrl ? `<div class="syn-interests">${list(vm.interests).length ? '<h3>Interests</h3>' : ''}${list(vm.interests).map(i => `<details data-syn-disclosure="${h.e(i.id)}"><summary>${h.e(i.title)} <span aria-hidden="true">+</span></summary>${i.description ? `<p>${h.e(i.description)}</p>` : ''}</details>`).join('')}${person.coverUrl ? `<details data-syn-disclosure="profile-cover"><summary>Profile cover <span aria-hidden="true">+</span></summary><img class="syn-cover" src="${h.e(person.coverUrl)}" alt="Profile cover" loading="lazy" decoding="async" referrerpolicy="no-referrer"></details>` : ''}</div>` : ''}
-      </div><figure class="syn-study" data-syn-reveal><figcaption><div><p class="syn-kicker">Illustrated study · Fig. 02</p><h3>${m.study}</h3></div><p>${m.studyDescription}</p></figcaption>
-      <div class="syn-study-plates">${m.steps.map((label, i) => `<div><span>${number(i)} / ${label}</span>${miniature(shapes[i])}</div>`).join('')}</div></figure>`,
+      </div>${includeStudy ? `<figure class="syn-study" data-syn-reveal><figcaption><div><p class="syn-kicker">Illustrated study · Fig. 02</p><h3>${m.study}</h3></div><p>${m.studyDescription}</p></figcaption>
+      <div class="syn-study-plates">${m.steps.map((label, i) => `<div><span>${number(i)} / ${label}</span>${miniature(shapes[i])}</div>`).join('')}</div></figure>` : ''}`,
     heading('about', 'Personal profile', 'About', 'Background and interests.'));
   }
 
-  function projects(vm, h) {
+  function projectSearch(vm, h) {
     const rows = list(vm.projects), topics = [...new Set(rows.flatMap(p => list(p.tags)).filter(Boolean))];
-    return markup('projects', `<div class="syn-search syn-work-search">
+    return `<div class="syn-search syn-work-search">
         <label>Search projects<input type="search" placeholder="Search titles, descriptions and topics" data-project-search></label>
         <label>Topic<select data-project-filter><option value="">All topics</option>${topics.map(topic => `<option value="${h.e(topic)}">${h.e(topic)}</option>`).join('')}</select></label>
         <span data-syn-project-count role="status"></span>
-      </div><div class="syn-project-grid">${rows.map((p, i) => `<article class="syn-project" data-project-card data-project-id="${h.e(p.id)}">
+      </div>`;
+  }
+  const projectEmpty = '<p class="syn-empty" data-project-empty hidden>No projects match this search.</p>';
+  const projectMore = '<button type="button" class="syn-more" data-project-more hidden>Show more projects</button>';
+  function projectActions(p, h) {
+    return `<div class="syn-record-actions"><button type="button" class="syn-link-button" data-open-project="${h.e(p.id)}">Read project <span aria-hidden="true">↗</span></button>
+    ${p.url ? h.link(p.url, p.urlLabel || 'Open project link ↗') : ''}${p.repositoryUrl ? h.link(p.repositoryUrl, p.repositoryLabel || 'Repository ↗') : ''}</div>`;
+  }
+  function projects(vm, h) {
+    const rows = list(vm.projects);
+    if (mode !== 'all') return projectDesk(vm,h);
+    return markup('projects', `${projectSearch(vm,h)}<div class="syn-project-grid syn-editorial-work">${rows.map((p, i) => `<article class="syn-project" data-project-card data-project-id="${h.e(p.id)}">
         ${i < 2 ? `<div class="syn-project-preview">${projectVisual(p, i, h)}</div>` : ''}
         <div class="syn-project-copy"><span class="syn-index">${number(i)}</span><h3>${h.e(p.title)}</h3>
         ${p.description ? `<p>${h.e(excerpt(p.description, i < 2 ? 240 : 156))}</p>` : ''}${tags(p.tags, h)}
-        <div class="syn-record-actions"><button type="button" class="syn-link-button" data-open-project="${h.e(p.id)}">Read project <span aria-hidden="true">↗</span></button>
-        ${p.url ? h.link(p.url, p.urlLabel || 'Open project link ↗') : ''}${p.repositoryUrl ? h.link(p.repositoryUrl, p.repositoryLabel || 'Repository ↗') : ''}</div></div></article>`).join('')}</div>
-      <p class="syn-empty" data-project-empty hidden>No projects match this search.</p><button type="button" class="syn-more" data-project-more hidden>Show more projects</button>`,
-      heading('projects', 'Project archive', 'Selected work', 'Browse the complete project collection by keyword or topic.'));
+        ${projectActions(p,h)}</div></article>`).join('')}</div>${projectEmpty}${projectMore}`,
+      heading('projects', 'Project archive', 'Selected work', 'Read research and software projects side by side, or search the full collection.'));
+  }
+
+  function projectDesk(vm,h) {
+    const lab = mode === 'biology', rows = list(vm.projects);
+    const buttons = rows.map((p,i) => {
+      const attrs = `type="button" data-syn-project-select="${h.e(p.id)}" aria-pressed="false" aria-controls="syn-work-inspector"`;
+      const content = lab
+        ? `<span class="syn-tray-slide" aria-hidden="true">${miniature(projectForm(p,i))}</span><span class="syn-tray-label"><span data-syn-entry-title>${h.e(p.title)}</span>${p.tags?.[0] ? `<small>${h.e(p.tags[0])}</small>` : ''}</span>`
+        : `<span class="syn-file-glyph" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></svg></span><span data-syn-entry-title>${h.e(p.title)}</span><span class="syn-desk-number" aria-hidden="true">${number(i)}</span>`;
+      return `<article class="syn-desk-entry" data-project-card data-project-id="${h.e(p.id)}"><h3><button ${attrs}>${content}</button></h3></article>`;
+    }).join('');
+    const inspector = `<div class="syn-work-inspector" id="syn-work-inspector" data-syn-project-inspector></div>`;
+    const listLabel = lab ? 'Specimen tray' : 'Project files';
+    const nav = `<div class="syn-desk-nav"><h3 class="syn-desk-label">${listLabel}</h3><div class="syn-desk-list">${buttons}</div>${projectMore}</div>`;
+    const desk = lab
+      ? `<div class="syn-project-desk syn-specimen-desk" data-syn-project-desk="biology">${nav}${inspector}</div>`
+      : `<div class="syn-project-desk syn-code-desk" data-syn-project-desk="programming"><div class="syn-code-bar"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 9h18M9 9v9"/></svg> Workbench</span><span>Project explorer</span></div>${nav}${inspector}</div>`;
+    return markup('projects', `${projectSearch(vm,h)}${desk}${projectEmpty}<p class="syn-visually-hidden" data-syn-project-selection role="status"></p>`,
+      heading('projects', '', lab ? 'Specimen collection' : 'Project workbench', lab ? 'Select a specimen to see its field label, topics and source record.' : 'Search project files and open a record in the inspector.'));
+  }
+
+  function mountProjectDesk(root, vm, h) {
+    workController?.abort(); workController = null;
+    const desk = root.querySelector('[data-syn-project-desk]');
+    if (!desk) return;
+    workController = new AbortController();
+    const { signal } = workController;
+    const panel = desk.querySelector('[data-syn-project-inspector]'), announcement = root.querySelector('[data-syn-project-selection]');
+    const records = new Map(vm.projects.map((record,index) => [record.id,{record,index}]));
+    let rendered = '';
+    const entries = [...desk.querySelectorAll('[data-syn-project-select]')];
+    const visible = () => entries.filter(button => !button.closest('[data-project-card]').hidden);
+    function select(id, user = false) {
+      const selection = records.get(id);
+      entries.forEach(entry => entry.setAttribute('aria-pressed', String(entry.dataset.synProjectSelect === id)));
+      if (user) selectedProject = id;
+      if (rendered === id) return;
+      rendered = id;
+      if (!selection) { panel.replaceChildren(); return; }
+      const { record, index } = selection, lab = mode === 'biology';
+      const copy = `<div class="syn-inspector-copy"><h3>${h.e(record.title)}</h3>${record.description ? `<p>${h.e(excerpt(record.description, lab ? 315 : 510))}</p>` : ''}${tags(record.tags,h)}${projectActions(record,h)}</div>`;
+      panel.innerHTML = lab ? `<div class="syn-inspector-label">Field label</div>${copy}` : `${copy}<div class="syn-inspector-graphic">${projectVisual(record,index,h)}</div>`;
+      if (user) announcement.textContent = `${record.title} selected.`;
+    }
+    function sync() {
+      const buttons = visible();
+      desk.hidden = buttons.length === 0;
+      const preferred = buttons.find(button => button.dataset.synProjectSelect === selectedProject);
+      select((preferred || buttons[0])?.dataset.synProjectSelect || '');
+    }
+    desk.addEventListener('click', event => {
+      const choice = event.target.closest('[data-syn-project-select]');
+      if (choice) select(choice.dataset.synProjectSelect, true);
+    }, { signal });
+    root.addEventListener('portfolio:project-filtered',sync,{signal});
+    sync();
+  }
+
+  function experienceRecord(r, i, h, {label='Read experience'} = {}) {
+    return `<article class="syn-experience-row" data-journey-record="${h.e(r.id)}">
+      <div class="syn-experience-time"><span class="syn-index">${number(i)}</span>${r.period ? `<span>${h.e(r.period)}</span>` : ''}</div>
+      <div class="syn-experience-copy"><h3>${h.e(r.title)}</h3>${metadata([r.organization, r.location], h)}
+      ${r.description || list(r.tags).length ? `<details data-syn-disclosure="${h.e(r.id)}"><summary>${h.e(label)} <span aria-hidden="true">+</span></summary>
+      ${r.description ? `<p>${h.e(r.description)}</p>` : ''}${tags(r.tags,h)}</details>` : ''}${r.url || r.profileUrl ? `<div class="syn-record-actions">${r.url ? h.link(r.url,'Open experience link ↗') : ''}${r.profileUrl ? h.link(r.profileUrl,'Open related profile ↗') : ''}</div>` : ''}</div></article>`;
   }
 
   function experience(vm, h) {
-    return markup('experience', `<div class="syn-timeline">${list(vm.experience).map((r, i) => `<article class="syn-experience-row" data-journey-record="${h.e(r.id)}">
-      <div class="syn-experience-time"><span class="syn-index">${number(i)}</span>${r.period ? `<span>${h.e(r.period)}</span>` : ''}</div>
-      <div class="syn-experience-copy"><h3>${h.e(r.title)}</h3>${metadata([r.organization, r.location], h)}
-      ${r.description || list(r.tags).length ? `<details data-syn-disclosure="${h.e(r.id)}"><summary>Read experience <span aria-hidden="true">+</span></summary>
-      ${r.description ? `<p>${h.e(r.description)}</p>` : ''}${tags(r.tags,h)}</details>` : ''}${r.url || r.profileUrl ? `<div class="syn-record-actions">${r.url ? h.link(r.url,'Open experience link ↗') : ''}${r.profileUrl ? h.link(r.profileUrl,'Open related profile ↗') : ''}</div>` : ''}</div></article>`).join('')}</div>`,
-    heading('experience', 'Professional history', 'Experience', 'Roles, organizations and the work behind them.'));
+    if (mode !== 'all') return experienceHistory(vm,h);
+    return markup('experience', `<div class="syn-timeline">${list(vm.experience).map((r, i) => experienceRecord(r,i,h)).join('')}</div>`,
+    heading('experience', 'Professional history', 'Experience', 'The roles behind the research and software, in one history.'));
+  }
+
+  function experienceHistory(vm,h) {
+    const lab = mode === 'biology';
+    const chronological = w.PortfolioExperiences?.chronological(vm.experience) || [...list(vm.experience)].sort((a,b) => (year(b) || 0) - (year(a) || 0));
+    const bands = new Map();
+    function year(record) { return String(record.start || record.period || '').match(/\b(?:19|20)\d{2}\b/)?.[0]; }
+    chronological.forEach((record,index) => {
+      const band = year(record) || 'Undated';
+      if (!bands.has(band)) bands.set(band, []);
+      bands.get(band).push([record,index]);
+    });
+    const body = [...bands].map(([date, records]) => {
+      const entries = records.map(([record,i]) => {
+        const a = priority(record,'biology') > 0, b = priority(record,'programming') > 0;
+        const branch = a && b ? 'overlap' : a ? 'research' : b ? 'engineering' : 'other';
+        const titles = { overlap:'Cross-disciplinary', research:'Life sciences', engineering:'Engineering', other:'Other roles' };
+        return lab ? `<li data-field-branch="${branch}"><span class="syn-field-track">${titles[branch]}</span>${experienceRecord(record,i,h,{label:'Read field note'})}</li>` : `<li>${experienceRecord(record,i,h,{label:'View role details'})}</li>`;
+      }).join('');
+      return `<li class="${lab ? 'syn-field-year' : 'syn-release-group'}"><h3>${h.e(date)}</h3><ol>${entries}</ol></li>`;
+    }).join('');
+    return markup('experience', `<ol class="${lab ? 'syn-field-notes' : 'syn-release-log'}" data-syn-experience-layout="${mode}">${body}</ol>`,
+      heading('experience', '', lab ? 'Field notes' : 'Experience changelog', lab ? 'Roles branch by topic along a timeline. Each entry keeps the period supplied in the CV.' : 'Roles and organizations grouped by recorded start year.'));
   }
   function publications(vm, h) {
     const rows = list(vm.publications);
@@ -196,14 +293,36 @@
       heading('education', 'Academic path', 'Education', 'Institutions, degrees and fields of study.'));
   }
 
+  function skillItems(group, h) {
+    return list(group.items).map(x => `<li data-skill-item="${h.e(x.id)}"><span>${h.e(x.name || x.shortName)}${x.name && x.shortName && x.shortName !== x.name ? ` <small>(${h.e(x.shortName)})</small>` : ''}</span>
+          ${list(x.tags).length ? `<details data-syn-disclosure="${h.e(x.id)}"><summary>Source topics <span aria-hidden="true">+</span></summary>${tags(x.tags,h)}</details>` : ''}</li>`).join('');
+  }
+
+  function skillCatalog(vm,h) {
+    const lab = mode === 'biology';
+    const size = g => list(g.groups).reduce((sum,s) => sum + list(s.items).length,0);
+    const groups = list(vm.skillGroups).map((g,i) => {
+      if (lab) return `<details class="record-skill-group syn-taxonomy-branch" data-syn-disclosure="${h.e(g.id)}"${i === 0 ? ' open' : ''}><summary><strong>${h.e(g.name)}</strong><small>${size(g)} skills</small><span aria-hidden="true">+</span></summary>
+          <div class="syn-taxonomy-branches">${list(g.groups).map(s => `<div class="record-skill-sub syn-taxonomy-node"><h3>${h.e(s.name)}</h3><ul>${skillItems(s,h)}</ul></div>`).join('')}</div></details>`;
+      return `<section class="record-skill-group syn-module-group"><h3>${h.e(g.name)} <small>${size(g)} skills</small></h3>
+          ${list(g.groups).map(s => `<div class="record-skill-sub syn-module-row"><h4>${h.e(s.name)}</h4><ul>${skillItems(s,h)}</ul></div>`).join('')}</section>`;
+    }).join('');
+    const search = `<div class="syn-search syn-skill-search"><label>Find a skill<input type="search" data-skill-search placeholder="${lab ? 'Search the taxonomy' : 'Search the module inventory'}"></label><span class="syn-skill-count" data-skill-count role="status"></span></div>`;
+    const catalog = lab
+      ? `<div class="syn-taxonomy"><div class="syn-taxonomy-root"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v6m-7 9v-5h14v5M12 10v9"/><circle cx="12" cy="4" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></svg><span>Source skill groups</span></div><div class="syn-taxonomy-tree">${groups}</div></div>`
+      : `<div class="syn-module-catalog"><div class="syn-module-legend" aria-hidden="true"><span>Group / subcategory</span><span>Recorded skills</span></div>${groups}</div>`;
+    return markup('skills', `${search}<div data-syn-skill-layout="${mode}">${catalog}</div><p class="syn-empty" data-skill-empty hidden>No skills match this search.</p>`,
+      heading('skills', '', lab ? 'Skill taxonomy' : 'Module inventory', lab ? 'Follow the branches from source groups to individual methods.' : 'Scan recorded tools and methods by group or search by name and topic.'));
+  }
+
   function skills(vm, h) {
+    if (mode !== 'all') return skillCatalog(vm,h);
     return markup('skills', `<div class="syn-skills-grid"><div class="syn-skills-chart">${w.PortfolioInsights?.renderSkills(vm, h) || ''}</div>
       <div><div class="syn-search syn-skill-search"><label>Find a skill<input type="search" data-skill-search placeholder="Search all skills"></label></div>
       <div class="syn-skill-atlas">${list(vm.skillGroups).map((g,i) => `<details class="record-skill-group syn-skill-domain" data-syn-disclosure="${h.e(g.id)}"${i === 0 ? ' open' : ''}>
         <summary><span><small>${number(i)}</small> ${h.e(g.name)}</span><span aria-hidden="true">+</span></summary>
         <div>${list(g.groups).map(s => `<div class="record-skill-sub syn-skill-sub"><h3>${h.e(s.name)}</h3>
-          <ul>${list(s.items).map(x => `<li data-skill-item="${h.e(x.id)}"><span>${h.e(x.name || x.shortName)}${x.name && x.shortName && x.shortName !== x.name ? ` <small>(${h.e(x.shortName)})</small>` : ''}</span>
-          ${list(x.tags).length ? `<details data-syn-disclosure="${h.e(x.id)}"><summary>Source topics <span aria-hidden="true">+</span></summary>${tags(x.tags,h)}</details>` : ''}</li>`).join('')}</ul>
+          <ul>${skillItems(s,h)}</ul>
         </div>`).join('')}</div></details>`).join('')}</div></div></div>`, heading('skills', 'Capability atlas', 'Skills & methods', 'Browse methods by area, or find a specific tool.'));
   }
 
@@ -253,7 +372,13 @@
 
   const renderers = { about, projects, experience, publications, education, skills, certificates, languages, references, contact };
   const empty = key => markup(key, '<p class="syn-empty">No records supplied in the portfolio.</p>', heading(key, 'Portfolio records', sections[key]));
+  function canonicalRecordSection(key, vm, h) {
+    const field = key === 'skills' ? 'skillGroups' : key;
+    if (Array.isArray(vm[field]) && !vm[field].length) return empty(key);
+    return key === 'about' ? about(vm,h,false) : renderers[key](vm,h);
+  }
   function render(root, vm, h) {
+    workController?.abort(); workController = null;
     const initial = latestModel !== w.portfolioView?.model || !root.querySelector('.syn-persistent');
     const records = order.slice(1).map(key => {
       const field = key === 'skills' ? 'skillGroups' : key;
@@ -274,7 +399,7 @@
     }
   }
 
-  function mount(root, { animate = false } = {}) {
+  function mount(root, { animate = false, model, helpers } = {}) {
     const m = modes[mode];
     const toolbar = doc.getElementById('synthesisToolbar');
     toolbar.hidden = false;
@@ -298,6 +423,7 @@
       root.querySelector('.syn-plate-caption').animate?.([{opacity: .45}, {opacity: 1}], {duration: 180, easing: 'cubic-bezier(.23,1,.32,1)'});
     }
     const nextScene = root.querySelector('[data-synthesis-scene]');
+    if (model && helpers) mountProjectDesk(root,model,helpers);
     if (nextScene !== sceneElement) {
       scene?.destroy();
       sceneElement = nextScene;
@@ -317,6 +443,7 @@
   }
 
   function unmount() {
+    workController?.abort(); workController = null; selectedProject = null;
     scene?.destroy(); scene = null; sceneElement = null;
     studyObserver?.disconnect(); studyObserver = null;
     latestModel = null; modeStatus = null;
@@ -349,6 +476,6 @@
     changeMode(button.dataset.perspective, { animate, anchor });
   });
   w.addEventListener?.('popstate', () => changeMode(readMode(), { history: false }));
-  w.PortfolioSynthesis = { id, order, sections, active, project, projectVisual, render, mount, unmount, changeMode,
-    nav: () => modes[mode].nav, sync: () => scene?.sync() };
+  w.PortfolioSynthesis = { id, order, sections, active, project, projectVisual, experienceRecord, canonicalRecordSection, render, mount, unmount, changeMode,
+    nav: () => modes[mode].nav, selectedProject: () => mode === 'all' ? null : selectedProject, sync: () => scene?.sync() };
 })(window, document);
