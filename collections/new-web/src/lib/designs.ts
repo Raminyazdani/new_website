@@ -10,6 +10,7 @@ export const allDesignIds = [
   'helix', 'genome', 'circos', 'atlas', 'observatory', 'metro', 'periodic', 'sequencer', 'organic', 'cell',
   'reactor', 'blueprint', 'pipeline', 'desktop', 'bento', 'configurator', 'swiss', 'cinema', 'keynote', 'sketch',
   'microcosm', 'flowcell', 'cellscape', 'foldspace',
+  'worktree', 'duplex', 'attention', 'phylo', 'organoid', 'gelroom', 'rack', 'gradient',
 ] as const;
 export type DesignId = (typeof allDesignIds)[number];
 
@@ -61,6 +62,14 @@ export const designMeta: Record<DesignId, { bg: string; fg: string; accent: stri
   flowcell: { bg: '#252a2d', fg: '#d0d4d0', accent: '#ee783f', swatches: ['#252a2d', '#d0d4d0', '#ee783f'], dark: true },
   cellscape: { bg: '#eef1f7', fg: '#151b33', accent: '#1834b8', swatches: ['#eef1f7', '#1834b8', '#f16a62', '#a4bf43', '#151b33'], dark: false },
   foldspace: { bg: '#170f18', fg: '#fff0db', accent: '#ed966f', swatches: ['#170f18', '#ed966f', '#fff0db', '#8c514a'], dark: true },
+  worktree: { bg: '#111b18', fg: '#e6eae0', accent: '#c2ee79', swatches: ['#111b18', '#174637', '#c2ee79', '#e6eae0'], dark: true },
+  duplex: { bg: '#fbfae9', fg: '#10265a', accent: '#1648e8', swatches: ['#fbfae9', '#1648e8', '#e4f11b', '#10265a'], dark: false },
+  attention: { bg: '#f4f4f0', fg: '#161619', accent: '#e32754', swatches: ['#f4f4f0', '#161619', '#e32754', '#2446e8'], dark: false },
+  phylo: { bg: '#f3efe4', fg: '#294d3e', accent: '#743b38', swatches: ['#f3efe4', '#743b38', '#294d3e'], dark: false },
+  organoid: { bg: '#e8e8df', fg: '#263d32', accent: '#70826d', swatches: ['#e8e8df', '#70826d', '#bb7f70', '#263d32'], dark: false },
+  gelroom: { bg: '#090c14', fg: '#e7e3f1', accent: '#b598fa', swatches: ['#090c14', '#b598fa', '#a4e4e0', '#e7e3f1'], dark: true },
+  rack: { bg: '#11131b', fg: '#e9e7e1', accent: '#efb45f', swatches: ['#11131b', '#6666bb', '#efb45f', '#e9e7e1'], dark: true },
+  gradient: { bg: '#e5eaed', fg: '#173454', accent: '#3657b4', swatches: ['#e5eaed', '#3657b4', '#d7ef57', '#e1784f'], dark: false },
 };
 
 export const isDesignId = (v: string): v is DesignId => (allDesignIds as readonly string[]).includes(v);

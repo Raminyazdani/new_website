@@ -585,7 +585,7 @@ test('one gallery lists every imported design beside both existing collections',
   assert.equal(env.cvLoads, 1);
 });
 
-test('Next and Previous follow all 66 gallery entries across the native and imported routes', async () => {
+test('Next and Previous follow all 74 gallery entries and preserve the earlier 66 in relative order', async () => {
   const env = await boot({
     independent: true,
     imported: true,
@@ -599,9 +599,19 @@ test('Next and Previous follow all 66 gallery entries across the native and impo
   const cycle = templateCycle(importedIds);
   const key = entry => `${entry.collection === 'imported' ? 'imported-' : ''}${entry.id}`;
   const galleryOrder = [...document.querySelectorAll('[data-gallery-design]')].map(card => card.dataset.galleryDesign);
-  assert.equal(cycle.length, 66);
+  assert.equal(cycle.length, 74);
   assert.deepEqual(cycle.map(key), galleryOrder);
-  assert.equal(new Set(galleryOrder).size, 66);
+  assert.equal(new Set(galleryOrder).size, 74);
+  const newIds = ['worktree', 'duplex', 'attention', 'phylo', 'organoid', 'gelroom', 'rack', 'gradient'];
+  const priorImported = ['helix', 'genome', 'circos', 'atlas', 'observatory', 'metro', 'periodic', 'sequencer', 'organic', 'cell',
+    'reactor', 'blueprint', 'pipeline', 'desktop', 'bento', 'configurator', 'swiss', 'cinema', 'keynote', 'sketch',
+    'microcosm', 'flowcell', 'cellscape', 'foldspace'];
+  const priorNative = ['folio', 'vitro', 'herbarium', 'monument', 'assay', 'workbench', 'signal', 'connectome', 'shell', 'draft',
+    'separation', 'exhibit', 'letter', 'velocity', 'strata', 'journal', 'helix', 'organic', 'monograph', 'specimen',
+    'pipeline', 'bento', 'atlas-map', 'console', 'blueprint', 'chromatography', 'gallery', 'dossier', 'kinetic', 'horizon',
+    'tissue', 'culture', 'chromatogram', 'residue', 'continuum', 'cabinet', 'foundry', 'runtime', 'tensor', 'patchbay', 'prism', 'expedition'];
+  assert.deepEqual(cycle.filter(entry => entry.collection !== 'imported' || !newIds.includes(entry.id)).map(key),
+    [...priorImported.map(id => `imported-${id}`), ...priorNative]);
   for (let index = 0; index < cycle.length; index++) {
     assert.equal(adjacentTemplate(cycle, cycle[index], 1), cycle[(index + 1) % cycle.length]);
     assert.equal(adjacentTemplate(cycle, cycle[index], -1), cycle[(index + cycle.length - 1) % cycle.length]);
@@ -629,7 +639,7 @@ test('Next and Previous follow all 66 gallery entries across the native and impo
   assert.equal(nativeURL.searchParams.get('lang'), 'fa');
   assert.deepEqual(readPreferences(nativeURL.search), readPreferences(importedURL.search));
   const lastImported = cycle.findLast(entry => entry.collection === 'imported');
-  assert.equal(lastImported.id, 'foldspace');
+  assert.equal(lastImported.id, 'gradient');
   assert.equal(templateHref(adjacentTemplate(cycle, lastImported, 1), 'de'), '/?design=folio&lang=de');
 });
 
@@ -974,7 +984,7 @@ test('Synthesis is the default, retains one scene and every source record in all
   const $$ = selector => Array.from(document.querySelectorAll(selector));
   assert.equal(win.PortfolioStudio.concept, 'synthesis');
   assert.equal(win.PortfolioDesigns.has('synthesis'), false);
-  assert.equal($$('#designGalleryBody [data-gallery-design]').length, 66);
+  assert.equal($$('#designGalleryBody [data-gallery-design]').length, 74);
   const loadedModel = win.portfolioView.model;
   const scene = $('[data-synthesis-scene]'), strand = $('.syn-strand');
   const paths = new Set();

@@ -12,6 +12,7 @@
   const familyLabels = { editorial:'Editorial', systems:'Systems', experimental:'Experimental', life:'Life sciences', data:'Data', lab:'Laboratory', product:'Product', story:'Story' };
   const imported = w.PortfolioImportedTemplates || [];
   const bioinformatics = imported.filter(design => design.series === 'bioinformatics');
+  const frontiers = imported.filter(design => design.series === 'frontiers');
   const names = { synthesis:'Synthesis', unified:'Connected Science', atlas:'Archived Biology Atlas', molecular:'Archived Molecular Form', terminal:'Archived Code Notebook' };
   const $ = selector => document.querySelector(selector);
   const familyLabel = value => familyLabels[String(value || '').toLowerCase()] || String(value || 'Other').replace(/(^|[-\s])\w/g, part => part.toUpperCase());
@@ -79,7 +80,7 @@
   const nativeEntries = () => nativeScopes.flatMap(internalEntries);
   const collectionOf = id => registry.get(id)?.collection || 'previous';
   const scopes = imported.length
-    ? ['all', ...(bioinformatics.length ? ['bioinformatics'] : []), 'imported', ...nativeScopes]
+    ? ['all', ...(frontiers.length ? ['frontiers'] : []), ...(bioinformatics.length ? ['bioinformatics'] : []), 'imported', ...nativeScopes]
     : nativeScopes;
   let activeId = params.get('design') || 'unified';
   let scope = imported.length ? 'all' : registry.get(activeId) ? collectionOf(activeId) : internalEntries('independent').length ? 'independent' : 'previous';
@@ -88,6 +89,7 @@
   function entries() {
     if (scope === 'imported') return imported;
     if (scope === 'bioinformatics') return bioinformatics;
+    if (scope === 'frontiers') return frontiers;
     if (scope === 'all') return [...imported, ...nativeEntries()];
     return internalEntries(scope);
   }
@@ -161,6 +163,7 @@
     const introductions = {
       all: `${designs.length} templates. Search by name or filter by collection.`,
       bioinformatics: `${designs.length} designs inspired by microscopy, sequencing, cell atlases, and molecular structure.`,
+      frontiers: `${designs.length} interactive worlds for science, mathematics, and software.`,
       imported: `${designs.length} New Web templates with their original layouts and interactions.`,
       independent: `${designs.length} independent visual worlds. Open a direction to explore its complete portfolio.`,
       previous: 'The earlier collection, preserved with its original layouts.',
@@ -186,6 +189,7 @@
       const labels = {
         all: `All ${registry.list().length + imported.length} templates`,
         bioinformatics: `Bioinformatics · ${bioinformatics.length}`,
+        frontiers: `Science & Code · ${frontiers.length}`,
         imported: `New Web · ${imported.length}`,
         independent: `Independent · ${internalEntries('independent').length}`,
         previous: `Earlier studies · ${internalEntries('previous').length}`,

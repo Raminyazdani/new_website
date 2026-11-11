@@ -68,7 +68,7 @@ test('every gallery template points to its own 640 × 400 preview', () => {
   }
 });
 
-test('compact gallery keeps filters available and recovers all 66 designs from empty search', () => {
+test('compact gallery keeps filters available and recovers all 74 designs from empty search', () => {
   const { window, document, Event } = loadGallery({ compact: true, query: '?gallery=1&theme=dark&design-search=doesnotexist' });
   const toggle = document.querySelector('#designGalleryFilterToggle');
   const filters = document.querySelector('#designGalleryFilters');
@@ -81,7 +81,7 @@ test('compact gallery keeps filters available and recovers all 66 designs from e
   assert.equal(toggle.getAttribute('aria-expanded'), 'true');
   assert.equal(filters.hidden, false);
   document.querySelector('[data-reset-design-filters]').dispatchEvent(new Event('click', { bubbles: true }));
-  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 66);
+  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 74);
   assert.equal(document.querySelector('#designGalleryEmpty').hidden, true);
   assert.equal(window.location.searchParams.get('design-search'), null);
   assert.equal(window.location.searchParams.get('theme'), 'dark');
@@ -113,6 +113,26 @@ test('the Bioinformatics gallery link shows exactly the four new templates and p
   search.dispatchEvent(new Event('input', { bubbles: true }));
   assert.deepEqual(cards().filter(card => !card.hidden).map(card => card.dataset.galleryDesign), ['imported-flowcell']);
   assert.equal(window.location.searchParams.get('collection'), 'bioinformatics');
+  assert.equal(window.location.searchParams.get('design'), 'synthesis');
+});
+
+test('the Science & Code gallery shows eight new worlds in their appended order', () => {
+  const { window, document, Event } = loadGallery({ query: '?design=synthesis&gallery=1&collection=frontiers&lang=de&motion=still&theme=light' });
+  const ids = ['worktree', 'duplex', 'attention', 'phylo', 'organoid', 'gelroom', 'rack', 'gradient'];
+  const cards = () => [...document.querySelectorAll('#designGalleryBody [data-gallery-design]')];
+  assert.equal(document.querySelector('#designGalleryCollection option[value="frontiers"]').textContent, 'Science & Code · 8');
+  assert.deepEqual(cards().map(card => card.dataset.galleryDesign), ids.map(id => `imported-${id}`));
+  assert.deepEqual(cards().map(card => new URL(card.querySelector('a').getAttribute('href'), 'https://example.test').pathname), ids.map(id => `/imported/de/${id}/`));
+  for (const card of cards()) {
+    const url = new URL(card.querySelector('a').getAttribute('href'), 'https://example.test');
+    assert.equal(url.searchParams.get('motion'), 'still');
+    assert.equal(url.searchParams.get('theme'), 'light');
+  }
+  const search = document.querySelector('#designGallerySearch');
+  search.value = 'gradient';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  assert.deepEqual(cards().filter(card => !card.hidden).map(card => card.dataset.galleryDesign), ['imported-gradient']);
+  assert.equal(window.location.searchParams.get('collection'), 'frontiers');
   assert.equal(window.location.searchParams.get('design'), 'synthesis');
 });
 

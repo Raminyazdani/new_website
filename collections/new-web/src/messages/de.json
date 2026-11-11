@@ -320,6 +320,46 @@
       "name": "Foldspace",
       "style": "Molekulares Bändermodell",
       "description": "Erkunde ein schematisches 3D-Bändermodell nach Projekt und Ebene und entdecke die Belege zur Arbeit."
+    },
+    "worktree": {
+      "name": "Worktree",
+      "style": "Versionierter Arbeitsraum",
+      "description": "Erkunde ein Portfolio über verzweigte Arbeitsbereiche, einen Verlauf und einen Quelleninspektor."
+    },
+    "duplex": {
+      "name": "Duplex",
+      "style": "Sequenzbrowser",
+      "description": "Entdecke gepaarte Stränge aus Arbeit und Methoden mit einem Sequenznavigator und vollständigen Einträgen."
+    },
+    "attention": {
+      "name": "Attention",
+      "style": "Belegmatrix",
+      "description": "Durchsuche das Portfolio in einer Matrix aus Einträgen und Quellbegriffen und prüfe ihre dokumentierten Verbindungen."
+    },
+    "phylo": {
+      "name": "Phylo",
+      "style": "Verzweigter Feldführer",
+      "description": "Folge dem Portfolio durch einen verzweigten Baum und öffne die Einträge an seinen Ästen."
+    },
+    "organoid": {
+      "name": "Organoid",
+      "style": "Lebende Gewebestudie",
+      "description": "Wähle Gewebekompartimente aus und erkunde das Portfolio in einer weichen, skulpturalen biologischen Studie."
+    },
+    "gelroom": {
+      "name": "Gelroom",
+      "style": "Elektrophorese-Dunkelkammer",
+      "description": "Erkunde die Spuren eines leuchtenden Gels und ihre Portfolioeinträge an einer UV-Konsole."
+    },
+    "rack": {
+      "name": "Rack",
+      "style": "Serverschrank",
+      "description": "Öffne die Module eines Serverschranks, erkunde ihre Verkabelung und lies die vollständigen Quelleinträge."
+    },
+    "gradient": {
+      "name": "Gradient",
+      "style": "Optimierungslandschaft",
+      "description": "Erkunde einen analytischen Gradientenabstieg auf einer beleuchteten 3D-Landschaft und danach die Belege im Portfolio."
     }
   },
   "gallery": {

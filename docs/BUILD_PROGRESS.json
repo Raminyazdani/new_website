@@ -1602,5 +1602,74 @@
         "four-worlds-published.png"
       ]
     }
+  },
+  "science_code_worlds_20261111": {
+    "status": "validated_locally",
+    "designs": [
+      "worktree",
+      "duplex",
+      "attention",
+      "phylo",
+      "organoid",
+      "gelroom",
+      "rack",
+      "gradient"
+    ],
+    "gallery": "frontiers",
+    "totalTemplates": 74,
+    "importedTemplates": 32,
+    "build": {
+      "passed": true,
+      "typeScriptPassed": true,
+      "staticPages": 102
+    },
+    "tests": {
+      "passed": 70,
+      "failed": 0
+    },
+    "browser": {
+      "responsiveCases": 40,
+      "widths": [
+        320,
+        390,
+        768,
+        1024,
+        1440
+      ],
+      "horizontalPageOverflow": false,
+      "allPortraitsLoaded": true,
+      "persianAttention390": "observed",
+      "consoleErrors": 0,
+      "primaryInteractions": "all eight observed",
+      "gradientThreeSteps": {
+        "before": 5.84,
+        "after": 1.452
+      }
+    },
+    "previews": {
+      "count": 8,
+      "dimensions": [
+        640,
+        400
+      ],
+      "source": "actual browser renders with fictional CV only"
+    },
+    "preserved": {
+      "previousDesigns": 66,
+      "relativeOrder": true,
+      "sourceAPIAndAdapter": true,
+      "oldPreviewImages": true,
+      "newDependencies": 0
+    },
+    "limits": [
+      "No physical-device or FPS benchmark",
+      "Existing imported SiteData scope retained",
+      "No forced WebGL failure test"
+    ],
+    "evidence": {
+      "storage": "outside public Git",
+      "directory": "eight-worlds-20261111"
+    },
+    "deployment": null
   }
 }

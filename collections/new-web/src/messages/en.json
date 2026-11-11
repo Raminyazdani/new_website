@@ -320,6 +320,46 @@
       "name": "Foldspace",
       "style": "Molecular ribbon",
       "description": "Navigate a conceptual 3D molecular ribbon by project and layer to reveal the evidence behind the work."
+    },
+    "worktree": {
+      "name": "Worktree",
+      "style": "Versioned workspace",
+      "description": "Browse a portfolio through branching workspaces, a change history, and a source inspector."
+    },
+    "duplex": {
+      "name": "Duplex",
+      "style": "Sequence browser",
+      "description": "Explore paired strands of work and methods, with a sequence navigator and complete record reader."
+    },
+    "attention": {
+      "name": "Attention",
+      "style": "Evidence matrix",
+      "description": "Search the portfolio through a matrix of records and source terms, then inspect their documented connections."
+    },
+    "phylo": {
+      "name": "Phylo",
+      "style": "Branching field guide",
+      "description": "Follow the portfolio through a branching tree and inspect the records attached to each lineage."
+    },
+    "organoid": {
+      "name": "Organoid",
+      "style": "Living tissue study",
+      "description": "Select tissue compartments to explore the portfolio in a soft, sculptural biological study."
+    },
+    "gelroom": {
+      "name": "Gelroom",
+      "style": "Electrophoresis darkroom",
+      "description": "Inspect lanes of portfolio records through a luminous gel and an ultraviolet viewing console."
+    },
+    "rack": {
+      "name": "Rack",
+      "style": "Server cabinet",
+      "description": "Open the modules of a physical server rack, inspect their wiring, and read the complete source records."
+    },
+    "gradient": {
+      "name": "Gradient",
+      "style": "Optimization landscape",
+      "description": "Step through an analytic gradient descent illustration on a lit three-dimensional landscape, then explore the portfolio evidence."
     }
   },
   "gallery": {

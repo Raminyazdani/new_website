@@ -29,7 +29,8 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
   const visibilityChanged = useRef(false);
   const panelId = useId();
   const cycle = templateCycle(designIds);
-  const compactMobile = ['microcosm', 'flowcell', 'cellscape', 'foldspace'].includes(current);
+  const compactMobile = ['microcosm', 'flowcell', 'cellscape', 'foldspace',
+    'worktree', 'duplex', 'attention', 'phylo', 'organoid', 'gelroom', 'rack', 'gradient'].includes(current);
   const currentTemplate = { collection: 'imported' as const, id: current };
   const idx = cycle.findIndex(entry => entry.collection === 'imported' && entry.id === current);
   const preferences = readPreferences(typeof window === 'undefined' ? '' : window.location.search);
