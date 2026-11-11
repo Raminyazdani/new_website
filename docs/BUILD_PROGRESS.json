@@ -1604,7 +1604,7 @@
     }
   },
   "science_code_worlds_20261111": {
-    "status": "validated_locally",
+    "status": "published_verified",
     "designs": [
       "worktree",
       "duplex",
@@ -1668,8 +1668,35 @@
     ],
     "evidence": {
       "storage": "outside public Git",
-      "directory": "eight-worlds-20261111"
+      "directory": "eight-worlds-20261111",
+      "files": [
+        "responsive-final.json",
+        "mobile-eight.png",
+        "gallery-published.png",
+        "eight-worlds-published.png"
+      ]
     },
-    "deployment": null
+    "deployment": {
+      "id": "dpl_3gsDqndUvdwTMEC1A5ZVEnj2VTjQ",
+      "state": "READY",
+      "alias": "https://new-website-hero-lab.vercel.app",
+      "appCommit": "a7f048d5158ea7c4b1fbaabc75bcc69fce888e63"
+    },
+    "productionChecks": {
+      "assetsMatchCommit": 10,
+      "newRoutes200": 8,
+      "anonymousCVStatus": 401,
+      "anonymousCVCache": "private, no-store, max-age=0",
+      "allEightPrivateDesignsLoaded": true,
+      "gradientWebGL": true,
+      "gradientOneStep": {
+        "before": 5.84,
+        "after": 3.073
+      },
+      "galleryCards": 8,
+      "galleryPreviewsLoaded": 8,
+      "allTemplates": 74,
+      "observedConsoleErrors": 0
+    }
   }
 }
