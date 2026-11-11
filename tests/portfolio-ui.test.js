@@ -42,7 +42,7 @@ function setSelectValues(document) {
   }
 }
 
-async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, imported = false, synthesis = false, experiences = false, model = null } = {}) {
+async function boot({ search = '', auth = false, reduce = true, stored = null, independent = false, imported = false, synthesis = false, experiences = false, model = null, width = 1280 } = {}) {
   const { document, Event } = parseHTML(fs.readFileSync(path.join(publicRoot, 'index.html'), 'utf8'));
   const selectPrototype = Object.getPrototypeOf(document.querySelector('#motionMode'));
   const nativeSelectValue = Object.getOwnPropertyDescriptor(selectPrototype, 'value');
@@ -83,8 +83,11 @@ async function boot({ search = '', auth = false, reduce = true, stored = null, i
     },
     location,
     history: { replaceState(_state, _title, url) { location.href = String(url); location.search = new URL(String(url)).search; } },
-    matchMedia: () => ({ matches: reduce, addEventListener() {}, removeEventListener() {} }),
-    innerWidth: 1280,
+    matchMedia: query => {
+      const maxWidth = /\(max-width:\s*(\d+)px\)/.exec(query)?.[1];
+      return { matches: maxWidth ? width <= Number(maxWidth) : reduce, addEventListener() {}, removeEventListener() {} };
+    },
+    innerWidth: width,
     innerHeight: 800,
     requestAnimationFrame: (() => { let next = 0; return () => ++next; })(),
     cancelAnimationFrame() {},
@@ -99,7 +102,10 @@ async function boot({ search = '', auth = false, reduce = true, stored = null, i
     ...(imported ? ['imported-templates.js'] : []),
     ...files.slice(galleryIndex),
   ];
-  if (synthesis || experiences) loadedFiles.splice(loadedFiles.indexOf('design-gallery.js'),0,'synthesis-scene.js','synthesis.js');
+  if (synthesis || experiences) {
+    loadedFiles.splice(loadedFiles.indexOf('design-gallery.js'), 0,
+      'synthesis-scene.js', 'synthesis-journey.js', 'synthesis-workbench.js', 'synthesis.js');
+  }
   if (experiences) loadedFiles.splice(loadedFiles.indexOf('design-gallery.js'),0,'experiments/kit.js','experiments/life.js','experiments/systems.js');
   for (const file of loadedFiles) {
     new Function('window', 'document', fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8'))(win, document);
@@ -661,7 +667,10 @@ test('all twelve Experiences keep the eleven sections and complete source record
   const { document, win, click } = await boot({ independent:true,imported:true,experiences:true,model });
   assert.deepEqual(win.PortfolioDesigns.collection('experiential').map(design => design.id), ids);
   assert.equal(win.PortfolioDesigns.collection('previous').length, 15);
-  click('[data-open-design-gallery="experiential"]');
+  click('.syn-archive-link');
+  const collection = document.querySelector('#designGalleryCollection');
+  collection.value = 'experiential';
+  collection.dispatchEvent(new win.Event('change', { bubbles: true }));
   assert.equal(document.querySelectorAll('#designGalleryBody [data-gallery-design]').length, 12);
   const layouts = new Set();
   for (const id of ids) {
@@ -707,8 +716,19 @@ test('Synthesis replaces all three core layouts and keeps selection and searches
   assert.equal(firstYear.textContent, '2023');
   assert($('[data-field-branch="overlap"]'));
   type('[data-project-search]', 'Culture Conditions');
-  click('[data-syn-project-select="project-8"]');
+  const lens = $('[data-syn-specimen-lens]');
+  lens.value = 'overlap';
+  lens.dispatchEvent(new Event('change', { bubbles: true }));
+  assert.equal($('[data-project-empty]').hidden, false);
+  assert.equal($('[data-syn-colony]:not([hidden])'), null);
+  lens.value = 'life';
+  lens.dispatchEvent(new Event('change', { bubbles: true }));
+  click('[data-syn-colony="project-8"]');
+  assert.equal($('[data-syn-colony="project-8"]').getAttribute('aria-pressed'), 'true');
+  assert.equal($('[data-syn-project-select="project-8"]').getAttribute('aria-pressed'), 'true');
   assert.equal($('.syn-work-inspector h3').textContent, 'Culture Conditions');
+  const journeyProject = $('[data-syn-journey] [data-open-project="project-8"]');
+  assert.equal(journeyProject?.closest('[data-journey-project]').querySelector('small').textContent, 'Selected project');
   type('[data-skill-search]', 'Python');
   assert.match($('[data-skill-count]').textContent, /matching/);
   click('[data-perspective="programming"]');
@@ -729,6 +749,198 @@ test('Synthesis replaces all three core layouts and keeps selection and searches
   assert.equal($('.syn-code-desk').hidden, false);
   type('[data-skill-search]', 'no such skill');
   assert.equal($('[data-skill-empty]').hidden, false);
+});
+
+test('Synthesis focus controls morph the existing hero and preserve its SVG across perspectives', async () => {
+  const model = adaptCV(previewPortfolio('https://example.test'));
+  const { document, click } = await boot({ synthesis: true, model, search: '?perspective=biology&motion=still' });
+  const scene = document.querySelector('#hero [data-synthesis-scene]');
+  const strand = scene.querySelector('.syn-strand');
+  const currentPath = () => strand.getAttribute('d');
+  const focus = value => `[data-syn-focus="${value}"]`;
+  const assertFocus = value => assert.equal(document.querySelector(focus(value)).getAttribute('aria-pressed'), 'true');
+
+  assertFocus('cell');
+  const biologyPaths = new Set([currentPath()]);
+  for (const value of ['tissue', 'molecule']) {
+    click(focus(value));
+    assertFocus(value);
+    biologyPaths.add(currentPath());
+    assert.strictEqual(document.querySelector('#hero [data-synthesis-scene] .syn-strand'), strand);
+  }
+  assert.equal(biologyPaths.size, 3);
+
+  click('[data-perspective="programming"]');
+  assertFocus('transform');
+  const transformPath = currentPath();
+  click(focus('artifact'));
+  assertFocus('artifact');
+  assert.notEqual(currentPath(), transformPath);
+  assert.strictEqual(document.querySelector('#hero [data-synthesis-scene]'), scene);
+
+  click('[data-perspective="all"]');
+  assertFocus('membrane');
+  assert.strictEqual(document.querySelector('#hero [data-synthesis-scene] .syn-strand'), strand);
+});
+
+test('Synthesis journey snaps and scrubs one SVG and keeps the chapter when the perspective changes', async () => {
+  const model = adaptCV(previewPortfolio('https://example.test'));
+  const { document, Event, click } = await boot({ synthesis: true, model, search: '?perspective=biology&motion=still' });
+  const journey = document.querySelector('[data-syn-journey]');
+  const art = journey.querySelector('[data-journey-art]');
+  const strand = art.querySelector('.syn-strand');
+  const range = journey.querySelector('[data-journey-range]');
+  const initial = strand.getAttribute('d');
+
+  assert.equal(journey.dataset.journeyPhase, '0');
+  click('[data-journey-step="1"]');
+  assert.equal(journey.dataset.journeyPhase, '1');
+  assert.equal(Number(range.value), 1);
+  const snapped = strand.getAttribute('d');
+  assert.notEqual(snapped, initial);
+
+  range.value = '1.65';
+  range.dispatchEvent(new Event('input', { bubbles: true }));
+  assert.equal(journey.dataset.journeyPhase, '2');
+  const scrubbed = strand.getAttribute('d');
+  assert.notEqual(scrubbed, snapped);
+  click('[data-journey-step="2"]');
+  assert.notEqual(strand.getAttribute('d'), scrubbed, 'scrubbing can stop between the snap positions');
+
+  click('[data-perspective="programming"]');
+  assert.strictEqual(document.querySelector('[data-syn-journey]'), journey);
+  assert.strictEqual(journey.querySelector('[data-journey-art] .syn-strand'), strand);
+  assert.equal(journey.dataset.journeyPhase, '2');
+  assert.equal(Number(range.value), 2);
+
+  const slot = [...journey.querySelectorAll('[data-journey-project]')]
+    .find(project => project.querySelector('small')?.textContent !== 'Selected project' && project.querySelector('[data-open-project]'));
+  const action = slot?.querySelector('[data-open-project]');
+  const record = model.projects.find(project => project.id === action?.dataset.openProject);
+  assert(record, 'chapter links to a canonical project record');
+  action.dispatchEvent(new Event('click', { bubbles: true }));
+  assert.equal(document.querySelector('#projectDialogTitle').textContent, record.title);
+  assert.equal(slot.querySelector('small').textContent, 'Selected project');
+  click('#projectDialog [data-close-dialog]');
+  assert.strictEqual(slot.querySelector('[data-open-project]'), action);
+  assert.equal(action.isConnected, true);
+});
+
+test('Synthesis journey follows desktop scroll, yields to manual control and cleans up on unmount', () => {
+  const model = adaptCV(previewPortfolio('https://example.test'));
+  const { document, Event } = parseHTML('<html><body data-effects="on"></body></html>');
+  const listeners = new Map(), frames = new Map();
+  let frameId = 0;
+  const window = {
+    addEventListener(type, callback) {
+      if (!listeners.has(type)) listeners.set(type, new Set());
+      listeners.get(type).add(callback);
+    },
+    removeEventListener(type, callback) { listeners.get(type)?.delete(callback); },
+    innerHeight: 800,
+    innerWidth: 1280,
+    scrollY: 0,
+    matchMedia: () => ({ matches: true }),
+    requestAnimationFrame(callback) { frames.set(++frameId, callback); return frameId; },
+    cancelAnimationFrame(id) { frames.delete(id); },
+  };
+  for (const file of ['synthesis-scene.js', 'synthesis-journey.js']) {
+    const code = fs.readFileSync(path.join(publicRoot, 'portfolio', file), 'utf8');
+    new Function('window', 'document', code)(window, document);
+  }
+  document.body.innerHTML = window.PortfolioSynthesisJourney.render();
+  const element = document.querySelector('[data-syn-journey]');
+  [...element.querySelectorAll('[data-journey-card]')].forEach((card, index) => {
+    card.getBoundingClientRect = () => ({ height: 240, top: 216 + 400 * index - window.scrollY });
+  });
+  const helpers = { e: String, link: (_url, label) => label };
+  const attach = () => window.PortfolioSynthesisJourney.mount(element, { model, mode: 'all', helpers });
+  const first = attach();
+  const scroll = listeners.get('scroll');
+  const resize = listeners.get('resize');
+  assert.equal(scroll.size, 1);
+  assert.equal(resize.size, 1);
+  function sampleAt(y) {
+    window.scrollY = y;
+    scroll.forEach(listener => listener());
+    assert.equal(frames.size, 1, 'multiple scroll notifications share one pending frame');
+    const [id, callback] = frames.entries().next().value;
+    frames.delete(id);
+    callback();
+  }
+  sampleAt(400);
+  assert.equal(element.dataset.journeyPhase, '1');
+  element.querySelector('[data-journey-step="0"]').dispatchEvent(new Event('click', { bubbles: true }));
+  sampleAt(410);
+  assert.equal(element.dataset.journeyPhase, '0', 'incidental scroll does not override a manual snap');
+  sampleAt(800);
+  assert.equal(element.dataset.journeyPhase, '2', 'reading further resumes scroll-following');
+  first.update({ model, mode: 'biology', helpers });
+  assert.equal(scroll.size, 1);
+  assert.equal(resize.size, 1);
+  first.destroy();
+  assert.equal(frames.size, 0);
+  assert.equal(scroll.size, 0);
+  assert.equal(resize.size, 0);
+  document.body.dataset.effects = 'off';
+  const second = attach();
+  assert.equal(scroll.size, 1);
+  assert.equal(frames.size, 0, 'Still mode does not schedule scroll motion');
+  second.destroy();
+  assert.equal(scroll.size, 0);
+  assert.equal(resize.size, 0);
+});
+
+test('Synthesis workbench opens source, method and artifact views for a filtered project', async () => {
+  const model = adaptCV(previewPortfolio('https://example.test'));
+  const record = model.projects[2];
+  record.title = 'Open Bench Workflow for Comparing Reproducible Laboratory Notes, Analyzing Sample Collections, and Reviewing the Original Study Data';
+  record.repositoryUrl = 'https://example.test/bench/source';
+  record.repositoryLabel = 'Workflow repository';
+  record.links = [{ label: 'Workflow protocol', url: 'https://example.test/bench/protocol' }];
+  const { document, Event, click } = await boot({ synthesis: true, model, width: 390, search: '?perspective=programming&motion=still' });
+  const $ = selector => document.querySelector(selector);
+  const desk = $('[data-syn-project-desk="programming"]');
+  const panel = () => desk.querySelector('[data-workbench-panel]:not([hidden])');
+  const pressKey = (selector, key) => {
+    const event = new Event('keydown', { bubbles: true, cancelable: true });
+    Object.defineProperty(event, 'key', { value: key });
+    $(selector).dispatchEvent(event);
+  };
+  const search = $('[data-project-search]');
+  search.value = 'Open Bench Workflow';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  const matches = [...desk.querySelectorAll('[data-project-card]:not([hidden])')];
+  assert.deepEqual(matches.map(item => item.dataset.projectId), [record.id]);
+
+  for (const name of ['files', 'document', 'properties']) assert(desk.querySelector(`[data-workbench-pane="${name}"]`));
+  click('[data-workbench-show="files"]');
+  assert.equal(desk.dataset.workbenchActive, 'files');
+  click(`[data-syn-project-select="${record.id}"]`);
+  assert.equal(desk.dataset.workbenchActive, 'document');
+  assert.equal($('#syn-work-inspector h3').textContent, record.title);
+
+  click('[data-workbench-stage="source"]');
+  assert(panel().textContent.includes(record.description));
+  pressKey('[data-workbench-stage="source"]', 'ArrowRight');
+  assert.equal($('[data-workbench-stage="method"]').getAttribute('aria-selected'), 'true');
+  for (const topic of record.tags) assert(panel().textContent.includes(topic));
+  click('[data-workbench-show="properties"]');
+  assert.equal(desk.dataset.workbenchActive, 'properties');
+  const linkCount = [...$('[data-workbench-properties]').querySelectorAll('dt')].find(label => label.textContent === 'Source links');
+  assert.equal(linkCount?.nextElementSibling.textContent, '2');
+  click('[data-workbench-artifacts]');
+  assert.equal(desk.dataset.workbenchActive, 'document');
+  assert.equal($('[data-workbench-stage="artifact"]').getAttribute('aria-selected'), 'true');
+  assert.equal(panel().querySelector(`a[href="${record.repositoryUrl}"]`).textContent, record.repositoryLabel);
+  assert.equal(panel().querySelector(`a[href="${record.links[0].url}"]`).textContent, record.links[0].label);
+
+  click('[data-workbench-maximize]');
+  assert.equal(desk.dataset.workbenchMaximized, 'true');
+  pressKey('[data-workbench-maximize]', 'Escape');
+  assert.notEqual(desk.dataset.workbenchMaximized, 'true');
+  click('#syn-work-inspector [data-open-project]');
+  assert.equal($('#projectDialogTitle').textContent, record.title);
 });
 
 test('Synthesis is the default, retains one scene and every source record in all three perspectives', async () => {

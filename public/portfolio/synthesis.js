@@ -13,27 +13,21 @@
   const modes = {
     all: {
       title: 'All disciplines', subtitle: 'One portfolio, three perspectives.',
-      plate: 'Membrane / molecule / network', labels: ['01  Membrane', '02  Molecular bonds', '03  Data paths'],
+      focus: [['membrane','Membrane','A continuous surface'], ['structure','Structure','Folds and connections'], ['network','Network','A mesh of data paths']], initial: 0,
       nav: ['about', 'projects', 'experience', 'publications', 'skills', 'contact'],
-      primary: ['projects', 'Explore the work'], study: 'A connection across scales',
-      studyDescription: 'From the shape of a cell to the structure of a dataset, the same object can be read in more than one way.',
-      steps: ['Living systems', 'Molecular structure', 'Computation'],
+      primary: ['connected-story', 'Follow the story'],
     },
     biology: {
       title: 'Life sciences', subtitle: 'Biology, chemistry and bioinformatics.',
-      plate: 'Membrane / sequence / structure', labels: ['01  Membrane', '02  Sequence', '03  Molecular structure'],
+      focus: [['tissue','Tissue','A field of neighboring cells'], ['cell','Cell','Membrane, nucleus and vesicles'], ['molecule','Molecule','Bonds and folds']], initial: 1,
       nav: ['about', 'publications', 'projects', 'experience', 'skills', 'contact'],
-      primary: ['publications', 'Explore the research'], study: 'From cells to sequences',
-      studyDescription: 'Three scales of observation: the boundary of a cell, the structure of a molecule and the order of a sequence.',
-      steps: ['Cellular form', 'Molecular structure', 'Sequence'],
+      primary: ['connected-story', 'Explore the scales'],
     },
     programming: {
       title: 'Engineering + ML', subtitle: 'Programming, data science and machine learning.',
-      plate: 'Input / transformation / connection', labels: ['01  Input layers', '02  Transformation', '03  Output paths'],
+      focus: [['input','Input','Organized input layers'], ['transform','Transform','Paths through a shared operation'], ['artifact','Artifact','Connections in the output']], initial: 1,
       nav: ['about', 'projects', 'skills', 'experience', 'publications', 'contact'],
-      primary: ['projects', 'Explore software & ML'], study: 'From inputs to connections',
-      studyDescription: 'A schematic of the way inputs can be organized, transformed and read as connected structures.',
-      steps: ['Input', 'Transformation', 'Connection'],
+      primary: ['connected-story', 'Trace the workflow'],
     },
   };
   const terms = {
@@ -44,7 +38,9 @@
     const value = new URLSearchParams(w.location?.search || '').get('perspective');
     return Object.hasOwn(modes, value) ? value : 'all';
   };
-  let mode = readMode(), scene, sceneElement, studyObserver, latestModel, modeInput, modeStatus, pointerAnchor, workController, selectedProject;
+  let mode = readMode(), scene, sceneElement, journey, journeyElement, latestModel, modeInput, modeStatus, pointerAnchor, workController, selectedProject;
+  const focalIndex = {}, workbenchState = {pane:'files', stage:'source', maximized:false};
+  let specimenLens = '';
   const active = () => w.PortfolioStudio?.concept === id;
 
   function priority(record, key) {
@@ -89,20 +85,19 @@
     return markup('hero', `
       <div class="syn-hero-grid">
         <div class="syn-hero-identity">
-          <p class="syn-kicker syn-hero-kicker" data-motion-part><span aria-hidden="true"></span> Portfolio / Synthesis</p>
           <h1 id="syn-title-hero" data-motion-part>${name}</h1>
           ${list(person.roles).length ? `<ul class="syn-role-list" aria-label="Profile roles">${person.roles.map(role => `<li>${h.e(role)}</li>`).join('')}</ul>` : ''}
           ${lead ? `<p class="syn-lead">${h.e(lead)}</p>` : ''}
-          <div class="syn-hero-actions"><a class="syn-primary" data-syn-primary href="#projects">Explore the work <span aria-hidden="true">↘</span></a>${textLink('#about', 'Read the profile')}${w.PortfolioDesigns?.collection('experiential').length ? `<button type="button" class="syn-index-open syn-new-experiences" data-open-design-gallery="experiential" aria-haspopup="dialog">${w.PortfolioDesigns.collection('experiential').length} new experiences <span aria-hidden="true">↗</span></button>` : ''}</div>
+          <div class="syn-hero-actions"><a class="syn-primary" data-syn-primary href="#connected-story">Follow the story <span aria-hidden="true">↘</span></a>${textLink('#projects', 'Browse the work')}</div>
         </div>
-        <figure class="syn-plate">
-          <div class="syn-plate-top"><span><i aria-hidden="true"></i> SYNTHESIS / STUDY</span><span>FIG. 01</span></div>
-          ${w.PortfolioSynthesisScene?.createMarkup() || ''}
-          <div class="syn-annotation syn-annotation-1" aria-hidden="true"><i></i><span></span></div>
-          <div class="syn-annotation syn-annotation-2" aria-hidden="true"><i></i><span></span></div>
-          <div class="syn-annotation syn-annotation-3" aria-hidden="true"><i></i><span></span></div>
-          <div class="syn-person" data-motion-part>${h.portrait(person, 'syn-portrait')}${person.location ? `<span>${h.e(person.location)}</span>` : ''}</div>
-          <figcaption class="syn-plate-caption"><span>Conceptual illustration</span><strong data-syn-plate-title></strong></figcaption>
+        <figure class="syn-hero-instrument">
+          <div class="syn-plate syn-optics">
+            <div class="syn-plate-top"><span><i aria-hidden="true"></i> SYNTHESIS</span><span>FIG. 01</span></div>
+            ${w.PortfolioSynthesisScene?.createMarkup() || ''}
+            <div class="syn-person" data-motion-part>${h.portrait(person, 'syn-portrait')}${person.location ? `<span>${h.e(person.location)}</span>` : ''}</div>
+            <div class="syn-plate-caption"><span>Conceptual illustration</span><strong data-syn-plate-title></strong></div>
+          </div>
+          <figcaption class="syn-focus-controls" role="group" aria-label="Illustration view">${[0,1,2].map(i => `<button type="button" data-syn-focus="" data-syn-focus-index="${i}" aria-pressed="false"></button>`).join('')}</figcaption>
         </figure>
       </div>
       <div class="syn-hero-index"><span class="syn-kicker">Portfolio index</span><nav aria-label="Portfolio chapters" data-syn-chapters></nav></div>`, '', 'syn-persistent');
@@ -135,14 +130,12 @@
       <figcaption><span>Conceptual illustration</span><span>Fig. ${number(index)}</span></figcaption></figure>`;
   }
   function about(vm, h, includeStudy = true) {
-    const person = vm.identity, m = modes[mode];
-    const shapes = { all: ['cell', 'molecule', 'nodes'], biology: ['cell', 'molecule', 'sequence'], programming: ['inputs', 'signal', 'nodes'] }[mode];
+    const person = vm.identity;
     const identity = !includeStudy && (person.avatarUrl || person.location || list(person.roles).length) ? `<div class="syn-profile-source">${person.avatarUrl ? h.portrait(person,'syn-profile-portrait') : ''}<div>${list(person.roles).length ? `<ul class="syn-role-list" aria-label="Profile roles">${person.roles.map(role => `<li>${h.e(role)}</li>`).join('')}</ul>` : ''}${person.location ? `<p>${h.e(person.location)}</p>` : ''}</div></div>` : '';
     return markup('about', `<div class="syn-profile-grid">
       ${identity || person.summary ? `<div>${identity}${person.summary ? `<p class="syn-profile-text">${h.e(person.summary)}</p>` : ''}</div>` : ''}
       ${list(vm.interests).length || person.coverUrl ? `<div class="syn-interests">${list(vm.interests).length ? '<h3>Interests</h3>' : ''}${list(vm.interests).map(i => `<details data-syn-disclosure="${h.e(i.id)}"><summary>${h.e(i.title)} <span aria-hidden="true">+</span></summary>${i.description ? `<p>${h.e(i.description)}</p>` : ''}</details>`).join('')}${person.coverUrl ? `<details data-syn-disclosure="profile-cover"><summary>Profile cover <span aria-hidden="true">+</span></summary><img class="syn-cover" src="${h.e(person.coverUrl)}" alt="Profile cover" loading="lazy" decoding="async" referrerpolicy="no-referrer"></details>` : ''}</div>` : ''}
-      </div>${includeStudy ? `<figure class="syn-study" data-syn-reveal><figcaption><div><p class="syn-kicker">Illustrated study · Fig. 02</p><h3>${m.study}</h3></div><p>${m.studyDescription}</p></figcaption>
-      <div class="syn-study-plates">${m.steps.map((label, i) => `<div><span>${number(i)} / ${label}</span>${miniature(shapes[i])}</div>`).join('')}</div></figure>` : ''}`,
+      </div>${includeStudy ? w.PortfolioSynthesisJourney?.render() || '' : ''}`,
     heading('about', 'Personal profile', 'About', 'Background and interests.'));
   }
 
@@ -153,6 +146,32 @@
         <label>Topic<select data-project-filter><option value="">All topics</option>${topics.map(topic => `<option value="${h.e(topic)}">${h.e(topic)}</option>`).join('')}</select></label>
         <span data-syn-project-count role="status"></span>
       </div>`;
+  }
+  const lenses = [['','All specimens'],['life','Life sciences'],['overlap','Biology + code'],['other','Other work']];
+  function acceptsProject(record) {
+    if (mode !== 'biology' || !specimenLens) return true;
+    const biology = priority(record,'biology') > 0;
+    return specimenLens === 'life' ? biology : specimenLens === 'overlap' ? biology && priority(record,'programming') > 0 : !biology;
+  }
+  const colonyPoints = [[24,36,76,47],[53,28,73,43],[72,52,73,49],[42,68,84,51],[18,71,51,38]];
+  function habitat() {
+    return `<figure class="syn-work-map"><figcaption><div><h3>Project habitat</h3><p>Select a cluster to open its field label.</p></div><label>Collection lens<select data-syn-specimen-lens>${lenses.map(([value,label]) => `<option value="${value}"${value === specimenLens ? ' selected' : ''}>${label}</option>`).join('')}</select></label></figcaption>
+      <div class="syn-habitat-view"><svg viewBox="0 0 600 260" preserveAspectRatio="none" aria-hidden="true"><defs><radialGradient id="syn-habitat-glow"><stop class="syn-habitat-core"/><stop offset="1" class="syn-habitat-edge"/></radialGradient></defs>
+        <path class="syn-habitat-floor" d="M52 118C81 37 157 39 255 43S397 14 475 53s97 84 79 136-74 49-156 43-146 14-230 8S25 197 52 118Z"/>
+        ${colonyPoints.map(([x,y,rx,ry],i) => {
+          const cx = x * 6, cy = y * 2.6;
+          const contour = Array.from({length:24},(_,n) => {
+            const angle = n / 24 * Math.PI * 2, fold = 1 + .09 * Math.sin(angle*3+i) + .045 * Math.cos(angle*5+i);
+            return [cx + Math.cos(angle)*rx*fold, cy + Math.sin(angle)*ry*fold];
+          });
+          const coordinates = point => point.map(n => n.toFixed(1)).join(' ');
+          const midpoint = (a,b) => a.map((n,k) => (n+b[k])/2);
+          const outline = `M${coordinates(midpoint(contour.at(-1),contour[0]))}${contour.map((point,n) => `Q${coordinates(point)} ${coordinates(midpoint(point,contour[(n+1)%contour.length]))}`).join('')}Z`;
+          return `<g data-syn-colony-shape="${i}"><path d="${outline}"/>${Array.from({length:18},(_,j) => {
+            const r = Math.sqrt((j+1) / 19), a = j*2.399;
+            return `<circle cx="${(cx+Math.cos(a)*rx*r*.8).toFixed(1)}" cy="${(cy+Math.sin(a)*ry*r*.8).toFixed(1)}" r="${1.4+(j%5)*.41}"/>`;
+          }).join('')}</g>`;
+        }).join('')}</svg>${colonyPoints.map(([x,y],i) => `<button type="button" data-syn-colony="" data-syn-colony-index="${i}" style="--x:${x}%;--y:${y}%" aria-pressed="false" aria-controls="syn-work-inspector" hidden>${number(i)}</button>`).join('')}</div></figure>`;
   }
   const projectEmpty = '<p class="syn-empty" data-project-empty hidden>No projects match this search.</p>';
   const projectMore = '<button type="button" class="syn-more" data-project-more hidden>Show more projects</button>';
@@ -184,8 +203,8 @@
     const listLabel = lab ? 'Specimen tray' : 'Project files';
     const nav = `<div class="syn-desk-nav"><h3 class="syn-desk-label">${listLabel}</h3><div class="syn-desk-list">${buttons}</div>${projectMore}</div>`;
     const desk = lab
-      ? `<div class="syn-project-desk syn-specimen-desk" data-syn-project-desk="biology">${nav}${inspector}</div>`
-      : `<div class="syn-project-desk syn-code-desk" data-syn-project-desk="programming"><div class="syn-code-bar"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3zM3 9h18M9 9v9"/></svg> Workbench</span><span>Project explorer</span></div>${nav}${inspector}</div>`;
+      ? `<div class="syn-project-desk syn-specimen-desk" data-syn-project-desk="biology">${habitat()}${nav}${inspector}</div>`
+      : w.PortfolioSynthesisWorkbench?.render(nav) || `<div class="syn-project-desk syn-code-desk" data-syn-project-desk="programming">${nav}${inspector}</div>`;
     return markup('projects', `${projectSearch(vm,h)}${desk}${projectEmpty}<p class="syn-visually-hidden" data-syn-project-selection role="status"></p>`,
       heading('projects', '', lab ? 'Specimen collection' : 'Project workbench', lab ? 'Select a specimen to see its field label, topics and source record.' : 'Search project files and open a record in the inspector.'));
   }
@@ -193,36 +212,73 @@
   function mountProjectDesk(root, vm, h) {
     workController?.abort(); workController = null;
     const desk = root.querySelector('[data-syn-project-desk]');
-    if (!desk) return;
     workController = new AbortController();
     const { signal } = workController;
+    let readingFromJourney = false;
+    root.addEventListener('click', event => {
+      const opened = event.target.closest('[data-open-project]');
+      if (!opened || opened.dataset.openProject === selectedProject) return;
+      selectedProject = opened.dataset.openProject;
+      if (opened.closest('[data-syn-journey]')) {
+        journey?.selectProject(selectedProject);
+        if (desk) {
+          readingFromJourney = true;
+          try { w.portfolioView?.refreshProjects?.(); }
+          finally { readingFromJourney = false; }
+        }
+      } else if (!desk) journey?.selectProject(selectedProject);
+    }, {signal});
+    if (!desk) { journey?.selectProject(selectedProject); return; }
     const panel = desk.querySelector('[data-syn-project-inspector]'), announcement = root.querySelector('[data-syn-project-selection]');
+    const lens = desk.querySelector('[data-syn-specimen-lens]');
+    const pins = [...desk.querySelectorAll('[data-syn-colony-index]')], colonies = [...desk.querySelectorAll('[data-syn-colony-shape]')];
+    const workbench = mode === 'programming' ? w.PortfolioSynthesisWorkbench?.mount(desk,h,{signal,state:workbenchState}) : null;
     const records = new Map(vm.projects.map((record,index) => [record.id,{record,index}]));
-    let rendered = '';
+    let rendered;
     const entries = [...desk.querySelectorAll('[data-syn-project-select]')];
     const visible = () => entries.filter(button => !button.closest('[data-project-card]').hidden);
     function select(id, user = false) {
       const selection = records.get(id);
       entries.forEach(entry => entry.setAttribute('aria-pressed', String(entry.dataset.synProjectSelect === id)));
+      pins.forEach((pin,i) => {
+        const active = Boolean(id && pin.dataset.synColony === id);
+        pin.setAttribute('aria-pressed', String(active));
+        colonies[i].toggleAttribute('data-selected', active);
+      });
       if (user) selectedProject = id;
+      if (!readingFromJourney) journey?.selectProject(id);
       if (rendered === id) return;
       rendered = id;
-      if (!selection) { panel.replaceChildren(); return; }
+      if (!selection) { if (workbench) workbench.update(null,'',''); else panel.replaceChildren(); return; }
       const { record, index } = selection, lab = mode === 'biology';
-      const copy = `<div class="syn-inspector-copy"><h3>${h.e(record.title)}</h3>${record.description ? `<p>${h.e(excerpt(record.description, lab ? 315 : 510))}</p>` : ''}${tags(record.tags,h)}${projectActions(record,h)}</div>`;
-      panel.innerHTML = lab ? `<div class="syn-inspector-label">Field label</div>${copy}` : `${copy}<div class="syn-inspector-graphic">${projectVisual(record,index,h)}</div>`;
+      const copy = `<div class="syn-inspector-copy"><h3>${h.e(record.title)}</h3>${exists(record.description) ? `<p>${h.e(record.description)}</p>` : ''}${tags(record.tags,h)}${projectActions(record,h)}</div>`;
+      if (workbench) workbench.update(record,copy,projectVisual(record,index,h));
+      else panel.innerHTML = lab ? `<div class="syn-inspector-label">Field label</div>${copy}` : copy;
       if (user) announcement.textContent = `${record.title} selected.`;
     }
-    function sync() {
+    const sync = () => {
       const buttons = visible();
-      desk.hidden = buttons.length === 0;
+      if (!lens) desk.hidden = buttons.length === 0;
+      else panel.hidden = buttons.length === 0;
+      const mapped = buttons.slice(0, pins.length);
+      const pinned = buttons.find(button => button.dataset.synProjectSelect === selectedProject);
+      if (mapped.length && pinned && !mapped.includes(pinned)) mapped[mapped.length-1] = pinned;
+      pins.forEach((pin,i) => {
+        const row = records.get(mapped[i]?.dataset.synProjectSelect)?.record;
+        pin.hidden = !row; pin.dataset.synColony = row?.id || '';
+        colonies[i].toggleAttribute('data-empty', !row);
+        if (row) pin.setAttribute('aria-label', `Cluster ${number(i)}: ${row.title}`);
+      });
       const preferred = buttons.find(button => button.dataset.synProjectSelect === selectedProject);
       select((preferred || buttons[0])?.dataset.synProjectSelect || '');
-    }
+    };
     desk.addEventListener('click', event => {
       const choice = event.target.closest('[data-syn-project-select]');
       if (choice) select(choice.dataset.synProjectSelect, true);
+      const pin = event.target.closest('[data-syn-colony]');
+      if (pin?.dataset.synColony) select(pin.dataset.synColony, true);
     }, { signal });
+    lens?.addEventListener('change', () => { specimenLens = lens.value; w.portfolioView?.refreshProjects?.(); }, {signal});
     root.addEventListener('portfolio:project-filtered',sync,{signal});
     sync();
   }
@@ -393,7 +449,8 @@
       next.innerHTML = records;
       Array.from(next.content.children).forEach(section => {
         const prior = doc.getElementById(section.id);
-        // Keep section anchors and the SVG object stable across perspective changes.
+        if (section.id === 'about' && journeyElement) section.querySelector('[data-syn-journey]')?.replaceWith(journeyElement);
+        // Keep section anchors and both illustrations stable across perspective changes.
         if (prior) prior.replaceChildren(...section.childNodes);
       });
     }
@@ -411,11 +468,9 @@
     if (modeStatus !== mode) status.textContent = `${m.title}. All portfolio records are still available.`;
     modeStatus = mode;
     const primary = root.querySelector('[data-syn-primary]');
-    const cta = m.primary[0] === 'publications' && !list(latestModel?.publications).length ? modes.all.primary : m.primary;
+    const cta = root.querySelector('[data-syn-journey]') ? m.primary : ['projects','Browse the work'];
     primary.href = '#' + cta[0];
     primary.firstChild.textContent = cta[1] + ' ';
-    root.querySelector('[data-syn-plate-title]').textContent = m.plate;
-    root.querySelectorAll('.syn-annotation span').forEach((label,i) => { label.textContent = m.labels[i]; });
     const chapters = root.querySelector('[data-syn-chapters]');
     chapters.innerHTML = m.nav.map(key => `<a href="#${key}"><small aria-hidden="true">${number(order.indexOf(key) - 1)}</small>${sections[key]}</a>`).join('') + '<button type="button" class="syn-index-open" data-syn-open-index aria-haspopup="dialog">All sections <span aria-hidden="true">↗</span></button>';
     if (animate && doc.body.dataset.effects === 'on') {
@@ -423,29 +478,45 @@
       root.querySelector('.syn-plate-caption').animate?.([{opacity: .45}, {opacity: 1}], {duration: 180, easing: 'cubic-bezier(.23,1,.32,1)'});
     }
     const nextScene = root.querySelector('[data-synthesis-scene]');
-    if (model && helpers) mountProjectDesk(root,model,helpers);
     if (nextScene !== sceneElement) {
       scene?.destroy();
       sceneElement = nextScene;
-      scene = w.PortfolioSynthesisScene?.mount(sceneElement,mode);
-    } else scene?.setMode(mode, { animate });
-    studyObserver?.disconnect();
-    const study = root.querySelector('[data-syn-reveal]');
-    if (study && w.IntersectionObserver && doc.body.dataset.effects === 'on') {
-      studyObserver = new w.IntersectionObserver(entries => {
-        if (entries.some(entry => entry.isIntersecting)) {
-          study.dataset.synArrived = '';
-          studyObserver.disconnect();
-        }
-      }, { threshold: .24 });
-      studyObserver.observe(study);
+      scene = w.PortfolioSynthesisScene?.mount(sceneElement,w.PortfolioSynthesisScene.poses[mode][focalIndex[mode] ?? m.initial]);
     }
+    updateFocus(focalIndex[mode] ?? m.initial, animate);
+    const nextJourney = root.querySelector('[data-syn-journey]');
+    if (nextJourney !== journeyElement) {
+      journey?.destroy(); journeyElement = nextJourney;
+      journey = w.PortfolioSynthesisJourney?.mount(nextJourney,{model,mode,helpers});
+    } else journey?.update({model,mode,helpers});
+    if (model && helpers) mountProjectDesk(root,model,helpers);
+  }
+
+  function updateFocus(index, animate) {
+    const config = modes[mode], target = config.focus[index];
+    if (!target || !sceneElement) return;
+    focalIndex[mode] = index;
+    const figure = sceneElement.closest('.syn-hero-instrument');
+    figure.querySelectorAll('[data-syn-focus-index]').forEach((button,i) => {
+      button.dataset.synFocus = config.focus[i][0];
+      button.textContent = config.focus[i][1];
+      button.setAttribute('aria-pressed', String(i === index));
+    });
+    figure.querySelector('[data-syn-plate-title]').textContent = target[2];
+    scene?.setMode(w.PortfolioSynthesisScene.poses[mode][index],{animate});
+  }
+
+  function resetSelections() {
+    for (const key of Object.keys(focalIndex)) delete focalIndex[key];
+    specimenLens = '';
+    Object.assign(workbenchState,{pane:'files',stage:'source',maximized:false});
   }
 
   function unmount() {
     workController?.abort(); workController = null; selectedProject = null;
     scene?.destroy(); scene = null; sceneElement = null;
-    studyObserver?.disconnect(); studyObserver = null;
+    journey?.destroy(); journey = null; journeyElement = null;
+    resetSelections();
     latestModel = null; modeStatus = null;
     doc.getElementById('synthesisToolbar').hidden = true;
     delete doc.body.dataset.perspective;
@@ -468,6 +539,11 @@
   }, { capture: true, passive: true });
   doc.addEventListener('keydown', () => { modeInput = null; pointerAnchor = null; }, true);
   doc.addEventListener('click', event => {
+    const focus = event.target.closest('button[data-syn-focus-index]');
+    if (focus && active()) {
+      updateFocus(Number(focus.dataset.synFocusIndex), event.detail > 0);
+      return;
+    }
     const button = event.target.closest('button[data-perspective]');
     if (!button) return;
     const animate = event.detail > 0 || modeInput === button;
@@ -477,5 +553,6 @@
   });
   w.addEventListener?.('popstate', () => changeMode(readMode(), { history: false }));
   w.PortfolioSynthesis = { id, order, sections, active, project, projectVisual, experienceRecord, canonicalRecordSection, render, mount, unmount, changeMode,
-    nav: () => modes[mode].nav, selectedProject: () => mode === 'all' ? null : selectedProject, sync: () => scene?.sync() };
+    nav: () => modes[mode].nav, selectedProject: () => mode === 'all' ? null : selectedProject, acceptsProject,
+    sync: () => { scene?.sync(); journey?.sync(); } };
 })(window, document);

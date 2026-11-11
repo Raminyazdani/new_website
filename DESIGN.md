@@ -18,8 +18,8 @@ Animation communicates this transformation. Shared ease-out timing, bounded artw
 
 ## Content components
 
-- Editorial profile with the full source summary, interests and connected study.
-- Integrated mode uses an asymmetric searchable project archive. Biology uses a two-column specimen tray with a field-label inspector. Programming uses a compact file tree with a source-first inspector. Long inspector titles retain their full text with 28px/32px caps.
+- Editorial profile with the full source summary, interests and connected story. Three source-backed chapters share one morphing SVG topology, with a sticky figure on motion-enabled desktop, compact mobile/Still presentation, and manual chapter/range controls. It is a conceptual bridge between disciplines, not an asserted experimental workflow.
+- Integrated mode uses an asymmetric searchable project archive. Biology combines a smooth cellular project habitat, collection lens and two-column specimen tray with a synchronized field-label inspector. Programming combines Files / Document / Properties with Source → Method → Artifact tabs for one selected project. Method displays supplied topics/tools; Artifact displays supplied links or an explicit empty state. No execution or performance results are invented. Long inspector titles retain their full text with 28px/32px caps.
 - Experience becomes dated field-note branches in Biology and a grouped changelog in Programming. Skills become a branching taxonomy or a module inventory with intrinsic-width tokens. Integrated mode keeps its editorial chronology and atlas. Switching preserves selection, search and reading position.
 - Complete project dialogs and supplied resource links, publication bibliography, education journey and counts derived from records.
 - Credential previews and detail drawers, complete language scores, initially closed reference contacts and direct contact/profile links.
@@ -27,7 +27,7 @@ Animation communicates this transformation. Shared ease-out timing, bounded artw
 
 The raw schema is owned by `public/data/cv-adapter.js`. New data shapes are adapted there, never inspected by scene or section code. Birth date, configuration, contracts and verification metadata are outside the professional presentation. Private captures and CV payloads stay outside public Git.
 
-Implementation: `public/portfolio/synthesis.js`, `synthesis-scene.js`, `synthesis.css`; shared integration in runtime/studio/index. Detailed rationale and review scope: `docs/SYNTHESIS_DESIGN_PLAN_FA.md`; measured checks and deployment: `docs/BUILD_PROGRESS.json`.
+Implementation: `public/portfolio/synthesis.js`, `synthesis-scene.js`, `synthesis-journey.js`, `synthesis-workbench.js/css`, `synthesis.css`; shared integration in runtime/studio/index. Detailed rationale and review scope: `docs/SYNTHESIS_DESIGN_PLAN_FA.md` and `docs/SYNTHESIS_FINAL_PLAN_FA.md`; measured checks and deployment: `docs/BUILD_PROGRESS.json`. Journey mounting is Synthesis-only; archived Experiences keep their previous About renderer. SVG IDs are instance-scoped, and listeners/observers are disposed on rerender.
 
 ## Twelve interactive Experiences
 

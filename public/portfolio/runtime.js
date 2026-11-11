@@ -21,6 +21,9 @@
    if (!(window.scrollY > 1)) return null;
    const toolbarBottom = $('#synthesisToolbar')?.getBoundingClientRect().bottom || 0;
    const line = toolbarBottom + 8;
+   const story = $('#connected-story');
+   const storyRect = story?.getBoundingClientRect();
+   if (storyRect?.height > 0 && storyRect.top <= line+62 && storyRect.bottom > line) return {id:story.id,offset:storyRect.top};
    const visible = $$('#portfolio [data-section]').map(section=>({ section, rect: section.getBoundingClientRect() }))
      .filter(({rect})=>rect.height > 0);
    // Fragment navigation leaves a small breathing space below the toolbar.
@@ -38,10 +41,19 @@
      next?.focus({preventScroll:true});
      if (typeof node.selectionStart === 'number') next?.setSelectionRange?.(node.selectionStart,node.selectionEnd);
    };
-   const record = node.dataset.synProjectSelect || node.dataset.openProject;
+   if (node.closest('[data-syn-journey]') && !node.matches('[data-open-project]')) return () => {
+     if (node.isConnected) node.focus({preventScroll:true});
+   };
+   const record = node.dataset.synProjectSelect || node.dataset.openProject || node.dataset.synColony;
    if (record) return () => {
-     const options = $$('[data-syn-project-select], [data-open-project]');
-     options.find(button => (button.dataset.synProjectSelect || button.dataset.openProject) === record && !button.closest('[hidden]'))?.focus({preventScroll:true});
+     const options = $$('[data-syn-project-select], [data-open-project], [data-syn-colony]');
+     const shown = options.filter(button => (button.dataset.synProjectSelect || button.dataset.openProject || button.dataset.synColony) === record && !button.closest('[hidden]'));
+     const next = shown.includes(node) ? node : shown.find(button => button.closest('#projects')) || shown[0];
+     (next || $('[data-project-search]'))?.focus({preventScroll:true});
+   };
+   if (node.closest('[data-syn-project-desk]')) return () => {
+     const next = node.id && document.getElementById(node.id);
+     (next || $('[data-project-search]'))?.focus({preventScroll:true});
    };
    if (node.localName === 'summary' && node.parentElement?.hasAttribute('data-syn-disclosure')) {
      const record = node.parentElement.dataset.synDisclosure;
@@ -137,15 +149,17 @@
    const vm=state.viewModel||state.model;if(!vm)return;
    const query=$('[data-project-search]')?.value||'',category=$('[data-project-filter]')?.value||'';
    const more=$('[data-project-more]'),empty=$('[data-project-empty]'),count=$('[data-syn-project-count]');
-   const items=filtered(vm.projects,query,p=>!category||p.tags.includes(category));
-   const visible=new Set((more?items.slice(0,state.projectLimit):items).map(p=>p.id));
    const synthesis = window.PortfolioSynthesis;
-   const selected = synthesis?.active() ? synthesis.selectedProject() : null;
+   const isSynthesis = synthesis?.active();
+   const lens=$('[data-syn-specimen-lens]')?.value||'';
+   const items=filtered(vm.projects,query,p=>(!category||p.tags.includes(category))&&(!isSynthesis||synthesis.acceptsProject(p)));
+   const visible=new Set((more?items.slice(0,state.projectLimit):items).map(p=>p.id));
+   const selected = isSynthesis ? synthesis.selectedProject() : null;
    if(selected&&items.some(item=>item.id===selected))visible.add(selected);
    $$('[data-project-card]').forEach(n=>{n.hidden=!visible.has(n.dataset.projectId);if(!n.hidden)n.classList.add('is-visible');});
    if(more){more.hidden=items.length<=visible.size;more.textContent=`Show more work (${items.length-visible.size}) ↘`;}
    if(empty)empty.hidden=items.length>0;
-   if(count)count.textContent=items.length+' '+(items.length===1?'project':'projects')+(query||category?' matching':' total');
+   if(count)count.textContent=items.length+' '+(items.length===1?'project':'projects')+(query||category||lens?' matching':' total');
    $('#portfolio').dispatchEvent(new (window.Event||Event)('portfolio:project-filtered'));
  }
  function filterCertificates(){const vm=state.viewModel||state.model;if(!vm)return;const query=$('[data-cert-search]')?.value||'',issuer=$('[data-cert-issuer]')?.value||'';const items=filtered(vm.certificates,query,c=>!issuer||c.issuer===issuer),visible=new Set(items.slice(0,state.certLimit).map(c=>c.id));$$('[data-cert-card]').forEach(n=>n.hidden=!visible.has(n.dataset.certId));const more=$('[data-cert-more]'),empty=$('[data-cert-empty]');if(more){more.hidden=items.length<=state.certLimit;more.textContent=`Show more credentials (${Math.max(0,items.length-state.certLimit)}) ↘`;}if(empty)empty.hidden=items.length>0;}
@@ -181,5 +195,5 @@
  $('#motionMode').addEventListener('change',event=>{state.motionMode=event.target.value;updateMotion();});$('#enableEffects').addEventListener('click',()=>{state.motionMode='full';updateMotion();});reduced.addEventListener?.('change',updateMotion);
  $('#accessForm').addEventListener('submit',login);$('#retryBtn').addEventListener('click',load);$('#logoutBtn').addEventListener('click',async()=>{try{await fetch('/api/session',{method:'DELETE',credentials:'same-origin',cache:'no-store'});}finally{document.title='Portfolio — Research & Code';showAccess('The portfolio is locked.',true);}});
  if(typeof window.addEventListener==='function')window.addEventListener('scroll',requestScroll,{passive:true});
- state.render=render;state.readSynthesisAnchor=readSynthesisAnchor;updateMotion();load();
+ state.render=render;state.readSynthesisAnchor=readSynthesisAnchor;state.refreshProjects=filterProjects;updateMotion();load();
 })();

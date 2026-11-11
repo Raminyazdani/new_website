@@ -10,19 +10,42 @@
     [4, 13, 21, 29].map((step, j) => [lane, step + (i % 2 && j < 2 ? 2 : 0)]));
   const bondSamples = Array.from({ length: 11 }, (_, i) => [i + 1, 7 + (i * 7) % 23]);
   const crosses = [0, 1, 2, 3, 4].map(i => 7 + i * 5);
+  const poses = {
+    all: ['all', 'molecule', 'network'],
+    biology: ['tissue', 'biology', 'molecule'],
+    programming: ['input', 'programming', 'network'],
+  };
+  const storyPoses = {...poses, all: ['biology', 'molecule', 'network']};
+  const isCell = mode => mode === 'biology' || mode === 'tissue';
 
   function sample(mode, lane, step) {
     const u = step / (STEPS - 1), theta = lane / (LANES - 1) * TAU;
-    if (mode === 'biology') {
-      const rad = Math.pow(Math.sin(Math.PI * u), .76) * (1 + .08 * Math.sin(u * 10 + theta * 3));
+    if (isCell(mode)) {
+      const tissue = mode === 'tissue', zoom = tissue ? .57 : 1;
+      const rad = Math.pow(Math.sin(Math.PI * u), .52) * (1 + .07 * Math.sin(u * 12 + theta * 3));
       return [
-        (u - .5) * 548 + rad * (21 * Math.sin(theta) + 17 * Math.sin(u * 8)),
-        Math.sin(theta + u * 1.56) * rad * 149 + 40 * Math.sin(u * TAU - .9) - 8,
-        Math.cos(theta + u * 1.56) * rad * 126 + 25 * Math.sin(u * 8)
+        zoom * ((u - .5) * 492 + rad * (21 * Math.sin(theta) + 13 * Math.sin(u * 8))) - (tissue ? 78 : 0),
+        zoom * (Math.sin(theta + u * 1.12) * rad * 148 + 19 * Math.sin(u * TAU - .9)),
+        zoom * (Math.cos(theta + u * 1.12) * rad * 118 + 18 * Math.sin(u * 8))
       ];
     }
-    if (mode === 'programming') {
+    if (mode === 'molecule') {
+      const fold = theta + u * TAU * 1.08;
+      const rad = 13 + 52 * Math.exp(-((u - .23) ** 2) / .009) + 64 * Math.exp(-((u - .54) ** 2) / .013) + 47 * Math.exp(-((u - .8) ** 2) / .008);
+      return [(u - .5) * 450 + Math.sin(fold) * rad * .49, 78 * Math.sin(u * 9 - 1.3) + Math.sin(fold) * rad, Math.cos(fold) * rad + 37 * Math.sin(u * 11)];
+    }
+    if (mode === 'programming' || mode === 'input' || mode === 'network') {
       const row = lane - (LANES - 1) / 2;
+      if (mode === 'input') {
+        const deck = Math.floor(lane / 4) - 1;
+        return [(u - .5) * 475 + deck * 29, (lane % 4 - 1.5) * 28 + deck * 78, deck * 66 + 14 * Math.sin(u * Math.PI)];
+      }
+      if (mode === 'network') {
+        const level = lane % 3 - 1;
+        const bus = smooth(clamp((u - .29 - (lane % 4) * .045) / .055, 0, 1));
+        const fan = smooth(clamp((u - .61 - (lane % 3) * .047) / .063, 0, 1));
+        return [(u - .5) * 525, row * (22 + 5 * fan) + level * 28 * bus * (1 - fan), level * 48 + Math.trunc(row / 3) * 15 + fan * row * 3];
+      }
       const t = Math.floor(u * 4), stage = u * 4 - t;
       const weights = [1.1, .44, .93, .58, 1.13];
       const taper = mix(weights[t], weights[t + 1] ?? weights[t], smooth(clamp((stage - .28) / .5, 0, 1)));
@@ -49,32 +72,51 @@
       const threads = Array.from({ length: 2 }, (_, line) =>
         Array.from({ length: STEPS }, (_, step) => {
           const p = step / (STEPS - 1), t = p * TAU * 2.55 + line * Math.PI;
-          if (mode === 'programming') return [(p - .5) * 552, (line ? -1 : 1) * (36 + 31 * Math.abs(Math.cos(p * Math.PI * 3))), Math.sin(t * .44) * 31 + 94];
-          if (mode === 'biology') return [(p - .5) * 377, Math.sin(t) * 41 + 24 * Math.sin(p * 7), Math.cos(t) * 48 + 29];
+          if (mode === 'programming' || mode === 'input' || mode === 'network') {
+            const source = sample(mode, line ? 9 : 3, step);
+            return [source[0], source[1] + (line ? 15 : -15), source[2] + 43];
+          }
+          if (isCell(mode)) {
+            const zoom = mode === 'tissue' ? .57 : 1;
+            return [(p - .5) * 264 * zoom - (mode === 'tissue' ? 78 : 0), (Math.sin(t) * 24 + 24 * Math.sin(p * 7)) * zoom, (Math.cos(t) * 31 + 29) * zoom];
+          }
+          if (mode === 'molecule') return [(p - .5) * 430, Math.sin(t) * 39 + 65 * Math.sin(p * 9 - 1.3), Math.cos(t) * 52 + 28];
           return [(p - .5) * 520, Math.sin(t) * (36 + 33 * Math.sin(Math.PI * p)) - 11, Math.cos(t) * 52 + 24];
         }));
       const core = Array.from({ length: 2 }, (_, edge) =>
         Array.from({ length: STEPS }, (_, step) => {
           const t = step / (STEPS - 1) * TAU;
-          if (mode === 'programming') {
+          if (mode === 'programming' || mode === 'input' || mode === 'network') {
             const s = (edge ? .78 : 1) / (Math.abs(Math.cos(t)) + Math.abs(Math.sin(t)));
             return [24 + s * 63 * Math.cos(t), s * 55 * Math.sin(t), 90 + 18 * Math.cos(t)];
           }
-          const s = edge ? .71 : 1, life = mode === 'biology';
+          const s = (edge ? .71 : 1) * (mode === 'tissue' ? .58 : 1), life = isCell(mode);
           return [
-            (life ? -13 : -114) + s * (life ? 66 : 46) * Math.cos(t),
-            (life ? -3 : -15) + s * (life ? 43 : 33) * Math.sin(t),
+            (mode === 'tissue' ? -92 : life ? -32 : -114) + s * (life ? 78 : 46) * Math.cos(t),
+            (life ? -4 : -15) + s * (life ? 64 : 33) * Math.sin(t),
             48 + s * (22 * Math.cos(t) + 12 * Math.sin(t)) + (edge ? 7 : 0)
           ];
         }));
-      positions.set(mode, [...surface, ...threads, ...core]);
+      const colonies = [[135,-102,73,54], [125,107,85,59], [-172,-104,56,42], [-182,105,61,43], [217,4,49,38]];
+      const vesicles = [[93,-49,23,17], [127,38,33,21], [-138,-43,24,19], [-112,66,22,14], [57,74,19,15]];
+      const details = colonies.map((_, i) => {
+        const [cx,cy,rx,ry] = (mode === 'tissue' ? colonies : vesicles)[i];
+        return Array.from({ length: STEPS }, (_, step) => {
+          const t = step / (STEPS - 1) * TAU, fold = 1 + .085 * Math.sin(t * 3 + i) + .038 * Math.cos(t * 5 + i * 2);
+          return [cx + rx * fold * Math.cos(t), cy + ry * fold * Math.sin(t), 37 + 13 * Math.cos(t + i)];
+        });
+      });
+      positions.set(mode, [...surface, ...threads, ...core, ...details]);
     }
     return positions.get(mode);
   }
 
-  function createMarkup() {
+  function createMarkup(instance = 'hero') {
     const paths = (count, cls) => Array.from({ length: count }, (_, i) => `<path class="${cls}" data-depth-index="${i}"/>`).join('');
-    return `<svg class="syn-sculpture" data-synthesis-scene viewBox="0 0 800 560" fill="none" aria-hidden="true" focusable="false">
+    const isHero = instance === 'hero';
+    const mark = isHero ? 'data-synthesis-scene' : 'data-journey-art';
+    const paint = ['shell','wire','thread','junction','amber','core-light'].map(name => `--syn-svg-${name}:url(#syn-${instance}-${name})`).join(';');
+    return `<svg class="syn-sculpture" ${mark} style="${paint}" viewBox="0 0 800 560" fill="none" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="syn-shell" x1="13%" y1="5%" x2="80%" y2="91%"><stop class="syn-shell-near"/><stop offset=".56" class="syn-shell-mid"/><stop offset="1" class="syn-shell-far"/></linearGradient>
         <linearGradient id="syn-wire" x1="5%" y1="6%" x2="94%" y2="81%"><stop class="syn-wire-near"/><stop offset=".57" class="syn-wire-mid"/><stop offset="1" class="syn-wire-far"/></linearGradient>
@@ -91,6 +133,8 @@
       </g>
       <ellipse class="syn-ground" cx="415" cy="433" rx="268" ry="74" fill="url(#syn-ground)"/>
       <g class="syn-sculpture-geometry">
+        ${paths(5, 'syn-cell-companion')}
+        <path class="syn-cell-envelope"/>
         ${paths(4, 'syn-membrane')}
         ${paths(5, 'syn-crosswire')}
         <path class="syn-core"/><path class="syn-core-edge"/>
@@ -101,10 +145,10 @@
         ${paths(2, 'syn-strand')}
         ${nodeSamples.map((_, i) => `<circle class="syn-junction${i % 5 === 1 ? ' syn-junction-amber' : ''}"/>`).join('')}
       </g>
-    </svg>`;
+    </svg>`.replace(/(id="|url\(#)syn-(?=(?:shell|wire|thread|junction|amber|core-light|ground)[")])/g, `$1syn-${instance}-`);
   }
 
-  function mount(svg, initial) {
+  function mount(svg, initial, { idle = true } = {}) {
     if (!svg) return null;
     const doc = svg.ownerDocument;
     const wrap = svg.parentElement;
@@ -113,17 +157,27 @@
     const filaments = $('.syn-filament'), filamentHalos = $('.syn-filament-halo');
     const bonds = $('.syn-bond'), strands = $('.syn-strand'), strandHalos = $('.syn-strand-halo');
     const nodes = $('.syn-junction'), core = $('.syn-core, .syn-core-edge');
+    const companions = $('.syn-cell-companion'), envelope = svg.querySelector('.syn-cell-envelope');
     const fine = w.matchMedia?.('(pointer: fine) and (hover: hover)');
     const raf = w.requestAnimationFrame?.bind(w);
     const stopFrame = w.cancelAnimationFrame?.bind(w);
-    let target = initial, current = geometry(target), from = current, to = current;
+    let target = initial, current = geometry(target), from = current, to = current, progressKey = '';
+    const material = pose => [Number(isCell(pose)), Number(pose === 'molecule'), Number(pose === 'network')];
+    let finish = material(target), light = finish, start = light, paintedLight = null;
     let started = null, moving = false, visible = !w.IntersectionObserver, frame = null, last = 0, phase = 0;
-    let pointer = [0, 0], tilt = [0, 0], stopped = false, drawn = false;
+    let pointer = [0, 0], tilt = [0, 0], stopped = false, drawn = false, idleTime = 0;
     const enabled = () => doc.body.dataset.effects === 'on' && !doc.hidden;
+    const pointerMoving = () => pointer.some((value, i) => Math.abs(value - tilt[i]) > .006);
     const round = n => Math.round(n * 10) / 10;
     const path = points => points.map((p, i) => `${i ? 'L' : 'M'}${round(p[0])} ${round(p[1])}`).join('');
 
     function draw() {
+      if (light !== paintedLight) {
+        svg.style.setProperty('--syn-cell-depth', round(light[0] * 10) / 10);
+        svg.style.setProperty('--syn-molecular-depth', round(light[1] * 10) / 10);
+        svg.style.setProperty('--syn-circuit-depth', round(light[2] * 10) / 10);
+        paintedLight = light;
+      }
       const a = -.17 + Math.sin(phase * .65) * .11 + tilt[0] * .13;
       const b = -.14 + Math.sin(phase * .47) * .12 + tilt[1] * .1;
       const c = -.095;
@@ -141,6 +195,11 @@
         const twin = points[lane + 2].slice().reverse();
         membranes[i].setAttribute('d', path([...points[lane], ...twin]) + 'Z');
       });
+      const slices = Array.from({ length: STEPS }, (_, step) => points.slice(0, LANES).map(lane => lane[step]));
+      const top = slices.map(slice => slice.reduce((a,b) => a[1] < b[1] ? a : b));
+      const bottom = slices.map(slice => slice.reduce((a,b) => a[1] > b[1] ? a : b)).reverse();
+      envelope.setAttribute('d', path([...top, ...bottom]) + 'Z');
+      companions.forEach((element, i) => element.setAttribute('d', path(points[LANES + 4 + i]) + 'Z'));
       crosses.forEach((step, i) => crosswires[i].setAttribute('d', path(points.slice(0, LANES).map(lane => lane[step]))));
       filaments.forEach((element, i) => {
         const d = path(points[i]);
@@ -165,7 +224,7 @@
     }
 
     function schedule() {
-      if (stopped || frame !== null || !visible || !enabled() || !raf) return;
+      if (stopped || frame !== null || !visible || !enabled() || !raf || (!moving && (!idle || idleTime >= 1500 && !pointerMoving()))) return;
       frame = raf(tick);
     }
     function tick(time) {
@@ -173,14 +232,15 @@
       if (stopped || !visible || !enabled()) { sync(); return; }
       const dt = last ? clamp(time - last, 0, 42) : 16;
       last = time;
-      phase += dt / 1250;
+      if (idleTime < 1500) { idleTime += dt; phase += dt / 1250; }
       tilt = tilt.map((n, i) => mix(n, pointer[i], 1 - Math.exp(-dt / 110)));
       if (moving) {
         if (started === null) started = time;
         const progress = clamp((time - started) / MORPH_MS, 0, 1);
         const p = smooth(progress);
         current = from.map((lane, i) => lane.map((xyz, j) => xyz.map((n, k) => mix(n, to[i][j][k], p))));
-        if (progress >= 1) { current = to; moving = false; }
+        light = start.map((n,i) => mix(n, finish[i], p));
+        if (progress >= 1) { current = to; light = finish; moving = false; }
       }
       draw();
       schedule();
@@ -189,21 +249,36 @@
       if (enabled() && visible) { schedule(); return; }
       if (frame !== null) { stopFrame?.(frame); frame = null; }
       last = 0;
-      if (moving || !drawn || tilt.some(Boolean)) {
-        current = to; moving = false; pointer = [0, 0]; tilt = [0, 0];
+      if (moving || !drawn || tilt.some(Boolean) || !enabled() && phase !== 0) {
+        current = to; light = finish; moving = false; pointer = [0, 0]; tilt = [0, 0];
         if (!enabled()) phase = 0;
         draw();
       }
     }
     function setMode(mode, { animate = false } = {}) {
       if (mode === target) return;
-      target = mode; from = current; to = geometry(mode); started = null;
+      target = mode; from = current; to = geometry(mode); start = light; finish = material(mode); started = null;
+      svg.dataset.synPose = mode;
       moving = animate && enabled() && visible && Boolean(raf);
       if (moving) schedule();
-      else { current = to; draw(); }
+      else { current = to; light = finish; draw(); }
     }
-    const observer = w.IntersectionObserver ? new w.IntersectionObserver(entries => {
-      visible = entries.some(entry => entry.isIntersecting);
+    function setProgress(mode, value) {
+      const p = clamp(value, 0, 2), key = `${mode}:${p}`;
+      if (key === progressKey) return;
+      progressKey = key;
+      const index = Math.min(1, Math.floor(p)), fraction = smooth(p - index), shapes = storyPoses[mode];
+      const a = geometry(shapes[index]), b = geometry(shapes[index + 1]);
+      const lightA = material(shapes[index]), lightB = material(shapes[index+1]);
+      svg.dataset.synPose = shapes[Math.round(p)];
+      light = start = finish = lightA.map((n,i) => mix(n, lightB[i], fraction));
+      current = from = to = a.map((lane, i) => lane.map((xyz, j) => xyz.map((n, k) => mix(n, b[i][j][k], fraction))));
+      moving = false; draw();
+    }
+    const observer = idle && w.IntersectionObserver ? new w.IntersectionObserver(entries => {
+      const next = entries.some(entry => entry.isIntersecting);
+      if (next && !visible) idleTime = 0;
+      visible = next;
       sync();
     }, { threshold: .08 }) : null;
     function point(event) {
@@ -212,16 +287,20 @@
       if (!box.width || !box.height) return;
       pointer = [clamp((event.clientX - box.left) / box.width * 2 - 1, -1, 1),
         clamp((event.clientY - box.top) / box.height * 2 - 1, -1, 1)];
+      schedule();
     }
-    function leave() { pointer = [0, 0]; }
+    function leave() { pointer = [0, 0]; schedule(); }
 
+    svg.dataset.synPose = initial;
     draw();
     observer?.observe(svg);
-    wrap.addEventListener('pointermove', point, { passive: true });
-    wrap.addEventListener('pointerleave', leave);
-    doc.addEventListener('visibilitychange', sync);
+    if (idle) {
+      wrap.addEventListener('pointermove', point, { passive: true });
+      wrap.addEventListener('pointerleave', leave);
+      doc.addEventListener('visibilitychange', sync);
+    }
     sync();
-    return { setMode, sync, destroy() {
+    return { setMode, setProgress, sync, destroy() {
       stopped = true;
       if (frame !== null) stopFrame?.(frame);
       observer?.disconnect();
@@ -231,5 +310,5 @@
     } };
   }
 
-  w.PortfolioSynthesisScene = { createMarkup, mount };
+  w.PortfolioSynthesisScene = { createMarkup, mount, poses };
 })(window);

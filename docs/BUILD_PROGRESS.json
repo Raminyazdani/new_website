@@ -1384,5 +1384,76 @@
         "runtime-mobile-published.png"
       ]
     }
+  },
+  "synthesis_final_20261111": {
+    "status": "local_verified_release_pending",
+    "scope": "Final Synthesis integration; archive collection preserved",
+    "features": [
+      "Scroll-scrubbed cell/molecule/network topology and manual chapters",
+      "Organic project habitat synchronized with specimen inspector",
+      "Files/Document/Properties and Source/Method/Artifact workspace",
+      "Shared project selection and source-backed links"
+    ],
+    "checks": {
+      "tests": 68,
+      "passed": 68,
+      "failed": 0,
+      "productionBuild": "passed",
+      "importedDesigns": 20,
+      "horizontalOverflow": false,
+      "viewports": [
+        [
+          320,
+          568
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          768,
+          1024
+        ],
+        [
+          1024,
+          768
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "modes": [
+        "all",
+        "biology",
+        "programming"
+      ],
+      "perspectiveControlMinPx": 44,
+      "realProjectsPerMode": 87,
+      "realSkillsPerMode": 223,
+      "sectionsPerMode": 11,
+      "portraitLoaded": true,
+      "mobileWorkbenchPropertiesAndArtifact": "observed",
+      "stillManualMorph": "observed",
+      "darkBiologyHabitat": "observed",
+      "desktopStoryScroll": "observed"
+    },
+    "preserved": {
+      "canonicalAdapter": true,
+      "cvApi": true,
+      "archiveDesigns": 62,
+      "archiveSourceAndThumbnailsUnchanged": true
+    },
+    "critiqueFixes": [
+      "Closed cellular story start",
+      "Rectilinear computational endpoint",
+      "Longer sticky chapter space",
+      "Smooth habitat boundaries"
+    ],
+    "limits": [
+      "No physical-device or FPS benchmark",
+      "Archive designs not all manually re-audited",
+      "Private CV captures kept outside public Git"
+    ]
   }
 }

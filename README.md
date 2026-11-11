@@ -4,6 +4,8 @@ A complete animated CV portfolio, with the original collection of 20 Hero concep
 
 The primary experience is **Synthesis**: one portfolio with All disciplines, Life sciences, and Engineering + ML perspectives. Open `/?design=synthesis&perspective=all`. Beyond the shared scientific scene, these perspectives change the project browser, experience chronology and skill composition: editorial archive, specimen tray/taxonomy, or file workbench/module inventory. All eleven professional sections and complete records remain available.
 
+**Follow the story** opens a connected, scroll-controlled cell → molecular structure → computational network transformation. Life sciences includes an interactive organic project habitat; Engineering + ML combines Files / Document / Properties with a Source → Method → Artifact inspector for the same selected project. Mobile uses selectable panels, and Still retains manual story controls. See the [final Synthesis integration and review](docs/SYNTHESIS_FINAL_PLAN_FA.md).
+
 The **Templates** control opens **62 designs**: the preserved 50 plus 12 interactive Experiences. Open `/?design=synthesis&gallery=1&collection=experiential` to browse Tissue, Culture, Chromatogram, Residue, Continuum, Cabinet, Foundry, Runtime, Tensor, Patchbay, Prism and Expedition. Each has its own interaction and custom hero/project/experience/skills composition; secondary records share the complete canonical presentation. The twelve new gallery images are actual browser captures using fictional data, never private CV screenshots.
 
 See the [Experiences plan and review](docs/EXPERIENCES_PLAN_FA.md), [Synthesis design plan](docs/SYNTHESIS_DESIGN_PLAN_FA.md), [built visual system](DESIGN.md), and observed release checks in `docs/BUILD_PROGRESS.json`.
