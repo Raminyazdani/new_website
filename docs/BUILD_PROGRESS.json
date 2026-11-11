@@ -1257,7 +1257,7 @@
     }
   },
   "experiences_20261111": {
-    "status": "locally_verified_pending_release",
+    "status": "published_and_verified",
     "scope": "12 new interactive Experiences and three distinct Synthesis core layouts; existing 50 designs preserved",
     "implementation": {
       "model": "gpt-6.1-sol",
@@ -1353,6 +1353,36 @@
       "No physical-device or FPS benchmark",
       "Not every archived design manually re-audited",
       "Real CV screenshots kept outside public Git"
-    ]
+    ],
+    "deployment": {
+      "id": "dpl_HXNZvP4a6RqMqPR8zoPxqRT9bZDF",
+      "readyState": "READY",
+      "alias": "https://new-website-hero-lab.vercel.app",
+      "appCommit": "9de337b77a00c89585c3c0626ab03206cc96219e"
+    },
+    "productionChecks": {
+      "assetsMatchCommit": 6,
+      "anonymousCVStatus": 401,
+      "anonymousCVCache": "private, no-store, max-age=0",
+      "prismChemistryInteraction": "passed",
+      "realProjectRecords": 87,
+      "realSkills": 223,
+      "synthesisBiologyToProgramming": "passed",
+      "portraitLoaded": true,
+      "runtimeMobile390Overflow": false,
+      "galleryExperienceCards": 12,
+      "galleryPreviewsLoaded": 12,
+      "observedConsoleErrors": 0
+    },
+    "evidence": {
+      "storage": "outside public Git",
+      "images": [
+        "gallery-published.png",
+        "prism-published.png",
+        "synthesis-biology-published.png",
+        "synthesis-programming-published.png",
+        "runtime-mobile-published.png"
+      ]
+    }
   }
 }
