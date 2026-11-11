@@ -3,12 +3,13 @@ import registry from './designs.json';
 /**
  * Every design direction, in gallery order. `designs.json` is the single switch board:
  * it sets the order, the family and whether a design is `ready` (built and verified).
- * Only ready designs appear in the gallery, the dock and the HOME_DESIGN option.
- * next.config.ts and the scripts read the same JSON file.
+ * Only ready designs appear in the gallery and the dock.
+ * The static export validation reads the same JSON file.
  */
 export const allDesignIds = [
   'helix', 'genome', 'circos', 'atlas', 'observatory', 'metro', 'periodic', 'sequencer', 'organic', 'cell',
   'reactor', 'blueprint', 'pipeline', 'desktop', 'bento', 'configurator', 'swiss', 'cinema', 'keynote', 'sketch',
+  'microcosm', 'flowcell', 'cellscape', 'foldspace',
 ] as const;
 export type DesignId = (typeof allDesignIds)[number];
 
@@ -56,6 +57,10 @@ export const designMeta: Record<DesignId, { bg: string; fg: string; accent: stri
   cinema: { bg: '#0b0a09', fg: '#f2ece3', accent: '#ffb22c', swatches: ['#0b0a09', '#7c1d1d', '#ffb22c', '#fff6e0', '#b9ad9c'], dark: true },
   keynote: { bg: '#07070b', fg: '#f4f4f6', accent: '#8b5cf6', swatches: ['#07070b', '#111118', '#8b5cf6', '#22d3ee', '#f4f4f6'], dark: true },
   sketch: { bg: '#fffdf6', fg: '#2b2b2b', accent: '#1d4ed8', swatches: ['#fffdf6', '#dbe7f3', '#1d4ed8', '#c92a2a', '#ffec85'], dark: false },
+  microcosm: { bg: '#f6eee2', fg: '#382723', accent: '#ca7b65', swatches: ['#f6eee2', '#ca7b65', '#a396ae', '#515e41', '#382723'], dark: false },
+  flowcell: { bg: '#252a2d', fg: '#d0d4d0', accent: '#ee783f', swatches: ['#252a2d', '#d0d4d0', '#ee783f'], dark: true },
+  cellscape: { bg: '#eef1f7', fg: '#151b33', accent: '#1834b8', swatches: ['#eef1f7', '#1834b8', '#f16a62', '#a4bf43', '#151b33'], dark: false },
+  foldspace: { bg: '#170f18', fg: '#fff0db', accent: '#ed966f', swatches: ['#170f18', '#ed966f', '#fff0db', '#8c514a'], dark: true },
 };
 
 export const isDesignId = (v: string): v is DesignId => (allDesignIds as readonly string[]).includes(v);

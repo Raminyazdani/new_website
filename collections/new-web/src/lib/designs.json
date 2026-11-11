@@ -98,5 +98,25 @@
     "id": "sketch",
     "family": "story",
     "ready": true
+  },
+  {
+    "id": "microcosm",
+    "family": "life",
+    "ready": true
+  },
+  {
+    "id": "flowcell",
+    "family": "lab",
+    "ready": true
+  },
+  {
+    "id": "cellscape",
+    "family": "data",
+    "ready": true
+  },
+  {
+    "id": "foldspace",
+    "family": "life",
+    "ready": true
   }
 ]

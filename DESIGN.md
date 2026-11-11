@@ -40,3 +40,9 @@ Systems family: Foundry is a routed project topology with stage inspectors; Runt
 Interaction precedes ornament. Selection reveals source-backed content; illustrative geometry makes no scientific or performance claim. Still mode retains all manual controls. Mobile reorganizes workspaces into panels rather than shrinking desktop text. Secondary sections inherit each world's colors and typography while preserving readable canonical details. No new animation framework was added.
 
 Source review accepted three detector findings intentionally: Cabinet's 3px bottom edge belongs to a physical drawer handle, not a card accent; Foundry and Synthesis grids belong to working diagram/instrument surfaces. The review and fixes are recorded in `docs/EXPERIENCES_PLAN_FA.md`.
+
+## Four independent bioinformatics worlds
+
+The subsequent request rejects a shared presentation shell. `collections/new-web/src/designs/{microcosm,flowcell,cellscape,foldspace}` therefore contains four independent compositions: a microscopy bench with optical controls, a physical multichannel instrument, an analysis application with map/list/inspector, and a cinematic molecular stage. They use the same unchanged `PrivateDesign` data gate and `SiteData` adapter as the original New Web designs. This imported model is narrower than the native portfolio model; no claim is made that it exposes every raw CV field. Original designs and the full native Synthesis presentation remain available.
+
+The `series: bioinformatics` gallery metadata creates a focused four-design filter while preserving all 66 entries in the main cycle. New previews are captured with the synthetic gallery fixture. Visual source study, differences between directions, observed checks and limitations are recorded in `docs/FOUR_BIO_WORLDS_FA.md`.

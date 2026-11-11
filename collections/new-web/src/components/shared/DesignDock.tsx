@@ -29,6 +29,7 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
   const visibilityChanged = useRef(false);
   const panelId = useId();
   const cycle = templateCycle(designIds);
+  const compactMobile = ['microcosm', 'flowcell', 'cellscape', 'foldspace'].includes(current);
   const currentTemplate = { collection: 'imported' as const, id: current };
   const idx = cycle.findIndex(entry => entry.collection === 'imported' && entry.id === current);
   const preferences = readPreferences(typeof window === 'undefined' ? '' : window.location.search);
@@ -175,7 +176,11 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
           initial={reducedMotion ? false : { y: 12, opacity: 1 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: reducedMotion ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className={cn('flex max-w-full flex-wrap items-center gap-1 rounded-3xl p-1.5 sm:flex-nowrap sm:rounded-full', glass)}
+          className={cn(
+            'flex max-w-full flex-wrap items-center gap-1 rounded-3xl p-1.5 sm:flex-nowrap sm:rounded-full',
+            compactMobile && 'flex-nowrap rounded-full p-1 sm:p-1.5',
+            glass,
+          )}
         >
           {step(-1, ChevronLeft, t('dock.previous'))}
           <button
@@ -196,7 +201,12 @@ export function DesignDock({ current, onLock }: { current: DesignId; onLock: () 
           </button>
           {step(1, ChevronRight, t('dock.next'))}
           <span className="mx-1 hidden h-5 w-px bg-white/15 sm:block" aria-hidden />
-          <div role="group" aria-label={t('dock.language')} aria-busy={pending} className="order-last flex w-full items-center justify-center sm:order-none sm:w-auto">
+          <div
+            role="group"
+            aria-label={t('dock.language')}
+            aria-busy={pending}
+            className={cn('order-last flex w-full items-center justify-center sm:order-none sm:w-auto', compactMobile && 'hidden sm:flex')}
+          >
             {locales.map((l) => (
               <button
                 key={l.code}

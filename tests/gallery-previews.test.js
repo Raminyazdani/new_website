@@ -68,7 +68,7 @@ test('every gallery template points to its own 640 × 400 preview', () => {
   }
 });
 
-test('compact gallery keeps filters available and recovers all 62 designs from empty search', () => {
+test('compact gallery keeps filters available and recovers all 66 designs from empty search', () => {
   const { window, document, Event } = loadGallery({ compact: true, query: '?gallery=1&theme=dark&design-search=doesnotexist' });
   const toggle = document.querySelector('#designGalleryFilterToggle');
   const filters = document.querySelector('#designGalleryFilters');
@@ -81,7 +81,7 @@ test('compact gallery keeps filters available and recovers all 62 designs from e
   assert.equal(toggle.getAttribute('aria-expanded'), 'true');
   assert.equal(filters.hidden, false);
   document.querySelector('[data-reset-design-filters]').dispatchEvent(new Event('click', { bubbles: true }));
-  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 62);
+  assert.equal(document.querySelectorAll('[data-gallery-design]:not([hidden])').length, 66);
   assert.equal(document.querySelector('#designGalleryEmpty').hidden, true);
   assert.equal(window.location.searchParams.get('design-search'), null);
   assert.equal(window.location.searchParams.get('theme'), 'dark');
@@ -96,6 +96,24 @@ test('the Experiences filter shows twelve new layouts and their discipline label
   assert.match(document.querySelector('#designGalleryCollection option[value="experiential"]').textContent, /Experiences \(12\)/);
   const labels = new Set(cards.map(card => card.querySelector('.dg-card-meta > :last-child').textContent));
   assert.deepEqual([...labels].sort(), ['Biology', 'Chemistry', 'Integrated', 'Programming']);
+});
+
+test('the Bioinformatics gallery link shows exactly the four new templates and preserves route preferences', () => {
+  const { window, document, Event } = loadGallery({ query: '?design=synthesis&gallery=1&collection=bioinformatics&lang=fa&motion=still' });
+  const cards = () => [...document.querySelectorAll('#designGalleryBody [data-gallery-design]')];
+  const ids = ['microcosm', 'flowcell', 'cellscape', 'foldspace'];
+  assert.equal(document.querySelector('#designGalleryCurrent').textContent, 'Current selection: Synthesis');
+  assert.equal(document.querySelector('#designGalleryCollection option[value="bioinformatics"]').textContent, 'Bioinformatics · 4');
+  assert.deepEqual(cards().map(card => card.dataset.galleryDesign), ids.map(id => `imported-${id}`));
+  assert.deepEqual(cards().map(card => card.dataset.galleryFamily), ['life', 'lab', 'data', 'life']);
+  assert.deepEqual(cards().map(card => card.querySelector('a').getAttribute('href')), ids.map(id => `/imported/fa/${id}/?motion=still`));
+
+  const search = document.querySelector('#designGallerySearch');
+  search.value = 'sequencing';
+  search.dispatchEvent(new Event('input', { bubbles: true }));
+  assert.deepEqual(cards().filter(card => !card.hidden).map(card => card.dataset.galleryDesign), ['imported-flowcell']);
+  assert.equal(window.location.searchParams.get('collection'), 'bioinformatics');
+  assert.equal(window.location.searchParams.get('design'), 'synthesis');
 });
 
 test('gallery search is restored and updated in the URL without losing design preferences', () => {

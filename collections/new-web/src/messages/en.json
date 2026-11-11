@@ -300,6 +300,26 @@
       "name": "Sketch",
       "style": "Hand-drawn notebook",
       "description": "A hand-drawn lab notebook: taped portrait, dated entries, sticky-note projects and an A–Z index."
+    },
+    "microcosm": {
+      "name": "Microcosm",
+      "style": "Microscope slide",
+      "description": "Adjust the focus and magnification of a virtual microscope, then select organelles to explore the portfolio records."
+    },
+    "flowcell": {
+      "name": "Flowcell",
+      "style": "Sequencing console",
+      "description": "Follow the portfolio through the lanes of a sequencing flow cell and inspect the evidence at each stage."
+    },
+    "cellscape": {
+      "name": "Cellscape",
+      "style": "Interactive topic map",
+      "description": "Explore the portfolio by topic, switch to a timeline, or search the records directly."
+    },
+    "foldspace": {
+      "name": "Foldspace",
+      "style": "Molecular ribbon",
+      "description": "Navigate a conceptual 3D molecular ribbon by project and layer to reveal the evidence behind the work."
     }
   },
   "gallery": {

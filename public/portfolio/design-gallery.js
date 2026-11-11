@@ -11,6 +11,7 @@
   };
   const familyLabels = { editorial:'Editorial', systems:'Systems', experimental:'Experimental', life:'Life sciences', data:'Data', lab:'Laboratory', product:'Product', story:'Story' };
   const imported = w.PortfolioImportedTemplates || [];
+  const bioinformatics = imported.filter(design => design.series === 'bioinformatics');
   const names = { synthesis:'Synthesis', unified:'Connected Science', atlas:'Archived Biology Atlas', molecular:'Archived Molecular Form', terminal:'Archived Code Notebook' };
   const $ = selector => document.querySelector(selector);
   const familyLabel = value => familyLabels[String(value || '').toLowerCase()] || String(value || 'Other').replace(/(^|[-\s])\w/g, part => part.toUpperCase());
@@ -77,13 +78,16 @@
   const nativeScopes = ['independent', 'previous', 'experiential'].filter(group => internalEntries(group).length);
   const nativeEntries = () => nativeScopes.flatMap(internalEntries);
   const collectionOf = id => registry.get(id)?.collection || 'previous';
-  const scopes = imported.length ? ['all', 'imported', ...nativeScopes] : nativeScopes;
+  const scopes = imported.length
+    ? ['all', ...(bioinformatics.length ? ['bioinformatics'] : []), 'imported', ...nativeScopes]
+    : nativeScopes;
   let activeId = params.get('design') || 'unified';
   let scope = imported.length ? 'all' : registry.get(activeId) ? collectionOf(activeId) : internalEntries('independent').length ? 'independent' : 'previous';
   if (scopes.includes(params.get('collection'))) scope = params.get('collection');
 
   function entries() {
     if (scope === 'imported') return imported;
+    if (scope === 'bioinformatics') return bioinformatics;
     if (scope === 'all') return [...imported, ...nativeEntries()];
     return internalEntries(scope);
   }
@@ -123,7 +127,7 @@
     const family = String(design.family).toLowerCase();
     const source = isImported ? 'New Web' : ({independent:'Independent', experiential:'Experience', previous:'Earlier study'})[collectionOf(design.id)];
     const focus = ({biology:'Biology',chemistry:'Chemistry',programming:'Programming',all:'Integrated'})[design.focus];
-    const search = [design.id, design.name, design.description, design.family, source, design.signature, focus, ...Object.values(design.fingerprint || {})].join(' ').toLowerCase();
+    const search = [design.id, design.name, design.description, design.family, source, design.series, design.signature, focus, ...Object.values(design.fingerprint || {})].join(' ').toLowerCase();
     const content = `<span class="dg-card-content">
       <span class="dg-card-meta"><span>${number} · ${e(source)}</span><span>${e(focus || familyLabel(design.family))}</span></span>
       <strong>${e(design.name)}</strong>
@@ -156,6 +160,7 @@
     const intro = $('#designGallery')?.querySelector('.dg-header p');
     const introductions = {
       all: `${designs.length} templates. Search by name or filter by collection.`,
+      bioinformatics: `${designs.length} designs inspired by microscopy, sequencing, cell atlases, and molecular structure.`,
       imported: `${designs.length} New Web templates with their original layouts and interactions.`,
       independent: `${designs.length} independent visual worlds. Open a direction to explore its complete portfolio.`,
       previous: 'The earlier collection, preserved with its original layouts.',
@@ -180,6 +185,7 @@
     if (collectionSelect) {
       const labels = {
         all: `All ${registry.list().length + imported.length} templates`,
+        bioinformatics: `Bioinformatics · ${bioinformatics.length}`,
         imported: `New Web · ${imported.length}`,
         independent: `Independent · ${internalEntries('independent').length}`,
         previous: `Earlier studies · ${internalEntries('previous').length}`,

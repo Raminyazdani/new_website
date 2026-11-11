@@ -585,7 +585,7 @@ test('one gallery lists every imported design beside both existing collections',
   assert.equal(env.cvLoads, 1);
 });
 
-test('Next and Previous follow all 62 gallery entries across the native and imported routes', async () => {
+test('Next and Previous follow all 66 gallery entries across the native and imported routes', async () => {
   const env = await boot({
     independent: true,
     imported: true,
@@ -599,9 +599,9 @@ test('Next and Previous follow all 62 gallery entries across the native and impo
   const cycle = templateCycle(importedIds);
   const key = entry => `${entry.collection === 'imported' ? 'imported-' : ''}${entry.id}`;
   const galleryOrder = [...document.querySelectorAll('[data-gallery-design]')].map(card => card.dataset.galleryDesign);
-  assert.equal(cycle.length, 62);
+  assert.equal(cycle.length, 66);
   assert.deepEqual(cycle.map(key), galleryOrder);
-  assert.equal(new Set(galleryOrder).size, 62);
+  assert.equal(new Set(galleryOrder).size, 66);
   for (let index = 0; index < cycle.length; index++) {
     assert.equal(adjacentTemplate(cycle, cycle[index], 1), cycle[(index + 1) % cycle.length]);
     assert.equal(adjacentTemplate(cycle, cycle[index], -1), cycle[(index + cycle.length - 1) % cycle.length]);
@@ -628,7 +628,9 @@ test('Next and Previous follow all 62 gallery entries across the native and impo
   assert.equal(nativeURL.searchParams.get('design'), 'expedition');
   assert.equal(nativeURL.searchParams.get('lang'), 'fa');
   assert.deepEqual(readPreferences(nativeURL.search), readPreferences(importedURL.search));
-  assert.equal(templateHref(adjacentTemplate(cycle, cycle[19], 1), 'de'), '/?design=folio&lang=de');
+  const lastImported = cycle.findLast(entry => entry.collection === 'imported');
+  assert.equal(lastImported.id, 'foldspace');
+  assert.equal(templateHref(adjacentTemplate(cycle, lastImported, 1), 'de'), '/?design=folio&lang=de');
 });
 
 test('all fifteen independent worlds retain complete safe source records and functioning project actions', async () => {
@@ -966,13 +968,13 @@ test('Synthesis is the default, retains one scene and every source record in all
   model.references[0].phones = ['+1000001', '+1000002'];
   model.interests = [{ id: 'interest-1', title: 'Fictional interest', description: 'Fictional interest description.' }];
   model.identity.coverUrl = 'https://example.test/cover.jpg';
-  const env = await boot({ synthesis: true, independent: true, imported: true, model, search: '?perspective=unknown' });
+  const env = await boot({ synthesis: true, independent: true, imported: true, experiences: true, model, search: '?perspective=unknown' });
   const { document, win, click, Event } = env;
   const $ = selector => document.querySelector(selector);
   const $$ = selector => Array.from(document.querySelectorAll(selector));
   assert.equal(win.PortfolioStudio.concept, 'synthesis');
   assert.equal(win.PortfolioDesigns.has('synthesis'), false);
-  assert.equal($$('#designGalleryBody [data-gallery-design]').length, 50);
+  assert.equal($$('#designGalleryBody [data-gallery-design]').length, 66);
   const loadedModel = win.portfolioView.model;
   const scene = $('[data-synthesis-scene]'), strand = $('.syn-strand');
   const paths = new Set();

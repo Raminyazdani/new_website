@@ -300,6 +300,26 @@
       "name": "Sketch",
       "style": "Handgezeichnetes Notizbuch",
       "description": "Ein handgezeichnetes Laborbuch: eingeklebtes Porträt, datierte Einträge, Projekte als Haftnotizen und ein A–Z-Register."
+    },
+    "microcosm": {
+      "name": "Microcosm",
+      "style": "Virtuelles Mikroskop",
+      "description": "Stelle Fokus und Vergrößerung am virtuellen Mikroskop ein und wähle Organellen aus, um die Portfolioeinträge zu erkunden."
+    },
+    "flowcell": {
+      "name": "Flowcell",
+      "style": "Sequenzierkonsole",
+      "description": "Folge dem Portfolio durch die Spuren einer Durchflusszelle und prüfe die Belege zu jeder Sequenzierstufe."
+    },
+    "cellscape": {
+      "name": "Cellscape",
+      "style": "Interaktive Themenkarte",
+      "description": "Erkunde das Portfolio nach Themen, wechsle zur Zeitleiste oder durchsuche die Einträge direkt."
+    },
+    "foldspace": {
+      "name": "Foldspace",
+      "style": "Molekulares Bändermodell",
+      "description": "Erkunde ein schematisches 3D-Bändermodell nach Projekt und Ebene und entdecke die Belege zur Arbeit."
     }
   },
   "gallery": {

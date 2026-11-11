@@ -1487,5 +1487,87 @@
         "synthesis-final-mobile-published.png"
       ]
     }
+  },
+  "bio_standalone_20261111": {
+    "status": "local_verified_release_pending",
+    "designs": [
+      "microcosm",
+      "flowcell",
+      "cellscape",
+      "foldspace"
+    ],
+    "direction": "Four independent New Web presentations, no Synthesis/Experiences shell reuse",
+    "checks": {
+      "tests": 69,
+      "passed": 69,
+      "failed": 0,
+      "productionBuild": "passed",
+      "typescript": "passed",
+      "importedDesigns": 24,
+      "staticPages": 78,
+      "galleryDesigns": 66,
+      "focusedGalleryDesigns": 4,
+      "previewDimensions": [
+        640,
+        400
+      ],
+      "previewSource": "actual browser renders using fictional CV"
+    },
+    "browser": {
+      "viewports": [
+        [
+          320,
+          568
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          768,
+          1024
+        ],
+        [
+          1024,
+          768
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "allFourHorizontalOverflow": false,
+      "allFourPortraitLoaded": true,
+      "compactDockHeightPx": 53.33,
+      "realProjects": 87,
+      "realSkills": 223,
+      "realIndexedRecords": 381,
+      "persianFlowcell390": "observed",
+      "cleanReviewTabConsoleErrors": 0,
+      "microcosmFocusAndArchive": "passed",
+      "flowcellBankMethodsAndRecord": "passed",
+      "cellscapeChronologyRecordsAndSkillSearch": "passed",
+      "foldspaceStructureSequenceSurfaceRotationAndArchive": "passed"
+    },
+    "reviewFixes": [
+      "Flowcell mobile bank labels remain whole words",
+      "44px mobile optical reset",
+      "Single mobile Cellscape view strip",
+      "Foldspace controls clear the universal dock",
+      "Compact mobile dock only for the four new worlds"
+    ],
+    "preserved": {
+      "previousDesigns": 62,
+      "synthesisUnchanged": true,
+      "sourceAdapterAndAPIUnchanged": true,
+      "previousPreviewImagesUnchanged": true,
+      "newDependencies": 0
+    },
+    "limits": [
+      "No physical-device or FPS benchmark",
+      "Existing imported SiteData does not expose every raw CV field",
+      "No forced GPU-unavailable browser test",
+      "Private CV screenshots stored outside Git"
+    ]
   }
 }
